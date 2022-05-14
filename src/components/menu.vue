@@ -1196,19 +1196,87 @@ export default {
         <!-- Sidebar Kategori  -->
         <li class="menu-title">
           <i class="ri-more-fill"></i>
-          <span data-key="kategori">{{ $t("kategori") }}</span>
+          <span data-key="kategori">{{ $t("admin") }}</span>
         </li>
         <li class="nav-item">
-          <a class="nav-link menu-link" href="#kategori" data-bs-toggle="collapse" role="button"
-            aria-expanded="false" aria-controls="sidebarDashboards">
+          <a class="nav-link menu-link" href="#kategori" data-bs-toggle="collapse" role="button" aria-expanded="false"
+            aria-controls="sidebarDashboards">
             <i class="ri-dashboard-2-line"></i>
-            <span data-key="t-dashboards"> {{ $t("t-dashboards") }}</span>
+            <span data-key="t-dashboards"> {{ $t("Kategori") }}</span>
           </a>
           <div class="collapse menu-dropdown" id="kategori">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
-                <router-link to="/dashboard/analytics" class="nav-link custom-abc" data-key="t-tambahkategori">
+                <router-link to="/kategori/tambah" class="nav-link custom-abc" data-key="t-tambahkategori">
                   {{ $t("Tambah Kategori") }}
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/kategori/lihat" class="nav-link custom-abc" data-key="t-lihatkategori">
+                  {{ $t("Lihat Kategori") }}
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link menu-link" href="#dokumen" data-bs-toggle="collapse" role="button" aria-expanded="false"
+            aria-controls="sidebarDashboards">
+            <i class="ri-dashboard-2-line"></i>
+            <span data-key="t-dashboards"> {{ $t("Dokumen") }}</span>
+          </a>
+          <div class="collapse menu-dropdown" id="dokumen">
+            <ul class="nav nav-sm flex-column">
+              <li class="nav-item">
+                <router-link to="/dokumen/tambah" class="nav-link custom-abc" data-key="t-tambahdokumen">
+                  {{ $t("Tambah Dokumen") }}
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/dokumen/lihat" class="nav-link custom-abc" data-key="t-lihatdokumen">
+                  {{ $t("Lihat Dokumen") }}
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link menu-link" href="#peminjaman" data-bs-toggle="collapse" role="button" aria-expanded="false"
+            aria-controls="sidebarDashboards">
+            <i class="ri-dashboard-2-line"></i>
+            <span data-key="t-dashboards"> {{ $t("Peminjaman") }}</span>
+          </a>
+          <div class="collapse menu-dropdown" id="peminjaman">
+            <ul class="nav nav-sm flex-column">
+              <li class="nav-item">
+                <router-link to="/peminjaman/tambah" class="nav-link custom-abc" data-key="t-tambahpeminjaman">
+                  {{ $t("Tambah Peminjaman") }}
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/peminjaman/lihat" class="nav-link custom-abc" data-key="t-lihatpeminjaman">
+                  {{ $t("Lihat Peminjaman") }}
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link menu-link" href="#bookmark" data-bs-toggle="collapse" role="button" aria-expanded="false"
+            aria-controls="sidebarDashboards">
+            <i class="ri-dashboard-2-line"></i>
+            <span data-key="t-dashboards"> {{ $t("Bookmark") }}</span>
+          </a>
+          <div class="collapse menu-dropdown" id="bookmark">
+            <ul class="nav nav-sm flex-column">
+              <li class="nav-item">
+                <router-link to="/bookmark/tambah" class="nav-link custom-abc" data-key="t-tambahbookmark">
+                  {{ $t("Tambah Bookmark") }}
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/bookmark/lihat" class="nav-link custom-abc" data-key="t-lihatbookmark">
+                  {{ $t("Lihat Bookmark") }}
                 </router-link>
               </li>
             </ul>

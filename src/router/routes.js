@@ -64,6 +64,75 @@ export default [
     },
     component: () => import("../views/dashboard/ecommerce/index.vue"),
   },
+  // Kategori 
+  {
+    path: "/kategori/tambah",
+    name: "tambah-kategori",
+    meta: {
+      title: "Tambah Kategori", authRequired: true,
+    },
+    component: () => import("../views/kategori/tambah"),
+  },
+  {
+    path: "/kategori/lihat",
+    name: "lihat-kategori",
+    meta: {
+      title: "Lihat Kategori", authRequired: true,
+    },
+    component: () => import("../views/kategori/lihat"),
+  },
+  // Dokumen
+  {
+    path: "/dokumen/tambah",
+    name: "tambah-dokumen",
+    meta: {
+      title: "Tambah Dokumen", authRequired: true,
+    },
+    component: () => import("../views/dokumen/tambah"),
+  },
+  {
+    path: "/dokumen/lihat",
+    name: "lihat-dokumen",
+    meta: {
+      title: "Lihat Dokumen", authRequired: true,
+    },
+    component: () => import("../views/dokumen/lihat"),
+  },
+   // bookmark
+   {
+    path: "/bookmark/tambah",
+    name: "tambah-bookmark",
+    meta: {
+      title: "Tambah Bookmark", authRequired: true,
+    },
+    component: () => import("../views/bookmark/tambah"),
+  },
+  {
+    path: "/bookmark/lihat",
+    name: "lihat-bookmark",
+    meta: {
+      title: "Lihat Bookmark", authRequired: true,
+    },
+    component: () => import("../views/bookmark/lihat"),
+  },
+   // peminjaman
+   {
+    path: "/peminjaman/tambah",
+    name: "tambah-peminjaman",
+    meta: {
+      title: "Tambah Peminjaman", authRequired: true,
+    },
+    component: () => import("../views/peminjaman/tambah"),
+  },
+  {
+    path: "/peminjaman/lihat",
+    name: "lihat-peminjaman",
+    meta: {
+      title: "Lihat Peminjaman", authRequired: true,
+    },
+    component: () => import("../views/peminjaman/lihat"),
+  },
+  
   {
     path: "/dashboard/crypto",
     name: "dashboard-crypto",
