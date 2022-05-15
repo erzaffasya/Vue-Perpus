@@ -1,6 +1,7 @@
 <script>
-import flatPickr from "vue-flatpickr-component";
-import "flatpickr/dist/flatpickr.css";
+import { reactive, ref } from "vue";
+import { useRouter } from "vue-router";
+import apiKategori from "../../apis/Kategori.js";
 
 import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
@@ -11,42 +12,41 @@ export default {
     title: "Layouts",
     meta: [{ name: "description", content: appConfig.description }],
   },
-  data() {
-    return {
-      title: "Form Layouts",
-      items: [
-        {
-          text: "Forms",
-          href: "/",
-        },
-        {
-          text: "Form Layouts",
-          active: true,
-        },
-      ],
-      value: null,
-      value1: null,
-      value5: null,
-      value2: null,
-      value3: null,
-      value4: null,
-      config: {
-        wrap: true, // set wrap to true only when using 'input-group'
-        altFormat: "M j, Y",
-        altInput: true,
-        dateFormat: "d M, Y",
-      },
-      date: null,
-      date1: null,
-      date3: null,
-    };
-  },
+  
   components: {
     Layout,
     PageHeader,
-    flatPickr,
   },
-};
+
+  setup() {
+    const kategori = reactive({
+      nama_kategori: "",
+      detail: "",
+    });
+
+    const validation = ref([]);
+    const router = useRouter();
+    function store() {
+      console.log('erza')
+      apiKategori
+        .tambahKategori(kategori)
+        .then(() => {
+          router.push({
+            name: "lihat-kategori",
+          });
+        })
+        .catch((err) => {
+          validation.value = err.response.data.error;
+        });
+    }
+    return {
+      kategori,
+      validation,
+      router,
+      store,
+    };
+  },
+}; 
 </script>
 
 <template>
@@ -69,63 +69,35 @@ export default {
               with their associated form controls.
             </p>
             <div class="live-preview">
-              <form action="javascript:void(0);">
+              <form @submit.prevent="store()">
                 <div class="row mb-3">
                   <div class="col-lg-3">
-                    <label for="nameInput" class="form-label">Name</label>
+                    <label for="nameInput" class="form-label"
+                      >Nama Kategori</label
+                    >
                   </div>
                   <div class="col-lg-9">
-                    <input type="text" class="form-control" id="nameInput" placeholder="Enter your name" />
+                    <input
+                      type="text"
+                      v-model="kategori.nama_kategori"
+                      class="form-control"
+                      id="nameInput"
+                      placeholder="Enter your name"
+                    />
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3">
-                    <label for="websiteUrl" class="form-label">Website URL</label>
+                    <label for="nameInput" class="form-label">Detail</label>
                   </div>
                   <div class="col-lg-9">
-                    <input type="url" class="form-control" id="websiteUrl" placeholder="Enter your url" />
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-lg-3">
-                    <label for="dateInput" class="form-label">Date</label>
-                  </div>
-                  <div class="col-lg-9">
-                    <flat-pickr v-model="date3" class="form-control"></flat-pickr>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-lg-3">
-                    <label for="timeInput" class="form-label">Time</label>
-                  </div>
-                  <div class="col-lg-9">
-                    <input type="time" class="form-control" data-provider="timepickr" data-time-basic="true"
-                      id="timeInput" />
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-lg-3">
-                    <label for="leaveemails" class="form-label">Email Id</label>
-                  </div>
-                  <div class="col-lg-9">
-                    <input type="email" class="form-control" id="leaveemails" placeholder="Enter your email" />
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-lg-3">
-                    <label for="contactNumber" class="form-label">Contact Number</label>
-                  </div>
-                  <div class="col-lg-9">
-                    <input type="number" class="form-control" id="contactNumber" placeholder="+91 9876543210" />
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-lg-3">
-                    <label for="meassageInput" class="form-label">Message</label>
-                  </div>
-                  <div class="col-lg-9">
-                    <textarea class="form-control" id="meassageInput" rows="3"
-                      placeholder="Enter your message"></textarea>
+                    <input
+                      type="text"
+                      v-model="kategori.detail"
+                      class="form-control"
+                      id="nameInput"
+                      placeholder="Enter your name"
+                    />
                   </div>
                 </div>
                 <div class="text-end">
@@ -135,8 +107,7 @@ export default {
                 </div>
               </form>
             </div>
-            <div class="d-none code-view">
-            </div>
+            <div class="d-none code-view"></div>
           </div>
         </div>
       </div>
