@@ -12,8 +12,8 @@ export default {
   mounted() {
     apiKategori.lihatKategori().then(response => {
       this.data = response.data.data;
-      
-        this.setPages();
+
+      this.setPages();
     })
       .catch(() => {
 
@@ -37,7 +37,7 @@ export default {
       page: 1,
       perPage: 5,
       pages: [],
-      totalData:0
+      totalData: 0
     };
   },
   name: "Widgets",
@@ -56,7 +56,7 @@ export default {
           return (
             data.id.toLowerCase().includes(search) ||
             data.nama_kategori.toLowerCase().includes(search) ||
-            data.detail.toLowerCase().includes(search) 
+            data.detail.toLowerCase().includes(search)
           );
         });
       } else {
@@ -91,6 +91,16 @@ export default {
       let to = page * perPage;
       return data.slice(from, to);
     },
+    destroy(id) {
+      apiKategori.hapusKategori(id).then(response => {
+        this.data = response.data.data;
+
+        this.setPages();
+      })
+        .catch(() => {
+
+        });
+    },
   },
 };
 </script>
@@ -122,11 +132,9 @@ export default {
                   <td>{{ data.nama_kategori }}</td>
                   <td class="pairs">{{ data.detail }}</td>
                   <td>
-                    <span
-                      ><a href="#" class="text-reset text-decoration-underline"
-                        >Details</a
-                      ></span
-                    >
+                    <span>
+                      <button @click.prevent="destroy(data.id)" class="text-reset text-decoration-underline">Delete</button>
+                    </span>
                   </td>
                 </tr>
               </tbody>
