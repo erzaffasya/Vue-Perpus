@@ -169,6 +169,7 @@ export default {
 
 <template>
   <Layout>
+  
     <PageHeader :title="title" :items="items" />
     <div class="row">
       <div class="card">

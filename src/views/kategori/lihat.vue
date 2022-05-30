@@ -10,14 +10,13 @@ export default {
     meta: [{ name: "description", content: appConfig.description }],
   },
   mounted() {
-    apiKategori.lihatKategori().then(response => {
-      this.data = response.data.data;
-
-      this.setPages();
-    })
-      .catch(() => {
-
-      });
+    apiKategori
+      .lihatKategori()
+      .then((response) => {
+        this.data = response.data.data;
+        this.setPages();
+      })
+      .catch(() => {});
   },
 
   data() {
@@ -37,7 +36,7 @@ export default {
       page: 1,
       perPage: 5,
       pages: [],
-      totalData: 0
+      totalData: 0,
     };
   },
   name: "Widgets",
@@ -92,14 +91,14 @@ export default {
       return data.slice(from, to);
     },
     destroy(id) {
-      apiKategori.hapusKategori(id).then(response => {
-        this.data = response.data.data;
+      apiKategori
+        .hapusKategori(id)
+        .then((response) => {
+          this.data = response.data.data;
 
-        this.setPages();
-      })
-        .catch(() => {
-
-        });
+          this.setPages();
+        })
+        .catch(() => {});
     },
   },
 };
@@ -133,7 +132,19 @@ export default {
                   <td class="pairs">{{ data.detail }}</td>
                   <td>
                     <span>
-                      <button @click.prevent="destroy(data.id)" class="text-reset text-decoration-underline">Delete</button>
+                      <button
+                        @click.prevent="destroy(data.id)"
+                        class="text-reset text-decoration-underline"
+                      >
+                        Delete
+                      </button>
+                    </span>
+                    <span>
+                      <router-link
+                        :to="{ name: 'edit-kategori', params: { id: data.id } }"
+                      >
+                        Edit Data
+                      </router-link>
                     </span>
                   </td>
                 </tr>
@@ -143,19 +154,33 @@ export default {
           </div>
           <div class="d-flex justify-content-end mt-3">
             <div class="pagination-wrap hstack gap-2">
-              <a class="page-item pagination-prev disabled" href="#" v-if="page != 1" @click="page--">
+              <a
+                class="page-item pagination-prev disabled"
+                href="#"
+                v-if="page != 1"
+                @click="page--"
+              >
                 Previous
               </a>
               <ul class="pagination listjs-pagination mb-0">
-                <li :class="{
-                  active: pageNumber == page,
-                  disabled: pageNumber == '...',
-                }" v-for="(pageNumber, index) in pages.slice(page - 1, page + 5)" :key="index"
-                  @click="page = pageNumber">
+                <li
+                  :class="{
+                    active: pageNumber == page,
+                    disabled: pageNumber == '...',
+                  }"
+                  v-for="(pageNumber, index) in pages.slice(page - 1, page + 5)"
+                  :key="index"
+                  @click="page = pageNumber"
+                >
                   <a class="page" href="#">{{ pageNumber }}</a>
                 </li>
               </ul>
-              <a class="page-item pagination-next" href="#" @click="page++" v-if="page < pages.length">
+              <a
+                class="page-item pagination-next"
+                href="#"
+                @click="page++"
+                v-if="page < pages.length"
+              >
                 Next
               </a>
             </div>

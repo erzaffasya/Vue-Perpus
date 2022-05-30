@@ -1,6 +1,6 @@
 <script>
-import { reactive, ref } from "vue";
-import { useRouter } from "vue-router";
+import { reactive, ref, computed, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import apiKategori from "../../apis/Kategori.js";
 
 import Layout from "../../layouts/main.vue";
@@ -12,24 +12,39 @@ export default {
     title: "Layouts",
     meta: [{ name: "description", content: appConfig.description }],
   },
-  
+
   components: {
     Layout,
     PageHeader,
   },
 
   setup() {
+    const validation = ref([]);
+    const router = useRouter();
+    const route = useRoute();
+    const id = computed(() => route.params.id);
+    let datakategori = ref([]);
+
+    onMounted(() => {
+      apiKategori
+        .showKategori(route.params.id)
+        .then((response) => {
+          datakategori = response.data.data;
+          console.log(datakategori);
+        })
+        .catch((err) => {
+          validation.value = err.response.data.error;
+        });
+    });
+    console.log(route.params.id);
     const kategori = reactive({
       nama_kategori: "",
       detail: "",
     });
 
-    const validation = ref([]);
-    const router = useRouter();
     function store() {
-      console.log('erza')
       apiKategori
-        .tambahKategori(kategori)
+        .editKategori(route.params.id, kategori)
         .then(() => {
           router.push({
             name: "lihat-kategori",
@@ -39,14 +54,17 @@ export default {
           validation.value = err.response.data.error;
         });
     }
+    // console.log(response.data.data);
     return {
-      kategori,
       validation,
       router,
       store,
+      id,
+      datakategori,
+      kategori,
     };
   },
-}; 
+};
 </script>
 
 <template>
@@ -56,12 +74,17 @@ export default {
       <div class="col-xxl-6">
         <div class="card">
           <div class="card-header align-items-center d-flex">
-            <h4 class="card-title mb-0 flex-grow-1">Tambah Kategori</h4>
+            <h4 class="card-title mb-0 flex-grow-1">Edit Kategori</h4>
           </div>
           <!-- end card header -->
           <div class="card-body">
             <p class="text-muted">
-             Form tambah kategori untuk perpustakaan ITK.
+              Create horizontal forms with the grid by adding the
+              <code>row</code> class to form groups and using the
+              <code>col-*-*</code> class to specify the width of your labels and
+              controls. Be sure to add <code>col-form-label</code> class to your
+              <code>&lt;label&gt;</code>s as well so they’re vertically centered
+              with their associated form controls.
             </p>
             <div class="live-preview">
               <form @submit.prevent="store()">
@@ -74,8 +97,9 @@ export default {
                   <div class="col-lg-9">
                     <input
                       type="text"
-                      v-model="kategori.nama_kategori"
+                      name="nama_kategori"
                       class="form-control"
+                      v-model="kategori.nama_kategori"
                       id="nameInput"
                       placeholder="Enter your name"
                     />

@@ -74,6 +74,14 @@ export default [
     component: () => import("../views/kategori/tambah"),
   },
   {
+    path: "/kategori/edit/:id",
+    name: "edit-kategori",
+    meta: {
+      title: "edit Kategori", authRequired: true,
+    },
+    component: () => import("../views/kategori/edit"),
+  },
+  {
     path: "/kategori/lihat",
     name: "lihat-kategori",
     meta: {
