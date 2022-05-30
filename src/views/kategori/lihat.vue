@@ -1,4 +1,5 @@
 <script>
+import Swal from "sweetalert2";
 import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
 import appConfig from "../../../app.config";
@@ -90,15 +91,29 @@ export default {
       let to = page * perPage;
       return data.slice(from, to);
     },
-    destroy(id) {
-      apiKategori
-        .hapusKategori(id)
-        .then((response) => {
-          this.data = response.data.data;
 
-          this.setPages();
-        })
-        .catch(() => {});
+    confirm(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#34c38f",
+        cancelButtonColor: "#f46a6a",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.value) {
+          apiKategori
+            .hapusKategori(id)
+            .then((response) => {
+              this.data = response.data.data;
+
+              this.setPages();
+            })
+            .catch(() => {});
+          Swal.fire("Berhasil!", "Data Kategori Berhasil Dihapus.", "success");
+        }
+      });
     },
   },
 };
@@ -131,20 +146,21 @@ export default {
                   <td>{{ data.nama_kategori }}</td>
                   <td class="pairs">{{ data.detail }}</td>
                   <td>
+                    <span class="p-2">
+                      <router-link
+                        class="btn btn-danger btn-border"
+                        :to="{ name: 'edit-kategori', params: { id: data.id } }"
+                      >
+                        Edit
+                      </router-link>
+                    </span>
                     <span>
                       <button
-                        @click.prevent="destroy(data.id)"
-                        class="text-reset text-decoration-underline"
+                        @click="confirm(data.id)"
+                        class="btn btn-warning btn-border"
                       >
                         Delete
                       </button>
-                    </span>
-                    <span>
-                      <router-link
-                        :to="{ name: 'edit-kategori', params: { id: data.id } }"
-                      >
-                        Edit Data
-                      </router-link>
                     </span>
                   </td>
                 </tr>

@@ -1,8 +1,8 @@
 <script>
+import Swal from "sweetalert2";
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import apiKategori from "../../apis/Kategori.js";
-
 import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
 import appConfig from "../../../app.config";
@@ -12,7 +12,7 @@ export default {
     title: "Layouts",
     meta: [{ name: "description", content: appConfig.description }],
   },
-  
+
   components: {
     Layout,
     PageHeader,
@@ -27,13 +27,17 @@ export default {
     const validation = ref([]);
     const router = useRouter();
     function store() {
-      console.log('erza')
+      console.log("erza");
       apiKategori
         .tambahKategori(kategori)
         .then(() => {
-          router.push({
-            name: "lihat-kategori",
-          });
+          Swal.fire("Berhasil!", "Data Kategori Berhasil Ditambah!", "success").then(
+            (result) => {
+              if (result.value) {
+                window.location.href = "/kategori/lihat";
+              }
+            }
+          );
         })
         .catch((err) => {
           validation.value = err.response.data.error;
@@ -46,7 +50,7 @@ export default {
       store,
     };
   },
-}; 
+};
 </script>
 
 <template>
@@ -61,7 +65,7 @@ export default {
           <!-- end card header -->
           <div class="card-body">
             <p class="text-muted">
-             Form tambah kategori untuk perpustakaan ITK.
+              Form tambah kategori untuk perpustakaan ITK.
             </p>
             <div class="live-preview">
               <form @submit.prevent="store()">
@@ -77,7 +81,7 @@ export default {
                       v-model="kategori.nama_kategori"
                       class="form-control"
                       id="nameInput"
-                      placeholder="Enter your name"
+                      placeholder="Masukkan Nama Kategori"
                     />
                   </div>
                 </div>
@@ -91,13 +95,13 @@ export default {
                       v-model="kategori.detail"
                       class="form-control"
                       id="nameInput"
-                      placeholder="Enter your name"
+                      placeholder="Masukkan Detail Kategori"
                     />
                   </div>
                 </div>
                 <div class="text-end">
                   <button type="submit" class="btn btn-primary">
-                    Add Leave
+                    Submit
                   </button>
                 </div>
               </form>

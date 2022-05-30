@@ -77,7 +77,7 @@ export default [
     path: "/kategori/edit/:id",
     name: "edit-kategori",
     meta: {
-      title: "edit Kategori", authRequired: true,
+      title: "Edit Kategori", authRequired: true,
     },
     component: () => import("../views/kategori/edit"),
   },

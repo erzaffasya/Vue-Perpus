@@ -2,6 +2,7 @@
 import { reactive, ref, computed, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import apiKategori from "../../apis/Kategori.js";
+import Swal from "sweetalert2";
 
 import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
@@ -46,9 +47,13 @@ export default {
       apiKategori
         .editKategori(route.params.id, kategori)
         .then(() => {
-          router.push({
-            name: "lihat-kategori",
-          });
+          Swal.fire("Berhasil!", "Data Kategori Berhasil Diubah!", "success").then(
+            (result) => {
+              if (result.value) {
+                window.location.href = "/kategori/lihat";
+              }
+            }
+          );
         })
         .catch((err) => {
           validation.value = err.response.data.error;
@@ -78,14 +83,7 @@ export default {
           </div>
           <!-- end card header -->
           <div class="card-body">
-            <p class="text-muted">
-              Create horizontal forms with the grid by adding the
-              <code>row</code> class to form groups and using the
-              <code>col-*-*</code> class to specify the width of your labels and
-              controls. Be sure to add <code>col-form-label</code> class to your
-              <code>&lt;label&gt;</code>s as well so they’re vertically centered
-              with their associated form controls.
-            </p>
+            <p class="text-muted">Form edit kategori untuk perpustakaan ITK.</p>
             <div class="live-preview">
               <form @submit.prevent="store()">
                 <div class="row mb-3">
@@ -101,7 +99,7 @@ export default {
                       class="form-control"
                       v-model="kategori.nama_kategori"
                       id="nameInput"
-                      placeholder="Enter your name"
+                      placeholder="Masukkan Nama Kategori"
                     />
                   </div>
                 </div>
@@ -115,14 +113,12 @@ export default {
                       v-model="kategori.detail"
                       class="form-control"
                       id="nameInput"
-                      placeholder="Enter your name"
+                      placeholder="Masukkan Detail Kategori"
                     />
                   </div>
                 </div>
                 <div class="text-end">
-                  <button type="submit" class="btn btn-primary">
-                    Add Leave
-                  </button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
               </form>
             </div>
