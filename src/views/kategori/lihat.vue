@@ -10,15 +10,6 @@ export default {
     title: "Grid Js",
     meta: [{ name: "description", content: appConfig.description }],
   },
-  mounted() {
-    apiKategori
-      .lihatKategori()
-      .then((response) => {
-        this.data = response.data.data;
-        this.setPages();
-      })
-      .catch(() => {});
-  },
 
   data() {
     return {
@@ -70,7 +61,7 @@ export default {
     },
   },
   created() {
-    // this.setPages();
+    this.getKategori();
   },
   filters: {
     trimWords(value) {
@@ -92,6 +83,13 @@ export default {
       return data.slice(from, to);
     },
 
+    getKategori() {
+      apiKategori.lihatKategori().then((response) => {
+        this.data = response.data.data;
+        this.setPages();
+      });
+    },
+
     confirm(id) {
       Swal.fire({
         title: "Are you sure?",
@@ -103,14 +101,11 @@ export default {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.value) {
-          apiKategori
-            .hapusKategori(id)
-            .then((response) => {
-              this.data = response.data.data;
-
-              this.setPages();
-            })
-            .catch(() => {});
+          apiKategori.hapusKategori(id).then(() => {
+            this.data.splice(id, 1);
+            console.log(this.data);
+            // this.setPages();
+          });
           Swal.fire("Berhasil!", "Data Kategori Berhasil Dihapus.", "success");
         }
       });
@@ -156,7 +151,7 @@ export default {
                     </span>
                     <span>
                       <button
-                        @click="confirm(data.id)"
+                        @click="confirm(data.id)" 
                         class="btn btn-warning btn-border"
                       >
                         Delete

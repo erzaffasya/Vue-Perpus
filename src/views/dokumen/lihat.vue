@@ -1,13 +1,16 @@
 <script>
+import Swal from "sweetalert2";
 import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
 import appConfig from "../../../app.config";
+import apiKategori from "../../apis/Kategori.js";
 
 export default {
   page: {
     title: "Grid Js",
     meta: [{ name: "description", content: appConfig.description }],
   },
+
   data() {
     return {
       title: "Grid Js",
@@ -21,92 +24,11 @@ export default {
           active: true,
         },
       ],
-      data: [
-        {
-          id: 1,
-          name: "Janathan",
-          email: "jonathan@example.com",
-          position: "Senior Implementation Architect",
-          company: "Koelpin - Goldner",
-          country: "Vanuatu",
-        },
-        {
-          id: 2,
-          name: "Harold",
-          email: "harold@example.com",
-          position: "Forward Creative Coordinator",
-          company: "Feeney, Langworth and Tremblay",
-          country: "Niger",
-        },
-        {
-          id: 3,
-          name: "Shannan",
-          email: "shannon@example.com",
-          position: "Legacy Functionality Associate",
-          company: "Streich Group",
-          country: "Niue",
-        },
-        {
-          id: 4,
-          name: "Robert",
-          email: "robert@example.com",
-          position: "Product Accounts Technician",
-          company: "Ebert, Schamberger and Johnston",
-          country: "Mexico",
-        },
-        {
-          id: 5,
-          name: "Noel",
-          email: "noel@example.com",
-          position: "Customer Data Director",
-          company: "Raynor, Rolfson and Daugherty",
-          country: "Qatar",
-        },
-        {
-          id: 6,
-          name: "Tracl",
-          email: "traci@example.com",
-          position: "Corporate Identity Director",
-          company: "Hauck Inc",
-          country: "Holy See",
-        },
-        {
-          id: 7,
-          name: "Kerry",
-          email: "kerry@example.com",
-          position: "Lead Applications Associate",
-          company: "Metz Inc",
-          country: "Iran",
-        },
-        {
-          id: 8,
-          name: "Patsy",
-          email: "patsy@example.com",
-          position: "Dynamic Assurance Director",
-          company: "Zemlak Group",
-          country: "South Georgia",
-        },
-        {
-          id: 9,
-
-          name: "Cathy",
-          email: "cathy@example.com",
-          position: "Customer Data Director",
-          company: "Hoeger",
-          country: "San Marino",
-        },
-        {
-          id: 10,
-          name: "Tyrone",
-          email: "yrone@example.com",
-          position: "Senior Response Liaison",
-          company: "Howell - Rippin",
-          country: "Germany",
-        },
-      ],
+      data: [],
       page: 1,
       perPage: 5,
       pages: [],
+      totalData: 0,
     };
   },
   name: "Widgets",
@@ -124,11 +46,8 @@ export default {
         return this.displayedPosts.filter((data) => {
           return (
             data.id.toLowerCase().includes(search) ||
-            data.name.toLowerCase().includes(search) ||
-            data.email.toLowerCase().includes(search) ||
-            data.position.toLowerCase().includes(search) ||
-            data.company.toLowerCase().includes(search) ||
-            data.country.toLowerCase().includes(search) 
+            data.nama_kategori.toLowerCase().includes(search) ||
+            data.detail.toLowerCase().includes(search)
           );
         });
       } else {
@@ -142,7 +61,7 @@ export default {
     },
   },
   created() {
-    this.setPages();
+    this.getKategori();
   },
   filters: {
     trimWords(value) {
@@ -163,13 +82,40 @@ export default {
       let to = page * perPage;
       return data.slice(from, to);
     },
+
+    getKategori() {
+      apiKategori.lihatKategori().then((response) => {
+        this.data = response.data.data;
+        this.setPages();
+      });
+    },
+
+    confirm(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#34c38f",
+        cancelButtonColor: "#f46a6a",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.value) {
+          apiKategori.hapusKategori(id).then(() => {
+            this.data.splice(id, 1);
+            console.log(this.data);
+            // this.setPages();
+          });
+          Swal.fire("Berhasil!", "Data Kategori Berhasil Dihapus.", "success");
+        }
+      });
+    },
   },
 };
 </script>
 
 <template>
   <Layout>
-  
     <PageHeader :title="title" :items="items" />
     <div class="row">
       <div class="card">
@@ -180,14 +126,9 @@ export default {
                 <tr>
                   <th class="sort" data-sort="currency_name" scope="col">ID</th>
                   <th class="sort" data-sort="current_value" scope="col">
-                    Name
+                    Nama Kategori
                   </th>
-                  <th class="sort" data-sort="pairs" scope="col">Email</th>
-                  <th class="sort" data-sort="high" scope="col">Position</th>
-                  <th class="sort" data-sort="low" scope="col">Company</th>
-                  <th class="sort" data-sort="market_cap" scope="col">
-                    Country
-                  </th>
+                  <th class="sort" data-sort="pairs" scope="col">Detail</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -197,17 +138,25 @@ export default {
                   <td class="id">
                     {{ data.id }}
                   </td>
-                  <td>{{ data.name }}</td>
-                  <td class="pairs">{{ data.email }}</td>
-                  <td class="high">{{ data.position }}</td>
-                  <td class="low">{{ data.company }}</td>
-                  <td class="market_cap">{{ data.country }}</td>
+                  <td>{{ data.nama_kategori }}</td>
+                  <td class="pairs">{{ data.detail }}</td>
                   <td>
-                    <span
-                      ><a href="#" class="text-reset text-decoration-underline"
-                        >Details</a
-                      ></span
-                    >
+                    <span class="p-2">
+                      <router-link
+                        class="btn btn-danger btn-border"
+                        :to="{ name: 'edit-kategori', params: { id: data.id } }"
+                      >
+                        Edit
+                      </router-link>
+                    </span>
+                    <span>
+                      <button
+                        @click="confirm(data.id)" 
+                        class="btn btn-warning btn-border"
+                      >
+                        Delete
+                      </button>
+                    </span>
                   </td>
                 </tr>
               </tbody>
@@ -226,10 +175,10 @@ export default {
               </a>
               <ul class="pagination listjs-pagination mb-0">
                 <li
-                 :class="{
-                              active: pageNumber == page,
-                              disabled: pageNumber == '...',
-                            }"
+                  :class="{
+                    active: pageNumber == page,
+                    disabled: pageNumber == '...',
+                  }"
                   v-for="(pageNumber, index) in pages.slice(page - 1, page + 5)"
                   :key="index"
                   @click="page = pageNumber"

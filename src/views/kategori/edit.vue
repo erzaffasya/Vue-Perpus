@@ -1,6 +1,4 @@
 <script>
-import { reactive, ref, computed, onMounted } from "vue";
-import { useRouter, useRoute } from "vue-router";
 import apiKategori from "../../apis/Kategori.js";
 import Swal from "sweetalert2";
 
@@ -19,55 +17,47 @@ export default {
     PageHeader,
   },
 
-  setup() {
-    const validation = ref([]);
-    const router = useRouter();
-    const route = useRoute();
-    const id = computed(() => route.params.id);
-    let datakategori = ref([]);
-
-    onMounted(() => {
-      apiKategori
-        .showKategori(route.params.id)
-        .then((response) => {
-          datakategori = response.data.data;
-          console.log(datakategori);
-        })
-        .catch((err) => {
-          validation.value = err.response.data.error;
-        });
-    });
-    console.log(route.params.id);
-    const kategori = reactive({
-      nama_kategori: "",
-      detail: "",
-    });
-
-    function store() {
-      apiKategori
-        .editKategori(route.params.id, kategori)
-        .then(() => {
-          Swal.fire("Berhasil!", "Data Kategori Berhasil Diubah!", "success").then(
-            (result) => {
-              if (result.value) {
-                window.location.href = "/kategori/lihat";
-              }
-            }
-          );
-        })
-        .catch((err) => {
-          validation.value = err.response.data.error;
-        });
-    }
-    // console.log(response.data.data);
+  data() {
     return {
-      validation,
-      router,
-      store,
-      id,
-      datakategori,
-      kategori,
+      Kategori: {},
+      message: "",
     };
+  },
+
+  methods: {
+    store() {
+      apiKategori
+        .editKategori(this.$route.params.id, this.Kategori)
+        .then(() => {
+          Swal.fire(
+            "Berhasil!",
+            "Data Kategori Berhasil Diubah!",
+            "success"
+          ).then((result) => {
+            if (result.value) {
+              window.location.href = "/kategori/lihat";
+            }
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getKategori(id) {
+      apiKategori
+        .showKategori(id)
+        .then((response) => {
+          this.Kategori = response.data.data;
+          console.log(this.Kategori.nama_kategori);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  mounted() {
+    this.message = "";
+    this.getKategori(this.$route.params.id);
   },
 };
 </script>
@@ -79,7 +69,9 @@ export default {
       <div class="col-xxl-6">
         <div class="card">
           <div class="card-header align-items-center d-flex">
-            <h4 class="card-title mb-0 flex-grow-1">Edit Kategori</h4>
+            <h4 class="card-title mb-0 flex-grow-1">
+              Ubah Kategori
+            </h4>
           </div>
           <!-- end card header -->
           <div class="card-body">
@@ -97,8 +89,8 @@ export default {
                       type="text"
                       name="nama_kategori"
                       class="form-control"
-                      v-model="kategori.nama_kategori"
                       id="nameInput"
+                      v-model="Kategori.nama_kategori"
                       placeholder="Masukkan Nama Kategori"
                     />
                   </div>
@@ -110,9 +102,9 @@ export default {
                   <div class="col-lg-9">
                     <input
                       type="text"
-                      v-model="kategori.detail"
                       class="form-control"
                       id="nameInput"
+                       v-model="Kategori.detail"
                       placeholder="Masukkan Detail Kategori"
                     />
                   </div>
