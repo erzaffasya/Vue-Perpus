@@ -214,7 +214,7 @@ export default {
                                 type="text"
                                 class="form-control"
                                 id="firstName"
-                                placeholder="Enter Judul"
+                                placeholder="Masukkan Judul"
                                 value=""
                               />
                             </div>
@@ -229,7 +229,7 @@ export default {
                                 type="text"
                                 class="form-control"
                                 id="firstName"
-                                placeholder="Enter Judul"
+                                placeholder="Masukkan Tahun Terbit"
                                 value=""
                               />
                             </div>
@@ -242,10 +242,9 @@ export default {
                                 class="form-select mb-3"
                                 aria-label="Default select example"
                               >
-                                <option selected="">Select your Status</option>
-                                <option value="1">Declined Payment</option>
-                                <option value="2">Delivery Error</option>
-                                <option value="3">Wrong Amount</option>
+                                <option selected="">Pilih Kategori</option>
+                                <option value="1">Tugas Akhir</option>
+                                <option value="2">Kerja Praktik</option>
                               </select>
                             </div>
 
@@ -260,7 +259,7 @@ export default {
                                 type="text"
                                 class="form-control"
                                 id="email"
-                                placeholder="Enter Email"
+                                placeholder="Masukkan Penerbit"
                               />
                             </div>
                             <div class="col-12">
@@ -271,7 +270,7 @@ export default {
                                 type="text"
                                 class="form-control"
                                 id="email"
-                                placeholder="Enter Email"
+                                placeholder="Masukkan Nama Pengarang"
                               />
                             </div>
                           </div>
@@ -480,11 +479,11 @@ export default {
                         aria-labelledby="v-pills-payment-tab"
                       >
                         <div>
-                          <h5>Payment</h5>
-                          <p class="text-muted">Fill all information below</p>
+                          <h5>Konfirmasi</h5>
+                          <p class="text-muted">Harap Konfirmasi Data dan Berkas Sebelum Disimpan.</p>
                         </div>
 
-                        <div>
+                        <!-- <div>
                           <div class="my-3">
                             <div class="form-check form-check-inline">
                               <input
@@ -591,7 +590,7 @@ export default {
                               </div>
                             </div>
                           </div>
-                        </div>
+                        </div> -->
 
                         <div class="d-flex align-items-start gap-3 mt-4">
                           <button
@@ -602,7 +601,7 @@ export default {
                             <i
                               class="ri-arrow-left-line label-icon align-middle fs-16 me-2"
                             ></i>
-                            Back to Shipping Info
+                            Kembali
                           </button>
                           <button
                             type="button"
@@ -612,7 +611,7 @@ export default {
                             <i
                               class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"
                             ></i>
-                            Order Complete
+                            Simpan
                           </button>
                         </div>
                       </div>
@@ -646,7 +645,7 @@ export default {
                 </div>
                 <!-- end col -->
 
-                <div class="col-lg-3">
+                <!-- <div class="col-lg-3">
                   <div
                     class="d-flex justify-content-between align-items-center mb-3"
                   >
@@ -698,7 +697,7 @@ export default {
                       <strong>$20</strong>
                     </li>
                   </ul>
-                </div>
+                </div> -->
               </div>
               <!-- end row -->
             </form>
