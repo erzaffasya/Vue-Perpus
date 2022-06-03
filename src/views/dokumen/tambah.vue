@@ -2,7 +2,7 @@
 import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
 import appConfig from "../../../app.config";
-
+import apiKategori from "../../apis/Kategori.js";
 import animationData from "@/components/widgets/lupuorrc.json";
 import Lottie from "@/components/widgets/lottie.vue";
 
@@ -14,6 +14,8 @@ export default {
   data() {
     return {
       title: "Wizard",
+      Kategori: {},
+      Dokumen: {},
       items: [
         {
           text: "Forms",
@@ -27,78 +29,88 @@ export default {
       defaultOptions: { animationData: animationData },
     };
   },
+  methods: {
+    getKategori() {
+      apiKategori.lihatKategori().then((response) => {
+        this.Kategori = response.data.data;
+      });
+    },
+  },
   components: {
     Layout,
     PageHeader,
     lottie: Lottie,
   },
   mounted() {
-    document.querySelectorAll(".form-steps").forEach(function (form) {
-      // next tab
-      form.querySelectorAll(".nexttab").forEach(function (nextButton) {
-        var tabEl = form.querySelectorAll('button[data-bs-toggle="pill"]');
-        tabEl.forEach(function (item) {
-          item.addEventListener("show.bs.tab", function (event) {
-            event.target.classList.add("done");
+    this.getKategori(),
+      document.querySelectorAll(".form-steps").forEach(function (form) {
+        // next tab
+        form.querySelectorAll(".nexttab").forEach(function (nextButton) {
+          var tabEl = form.querySelectorAll('button[data-bs-toggle="pill"]');
+          tabEl.forEach(function (item) {
+            item.addEventListener("show.bs.tab", function (event) {
+              event.target.classList.add("done");
+            });
+          });
+          nextButton.addEventListener("click", function () {
+            var nextTab = nextButton.getAttribute("data-nexttab");
+            document.getElementById(nextTab).click();
           });
         });
-        nextButton.addEventListener("click", function () {
-          var nextTab = nextButton.getAttribute("data-nexttab");
-          document.getElementById(nextTab).click();
-        });
-      });
 
-      //Pervies tab
-      form.querySelectorAll(".previestab").forEach(function (prevButton) {
-        prevButton.addEventListener("click", function () {
-          var prevTab = prevButton.getAttribute("data-previous");
-          var totalDone = prevButton
-            .closest("form")
-            .querySelectorAll(".custom-nav .done").length;
-          for (var i = totalDone - 1; i < totalDone; i++) {
-            prevButton.closest("form").querySelectorAll(".custom-nav .done")[i]
-              ? prevButton
-                  .closest("form")
-                  .querySelectorAll(".custom-nav .done")
-                  [i].classList.remove("done")
-              : "";
-          }
-          document.getElementById(prevTab).click();
+        //Pervies tab
+        form.querySelectorAll(".previestab").forEach(function (prevButton) {
+          prevButton.addEventListener("click", function () {
+            var prevTab = prevButton.getAttribute("data-previous");
+            var totalDone = prevButton
+              .closest("form")
+              .querySelectorAll(".custom-nav .done").length;
+            for (var i = totalDone - 1; i < totalDone; i++) {
+              prevButton.closest("form").querySelectorAll(".custom-nav .done")[
+                i
+              ]
+                ? prevButton
+                    .closest("form")
+                    .querySelectorAll(".custom-nav .done")
+                    [i].classList.remove("done")
+                : "";
+            }
+            document.getElementById(prevTab).click();
+          });
         });
-      });
 
-      // Step number click
-      var tabButtons = form.querySelectorAll('button[data-bs-toggle="pill"]');
-      tabButtons.forEach(function (button, i) {
-        button.setAttribute("data-position", i);
-        button.addEventListener("click", function () {
-          var getProgreebar = button.getAttribute("data-progressbar");
-          if (getProgreebar) {
-            var totallength =
+        // Step number click
+        var tabButtons = form.querySelectorAll('button[data-bs-toggle="pill"]');
+        tabButtons.forEach(function (button, i) {
+          button.setAttribute("data-position", i);
+          button.addEventListener("click", function () {
+            var getProgreebar = button.getAttribute("data-progressbar");
+            if (getProgreebar) {
+              var totallength =
+                document
+                  .getElementById("custom-progress-bar")
+                  .querySelectorAll("li").length - 1;
+              var current = i;
+              var percent = (current / totallength) * 100;
               document
                 .getElementById("custom-progress-bar")
-                .querySelectorAll("li").length - 1;
-            var current = i;
-            var percent = (current / totallength) * 100;
-            document
-              .getElementById("custom-progress-bar")
-              .querySelector(".progress-bar").style.width = percent + "%";
-          }
-          form.querySelectorAll(".custom-nav .done").length > 0
-            ? form
-                .querySelectorAll(".custom-nav .done")
-                .forEach(function (doneTab) {
-                  doneTab.classList.remove("done");
-                })
-            : "";
-          for (var j = 0; j <= i; j++) {
-            tabButtons[j].classList.contains("active")
-              ? tabButtons[j].classList.remove("done")
-              : tabButtons[j].classList.add("done");
-          }
+                .querySelector(".progress-bar").style.width = percent + "%";
+            }
+            form.querySelectorAll(".custom-nav .done").length > 0
+              ? form
+                  .querySelectorAll(".custom-nav .done")
+                  .forEach(function (doneTab) {
+                    doneTab.classList.remove("done");
+                  })
+              : "";
+            for (var j = 0; j <= i; j++) {
+              tabButtons[j].classList.contains("active")
+                ? tabButtons[j].classList.remove("done")
+                : tabButtons[j].classList.add("done");
+            }
+          });
         });
       });
-    });
   },
 };
 </script>
@@ -213,6 +225,7 @@ export default {
                               <input
                                 type="text"
                                 class="form-control"
+                                v-model="Dokumen.judul"
                                 id="firstName"
                                 placeholder="Masukkan Judul"
                                 value=""
@@ -226,9 +239,10 @@ export default {
                                 >Tahun Terbit</label
                               >
                               <input
-                                type="text"
+                                type="number"
                                 class="form-control"
                                 id="firstName"
+                                v-model="Dokumen.tahun_terbit"
                                 placeholder="Masukkan Tahun Terbit"
                                 value=""
                               />
@@ -239,12 +253,18 @@ export default {
                                 >Kategori</label
                               >
                               <select
-                                class="form-select mb-3"
+                                class="form-select mb-2"
+                                v-model="Dokumen.kategori_id"
                                 aria-label="Default select example"
                               >
-                                <option selected="">Pilih Kategori</option>
-                                <option value="1">Tugas Akhir</option>
-                                <option value="2">Kerja Praktik</option>
+                                <option
+                                  v-for="(item, index) in Kategori"
+                                  :key="index"
+                                  selected=""
+                                  :value="item.id"
+                                >
+                                  {{ item.nama_kategori }}
+                                </option>
                               </select>
                             </div>
 
@@ -258,6 +278,7 @@ export default {
                               <input
                                 type="text"
                                 class="form-control"
+                                v-model="Dokumen.penerbit"
                                 id="email"
                                 placeholder="Masukkan Penerbit"
                               />
@@ -269,6 +290,7 @@ export default {
                               <input
                                 type="text"
                                 class="form-control"
+                                v-model="Dokumen.nama_pengarang"
                                 id="email"
                                 placeholder="Masukkan Nama Pengarang"
                               />
@@ -308,6 +330,7 @@ export default {
                                 >Cover</label
                               >
                               <input
+                                @change="Dokumen.cover"
                                 class="form-control"
                                 type="file"
                                 id="formFile"
@@ -320,6 +343,7 @@ export default {
                                 >Abstrak (EN)</label
                               >
                               <input
+                                @change="Dokumen.abstract_en"
                                 class="form-control"
                                 type="file"
                                 id="formFile"
@@ -332,6 +356,7 @@ export default {
                                 >Abstrak (ID)</label
                               >
                               <input
+                                @change="Dokumen.abstract_id"
                                 class="form-control"
                                 type="file"
                                 id="formFile"
@@ -344,6 +369,7 @@ export default {
                                 >BAB 1</label
                               >
                               <input
+                                @change="Dokumen.bab1"
                                 class="form-control"
                                 type="file"
                                 id="formFile"
@@ -356,6 +382,7 @@ export default {
                                 >BAB 2</label
                               >
                               <input
+                                @change="Dokumen.bab2"
                                 class="form-control"
                                 type="file"
                                 id="formFile"
@@ -368,6 +395,7 @@ export default {
                                 >BAB 3</label
                               >
                               <input
+                                @change="Dokumen.bab3"
                                 class="form-control"
                                 type="file"
                                 id="formFile"
@@ -380,6 +408,7 @@ export default {
                                 >BAB 4</label
                               >
                               <input
+                                @change="Dokumen.bab4"
                                 class="form-control"
                                 type="file"
                                 id="formFile"
@@ -392,6 +421,7 @@ export default {
                                 >Kesimpulan</label
                               >
                               <input
+                                @change="Dokumen.kesimpulan"
                                 class="form-control"
                                 type="file"
                                 id="formFile"
@@ -404,6 +434,7 @@ export default {
                                 >Daftar Pustaka</label
                               >
                               <input
+                                @change="Dokumen.daftar_pustaka"
                                 class="form-control"
                                 type="file"
                                 id="formFile"
@@ -416,6 +447,7 @@ export default {
                                 >Paper</label
                               >
                               <input
+                                @change="Dokumen.paper"
                                 class="form-control"
                                 type="file"
                                 id="formFile"
@@ -446,7 +478,6 @@ export default {
                               />
                             </div>
                           </div>
-                          
                         </div>
                         <div class="d-flex align-items-start gap-3 mt-4">
                           <button
@@ -480,117 +511,10 @@ export default {
                       >
                         <div>
                           <h5>Konfirmasi</h5>
-                          <p class="text-muted">Harap Konfirmasi Data dan Berkas Sebelum Disimpan.</p>
+                          <p class="text-muted">
+                            Harap Konfirmasi Data dan Berkas Sebelum Disimpan.
+                          </p>
                         </div>
-
-                        <!-- <div>
-                          <div class="my-3">
-                            <div class="form-check form-check-inline">
-                              <input
-                                id="credit"
-                                name="paymentMethod"
-                                type="radio"
-                                class="form-check-input"
-                                checked
-                                required
-                              />
-                              <label class="form-check-label" for="credit"
-                                >Credit card</label
-                              >
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input
-                                id="debit"
-                                name="paymentMethod"
-                                type="radio"
-                                class="form-check-input"
-                                required
-                              />
-                              <label class="form-check-label" for="debit"
-                                >Debit card</label
-                              >
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input
-                                id="paypal"
-                                name="paymentMethod"
-                                type="radio"
-                                class="form-check-input"
-                                required
-                              />
-                              <label class="form-check-label" for="paypal"
-                                >PayPal</label
-                              >
-                            </div>
-                          </div>
-
-                          <div class="row gy-3">
-                            <div class="col-md-12">
-                              <label for="cc-name" class="form-label"
-                                >Name on card</label
-                              >
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="cc-name"
-                                placeholder=""
-                                required
-                              />
-                              <small class="text-muted"
-                                >Full name as displayed on card</small
-                              >
-                              <div class="invalid-feedback">
-                                Name on card is required
-                              </div>
-                            </div>
-
-                            <div class="col-md-6">
-                              <label for="cc-number" class="form-label"
-                                >Credit card number</label
-                              >
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="cc-number"
-                                placeholder=""
-                                required
-                              />
-                              <div class="invalid-feedback">
-                                Credit card number is required
-                              </div>
-                            </div>
-
-                            <div class="col-md-3">
-                              <label for="cc-expiration" class="form-label"
-                                >Expiration</label
-                              >
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="cc-expiration"
-                                placeholder=""
-                                required
-                              />
-                              <div class="invalid-feedback">
-                                Expiration date required
-                              </div>
-                            </div>
-
-                            <div class="col-md-3">
-                              <label for="cc-cvv" class="form-label">CVV</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="cc-cvv"
-                                placeholder=""
-                                required
-                              />
-                              <div class="invalid-feedback">
-                                Security code required
-                              </div>
-                            </div>
-                          </div>
-                        </div> -->
 
                         <div class="d-flex align-items-start gap-3 mt-4">
                           <button
@@ -644,60 +568,6 @@ export default {
                   </div>
                 </div>
                 <!-- end col -->
-
-                <!-- <div class="col-lg-3">
-                  <div
-                    class="d-flex justify-content-between align-items-center mb-3"
-                  >
-                    <h5 class="fs-14 text-primary mb-0">
-                      <i class="ri-shopping-cart-fill align-middle me-2"></i>
-                      Your cart
-                    </h5>
-                    <span class="badge bg-danger rounded-pill">3</span>
-                  </div>
-                  <ul class="list-group mb-3">
-                    <li
-                      class="list-group-item d-flex justify-content-between lh-sm"
-                    >
-                      <div>
-                        <h6 class="my-0">Product name</h6>
-                        <small class="text-muted">Brief description</small>
-                      </div>
-                      <span class="text-muted">$12</span>
-                    </li>
-                    <li
-                      class="list-group-item d-flex justify-content-between lh-sm"
-                    >
-                      <div>
-                        <h6 class="my-0">Second product</h6>
-                        <small class="text-muted">Brief description</small>
-                      </div>
-                      <span class="text-muted">$8</span>
-                    </li>
-                    <li
-                      class="list-group-item d-flex justify-content-between lh-sm"
-                    >
-                      <div>
-                        <h6 class="my-0">Third item</h6>
-                        <small class="text-muted">Brief description</small>
-                      </div>
-                      <span class="text-muted">$5</span>
-                    </li>
-                    <li
-                      class="list-group-item d-flex justify-content-between bg-light"
-                    >
-                      <div class="text-success">
-                        <h6 class="my-0">Discount code</h6>
-                        <small>−$5 Discount</small>
-                      </div>
-                      <span class="text-success">−$5</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                      <span>Total (USD)</span>
-                      <strong>$20</strong>
-                    </li>
-                  </ul>
-                </div> -->
               </div>
               <!-- end row -->
             </form>
