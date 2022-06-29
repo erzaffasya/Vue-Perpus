@@ -27,21 +27,22 @@ export default {
     const validation = ref([]);
     const router = useRouter();
     function store() {
-      console.log("erza");
       apiKategori
         .tambahKategori(kategori)
-        .then(() => {
-          Swal.fire("Berhasil!", "Data Kategori Berhasil Ditambah!", "success").then(
-            (result) => {
-              if (result.value) {
-                window.location.href = "/kategori/lihat";
+        .then(response => {
+          if (response.data.code == 200) {
+            Swal.fire("Berhasil!", "Data Kategori Berhasil Ditambah!", "success").then(
+              (result) => {
+                if (result.value) {
+                  router.push("lihat");
+                }
               }
-            }
-          );
+            );
+          } else {
+            Swal.fire("Error!", "Data Kategori Gagal Ditambah!", "error")
+          }
+
         })
-        .catch((err) => {
-          validation.value = err.response.data.error;
-        });
     }
     return {
       kategori,
@@ -71,18 +72,11 @@ export default {
               <form @submit.prevent="store()">
                 <div class="row mb-3">
                   <div class="col-lg-3">
-                    <label for="nameInput" class="form-label"
-                      >Nama Kategori</label
-                    >
+                    <label for="nameInput" class="form-label">Nama Kategori</label>
                   </div>
                   <div class="col-lg-9">
-                    <input
-                      type="text"
-                      v-model="kategori.nama_kategori"
-                      class="form-control"
-                      id="nameInput"
-                      placeholder="Masukkan Nama Kategori"
-                    />
+                    <input type="text" v-model="kategori.nama_kategori" class="form-control"
+                      placeholder="Masukkan Nama Kategori" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -90,13 +84,8 @@ export default {
                     <label for="nameInput" class="form-label">Detail</label>
                   </div>
                   <div class="col-lg-9">
-                    <input
-                      type="text"
-                      v-model="kategori.detail"
-                      class="form-control"
-                      id="nameInput"
-                      placeholder="Masukkan Detail Kategori"
-                    />
+                    <input type="text" v-model="kategori.detail" class="form-control"
+                      placeholder="Masukkan Detail Kategori" />
                   </div>
                 </div>
                 <div class="text-end">
