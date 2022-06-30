@@ -64,6 +64,81 @@ export default [
     },
     component: () => import("../views/dashboard/ecommerce/index.vue"),
   },
+   // ruanganBaca 
+   {
+    path: "/ruangan-baca/tambah",
+    name: "tambah-ruanganBaca",
+    meta: {
+      title: "Tambah Ruangan Baca", authRequired: true,
+    },
+    component: () => import("../views/ruanganBaca/tambah"),
+  },
+  {
+    path: "/ruangan-baca/edit/:id",
+    name: "edit-ruanganBaca",
+    meta: {
+      title: "Edit Ruangan Baca", authRequired: true,
+    },
+    component: () => import("../views/ruanganBaca/edit"),
+  },
+  {
+    path: "/ruangan-baca/lihat",
+    name: "lihat-ruanganBaca",
+    meta: {
+      title: "Lihat Ruangan Baca", authRequired: true,
+    },
+    component: () => import("../views/ruanganBaca/lihat"),
+  },
+  // kursiBaca 
+  {
+    path: "/kursi-baca/tambah",
+    name: "tambah-kursiBaca",
+    meta: {
+      title: "Tambah Ruangan Baca", authRequired: true,
+    },
+    component: () => import("../views/kursiBaca/tambah"),
+  },
+  {
+    path: "/kursi-baca/edit/:id",
+    name: "edit-kursiBaca",
+    meta: {
+      title: "Edit Ruangan Baca", authRequired: true,
+    },
+    component: () => import("../views/kursiBaca/edit"),
+  },
+  {
+    path: "/kursi-baca/lihat",
+    name: "lihat-kursiBaca",
+    meta: {
+      title: "Lihat Ruangan Baca", authRequired: true,
+    },
+    component: () => import("../views/kursiBaca/lihat"),
+  },
+   // peminjamanRuangan 
+   {
+    path: "/peminjaman-ruangan/tambah",
+    name: "tambah-peminjamanRuangan",
+    meta: {
+      title: "Tambah Ruangan Baca", authRequired: true,
+    },
+    component: () => import("../views/peminjamanRuangan/tambah"),
+  },
+  {
+    path: "/peminjaman-ruangan/edit/:id",
+    name: "edit-peminjamanRuangan",
+    meta: {
+      title: "Edit Ruangan Baca", authRequired: true,
+    },
+    component: () => import("../views/peminjamanRuangan/edit"),
+  },
+  {
+    path: "/peminjaman-ruangan/lihat",
+    name: "lihat-peminjamanRuangan",
+    meta: {
+      title: "Lihat Ruangan Baca", authRequired: true,
+    },
+    component: () => import("../views/peminjamanRuangan/lihat"),
+  },
   // Kategori 
   {
     path: "/kategori/tambah",

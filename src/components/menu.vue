@@ -1290,6 +1290,71 @@ export default {
         </li>
 
         <li class="nav-item">
+          <a class="nav-link menu-link" href="#ruanganbaca" data-bs-toggle="collapse" role="button"
+            aria-expanded="false" aria-controls="sidebarDashboards">
+            <i class="ri-dashboard-2-line"></i>
+            <span data-key="t-dashboards"> {{ $t("Ruangan Baca") }}</span>
+          </a>
+          <div class="collapse menu-dropdown" id="ruanganbaca">
+            <ul class="nav nav-sm flex-column">
+              <li class="nav-item">
+                <router-link to="/ruangan-baca/tambah" class="nav-link custom-abc" data-key="t-tambahruanganbaca">
+                  {{ $t("Tambah Ruangan Baca") }}
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/ruangan-baca/lihat" class="nav-link custom-abc" data-key="t-lihatruanganbaca">
+                  {{ $t("Lihat Ruangan Baca") }}
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link menu-link" href="#kursibaca" data-bs-toggle="collapse" role="button"
+            aria-expanded="false" aria-controls="sidebarDashboards">
+            <i class="ri-dashboard-2-line"></i>
+            <span data-key="t-dashboards"> {{ $t("Kursi Baca") }}</span>
+          </a>
+          <div class="collapse menu-dropdown" id="kursibaca">
+            <ul class="nav nav-sm flex-column">
+              <li class="nav-item">
+                <router-link to="/kursi-baca/tambah" class="nav-link custom-abc" data-key="t-tambahkursibaca">
+                  {{ $t("Tambah Kursi Baca") }}
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/kursi-baca/lihat" class="nav-link custom-abc" data-key="t-lihatkursibaca">
+                  {{ $t("Lihat Kursi Baca") }}
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+         <li class="nav-item">
+          <a class="nav-link menu-link" href="#peminjamanruangan" data-bs-toggle="collapse" role="button"
+            aria-expanded="false" aria-controls="sidebarDashboards">
+            <i class="ri-dashboard-2-line"></i>
+            <span data-key="t-dashboards"> {{ $t("Peminjaman Ruangan") }}</span>
+          </a>
+          <div class="collapse menu-dropdown" id="peminjamanruangan">
+            <ul class="nav nav-sm flex-column">
+              <li class="nav-item">
+                <router-link to="/peminjaman-ruangan/tambah" class="nav-link custom-abc" data-key="t-tambahpeminjamanruangan">
+                  {{ $t("Tambah Peminjaman Ruangan") }}
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/peminjaman-ruangan/lihat" class="nav-link custom-abc" data-key="t-lihatpeminjamanruangan">
+                  {{ $t("Lihat Peminjaman Ruangan") }}
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
           <router-link class="nav-link menu-link" to="/widgets">
             <i class="ri-honour-line"></i>
             <span data-key="t-widgets">{{ $t("t-widgets") }}</span>
