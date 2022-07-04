@@ -56,11 +56,11 @@ export default {
       <div class="col-xxl-6">
         <div class="card">
           <div class="card-header align-items-center d-flex">
-            <h4 class="card-title mb-0 flex-grow-1">Tambah Peminjaman</h4>
+            <h4 class="card-title mb-0 flex-grow-1">Tambah Peminjaman Dokumen</h4>
           </div>
           <!-- end card header -->
           <div class="card-body">
-            <p class="text-muted">Form Tambah Peminjaman.</p>
+            <p class="text-muted">Form Tambah Peminjaman Dokumen.</p>
             <div class="live-preview">
               <form action="javascript:void(0);">
                 <div class="row mb-3">
@@ -68,27 +68,23 @@ export default {
                     <label for="nameInput" class="form-label">Name</label>
                   </div>
                   <div class="col-lg-9">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="nameInput"
-                      placeholder="Enter your name"
-                    />
+                    <input type="text" class="form-control" id="nameInput" placeholder="Enter your name" />
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3">
-                    <label for="websiteUrl" class="form-label"
-                      >Website URL</label
-                    >
+                    <label for="nameInput" class="form-label">Tanggal Kembali</label>
                   </div>
                   <div class="col-lg-9">
-                    <input
-                      type="url"
-                      class="form-control"
-                      id="websiteUrl"
-                      placeholder="Enter your url"
-                    />
+                    <input type="date" class="form-control" id="nameInput" placeholder="Enter your name" />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-3">
+                    <label for="websiteUrl" class="form-label">Website URL</label>
+                  </div>
+                  <div class="col-lg-9">
+                    <input type="url" class="form-control" id="websiteUrl" placeholder="Enter your url" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -96,10 +92,7 @@ export default {
                     <label for="dateInput" class="form-label">Date</label>
                   </div>
                   <div class="col-lg-9">
-                    <flat-pickr
-                      v-model="date3"
-                      class="form-control"
-                    ></flat-pickr>
+                    <flat-pickr v-model="date3" class="form-control"></flat-pickr>
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -107,13 +100,8 @@ export default {
                     <label for="timeInput" class="form-label">Time</label>
                   </div>
                   <div class="col-lg-9">
-                    <input
-                      type="time"
-                      class="form-control"
-                      data-provider="timepickr"
-                      data-time-basic="true"
-                      id="timeInput"
-                    />
+                    <input type="time" class="form-control" data-provider="timepickr" data-time-basic="true"
+                      id="timeInput" />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -121,42 +109,24 @@ export default {
                     <label for="leaveemails" class="form-label">Email Id</label>
                   </div>
                   <div class="col-lg-9">
-                    <input
-                      type="email"
-                      class="form-control"
-                      id="leaveemails"
-                      placeholder="Enter your email"
-                    />
+                    <input type="email" class="form-control" id="leaveemails" placeholder="Enter your email" />
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3">
-                    <label for="contactNumber" class="form-label"
-                      >Contact Number</label
-                    >
+                    <label for="contactNumber" class="form-label">Contact Number</label>
                   </div>
                   <div class="col-lg-9">
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="contactNumber"
-                      placeholder="+91 9876543210"
-                    />
+                    <input type="number" class="form-control" id="contactNumber" placeholder="+91 9876543210" />
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3">
-                    <label for="meassageInput" class="form-label"
-                      >Message</label
-                    >
+                    <label for="meassageInput" class="form-label">Message</label>
                   </div>
                   <div class="col-lg-9">
-                    <textarea
-                      class="form-control"
-                      id="meassageInput"
-                      rows="3"
-                      placeholder="Enter your message"
-                    ></textarea>
+                    <textarea class="form-control" id="meassageInput" rows="3"
+                      placeholder="Enter your message"></textarea>
                   </div>
                 </div>
                 <div class="text-end">

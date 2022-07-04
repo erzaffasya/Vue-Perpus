@@ -200,20 +200,20 @@ export default [
   },
    // peminjaman
    {
-    path: "/peminjaman/tambah",
-    name: "tambah-peminjaman",
+    path: "/peminjaman-dokumen/tambah",
+    name: "tambah-peminjaman-dokumen",
     meta: {
-      title: "Tambah Peminjaman", authRequired: true,
+      title: "Tambah Peminjaman Dokumen", authRequired: true,
     },
-    component: () => import("../views/peminjaman/tambah"),
+    component: () => import("../views/peminjamanDokumen/tambah"),
   },
   {
-    path: "/peminjaman/lihat",
-    name: "lihat-peminjaman",
+    path: "/peminjaman-dokumen/lihat",
+    name: "lihat-peminjaman-dokumen",
     meta: {
-      title: "Lihat Peminjaman", authRequired: true,
+      title: "Lihat Peminjaman Dokumen", authRequired: true,
     },
-    component: () => import("../views/peminjaman/lihat"),
+    component: () => import("../views/peminjamanDokumen/lihat"),
   },
   
   {

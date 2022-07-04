@@ -1241,21 +1241,21 @@ export default {
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link menu-link" href="#peminjaman" data-bs-toggle="collapse" role="button" aria-expanded="false"
+          <a class="nav-link menu-link" href="#peminjaman-dokumen" data-bs-toggle="collapse" role="button" aria-expanded="false"
             aria-controls="sidebarDashboards">
             <i class="ri-dashboard-2-line"></i>
-            <span data-key="t-dashboards"> {{ $t("Peminjaman") }}</span>
+            <span data-key="t-dashboards"> {{ $t("Peminjaman Dokumen") }}</span>
           </a>
-          <div class="collapse menu-dropdown" id="peminjaman">
+          <div class="collapse menu-dropdown" id="peminjaman-dokumen">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
-                <router-link to="/peminjaman/tambah" class="nav-link custom-abc" data-key="t-tambahpeminjaman">
-                  {{ $t("Tambah Peminjaman") }}
+                <router-link to="/peminjaman-dokumen/tambah" class="nav-link custom-abc" data-key="t-tambahpeminjaman-dokumen">
+                  {{ $t("Tambah Peminjaman Dokumen") }}
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/peminjaman/lihat" class="nav-link custom-abc" data-key="t-lihatpeminjaman">
-                  {{ $t("Lihat Peminjaman") }}
+                <router-link to="/peminjaman-dokumen/lihat" class="nav-link custom-abc" data-key="t-lihatpeminjaman-dokumen">
+                  {{ $t("Lihat Peminjaman Dokumen") }}
                 </router-link>
               </li>
             </ul>
