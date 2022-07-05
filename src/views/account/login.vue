@@ -25,8 +25,8 @@ export default {
   },
   data() {
     return {
-      email: "admin@themesbrand.com",
-      password: "123456",
+      email: "lovinta@lecturer.itk.ac.id",
+      password: "password123",
       submitted: false,
       authError: null,
       tryingToLogIn: false,
