@@ -1,19 +1,19 @@
 import Api from '../apis/Api'
 
 export default {
-    tambahRuanganBaca(form) {
+    tambahPeminjamanRuangan(form) {
         return Api.post('http://perpustakaan_itk.test/api/peminjaman-ruangan', form);
     },
-    lihatRuanganBaca() {
+    lihatPeminjamanRuangan() {
         return Api.get('http://perpustakaan_itk.test/api/peminjaman-ruangan');
     },
-    editRuanganBaca(id, form) {
+    editPeminjamanRuangan(id, form) {
         return Api.put('http://perpustakaan_itk.test/api/peminjaman-ruangan/' + id, form);
     }, 
-    showRuanganBaca(id) {
+    showPeminjamanRuangan(id) {
         return Api.get('http://perpustakaan_itk.test/api/peminjaman-ruangan/' + id);
     },
-    hapusRuanganBaca(id) {
+    hapusPeminjamanRuangan(id) {
         return Api.delete('http://perpustakaan_itk.test/api/peminjaman-ruangan/' + id);
     },
     cekRuangan(ruang, tanggal) {

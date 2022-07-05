@@ -6,6 +6,7 @@ import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
 import appConfig from "../../../app.config";
 
+import Swal from "sweetalert2";
 export default {
   page: {
     title: "Layouts",
@@ -38,10 +39,28 @@ export default {
       });
     },
     cekRuangan() {
-      apiPeminjamanRuangan.cekRuangan(this.peminjamanRuangan.ruangan, this.peminjamanRuangan.tanggal).then((response) => {
+      apiPeminjamanRuangan.cekRuangan(this.peminjamanRuangan.ruangan, this.peminjamanRuangan.tanggal_peminjaman).then((response) => {
         this.cekKursi = response.data.data;
         console.log(this.cekKursi);
       });
+    },
+    store() {
+      apiPeminjamanRuangan
+        .tambahPeminjamanRuangan(this.peminjamanRuangan)
+        .then(response => {
+          if (response.data.code == 200) {
+            Swal.fire("Berhasil!", "Data Ruang Baca Berhasil Ditambah!", "success").then(
+              (result) => {
+                if (result.value) {
+                  this.$router.push("lihat");
+                }
+              }
+            );
+          } else {
+            Swal.fire("Error!", "Data Ruangan Baca Gagal Ditambah!", "error")
+          }
+
+        })
     },
   },
 
@@ -69,7 +88,7 @@ export default {
           <!-- end card header -->
           <div class="card-body">
             <p class="text-muted">
-              Form tambah peminjaman ruangan untuk perpustakaan ITK.
+              Form tambah peminjaman ruangan untuk perpustakaan ITK. 
             </p>
             <div class="live-preview">
               <form @submit.prevent="store()">
@@ -92,9 +111,9 @@ export default {
                     <label for="nameInput" class="form-label">Tanggal</label>
                   </div>
                   <div class="col-lg-9">
-                    <input type="date" v-model="peminjamanRuangan.tanggal" @change="cekRuangan()" class="form-control"
+                    <input type="date" v-model="peminjamanRuangan.tanggal_peminjaman" @change="cekRuangan()" class="form-control"
                       placeholder="Masukkan Detail Kategori" />
-                    {{ cekKursi.tanggal }}
+                    {{ cekKursi.tanggal_peminjaman }}
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -102,9 +121,9 @@ export default {
                     <label for="nameInput" class="form-label">Pilih Kursi Baca</label>
                   </div>
                   <div class="col-lg-9">
-                    <select class="form-select mb-2" aria-label="Default select example" required>
+                    <select class="form-select mb-2" v-model="peminjamanRuangan.kursi_baca_id" aria-label="Default select example" required>
                       <!-- <option disabled selected>-- PILIH --</option> -->
-                        <option v-for="(item, index) in cekKursi" :key="index" selected="" :value="item.id"  :v-if="!item.status_kursi">
+                        <option v-for="(item, index) in cekKursi" :key="index" selected="" :value="item.id">
                           <span> {{ item.nama_kursi }} {{ item.status_kursi }}</span>
                         </option>
                     </select>
