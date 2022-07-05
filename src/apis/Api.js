@@ -9,10 +9,10 @@ Api.defaults.headers.common['Content-Type'] = 'multipart/form-data';
 
 const user = JSON.parse(localStorage.getItem('user'))    
 if (user) {
-   console.log(user.token);
+   // console.log(user.token);
     Api.defaults.headers.common.Authorization = `Bearer ${user.token}`
  } else {
-    console.log('asd');
+   //  console.log('asd');
  }
 
 export default Api;

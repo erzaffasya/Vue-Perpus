@@ -1,6 +1,6 @@
 <script>
 import { SimpleBar } from "simplebar-vue3";
-
+import apiProfile from "../apis/Auth";
 import i18n from "../i18n";
 
 /**
@@ -9,6 +9,7 @@ import i18n from "../i18n";
 export default {
   data() {
     return {
+      user:{},
       languages: [
         {
           flag: require("@/assets/images/flags/us.svg"),
@@ -50,6 +51,11 @@ export default {
   },
   components: { SimpleBar },
   mounted() {
+      apiProfile.getUser().then((response) => {
+        this.user = response.data.data;
+        console.log(this.user);
+      });
+
     if (document.getElementById("topnav-hamburger-icon"))
       document
         .getElementById("topnav-hamburger-icon")
@@ -1021,20 +1027,20 @@ export default {
                       ms-1
                       fw-medium
                       user-name-text
-                    ">Anna Adame</span>
+                    ">{{user.name}}</span>
                   <span class="
                       d-none d-xl-block
                       ms-1
                       fs-12
                       text-muted
                       user-name-sub-text
-                    ">Founder</span>
+                    ">{{user.role}}</span>
                 </span>
               </span>
             </button>
             <div class="dropdown-menu dropdown-menu-end">
               <!-- item-->
-              <h6 class="dropdown-header">Welcome Anna!</h6>
+              <h6 class="dropdown-header">Welcome {{user.name}}!</h6>
               <router-link class="dropdown-item" to="/pages/profile"><i class="
                     mdi mdi-account-circle
                     text-muted
