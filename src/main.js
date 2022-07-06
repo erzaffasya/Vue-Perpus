@@ -14,6 +14,9 @@ import Maska from "maska";
 import VueFeather from "vue-feather";
 import Particles from "particles.vue3";
 
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 import "@/assets/scss/config/interactive/app.scss";
 import "@vueform/slider/themes/default.css";
 
@@ -47,6 +50,7 @@ createApp(App)
   .use(router)
   .use(VueApexCharts)
   .use(BootstrapVue3)
+  .use(VueSweetalert2)
   .component(VueFeather.type, VueFeather)
   .use(Maska)
   .use(Particles)
