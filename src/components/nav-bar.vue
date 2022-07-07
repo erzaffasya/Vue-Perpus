@@ -206,19 +206,19 @@ export default {
           <div class="navbar-brand-box horizontal-logo">
             <router-link to="/" class="logo logo-dark">
               <span class="logo-sm">
-                <img src="@/assets/images/logo-sm.png" alt="" height="22" />
+                <img src="@/assets/images/logo-perpus.png" alt="" height="42" />
               </span>
               <span class="logo-lg">
-                <img src="@/assets/images/logo-dark.png" alt="" height="17" />
+                <img src="@/assets/images/logo-perpus.png" alt="" height="37" />
               </span>
             </router-link>
 
             <router-link to="/" class="logo logo-light">
               <span class="logo-sm">
-                <img src="@/assets/images/logo-sm.png" alt="" height="22" />
+                <img src="@/assets/images/logo-perpus.png" alt="" height="42" />
               </span>
               <span class="logo-lg">
-                <img src="@/assets/images/logo-light.png" alt="" height="17" />
+                <img src="@/assets/images/logo-perpus.png" alt="" height="37" />
               </span>
             </router-link>
           </div>
