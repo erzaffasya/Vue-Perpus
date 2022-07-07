@@ -7195,7 +7195,7 @@
   "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz"
   "version" "1.0.4"
 
-"moment@^2.29.1":
+"moment@^2.19.2", "moment@^2.29.1":
   "integrity" "sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
   "version" "2.29.1"
@@ -10413,6 +10413,13 @@
     "vue-hot-reload-api" "^2.3.0"
     "vue-style-loader" "^4.1.0"
 
+"vue-moment@^4.1.0":
+  "integrity" "sha512-Gzisqpg82ItlrUyiD9d0Kfru+JorW2o4mQOH06lEDZNgxci0tv/fua1Hl0bo4DozDV2JK1r52Atn/8QVCu8qQw=="
+  "resolved" "https://registry.npmjs.org/vue-moment/-/vue-moment-4.1.0.tgz"
+  "version" "4.1.0"
+  dependencies:
+    "moment" "^2.19.2"
+
 "vue-prismjs@^1.2.0":
   "integrity" "sha512-1mICbMknMiKw4mfM1AU7vkFT3VX4Cq8ySyDU7IBr9tYW1fzxIPkfLoERkRMbQLBc+J74K3FIiuuZ+WfBjO3SCQ=="
   "resolved" "https://registry.npmjs.org/vue-prismjs/-/vue-prismjs-1.2.0.tgz"
@@ -10447,7 +10454,7 @@
   "resolved" "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz"
   "version" "1.9.1"
 
-"vue@*", "vue@^2 || ^3.0.0-0", "vue@^3.0.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.0.0-beta.20", "vue@^3.0.11", "vue@^3.0.2", "vue@^3.2.2", "vue@^3.2.26", "vue@> 3.0.0", "vue@>= 3 < 4", "vue@>=3", "vue@3", "vue@3.2.0", "vue@3.2.30":
+"vue@*", "vue@^2 || ^3.0.0-0", "vue@^3.0.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.0.0-beta.20", "vue@^3.0.11", "vue@^3.0.2", "vue@^3.2.2", "vue@^3.2.26", "vue@> 3.0.0", "vue@>= 3 < 4", "vue@>=1.x.x", "vue@>=3", "vue@3", "vue@3.2.0", "vue@3.2.30":
   "integrity" "sha512-ZmTFWVJUX2XADkuOB8GcLTuxnBLogjJBTNVrM7WsTnjqRQ+VR8bLNrvNsbn8vj/LaP5+0WFAPrpngOYE2x+e+Q=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.30.tgz"
   "version" "3.2.30"

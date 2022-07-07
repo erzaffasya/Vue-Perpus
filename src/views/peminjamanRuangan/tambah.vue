@@ -5,14 +5,16 @@ import apiPeminjamanRuangan from "../../apis/PeminjamanRuangan.js";
 import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
 import appConfig from "../../../app.config";
-
 import Swal from "sweetalert2";
+import moment from 'moment'
 export default {
   page: {
     title: "Layouts",
     meta: [{ name: "description", content: appConfig.description }],
   },
-
+  created: function () {
+    this.moment = moment;
+  },
   data() {
     return {
       title: "Wizard",
@@ -123,7 +125,7 @@ export default {
                     <label for="nameInput" class="form-label">Tanggal</label>
                   </div>
                   <div class="col-lg-9">
-                    <input type="date" v-model="peminjamanRuangan.tanggal_peminjaman" @change="cekRuangan()"
+                    <input type="date" :min="moment(new Date()).format('YYYY-MM-DD')" v-model="peminjamanRuangan.tanggal_peminjaman" @change="cekRuangan()"
                       class="form-control" placeholder="Masukkan Detail Kategori" />
                   </div>
                 </div>
