@@ -20,6 +20,7 @@ export default {
       ruanganBaca: {},
       kursiBaca: {},
       cekKursi: {},
+      error: {},
       items: [
         {
           text: "Forms",
@@ -36,24 +37,35 @@ export default {
     getRuanganBaca() {
       apiRuanganBaca.lihatRuanganBaca().then((response) => {
         this.ruanganBaca = response.data.data;
+        // console.log(this.ruanganBaca);
       });
     },
     cekRuangan() {
       apiPeminjamanRuangan.cekRuangan(this.peminjamanRuangan.ruangan, this.peminjamanRuangan.tanggal_peminjaman).then((response) => {
         this.cekKursi = response.data.data;
-        console.log(this.cekKursi);
+        console.log(response);
+        if (response.data.status == "error") {
+          this.error = response.data.message
+          console.log(this.error);
+        }
+        // console.log(this.cekKursi);
       });
     },
-    store() {
+    store(id) {
+      // this.peminjamanRuangan = Object.assign({'kursi_baca_id' : id}, this.peminjamanRuangan);
+      // console.log(this.peminjamanRuangan);
       apiPeminjamanRuangan
-        .tambahPeminjamanRuangan(this.peminjamanRuangan)
+        .tambahPeminjamanRuangan(Object.assign({ 'kursi_baca_id': id }, this.peminjamanRuangan))
         .then(response => {
           if (response.data.code == 200) {
+            // console.log(this.peminjamanRuangan);
             Swal.fire("Berhasil!", "Data Ruang Baca Berhasil Ditambah!", "success").then(
               (result) => {
-                if (result.value) {
-                  this.$router.push("lihat");
-                }
+                console.log(result);
+                this.cekRuangan();
+                // if (result.value) {
+                //   this.$router.push("lihat");
+                // }
               }
             );
           } else {
@@ -88,16 +100,16 @@ export default {
           <!-- end card header -->
           <div class="card-body">
             <p class="text-muted">
-              Form tambah peminjaman ruangan untuk perpustakaan ITK.
+              Form tambah peminjaman ruangan untuk perpustakaan ITK. {{ error }}
             </p>
             <div class="live-preview">
-              <form @submit.prevent="store()">
+              <form>
                 <div class="row mb-3">
                   <div class="col-lg-3">
                     <label for="nameInput" class="form-label">Pilih Ruangan</label>
                   </div>
                   <div class="col-lg-9">
-                    <select class="form-select mb-2" v-model="peminjamanRuangan.ruangan"
+                    <select class="form-select mb-2" v-model="peminjamanRuangan.ruangan" @click="cekRuangan()"
                       aria-label="Default select example" required>
                       <!-- <option disabled selected>-- PILIH --</option> -->
                       <option v-for="(item, index) in ruanganBaca" :key="index" selected="" :value="item.id">
@@ -113,28 +125,26 @@ export default {
                   <div class="col-lg-9">
                     <input type="date" v-model="peminjamanRuangan.tanggal_peminjaman" @change="cekRuangan()"
                       class="form-control" placeholder="Masukkan Detail Kategori" />
-                    {{ cekKursi.tanggal_peminjaman }}
                   </div>
                 </div>
-                <div class="row mb-3">
+                <!-- <div class="row mb-3">
                   <div class="col-lg-3">
                     <label for="nameInput" class="form-label">Pilih Kursi Baca</label>
                   </div>
                   <div class="col-lg-9">
-                    <select class="form-select mb-2" v-model="peminjamanRuangan.kursi_baca_id"
+                    <select class="form-select mb-2"
                       aria-label="Default select example" required>
-                      <!-- <option disabled selected>-- PILIH --</option> -->
                       <option v-for="(item, index) in cekKursi" :key="index" selected="" :value="item.id">
                         <span> {{ item.nama_kursi }} {{ item.status_kursi }}</span>
                       </option>
                     </select>
                   </div>
-                </div>
-                <div class="text-end">
+                </div> -->
+                <!-- <div class="text-end">
                   <button type="submit" class="btn btn-primary">
                     Submit
                   </button>
-                </div>
+                </div> -->
               </form>
             </div>
             <div class="d-none code-view"></div>
@@ -158,8 +168,8 @@ export default {
             <div class="row justify-content-center">
               <div class="col-lg-8">
 
-                <apexchart class="apex-charts" dir="ltr" height="50" :series="item.series" :options="chartOptions">
-                </apexchart>
+                <!-- <apexchart class="apex-charts" dir="ltr" height="50" :series="item.series" :options="chartOptions">
+                </apexchart> -->
               </div>
             </div>
             <div class="row mt-4">
@@ -172,9 +182,13 @@ export default {
                 <span class="text-muted">Wallet Balance</span>
               </div>
             </div>
-            <div class="mt-4">
-              <router-link to="/ecommerce/seller-details" class="btn btn-light w-100">View Details</router-link>
-            </div>
+            <form @submit.prevent="store(item.id)">
+              <div class="mt-4">
+                <button v-if="item.status_kursi === true" type="submit" class="btn btn-success w-100"> Pesan Ruangan!</button>
+                <button v-if="item.status_kursi === false" disabled type="submit" class="btn btn-danger w-100">
+                  Tidak Tersedia!</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
