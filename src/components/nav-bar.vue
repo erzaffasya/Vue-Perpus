@@ -53,7 +53,7 @@ export default {
   mounted() {
       apiProfile.getUser().then((response) => {
         this.user = response.data.data;
-        console.log(this.user);
+        // console.log(this.user);
       });
 
     if (document.getElementById("topnav-hamburger-icon"))

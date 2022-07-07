@@ -48,7 +48,7 @@ export default {
         console.log(response);
         if (response.data.status == "error") {
           this.error = response.data.message
-          console.log(this.error);
+          // console.log(this.error);
         }
         // console.log(this.cekKursi);
       });
@@ -71,7 +71,8 @@ export default {
               }
             );
           } else {
-            Swal.fire("Error!", "Data Ruangan Baca Gagal Ditambah!", "error")
+            console.log(response.data.message.message);
+            Swal.fire("Error!", response.data.message.message , "error")
           }
 
         })
@@ -170,7 +171,7 @@ export default {
             <form @submit.prevent="store(item.id)">
               <div class="mt-4">
                 <button v-if="item.status_kursi === true" type="submit" class="btn btn-success w-100">
-                  Pesan Ruangan</button>
+                  Pesan Ruangan {{item.id}}</button>
                 <button v-if="item.status_kursi === false" disabled type="submit" class="btn btn-danger w-100">
                   Tidak Tersedia</button>
               </div>
