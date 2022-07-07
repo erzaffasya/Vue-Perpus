@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      title: "Wizard",
+      title: "Peminjaman Ruangan",
       peminjamanRuangan: {},
       ruanganBaca: {},
       kursiBaca: {},
@@ -29,7 +29,7 @@ export default {
           href: "/",
         },
         {
-          text: "Wizard",
+          text: "Peminjaman Ruangan",
           active: true,
         },
       ],
@@ -102,7 +102,7 @@ export default {
           <!-- end card header -->
           <div class="card-body">
             <p class="text-muted">
-              Form tambah peminjaman ruangan untuk perpustakaan ITK. {{ error }}
+              Form tambah peminjaman ruangan untuk perpustakaan ITK.
             </p>
             <div class="live-preview">
               <form>
@@ -125,28 +125,11 @@ export default {
                     <label for="nameInput" class="form-label">Tanggal</label>
                   </div>
                   <div class="col-lg-9">
-                    <input type="date" :min="moment(new Date()).format('YYYY-MM-DD')" v-model="peminjamanRuangan.tanggal_peminjaman" @change="cekRuangan()"
-                      class="form-control" placeholder="Masukkan Detail Kategori" />
+                    <input type="date" :min="moment(new Date()).format('YYYY-MM-DD')"
+                      v-model="peminjamanRuangan.tanggal_peminjaman" @change="cekRuangan()" class="form-control"
+                      placeholder="Masukkan Detail Kategori" />
                   </div>
                 </div>
-                <!-- <div class="row mb-3">
-                  <div class="col-lg-3">
-                    <label for="nameInput" class="form-label">Pilih Kursi Baca</label>
-                  </div>
-                  <div class="col-lg-9">
-                    <select class="form-select mb-2"
-                      aria-label="Default select example" required>
-                      <option v-for="(item, index) in cekKursi" :key="index" selected="" :value="item.id">
-                        <span> {{ item.nama_kursi }} {{ item.status_kursi }}</span>
-                      </option>
-                    </select>
-                  </div>
-                </div> -->
-                <!-- <div class="text-end">
-                  <button type="submit" class="btn btn-primary">
-                    Submit
-                  </button>
-                </div> -->
               </form>
             </div>
             <div class="d-none code-view"></div>
@@ -176,19 +159,20 @@ export default {
             </div>
             <div class="row mt-4">
               <div class="col-lg-6 border-end-dashed border-end">
-                <h5>{{ item.stock }}</h5>
-                <span class="text-muted">Item Stock</span>
+                <h5>{{ item.nama_ruangan }}</h5>
+                <span class="text-muted">Ruangan</span>
               </div>
               <div class="col-lg-6">
-                <h5>{{ item.balance }}</h5>
-                <span class="text-muted">Wallet Balance</span>
+                <h5>{{ item.nama_kursi }}</h5>
+                <span class="text-muted">Nomor Kursi</span>
               </div>
             </div>
             <form @submit.prevent="store(item.id)">
               <div class="mt-4">
-                <button v-if="item.status_kursi === true" type="submit" class="btn btn-success w-100"> Pesan Ruangan!</button>
+                <button v-if="item.status_kursi === true" type="submit" class="btn btn-success w-100">
+                  Pesan Ruangan</button>
                 <button v-if="item.status_kursi === false" disabled type="submit" class="btn btn-danger w-100">
-                  Tidak Tersedia!</button>
+                  Tidak Tersedia</button>
               </div>
             </form>
           </div>
