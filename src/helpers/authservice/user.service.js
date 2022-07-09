@@ -1,5 +1,5 @@
 import { authHeader } from './auth-header';
-
+import Auth from "../../apis/Auth";
 export const userService = {
     login,
     logout,
@@ -28,6 +28,9 @@ function login(email, password) {
 }
 
 function logout() {
+    Auth.logout().then((response) => {
+        console.log(response);
+    });
     // remove user from local storage to log user out
     localStorage.removeItem('user');
 }

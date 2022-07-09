@@ -7,4 +7,7 @@ export default {
     getUser() {
         return Api.get('http://perpustakaan_itk.test/api/profile');
     },
+    logout() {
+        return Api.get('http://perpustakaan_itk.test/api/logout');
+    },
 }

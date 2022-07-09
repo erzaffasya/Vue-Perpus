@@ -9,7 +9,7 @@ import i18n from "../i18n";
 export default {
   data() {
     return {
-      user:{},
+      user: {},
       languages: [
         {
           flag: require("@/assets/images/flags/us.svg"),
@@ -50,20 +50,32 @@ export default {
     };
   },
   components: { SimpleBar },
+  beforeMount() {
+    this.getProfile(),
+      this.user1 = JSON.parse(localStorage.getItem('user')),
+      console.log(this.user1, 'erza')
+  },
   mounted() {
-      apiProfile.getUser().then((response) => {
-        this.user = response.data.data;
-        // console.log(this.user);
-      });
-
     if (document.getElementById("topnav-hamburger-icon"))
       document
         .getElementById("topnav-hamburger-icon")
         .addEventListener("click", this.toggleHamburgerMenu);
 
     this.isCustomDropdown();
+    // this.getProfile();
   },
   methods: {
+    getProfile() {
+      apiProfile.getUser().then((response) => {
+        this.user = response.data.data;
+        console.log(this.user);
+      }).catch((error) => {
+        console.log(error);
+        //or in file components
+        this.$router.go()
+      });
+    },
+
     isCustomDropdown() {
       //Search bar
       var searchOptions = document.getElementById("search-close-options");
@@ -1027,20 +1039,20 @@ export default {
                       ms-1
                       fw-medium
                       user-name-text
-                    ">{{user.name}}</span>
+                    ">{{ user.name }}</span>
                   <span class="
                       d-none d-xl-block
                       ms-1
                       fs-12
                       text-muted
                       user-name-sub-text
-                    ">{{user.role}}</span>
+                    ">{{ user.role }}</span>
                 </span>
               </span>
             </button>
             <div class="dropdown-menu dropdown-menu-end">
               <!-- item-->
-              <h6 class="dropdown-header">Welcome {{user.name}}!</h6>
+              <h6 class="dropdown-header">Welcome {{ user.name }}!</h6>
               <router-link class="dropdown-item" to="/pages/profile"><i class="
                     mdi mdi-account-circle
                     text-muted
