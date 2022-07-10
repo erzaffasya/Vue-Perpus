@@ -28,9 +28,7 @@ function login(email, password) {
 }
 
 function logout() {
-    Auth.logout().then((response) => {
-        console.log(response);
-    });
+    Auth.logout()
     // remove user from local storage to log user out
     localStorage.removeItem('user');
 }
