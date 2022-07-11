@@ -1,19 +1,19 @@
-import Api from '../apis/Api'
+import {Api,url} from '../apis/Api'
 
 export default {
     tambahKategori(form) {
-        return Api.post('http://perpustakaan_itk.test/api/kategori', form);
+        return Api.post(url +'/api/kategori', form);
     },
     lihatKategori() {
-        return Api.get('http://perpustakaan_itk.test/api/kategori');
+        return Api.get(url +'/api/kategori');
     },
     editKategori(id, form) {
-        return Api.put('http://perpustakaan_itk.test/api/kategori/' + id, form);
+        return Api.put(url +'/api/kategori/' + id, form);
     }, 
     showKategori(id) {
-        return Api.get('http://perpustakaan_itk.test/api/kategori/' + id);
+        return Api.get(url +'/api/kategori/' + id);
     },
     hapusKategori(id) {
-        return Api.delete('http://perpustakaan_itk.test/api/kategori/' + id);
+        return Api.delete(url +'/api/kategori/' + id);
     },
 }

@@ -1,19 +1,19 @@
-import Api from '../apis/Api'
+import {Api,url} from '../apis/Api'
 
 export default {
     tambahDokumen(form) {
-        return Api.post('http://perpustakaan_itk.test/api/dokumen', form);
+        return Api.post(url +'/api/dokumen', form);
     },
     lihatDokumen() {
-        return Api.get('http://perpustakaan_itk.test/api/dokumen');
+        return Api.get(url +'/api/dokumen');
     },
     editDokumen(id, form) {
-        return Api.put('http://perpustakaan_itk.test/api/dokumen/' + id, form);
+        return Api.put(url +'/api/dokumen/' + id, form);
     }, 
     showDokumen(id) {
-        return Api.get('http://perpustakaan_itk.test/api/dokumen/' + id);
+        return Api.get(url +'/api/dokumen/' + id);
     },
     hapusDokumen(id) {
-        return Api.delete('http://perpustakaan_itk.test/api/dokumen/' + id);
+        return Api.delete(url +'/api/dokumen/' + id);
     },
 }
