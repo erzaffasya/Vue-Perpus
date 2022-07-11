@@ -1,9 +1,7 @@
-// array in local storage for registered users
-let users = JSON.parse(localStorage.getItem("users")) || [
-  { username: "admin", email: "admin@themesbrand.com", password: "123456" },
-];
-
 import Auth from "../apis/Auth";
+
+let users = JSON.parse(localStorage.getItem("users"));
+
 export function configureFakeBackend() {
   let realFetch = window.fetch;
   window.fetch = function (url, opts) {
@@ -15,28 +13,33 @@ export function configureFakeBackend() {
           // get parameters from post request
           let params = JSON.parse(opts.body);
 
-          Auth.login(params).then((response) => {
-            console.log(response);
-            if (response.status == 200) {
-              let user = response.data;
-              let responseJson = {
-                nim: user.nim,
-                name: user.name,
-                email: user.email,
-                token: user.token,
-                role: user.role,
-              };
-              
-              resolve({
-                ok: true,
-                text: () => Promise.resolve(JSON.stringify(responseJson)),
-              });
+          Auth.login(params)
+            .then((response) => {
+              console.log(response, "fakebacked");
+              if (response.data.code == 200) {
+                let user = response.data.data;
+                let responseJson = {
+                  nim: user.nim,
+                  name: user.name,
+                  email: user.email,
+                  token: user.token,
+                  role: user.role,
+                };
 
-            } else {
-              // else return error
-              reject("These credentials do not match our records.");
-            }
-          });
+                resolve({
+                  ok: true,
+                  text: () => Promise.resolve(JSON.stringify(responseJson)),
+                });
+              } else if (response.data.code == 401) {
+                reject("These credentials do not match our records.");
+              } else {
+                // else return error
+                reject("These credentials do not match our records.1");
+              }
+            })
+            .catch(() => {
+              reject("Tidak ada Koneksi");
+            });
 
           return;
         }
@@ -44,10 +47,7 @@ export function configureFakeBackend() {
         // get users
         if (url.endsWith("/users") && opts.method === "GET") {
           // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
-          if (
-            opts.headers &&
-            opts.headers.Authorization === "Bearer fake-jwt-token"
-          ) {
+          if (users) {
             resolve({
               ok: true,
               text: () => Promise.resolve(JSON.stringify(users)),
