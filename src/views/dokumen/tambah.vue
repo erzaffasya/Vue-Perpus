@@ -6,7 +6,7 @@ import apiKategori from "../../apis/Kategori.js";
 import apiDokumen from "../../apis/Dokumen.js";
 import animationData from "@/components/widgets/lupuorrc.json";
 import Lottie from "@/components/widgets/lottie.vue";
-
+import $ from 'jquery';
 export default {
   page: {
     title: "Wizard",
@@ -17,6 +17,9 @@ export default {
       title: "Wizard",
       Kategori: {},
       Dokumen: {},
+      video: '',
+      image_variant: [],
+      main_photo: '',
       items: [
         {
           text: "Forms",
@@ -36,10 +39,15 @@ export default {
         this.Kategori = response.data.data;
       });
     },
-    postDokumen(event) {
-      const fd = new FormData();
-      fd.append('profile_image', event.target.files[0])
-      apiDokumen.tambahDokumen().then((response) => {
+    imageChange(event, name) {
+      if (event) {
+        $('.preview_' + name).attr('src', URL.createObjectURL(event.target.files[0]));
+      }
+      this.Dokumen[name] = event.target.files[0];
+    },
+    postDokumen() {
+      console.log(this.Dokumen);
+      apiDokumen.tambahDokumen(this.Dokumen).then((response) => {
         this.Kategori = response.data.data;
       });
     },
@@ -117,7 +125,7 @@ export default {
           </div>
           <!-- end card header -->
           <div class="card-body form-steps">
-            <form class="vertical-navs-step">
+            <form @submit.prevent="postDokumen()" class="vertical-navs-step">
               <div class="row gy-5">
                 <div class="col-lg-3">
                   <div class="nav flex-column custom-nav nav-pills" role="tablist" aria-orientation="vertical">
@@ -230,74 +238,103 @@ export default {
                         <div>
                           <div class="row g-3">
                             <div class="col-12">
-                              <label for="address" class="form-label">Cover</label>
-                              <input @change="Dokumen.cover" class="form-control" type="file" id="formFile" />
+                              <label for="address" class="form-label">Cover {{ Dokumen['cover'] }}</label>
+                              <input id="cover" @change="imageChange($event, 'cover')" ref="cover" class="form-control"
+                                type="file" />
                             </div>
                           </div>
                           <div class="row g-3 mt-1">
                             <div class="col-12">
-                              <label for="address" class="form-label">Abstrak (EN)</label>
-                              <input @change="Dokumen.abstract_en" class="form-control" type="file" id="formFile" />
+                              <label for="address" class="form-label">Lembar Pengesahan {{
+                                  Dokumen['lembar_pengesahan']
+                              }}</label>
+                              <input id="lembar_pengesahan" @change="imageChange($event, 'lembar_pengesahan')"
+                                ref="lembar_pengesahan" class="form-control" type="file" />
                             </div>
                           </div>
                           <div class="row g-3 mt-1">
                             <div class="col-12">
-                              <label for="address" class="form-label">Abstrak (ID)</label>
-                              <input @change="Dokumen.abstract_id" class="form-control" type="file" id="formFile" />
+                              <label for="address" class="form-label">Kata Pengantar {{ Dokumen['kata_pengantar'] }}</label>
+                                 <input id="kata_pengantar" @change="imageChange($event, 'kata_pengantar')" ref="kata_pengantar" class="form-control"
+                                type="file" />
                             </div>
                           </div>
                           <div class="row g-3 mt-1">
                             <div class="col-12">
-                              <label for="address" class="form-label">BAB 1</label>
-                              <input @change="Dokumen.bab1" class="form-control" type="file" id="formFile" />
+                              <label for="address" class="form-label">Intisari/Ringkasan {{ Dokumen['ringkasan'] }}</label>
+                                 <input id="ringkasan" @change="imageChange($event, 'ringkasan')" ref="ringkasan" class="form-control"
+                                type="file" />
                             </div>
                           </div>
                           <div class="row g-3 mt-1">
                             <div class="col-12">
-                              <label for="address" class="form-label">BAB 2</label>
-                              <input @change="Dokumen.bab2" class="form-control" type="file" id="formFile" />
+                              <label for="address" class="form-label">Daftar Isi {{ Dokumen['daftar_isi'] }}</label>
+                                 <input id="daftar_isi" @change="imageChange($event, 'daftar_isi')" ref="daftar_isi" class="form-control"
+                                type="file" />
+                            </div>
+                          </div>
+                           <div class="row g-3 mt-1 ">
+                            <div class="col-12">
+                              <label for="address" class="form-label">Daftar Gambar {{ Dokumen['daftar_gambar'] }}</label>
+                              <input id="daftar_gambar" @change="imageChange($event, 'daftar_gambar')" ref="daftar_gambar" class="form-control"
+                                type="file" />
+                            </div>
+                          </div>
+                           <div class="row g-3 mt-1">
+                            <div class="col-12">
+                              <label for="address" class="form-label">Daftar Tabel {{ Dokumen['daftar_tabel'] }}</label>
+                              <input id="daftar_tabel" @change="imageChange($event, 'daftar_tabel')" ref="daftar_tabel" class="form-control"
+                                type="file" />
+                            </div>
+                          </div>
+                           <div class="row g-3 mt-1">
+                            <div class="col-12">
+                              <label for="address" class="form-label">Daftar Notasi {{ Dokumen['daftar_notasi'] }}</label>
+                              <input id="daftar_notasi" @change="imageChange($event, 'daftar_notasi')" ref="daftar_notasi" class="form-control"
+                                type="file" />
                             </div>
                           </div>
                           <div class="row g-3 mt-1">
                             <div class="col-12">
-                              <label for="address" class="form-label">BAB 3</label>
-                              <input @change="Dokumen.bab3" class="form-control" type="file" id="formFile" />
+                              <label for="address" class="form-label">BAB 1 {{ Dokumen['bab1'] }}</label>
+                              <input id="bab1" @change="imageChange($event, 'bab1')" ref="bab1" class="form-control"
+                                type="file" />
                             </div>
                           </div>
                           <div class="row g-3 mt-1">
                             <div class="col-12">
-                              <label for="address" class="form-label">BAB 4</label>
-                              <input @change="Dokumen.bab4" class="form-control" type="file" id="formFile" />
+                              <label for="address" class="form-label">BAB 2 {{ Dokumen['bab2'] }}</label>
+                               <input id="bab2" @change="imageChange($event, 'bab2')" ref="bab2" class="form-control"
+                                type="file" />
                             </div>
                           </div>
                           <div class="row g-3 mt-1">
                             <div class="col-12">
-                              <label for="address" class="form-label">Kesimpulan</label>
-                              <input @change="Dokumen.kesimpulan" class="form-control" type="file" id="formFile" />
+                              <label for="address" class="form-label">BAB 3 {{ Dokumen['bab3'] }}</label>
+                               <input id="bab3" @change="imageChange($event, 'bab3')" ref="bab3" class="form-control"
+                                type="file" />
                             </div>
                           </div>
                           <div class="row g-3 mt-1">
                             <div class="col-12">
-                              <label for="address" class="form-label">Daftar Pustaka</label>
-                              <input @change="Dokumen.daftar_pustaka" class="form-control" type="file" id="formFile" />
+                              <label for="address" class="form-label">BAB 4 {{ Dokumen['bab4'] }}</label>
+                               <input id="bab4" @change="imageChange($event, 'bab4')" ref="bab4" class="form-control"
+                                type="file" />
                             </div>
                           </div>
                           <div class="row g-3 mt-1">
                             <div class="col-12">
-                              <label for="address" class="form-label">Paper</label>
-                              <input @change="Dokumen.paper" class="form-control" type="file" id="formFile" />
+                              <label for="address" class="form-label">Lampiran {{ Dokumen['lampiran'] }}</label>
+                               <input id="lampiran" @change="imageChange($event, 'lampiran')" ref="lampiran" class="form-control"
+                                type="file" />
                             </div>
                           </div>
+                         
                           <div class="row g-3 mt-1">
                             <div class="col-12">
-                              <label for="address" class="form-label">Lembar Persetujuan</label>
-                              <input class="form-control" type="file" id="formFile" />
-                            </div>
-                          </div>
-                          <div class="row g-3 mt-1">
-                            <div class="col-12">
-                              <label for="address" class="form-label">Full Dokumen</label>
-                              <input class="form-control" type="file" id="formFile" />
+                              <label for="address" class="form-label">Full Dokumen {{ Dokumen['full_dokumen'] }}</label>
+                               <input id="full_dokumen" @change="imageChange($event, 'full_dokumen')" ref="full_dokumen" class="form-control"
+                                type="file" />
                             </div>
                           </div>
                         </div>
@@ -329,7 +366,7 @@ export default {
                             <i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
                             Kembali
                           </button>
-                          <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab"
+                          <button type="submit" class="btn btn-success btn-label right ms-auto nexttab nexttab"
                             data-nexttab="v-pills-finish-tab">
                             <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>
                             Simpan
