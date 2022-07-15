@@ -47,7 +47,13 @@ export default {
     },
     postDokumen() {
       console.log(this.Dokumen);
-      apiDokumen.tambahDokumen(this.Dokumen).then((response) => {
+      const fd = new FormData();
+
+      this.Dokumen.map(function(value, key) {
+        fd.append(key, value);
+      });
+      console.log(fd, 'fd');
+      apiDokumen.tambahDokumen(fd).then((response) => {
         this.Kategori = response.data.data;
       });
     },
@@ -254,44 +260,48 @@ export default {
                           </div>
                           <div class="row g-3 mt-1">
                             <div class="col-12">
-                              <label for="address" class="form-label">Kata Pengantar {{ Dokumen['kata_pengantar'] }}</label>
-                                 <input id="kata_pengantar" @change="imageChange($event, 'kata_pengantar')" ref="kata_pengantar" class="form-control"
-                                type="file" />
+                              <label for="address" class="form-label">Kata Pengantar {{ Dokumen['kata_pengantar']
+                              }}</label>
+                              <input id="kata_pengantar" @change="imageChange($event, 'kata_pengantar')"
+                                ref="kata_pengantar" class="form-control" type="file" />
                             </div>
                           </div>
                           <div class="row g-3 mt-1">
                             <div class="col-12">
-                              <label for="address" class="form-label">Intisari/Ringkasan {{ Dokumen['ringkasan'] }}</label>
-                                 <input id="ringkasan" @change="imageChange($event, 'ringkasan')" ref="ringkasan" class="form-control"
-                                type="file" />
+                              <label for="address" class="form-label">Intisari/Ringkasan {{ Dokumen['ringkasan']
+                              }}</label>
+                              <input id="ringkasan" @change="imageChange($event, 'ringkasan')" ref="ringkasan"
+                                class="form-control" type="file" />
                             </div>
                           </div>
                           <div class="row g-3 mt-1">
                             <div class="col-12">
                               <label for="address" class="form-label">Daftar Isi {{ Dokumen['daftar_isi'] }}</label>
-                                 <input id="daftar_isi" @change="imageChange($event, 'daftar_isi')" ref="daftar_isi" class="form-control"
-                                type="file" />
+                              <input id="daftar_isi" @change="imageChange($event, 'daftar_isi')" ref="daftar_isi"
+                                class="form-control" type="file" />
                             </div>
                           </div>
-                           <div class="row g-3 mt-1 ">
+                          <div class="row g-3 mt-1 ">
                             <div class="col-12">
-                              <label for="address" class="form-label">Daftar Gambar {{ Dokumen['daftar_gambar'] }}</label>
-                              <input id="daftar_gambar" @change="imageChange($event, 'daftar_gambar')" ref="daftar_gambar" class="form-control"
-                                type="file" />
+                              <label for="address" class="form-label">Daftar Gambar {{ Dokumen['daftar_gambar']
+                              }}</label>
+                              <input id="daftar_gambar" @change="imageChange($event, 'daftar_gambar')"
+                                ref="daftar_gambar" class="form-control" type="file" />
                             </div>
                           </div>
-                           <div class="row g-3 mt-1">
+                          <div class="row g-3 mt-1">
                             <div class="col-12">
                               <label for="address" class="form-label">Daftar Tabel {{ Dokumen['daftar_tabel'] }}</label>
-                              <input id="daftar_tabel" @change="imageChange($event, 'daftar_tabel')" ref="daftar_tabel" class="form-control"
-                                type="file" />
+                              <input id="daftar_tabel" @change="imageChange($event, 'daftar_tabel')" ref="daftar_tabel"
+                                class="form-control" type="file" />
                             </div>
                           </div>
-                           <div class="row g-3 mt-1">
+                          <div class="row g-3 mt-1">
                             <div class="col-12">
-                              <label for="address" class="form-label">Daftar Notasi {{ Dokumen['daftar_notasi'] }}</label>
-                              <input id="daftar_notasi" @change="imageChange($event, 'daftar_notasi')" ref="daftar_notasi" class="form-control"
-                                type="file" />
+                              <label for="address" class="form-label">Daftar Notasi {{ Dokumen['daftar_notasi']
+                              }}</label>
+                              <input id="daftar_notasi" @change="imageChange($event, 'daftar_notasi')"
+                                ref="daftar_notasi" class="form-control" type="file" />
                             </div>
                           </div>
                           <div class="row g-3 mt-1">
@@ -304,37 +314,37 @@ export default {
                           <div class="row g-3 mt-1">
                             <div class="col-12">
                               <label for="address" class="form-label">BAB 2 {{ Dokumen['bab2'] }}</label>
-                               <input id="bab2" @change="imageChange($event, 'bab2')" ref="bab2" class="form-control"
+                              <input id="bab2" @change="imageChange($event, 'bab2')" ref="bab2" class="form-control"
                                 type="file" />
                             </div>
                           </div>
                           <div class="row g-3 mt-1">
                             <div class="col-12">
                               <label for="address" class="form-label">BAB 3 {{ Dokumen['bab3'] }}</label>
-                               <input id="bab3" @change="imageChange($event, 'bab3')" ref="bab3" class="form-control"
+                              <input id="bab3" @change="imageChange($event, 'bab3')" ref="bab3" class="form-control"
                                 type="file" />
                             </div>
                           </div>
                           <div class="row g-3 mt-1">
                             <div class="col-12">
                               <label for="address" class="form-label">BAB 4 {{ Dokumen['bab4'] }}</label>
-                               <input id="bab4" @change="imageChange($event, 'bab4')" ref="bab4" class="form-control"
+                              <input id="bab4" @change="imageChange($event, 'bab4')" ref="bab4" class="form-control"
                                 type="file" />
                             </div>
                           </div>
                           <div class="row g-3 mt-1">
                             <div class="col-12">
                               <label for="address" class="form-label">Lampiran {{ Dokumen['lampiran'] }}</label>
-                               <input id="lampiran" @change="imageChange($event, 'lampiran')" ref="lampiran" class="form-control"
-                                type="file" />
+                              <input id="lampiran" @change="imageChange($event, 'lampiran')" ref="lampiran"
+                                class="form-control" type="file" />
                             </div>
                           </div>
-                         
+
                           <div class="row g-3 mt-1">
                             <div class="col-12">
                               <label for="address" class="form-label">Full Dokumen {{ Dokumen['full_dokumen'] }}</label>
-                               <input id="full_dokumen" @change="imageChange($event, 'full_dokumen')" ref="full_dokumen" class="form-control"
-                                type="file" />
+                              <input id="full_dokumen" @change="imageChange($event, 'full_dokumen')" ref="full_dokumen"
+                                class="form-control" type="file" />
                             </div>
                           </div>
                         </div>
