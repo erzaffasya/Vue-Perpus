@@ -2,7 +2,11 @@ import { Api, url } from "../apis/Api";
 
 export default {
   tambahDokumen(form) {
-    return Api.post(url + "/api/dokumen", form);
+    return Api.post(url + "/api/dokumen", form, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   },
   lihatDokumen() {
     return Api.get(url + "/api/dokumen");

@@ -48,10 +48,19 @@ export default {
     postDokumen() {
       console.log(this.Dokumen);
       const fd = new FormData();
-
-      this.Dokumen.map(function(value, key) {
-        fd.append(key, value);
+      // let dok = JSON.stringify(this.Dokumen);
+      // console.log(dok);
+      $.each(this.Dokumen, function(key, value) {
+           fd.append(key, value);
       });
+      // dok.forEach((value, index) => {
+      //   console.log(value, index);
+      // });
+
+      // this.Dokumen.map(function(value, key) {
+      // fd.append('cover', this.Dokumen['cover']);
+      // fd.append('kategori_id', this.Dokumen['kategori_id']);
+      // });
       console.log(fd, 'fd');
       apiDokumen.tambahDokumen(fd).then((response) => {
         this.Kategori = response.data.data;
