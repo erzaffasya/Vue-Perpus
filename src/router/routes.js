@@ -64,8 +64,8 @@ export default [
     },
     component: () => import("../views/dashboard/ecommerce/index.vue"),
   },
-   // ruanganBaca 
-   {
+  // ruanganBaca 
+  {
     path: "/ruangan-baca/tambah",
     name: "tambah-ruanganBaca",
     meta: {
@@ -114,8 +114,8 @@ export default [
     },
     component: () => import("../views/kursiBaca/lihat"),
   },
-   // peminjamanRuangan 
-   {
+  // peminjamanRuangan 
+  {
     path: "/peminjaman-ruangan/tambah",
     name: "tambah-peminjamanRuangan",
     meta: {
@@ -181,8 +181,17 @@ export default [
     },
     component: () => import("../views/dokumen/lihat"),
   },
-   // bookmark
-   {
+
+  {
+    path: "/grid-dokumen",
+    name: "grid-dokumen",
+    meta: {
+      title: "Grid Dokumen", authRequired: true,
+    },
+    component: () => import("../views/peminjamanDokumen/gridDokumen"),
+  },
+  // bookmark
+  {
     path: "/bookmark/tambah",
     name: "tambah-bookmark",
     meta: {
@@ -198,8 +207,8 @@ export default [
     },
     component: () => import("../views/bookmark/lihat"),
   },
-   // peminjaman
-   {
+  // peminjaman
+  {
     path: "/peminjaman-dokumen/tambah",
     name: "tambah-peminjaman-dokumen",
     meta: {
@@ -215,7 +224,7 @@ export default [
     },
     component: () => import("../views/peminjamanDokumen/lihat"),
   },
-  
+
   {
     path: "/dashboard/crypto",
     name: "dashboard-crypto",

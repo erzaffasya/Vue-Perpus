@@ -1241,20 +1241,22 @@ export default {
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link menu-link" href="#peminjaman-dokumen" data-bs-toggle="collapse" role="button" aria-expanded="false"
-            aria-controls="sidebarDashboards">
+          <a class="nav-link menu-link" href="#peminjaman-dokumen" data-bs-toggle="collapse" role="button"
+            aria-expanded="false" aria-controls="sidebarDashboards">
             <i class="ri-dashboard-2-line"></i>
             <span data-key="t-dashboards"> {{ $t("Peminjaman Dokumen") }}</span>
           </a>
           <div class="collapse menu-dropdown" id="peminjaman-dokumen">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
-                <router-link to="/peminjaman-dokumen/tambah" class="nav-link custom-abc" data-key="t-tambahpeminjaman-dokumen">
+                <router-link to="/peminjaman-dokumen/tambah" class="nav-link custom-abc"
+                  data-key="t-tambahpeminjaman-dokumen">
                   {{ $t("Tambah Peminjaman Dokumen") }}
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/peminjaman-dokumen/lihat" class="nav-link custom-abc" data-key="t-lihatpeminjaman-dokumen">
+                <router-link to="/peminjaman-dokumen/lihat" class="nav-link custom-abc"
+                  data-key="t-lihatpeminjaman-dokumen">
                   {{ $t("Lihat Peminjaman Dokumen") }}
                 </router-link>
               </li>
@@ -1312,8 +1314,8 @@ export default {
         </li>
 
         <li class="nav-item">
-          <a class="nav-link menu-link" href="#kursibaca" data-bs-toggle="collapse" role="button"
-            aria-expanded="false" aria-controls="sidebarDashboards">
+          <a class="nav-link menu-link" href="#kursibaca" data-bs-toggle="collapse" role="button" aria-expanded="false"
+            aria-controls="sidebarDashboards">
             <i class="ri-dashboard-2-line"></i>
             <span data-key="t-dashboards"> {{ $t("Kursi Baca") }}</span>
           </a>
@@ -1333,7 +1335,7 @@ export default {
           </div>
         </li>
 
-         <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link menu-link" href="#peminjamanruangan" data-bs-toggle="collapse" role="button"
             aria-expanded="false" aria-controls="sidebarDashboards">
             <i class="ri-dashboard-2-line"></i>
@@ -1342,25 +1344,32 @@ export default {
           <div class="collapse menu-dropdown" id="peminjamanruangan">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
-                <router-link to="/peminjaman-ruangan/tambah" class="nav-link custom-abc" data-key="t-tambahpeminjamanruangan">
+                <router-link to="/peminjaman-ruangan/tambah" class="nav-link custom-abc"
+                  data-key="t-tambahpeminjamanruangan">
                   {{ $t("Tambah Peminjaman Ruangan") }}
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/peminjaman-ruangan/lihat" class="nav-link custom-abc" data-key="t-lihatpeminjamanruangan">
+                <router-link to="/peminjaman-ruangan/lihat" class="nav-link custom-abc"
+                  data-key="t-lihatpeminjamanruangan">
                   {{ $t("Lihat Peminjaman Ruangan") }}
                 </router-link>
               </li>
             </ul>
           </div>
         </li>
-        <li class="nav-item">
-          <router-link class="nav-link menu-link" to="/widgets">
-            <i class="ri-honour-line"></i>
-            <span data-key="t-widgets">{{ $t("t-widgets") }}</span>
-          </router-link>
+
+        <li class="menu-title">
+          <i class="ri-more-fill"></i>
+          <span data-key="t-components">{{ $t("t-components") }}</span>
         </li>
 
+        <li class="nav-item">
+          <router-link class="nav-link menu-link" to="/grid-dokumen">
+            <i class="ri-honour-line"></i>
+            <span data-key="t-widgets">{{ $t("Cari Dokumen") }}</span>
+          </router-link>
+        </li>
       </ul>
     </template>
   </div>

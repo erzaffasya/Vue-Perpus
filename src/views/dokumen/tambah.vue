@@ -17,9 +17,9 @@ export default {
       title: "Wizard",
       Kategori: {},
       Dokumen: {},
-      video: '',
-      image_variant: [],
-      main_photo: '',
+      Berkas: {
+        status: [],
+      },
       items: [
         {
           text: "Forms",
@@ -37,6 +37,18 @@ export default {
     getKategori() {
       apiKategori.lihatKategori().then((response) => {
         this.Kategori = response.data.data;
+        console.log(this.Kategori);
+      });
+    },
+    getBerkas() {
+      apiKategori.showKategori(this.Dokumen.kategori_id).then((response) => {
+        this.Berkas = response.data.data;
+        this.Berkas.status =JSON.parse(this.Berkas.berkas)
+        // $.each(JSON.parse(this.Berkas.berkas), function (key, value) {
+        //   this.Berkas.status = key,value
+
+        // });
+        console.log(this.Berkas.status['bab2'], 'getBerkas');
       });
     },
     imageChange(event, name) {
@@ -48,20 +60,9 @@ export default {
     postDokumen() {
       console.log(this.Dokumen);
       const fd = new FormData();
-      // let dok = JSON.stringify(this.Dokumen);
-      // console.log(dok);
-      $.each(this.Dokumen, function(key, value) {
-           fd.append(key, value);
+      $.each(this.Dokumen, function (key, value) {
+        fd.append(key, value);
       });
-      // dok.forEach((value, index) => {
-      //   console.log(value, index);
-      // });
-
-      // this.Dokumen.map(function(value, key) {
-      // fd.append('cover', this.Dokumen['cover']);
-      // fd.append('kategori_id', this.Dokumen['kategori_id']);
-      // });
-      console.log(fd, 'fd');
       apiDokumen.tambahDokumen(fd).then((response) => {
         this.Kategori = response.data.data;
       });
@@ -212,7 +213,7 @@ export default {
 
                             <div class="col-sm-6">
                               <label for="lastName" class="form-label">Kategori</label>
-                              <select class="form-select mb-2" v-model="Dokumen.kategori_id"
+                              <select class="form-select mb-2" @change="getBerkas()" v-model="Dokumen.kategori_id"
                                 aria-label="Default select example">
                                 <option v-for="(item, index) in Kategori" :key="index" selected="" :value="item.id">
                                   {{ item.nama_kategori }}
@@ -251,107 +252,101 @@ export default {
                         </div>
 
                         <div>
-                          <div class="row g-3">
+                          <div v-if="this.Berkas.status['cover']" class="row g-3">
                             <div class="col-12">
-                              <label for="address" class="form-label">Cover {{ Dokumen['cover'] }}</label>
+                              <label for="address" class="form-label">Cover</label>
                               <input id="cover" @change="imageChange($event, 'cover')" ref="cover" class="form-control"
                                 type="file" />
                             </div>
                           </div>
-                          <div class="row g-3 mt-1">
+                          <div class="row g-3 mt-1" v-if="this.Berkas.status['lembar_pengesahan']">
                             <div class="col-12">
-                              <label for="address" class="form-label">Lembar Pengesahan {{
-                                  Dokumen['lembar_pengesahan']
-                              }}</label>
+                              <label for="address" class="form-label">Lembar Pengesahan</label>
                               <input id="lembar_pengesahan" @change="imageChange($event, 'lembar_pengesahan')"
                                 ref="lembar_pengesahan" class="form-control" type="file" />
                             </div>
                           </div>
-                          <div class="row g-3 mt-1">
+                          <div class="row g-3 mt-1" v-if="this.Berkas.status['kata_pengantar']">
                             <div class="col-12">
-                              <label for="address" class="form-label">Kata Pengantar {{ Dokumen['kata_pengantar']
-                              }}</label>
+                              <label for="address" class="form-label">Kata Pengantar</label>
                               <input id="kata_pengantar" @change="imageChange($event, 'kata_pengantar')"
                                 ref="kata_pengantar" class="form-control" type="file" />
                             </div>
                           </div>
-                          <div class="row g-3 mt-1">
+                          <div class="row g-3 mt-1" v-if="this.Berkas.status['ringkasan']">
                             <div class="col-12">
-                              <label for="address" class="form-label">Intisari/Ringkasan {{ Dokumen['ringkasan']
-                              }}</label>
+                              <label for="address" class="form-label">Intisari/Ringkasan</label>
                               <input id="ringkasan" @change="imageChange($event, 'ringkasan')" ref="ringkasan"
                                 class="form-control" type="file" />
                             </div>
                           </div>
-                          <div class="row g-3 mt-1">
+                          <div class="row g-3 mt-1" v-if="this.Berkas.status['daftar_isi']">
                             <div class="col-12">
-                              <label for="address" class="form-label">Daftar Isi {{ Dokumen['daftar_isi'] }}</label>
+                              <label for="address" class="form-label">Daftar Isi</label>
                               <input id="daftar_isi" @change="imageChange($event, 'daftar_isi')" ref="daftar_isi"
                                 class="form-control" type="file" />
                             </div>
                           </div>
-                          <div class="row g-3 mt-1 ">
+                          <div class="row g-3 mt-1 " v-if="this.Berkas.status['daftar_gambar']">
                             <div class="col-12">
-                              <label for="address" class="form-label">Daftar Gambar {{ Dokumen['daftar_gambar']
-                              }}</label>
+                              <label for="address" class="form-label">Daftar Gambar</label>
                               <input id="daftar_gambar" @change="imageChange($event, 'daftar_gambar')"
                                 ref="daftar_gambar" class="form-control" type="file" />
                             </div>
                           </div>
-                          <div class="row g-3 mt-1">
+                          <div class="row g-3 mt-1" v-if="this.Berkas.status['daftar_tabel']">
                             <div class="col-12">
-                              <label for="address" class="form-label">Daftar Tabel {{ Dokumen['daftar_tabel'] }}</label>
+                              <label for="address" class="form-label">Daftar Tabel</label>
                               <input id="daftar_tabel" @change="imageChange($event, 'daftar_tabel')" ref="daftar_tabel"
                                 class="form-control" type="file" />
                             </div>
                           </div>
-                          <div class="row g-3 mt-1">
+                          <div class="row g-3 mt-1" v-if="this.Berkas.status['daftar_notasi']">
                             <div class="col-12">
-                              <label for="address" class="form-label">Daftar Notasi {{ Dokumen['daftar_notasi']
-                              }}</label>
+                              <label for="address" class="form-label">Daftar Notasi</label>
                               <input id="daftar_notasi" @change="imageChange($event, 'daftar_notasi')"
                                 ref="daftar_notasi" class="form-control" type="file" />
                             </div>
                           </div>
-                          <div class="row g-3 mt-1">
+                          <div class="row g-3 mt-1" v-if="this.Berkas.status['bab1']">
                             <div class="col-12">
-                              <label for="address" class="form-label">BAB 1 {{ Dokumen['bab1'] }}</label>
+                              <label for="address" class="form-label">BAB 1</label>
                               <input id="bab1" @change="imageChange($event, 'bab1')" ref="bab1" class="form-control"
                                 type="file" />
                             </div>
                           </div>
-                          <div class="row g-3 mt-1">
+                          <div class="row g-3 mt-1" v-if="this.Berkas.status['bab2']">
                             <div class="col-12">
-                              <label for="address" class="form-label">BAB 2 {{ Dokumen['bab2'] }}</label>
+                              <label for="address" class="form-label">BAB 2</label>
                               <input id="bab2" @change="imageChange($event, 'bab2')" ref="bab2" class="form-control"
                                 type="file" />
                             </div>
                           </div>
-                          <div class="row g-3 mt-1">
+                          <div class="row g-3 mt-1" v-if="this.Berkas.status['bab3']">
                             <div class="col-12">
-                              <label for="address" class="form-label">BAB 3 {{ Dokumen['bab3'] }}</label>
+                              <label for="address" class="form-label">BAB 3</label>
                               <input id="bab3" @change="imageChange($event, 'bab3')" ref="bab3" class="form-control"
                                 type="file" />
                             </div>
                           </div>
-                          <div class="row g-3 mt-1">
+                          <div class="row g-3 mt-1" v-if="this.Berkas.status['bab4']">
                             <div class="col-12">
-                              <label for="address" class="form-label">BAB 4 {{ Dokumen['bab4'] }}</label>
+                              <label for="address" class="form-label">BAB 4</label>
                               <input id="bab4" @change="imageChange($event, 'bab4')" ref="bab4" class="form-control"
                                 type="file" />
                             </div>
                           </div>
-                          <div class="row g-3 mt-1">
+                          <div class="row g-3 mt-1" v-if="this.Berkas.status['lampiran']">
                             <div class="col-12">
-                              <label for="address" class="form-label">Lampiran {{ Dokumen['lampiran'] }}</label>
+                              <label for="address" class="form-label">Lampiran</label>
                               <input id="lampiran" @change="imageChange($event, 'lampiran')" ref="lampiran"
                                 class="form-control" type="file" />
                             </div>
                           </div>
 
-                          <div class="row g-3 mt-1">
+                          <div class="row g-3 mt-1" v-if="this.Berkas.status['full_dokumen']">
                             <div class="col-12">
-                              <label for="address" class="form-label">Full Dokumen {{ Dokumen['full_dokumen'] }}</label>
+                              <label for="address" class="form-label">Full Dokumen</label>
                               <input id="full_dokumen" @change="imageChange($event, 'full_dokumen')" ref="full_dokumen"
                                 class="form-control" type="file" />
                             </div>

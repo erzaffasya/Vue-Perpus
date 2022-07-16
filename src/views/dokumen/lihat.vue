@@ -1,115 +1,27 @@
 <script>
-import Swal from "sweetalert2";
 import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
-import appConfig from "../../../app.config";
-import apiKategori from "../../apis/Kategori.js";
 
 export default {
-  page: {
-    title: "Grid Js",
-    meta: [{ name: "description", content: appConfig.description }],
-  },
-
   data() {
     return {
-      title: "Grid Js",
+      title: "Tabs",
       items: [
         {
-          text: "Tables",
+          text: "Base UI",
           href: "/",
         },
         {
-          text: "Grid Js",
+          text: "Tabs",
           active: true,
         },
       ],
-      data: [],
-      page: 1,
-      perPage: 5,
-      pages: [],
-      totalData: 0,
     };
   },
-  name: "Widgets",
+  name: "Tabs",
   components: {
     Layout,
     PageHeader,
-  },
-  computed: {
-    displayedPosts() {
-      return this.paginate(this.data);
-    },
-    resultQuery() {
-      if (this.searchQuery) {
-        const search = this.searchQuery.toLowerCase();
-        return this.displayedPosts.filter((data) => {
-          return (
-            data.id.toLowerCase().includes(search) ||
-            data.nama_kategori.toLowerCase().includes(search) ||
-            data.detail.toLowerCase().includes(search)
-          );
-        });
-      } else {
-        return this.displayedPosts;
-      }
-    },
-  },
-  watch: {
-    posts() {
-      this.setPages();
-    },
-  },
-  created() {
-    this.getKategori();
-  },
-  filters: {
-    trimWords(value) {
-      return value.split(" ").splice(0, 20).join(" ") + "...";
-    },
-  },
-  methods: {
-    setPages() {
-      let numberOfPages = Math.ceil(this.data.length / this.perPage);
-      for (let index = 1; index <= numberOfPages; index++) {
-        this.pages.push(index);
-      }
-    },
-    paginate(data) {
-      let page = this.page;
-      let perPage = this.perPage;
-      let from = page * perPage - perPage;
-      let to = page * perPage;
-      return data.slice(from, to);
-    },
-
-    getKategori() {
-      apiKategori.lihatKategori().then((response) => {
-        this.data = response.data.data;
-        this.setPages();
-      });
-    },
-
-    confirm(id) {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#34c38f",
-        cancelButtonColor: "#f46a6a",
-        confirmButtonText: "Yes, delete it!",
-      }).then((result) => {
-        if (result.value) {
-          apiKategori.hapusKategori(id).then(() => {
-            this.data.splice(id, 1);
-            console.log(this.data);
-            // this.setPages();
-          });
-          Swal.fire("Berhasil!", "Data Kategori Berhasil Dihapus.", "success");
-        }
-      });
-    },
   },
 };
 </script>
@@ -118,86 +30,128 @@ export default {
   <Layout>
     <PageHeader :title="title" :items="items" />
     <div class="row">
-      <div class="card">
-        <div class="card-body" id="hello">
-          <div class="table-responsive table-card">
-            <table class="table align-middle table-nowrap" id="customerTable">
-              <thead class="table-light text-muted">
-                <tr>
-                  <th class="sort" data-sort="currency_name" scope="col">ID</th>
-                  <th class="sort" data-sort="current_value" scope="col">
-                    Nama Kategori
-                  </th>
-                  <th class="sort" data-sort="pairs" scope="col">Detail</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-              <!--end thead-->
-              <tbody class="list form-check-all">
-                <tr v-for="(data, index) of resultQuery" :key="index">
-                  <td class="id">
-                    {{ data.id }}
-                  </td>
-                  <td>{{ data.nama_kategori }}</td>
-                  <td class="pairs">{{ data.detail }}</td>
-                  <td>
-                    <span class="p-2">
-                      <router-link
-                        class="btn btn-danger btn-border"
-                        :to="{ name: 'edit-kategori', params: { id: data.id } }"
-                      >
-                        Edit
-                      </router-link>
-                    </span>
-                    <span>
-                      <button
-                        @click="confirm(data.id)" 
-                        class="btn btn-warning btn-border"
-                      >
-                        Delete
-                      </button>
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-              <!--end tbody-->
-            </table>
-          </div>
-          <div class="d-flex justify-content-end mt-3">
-            <div class="pagination-wrap hstack gap-2">
-              <a
-                class="page-item pagination-prev disabled"
-                href="#"
-                v-if="page != 1"
-                @click="page--"
-              >
-                Previous
-              </a>
-              <ul class="pagination listjs-pagination mb-0">
-                <li
-                  :class="{
-                    active: pageNumber == page,
-                    disabled: pageNumber == '...',
-                  }"
-                  v-for="(pageNumber, index) in pages.slice(page - 1, page + 5)"
-                  :key="index"
-                  @click="page = pageNumber"
-                >
-                  <a class="page" href="#">{{ pageNumber }}</a>
-                </li>
-              </ul>
-              <a
-                class="page-item pagination-next"
-                href="#"
-                @click="page++"
-                v-if="page < pages.length"
-              >
-                Next
-              </a>
+      
+      <!--end col-->
+      <div class="col-xxl-12">
+        <div class="card">
+          <div class="card-body">
+            <p class="text-muted">Example of nav tabs with badge wrapped in nav item.</p>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#nav-badge-home" role="tab" aria-selected="false">
+                  Explore
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link align-middle" data-bs-toggle="tab" href="#nav-badge-profile" role="tab"
+                  aria-selected="false">
+                  Profile <span class="badge bg-success">Done</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link align-middle" data-bs-toggle="tab" href="#nav-badge-messages" role="tab"
+                  aria-selected="false">
+                  Messages <span class="badge bg-danger rounded-circle">5</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#nav-badge-settings" role="tab"
+                  aria-selected="true">
+                  Settings
+                </a>
+              </li>
+            </ul>
+            <!-- Nav tabs -->
+            <div class="tab-content text-muted">
+              <div class="tab-pane active" id="nav-badge-home" role="tabpanel">
+                <div class="d-flex">
+                  <div class="flex-shrink-0">
+                    <i class="ri-checkbox-circle-fill text-success"></i>
+                  </div>
+                  <div class="flex-grow-1 ms-2">
+                    Raw denim you probably haven't heard of them jean shorts Austin.
+                    Nesciunt tofu stumptown aliqua, retro synth master cleanse.
+                  </div>
+                </div>
+                <div class="d-flex mt-2">
+                  <div class="flex-shrink-0">
+                    <i class="ri-checkbox-circle-fill text-success"></i>
+                  </div>
+                  <div class="flex-grow-1 ms-2">
+                    Too much or too little spacing, as in the example below, can make things unpleasant for the reader.
+                    The goal is to make your text as comfortable to read as possible.
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="nav-badge-profile" role="tabpanel">
+                <div class="d-flex">
+                  <div class="flex-shrink-0">
+                    <i class="ri-checkbox-circle-fill text-success"></i>
+                  </div>
+                  <div class="flex-grow-1 ms-2">
+                    In some designs, you might adjust your tracking to create a certain artistic effect. It can also
+                    help you fix fonts that are poorly spaced to begin with.
+                  </div>
+                </div>
+                <div class="d-flex mt-2">
+                  <div class="flex-shrink-0">
+                    <i class="ri-checkbox-circle-fill text-success"></i>
+                  </div>
+                  <div class="flex-grow-1 ms-2">
+                    A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring
+                    which I enjoy with my whole heart.
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="nav-badge-messages" role="tabpanel">
+                <div class="d-flex">
+                  <div class="flex-shrink-0">
+                    <i class="ri-checkbox-circle-fill text-success"></i>
+                  </div>
+                  <div class="flex-grow-1 ms-2">
+                    Each design is a new, unique piece of art birthed into this world, and while you have the
+                    opportunity to be creative and make your own style choices.
+                  </div>
+                </div>
+                <div class="d-flex mt-2">
+                  <div class="flex-shrink-0">
+                    <i class="ri-checkbox-circle-fill text-success"></i>
+                  </div>
+                  <div class="flex-grow-1 ms-2">
+                    For that very reason, I went on a quest and spoke to many different professional graphic designers
+                    and asked them what graphic design tips they live.
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="nav-badge-settings" role="tabpanel">
+                <div class="d-flex mt-2">
+                  <div class="flex-shrink-0">
+                    <i class="ri-checkbox-circle-fill text-success"></i>
+                  </div>
+                  <div class="flex-grow-1 ms-2">
+                    For that very reason, I went on a quest and spoke to many different professional graphic designers
+                    and asked them what graphic design tips they live.
+                  </div>
+                </div>
+                <div class="d-flex mt-2">
+                  <div class="flex-shrink-0">
+                    <i class="ri-checkbox-circle-fill text-success"></i>
+                  </div>
+                  <div class="flex-grow-1 ms-2">
+                    After gathering lots of different opinions and graphic design basics, I came up with a list of 30
+                    graphic design tips that you can start implementing.
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          </div><!-- end card-body -->
         </div>
+        <!--end card-->
       </div>
+      <!--end col-->
     </div>
+
+    
   </Layout>
 </template>
