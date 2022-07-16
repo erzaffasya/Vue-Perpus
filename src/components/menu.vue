@@ -1184,7 +1184,7 @@ export default {
           <div class="collapse menu-dropdown" id="sidebarDashboards">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
-                <router-link to="/dashboard/analytics" class="nav-link custom-abc" data-key="t-analytics">
+                <router-link to="/dashboard/analytics" class="nav-link remove-sidebar custom-abc" data-key="t-analytics">
                   {{ $t("t-analytics") }}
                 </router-link>
               </li>
@@ -1207,12 +1207,12 @@ export default {
           <div class="collapse menu-dropdown" id="kategori">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
-                <router-link to="/kategori/tambah" class="nav-link custom-abc" data-key="t-tambahkategori">
+                <router-link to="/kategori/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahkategori">
                   {{ $t("Tambah Kategori") }}
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/kategori/lihat" class="nav-link custom-abc" data-key="t-lihatkategori">
+                <router-link to="/kategori/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatkategori">
                   {{ $t("Lihat Kategori") }}
                 </router-link>
               </li>
@@ -1228,12 +1228,12 @@ export default {
           <div class="collapse menu-dropdown" id="dokumen">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
-                <router-link to="/dokumen/tambah" class="nav-link custom-abc" data-key="t-tambahdokumen">
+                <router-link to="/dokumen/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahdokumen">
                   {{ $t("Tambah Dokumen") }}
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/dokumen/lihat" class="nav-link custom-abc" data-key="t-lihatdokumen">
+                <router-link to="/dokumen/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatdokumen">
                   {{ $t("Lihat Dokumen") }}
                 </router-link>
               </li>
@@ -1249,13 +1249,13 @@ export default {
           <div class="collapse menu-dropdown" id="peminjaman-dokumen">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
-                <router-link to="/peminjaman-dokumen/tambah" class="nav-link custom-abc"
+                <router-link to="/peminjaman-dokumen/tambah" class="nav-link remove-sidebar custom-abc"
                   data-key="t-tambahpeminjaman-dokumen">
                   {{ $t("Tambah Peminjaman Dokumen") }}
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/peminjaman-dokumen/lihat" class="nav-link custom-abc"
+                <router-link to="/peminjaman-dokumen/lihat" class="nav-link remove-sidebar custom-abc"
                   data-key="t-lihatpeminjaman-dokumen">
                   {{ $t("Lihat Peminjaman Dokumen") }}
                 </router-link>
@@ -1272,12 +1272,12 @@ export default {
           <div class="collapse menu-dropdown" id="bookmark">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
-                <router-link to="/bookmark/tambah" class="nav-link custom-abc" data-key="t-tambahbookmark">
+                <router-link to="/bookmark/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahbookmark">
                   {{ $t("Tambah Bookmark") }}
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/bookmark/lihat" class="nav-link custom-abc" data-key="t-lihatbookmark">
+                <router-link to="/bookmark/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatbookmark">
                   {{ $t("Lihat Bookmark") }}
                 </router-link>
               </li>
@@ -1300,12 +1300,12 @@ export default {
           <div class="collapse menu-dropdown" id="ruanganbaca">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
-                <router-link to="/ruangan-baca/tambah" class="nav-link custom-abc" data-key="t-tambahruanganbaca">
+                <router-link to="/ruangan-baca/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahruanganbaca">
                   {{ $t("Tambah Ruangan Baca") }}
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/ruangan-baca/lihat" class="nav-link custom-abc" data-key="t-lihatruanganbaca">
+                <router-link to="/ruangan-baca/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatruanganbaca">
                   {{ $t("Lihat Ruangan Baca") }}
                 </router-link>
               </li>
@@ -1322,12 +1322,12 @@ export default {
           <div class="collapse menu-dropdown" id="kursibaca">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
-                <router-link to="/kursi-baca/tambah" class="nav-link custom-abc" data-key="t-tambahkursibaca">
+                <router-link to="/kursi-baca/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahkursibaca">
                   {{ $t("Tambah Kursi Baca") }}
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/kursi-baca/lihat" class="nav-link custom-abc" data-key="t-lihatkursibaca">
+                <router-link to="/kursi-baca/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatkursibaca">
                   {{ $t("Lihat Kursi Baca") }}
                 </router-link>
               </li>
@@ -1344,13 +1344,13 @@ export default {
           <div class="collapse menu-dropdown" id="peminjamanruangan">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
-                <router-link to="/peminjaman-ruangan/tambah" class="nav-link custom-abc"
+                <router-link to="/peminjaman-ruangan/tambah" class="nav-link remove-sidebar custom-abc"
                   data-key="t-tambahpeminjamanruangan">
                   {{ $t("Tambah Peminjaman Ruangan") }}
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/peminjaman-ruangan/lihat" class="nav-link custom-abc"
+                <router-link to="/peminjaman-ruangan/lihat" class="nav-link remove-sidebar custom-abc"
                   data-key="t-lihatpeminjamanruangan">
                   {{ $t("Lihat Peminjaman Ruangan") }}
                 </router-link>
@@ -1365,7 +1365,7 @@ export default {
         </li>
 
         <li class="nav-item">
-          <router-link class="nav-link menu-link" to="/grid-dokumen">
+          <router-link class="nav-link remove-sidebar menu-link" to="/grid-dokumen">
             <i class="ri-honour-line"></i>
             <span data-key="t-widgets">{{ $t("Cari Dokumen") }}</span>
           </router-link>

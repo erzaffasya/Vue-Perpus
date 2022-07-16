@@ -147,9 +147,12 @@ export default {
         } else if (windowSize <= 767) {
           document.body.classList.add("vertical-sidebar-enable");
           document.documentElement.setAttribute("data-sidebar-size", "lg");
-          $(".nav-item").click(function () {
-            // document.body.classList.remove("vertical-sidebar-enable");
+          $(".remove-sidebar").click(function () {
+            document.body.classList.remove("vertical-sidebar-enable");
           });
+        }
+        else {
+          document.body.classList.remove("vertical-sidebar-enable");
         }
       }
 
