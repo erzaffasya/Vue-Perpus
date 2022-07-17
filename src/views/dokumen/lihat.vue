@@ -7,7 +7,7 @@ import "flatpickr/dist/flatpickr.css";
 import Layout from "../../layouts/main.vue";
 import appConfig from "../../../app.config";
 import PageHeader from "@/components/page-header";
-
+import apiDokumen from "../../apis/Dokumen.js";
 import animationData from "@/components/widgets/msoeawqm.json";
 import Lottie from "@/components/widgets/lottie.vue";
 
@@ -58,140 +58,7 @@ export default {
       date: null,
       date2: null,
       defaultOptions: { animationData: animationData },
-      orders: [
-        {
-          id: 1,
-          orderId: "#VZ2101",
-          customer: "Frank Hook",
-          product: "Puma Tshirt",
-          orderDate: "20 Dec, 2021",
-          amount: "$654",
-          payment: "Mastercard",
-          status: "Pending",
-          statusClass: "warning",
-        },
-        {
-          id: 2,
-          orderId: "#VZ2102",
-          customer: "Rickey Teran",
-          product: "Adidas Sneakers",
-          orderDate: "16 Dec, 2021",
-          amount: "$354",
-          payment: "Paypal",
-          status: "Cancelled",
-          statusClass: "danger",
-        },
-        {
-          id: 3,
-          orderId: "#VZ2103",
-          customer: "James Price",
-          product: "350 ml Glass Grocery Container",
-          orderDate: "28 Nov, 2021",
-          amount: "$829",
-          payment: "Visa",
-          status: "Inprogress",
-          statusClass: "secondary",
-        },
-        {
-          id: 4,
-          orderId: "#VZ2104",
-          customer: "Nettie Deloatch",
-          product: "American egale outfitters Shirt",
-          orderDate: "22 Nov, 2021",
-          amount: "$142",
-          payment: "COD",
-          status: "Pending",
-          statusClass: "warning",
-        },
-        {
-          id: 5,
-          orderId: "#VZ2105",
-          customer: "Thomas Taylor",
-          product: "Galaxy Watch4",
-          orderDate: "12 Nov, 2021",
-          amount: "$408",
-          payment: "Mastercard",
-          status: "Pickups",
-          statusClass: "info",
-        },
-        {
-          id: 6,
-          orderId: "#VZ2106",
-          customer: "James Price",
-          product: "Apple iPhone 12",
-          orderDate: "05 Nov, 2021",
-          amount: "$1240",
-          payment: "Visa",
-          status: "Inprogress",
-          statusClass: "secondary",
-        },
-        {
-          id: 7,
-          orderId: "#VZ2107",
-          customer: "Nancy Martino",
-          product: "Funky Prints T-shirt",
-          orderDate: "31 Oct, 2021",
-          amount: "$180",
-          payment: "COD",
-          status: "Returns",
-          statusClass: "primary",
-        },
-        {
-          id: 8,
-          orderId: "#VZ2108",
-          customer: "Alexis Clarke",
-          product: "USB Flash Drive Personalized with 3D Print",
-          orderDate: "25 Oct, 2021",
-          amount: "$247",
-          payment: "Paypal",
-          status: "Delivered",
-          statusClass: "success",
-        },
-        {
-          id: 9,
-          orderId: "#VZ2109",
-          customer: "Donald Palmer",
-          product: "Oxford Button-Down Shirt",
-          orderDate: "19 Oct, 2021",
-          amount: "$373",
-          payment: "Visa",
-          status: "Pickups",
-          statusClass: "info",
-        },
-        {
-          id: 10,
-          orderId: "#VZ2110",
-          customer: "Henry Baird",
-          product: "Classic Short Sleeve Shirt",
-          orderDate: "13 Oct, 2021",
-          amount: "$342",
-          payment: "Mastercard",
-          status: "Inprogress",
-          statusClass: "secondary",
-        },
-        {
-          id: 11,
-          orderId: "#VZ2111",
-          customer: "Diana Kohler",
-          product: "Half Sleeve T-Shirts (Blue)",
-          orderDate: "01 Oct, 2021",
-          amount: "$874",
-          payment: "Visa",
-          status: "Delivered",
-          statusClass: "success",
-        },
-        {
-          id: 12,
-          orderId: "#VZ2112",
-          customer: "Alexis Clarke",
-          product: "Noise Evolve Smartwatch",
-          orderDate: "29 Sep, 2021",
-          amount: "$1021",
-          payment: "Mastercard",
-          status: "Cancelled",
-          statusClass: "danger",
-        },
-      ],
+      dokumen: [],
       isStatus: null,
       isPayment: null,
     };
@@ -205,65 +72,20 @@ export default {
   },
   computed: {
     displayedPosts() {
-      return this.paginate(this.orders);
+      return this.paginate(this.dokumen);
     },
     resultQuery() {
+      console.log(this.searchQuery)
       if (this.searchQuery) {
         const search = this.searchQuery.toLowerCase();
         return this.displayedPosts.filter((data) => {
           return (
-            data.orderId.toLowerCase().includes(search) ||
-            data.customer.toLowerCase().includes(search) ||
-            data.product.toLowerCase().includes(search) ||
-            data.orderDate.toLowerCase().includes(search) ||
-            data.amount.toLowerCase().includes(search) ||
-            data.payment.toLowerCase().includes(search) ||
-            data.status.toLowerCase().includes(search)
+            data.judul && data.judul.toLowerCase().includes(search) ||
+            data.kategori_id && data.kategori_id.toLowerCase().includes(search) ||
+            data.nama_pengarang && data.nama_pengarang.toLowerCase().includes(search) ||
+            data.status && data.status.toLowerCase().includes(search) ||
+            data.jurusan && data.jurusan.toLowerCase().includes(search)
           );
-        });
-      } else if (this.date !== null) {
-        if (this.date !== null) {
-          var date1 = this.date.split(" to ")[0];
-          var date2 = this.date.split(" to ")[1];
-        }
-        return this.displayedPosts.filter((data) => {
-          if (
-            new Date(data.orderDate.slice(0, 12)) >= new Date(date1) &&
-            new Date(data.orderDate.slice(0, 12)) <= new Date(date2)
-          ) {
-            return data;
-          } else {
-            return null;
-          }
-        });
-      } else if (this.value !== null) {
-        return this.displayedPosts.filter((data) => {
-          if (data.status === this.value) {
-            return data;
-          } else {
-            return null;
-          }
-        });
-      } else if (this.value1 !== null) {
-        return this.displayedPosts.filter((data) => {
-          if (data.payment === this.value1) {
-            return data;
-          } else {
-            return null;
-          }
-        });
-      } else if (this.date !== null && this.value !== null && this.value1 !== null) {
-        return this.displayedPosts.filter((data) => {
-          if (
-            new Date(data.orderDate.slice(0, 12)) >= new Date(date1) &&
-            new Date(data.orderDate.slice(0, 12)) <= new Date(date2) &&
-            data.status === this.value &&
-            data.payment === this.value1
-          ) {
-            return data;
-          } else {
-            return null;
-          }
         });
       } else {
         return this.displayedPosts;
@@ -271,7 +93,7 @@ export default {
     },
   },
   watch: {
-    orders() {
+    posts() {
       this.setPages();
     },
     resultQuery(newValue) {
@@ -279,7 +101,10 @@ export default {
     },
   },
   created() {
-    this.setPages();
+    this.getDokumen();
+  },
+  mounted() {
+
   },
   filters: {
     trimWords(value) {
@@ -287,6 +112,12 @@ export default {
     },
   },
   methods: {
+    getDokumen() {
+      apiDokumen.lihatDokumen().then((response) => {
+        this.dokumen = response.data.data;
+        this.setPages();
+      });
+    },
     onChangeStatus(e) {
       this.isStatus = e;
     },
@@ -294,17 +125,17 @@ export default {
       this.isPayment = e;
     },
     setPages() {
-      let numberOfPages = Math.ceil(this.orders.length / this.perPage);
+      let numberOfPages = Math.ceil(this.dokumen.length / this.perPage);
       for (let index = 1; index <= numberOfPages; index++) {
         this.pages.push(index);
       }
     },
-    paginate(orders) {
+    paginate(dokumen) {
       let page = this.page;
       let perPage = this.perPage;
       let from = page * perPage - perPage;
       let to = page * perPage;
-      return orders.slice(from, to);
+      return dokumen.slice(from, to);
     },
     SearchData() {
       this.resultQuery;
@@ -328,7 +159,7 @@ export default {
             <!-- Nav tabs -->
             <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#nav-badge-home" role="tab" aria-selected="false">
+                <a class="nav-link active" data-bs-toggle="tab" href="#nav-badge-home" role="tab" aria-selected="false">
                   Explore
                 </a>
               </li>
@@ -345,8 +176,7 @@ export default {
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" data-bs-toggle="tab" href="#nav-badge-settings" role="tab"
-                  aria-selected="true">
+                <a class="nav-link" data-bs-toggle="tab" href="#nav-badge-settings" role="tab" aria-selected="true">
                   Settings
                 </a>
               </li>
@@ -430,12 +260,11 @@ export default {
 
                                     </th>
                                     <th class="sort" data-sort="id">Order ID</th>
-                                    <th class="sort" data-sort="customer_name">Customer</th>
-                                    <th class="sort" data-sort="product_name">Product</th>
-                                    <th class="sort" data-sort="date">Order Date</th>
-                                    <th class="sort" data-sort="amount">Amount</th>
-                                    <th class="sort" data-sort="payment">Payment Method</th>
-                                    <th class="sort" data-sort="status">Delivery Status</th>
+                                    <th class="sort" data-sort="customer_name">Judul</th>
+                                    <th class="sort" data-sort="product_name">Kategori</th>
+                                    <th class="sort" data-sort="date">Jurusan</th>
+                                    <th class="sort" data-sort="amount">Nama Penulis</th>
+                                    <th class="sort" data-sort="status">Status</th>
                                     <th class="sort" data-sort="city">Action</th>
                                   </tr>
                                 </thead>
@@ -450,14 +279,13 @@ export default {
                                       }}
                                       </router-link>
                                     </td>
-                                    <td class="customer_name">{{ data.customer }}</td>
-                                    <td class="product_name">{{ data.product }}</td>
+                                    <td class="customer_name">{{ data.judul }}</td>
+                                    <td class="product_name">{{ data.kategori_id }}</td>
                                     <td class="date">
-                                      {{ data.orderDate }}
-                                      <small class="text-muted">02:21 AM</small>
+                                      {{ data.jurusan }}
+                                      <!-- <small class="text-muted">02:21 AM</small> -->
                                     </td>
-                                    <td class="amount">{{ data.amount }}</td>
-                                    <td class="payment">{{ data.payment }}</td>
+                                    <td class="amount">{{ data.nama_pengarang }}</td>
                                     <td class="status">
                                       <span :class="`badge badge-soft-${data.statusClass} text-uppercase`">{{
                                           data.status
@@ -467,7 +295,7 @@ export default {
                                       <ul class="list-inline hstack gap-2 mb-0">
                                         <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover"
                                           data-bs-placement="top" title="View">
-                                          <router-link to="/ecommerce/order-details"
+                                          <router-link :to="{ name: 'detail-dokumen', params: { id: data.id } }"
                                             class="text-primary d-inline-block">
                                             <i class="ri-eye-fill fs-16"></i>
                                           </router-link>

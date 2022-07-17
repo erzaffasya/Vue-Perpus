@@ -181,7 +181,14 @@ export default [
     },
     component: () => import("../views/dokumen/lihat"),
   },
-
+  {
+    path: "/dokumen/detail-dokumen/:id",
+    name: "detail-dokumen",
+    meta: {
+      title: "Detail Dokumen", authRequired: true,
+    },
+    component: () => import("../views/dokumen/detailDokumen"),
+  },
   {
     path: "/grid-dokumen",
     name: "grid-dokumen",
