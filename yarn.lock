@@ -8455,6 +8455,11 @@
   "resolved" "https://registry.npmjs.org/psl/-/psl-1.8.0.tgz"
   "version" "1.8.0"
 
+"pspdfkit@^2022.3.0":
+  "integrity" "sha512-PY8fAl0gCxZodtNI3TA1K4XCwauIk8P5Ku2Eb+UT9MKCW6YL/kzo/rD6ZZ/2pp4juCg3Ipl5QLZLHwsxPmBtvw=="
+  "resolved" "https://registry.npmjs.org/pspdfkit/-/pspdfkit-2022.3.0.tgz"
+  "version" "2022.3.0"
+
 "public-encrypt@^4.0.0":
   "integrity" "sha512-zVpa8oKZSz5bTMTFClc1fQOnyyEzpl5ozpi1B5YcvBrdohMjH2rfsBtyXcuNuwjsDIXmBYlF2N5FlJYhR29t8Q=="
   "resolved" "https://registry.npmjs.org/public-encrypt/-/public-encrypt-4.0.3.tgz"
