@@ -64,12 +64,16 @@ export default {
                                         </div>
                                         <div class="col-md">
                                             <div>
-                                                <h4 class="fw-bold">{{this.dokumen.judul}}</h4>
+                                                <h4 class="fw-bold">{{ this.dokumen.judul }}</h4>
                                                 <div class="hstack gap-3 flex-wrap">
-                                                    <div><i class="ri-building-line align-bottom me-1"></i> {{this.dokumen.jurusan}}
+                                                    <div><i class="ri-building-line align-bottom me-1"></i>
+                                                        {{ this.dokumen.jurusan }}
                                                     </div>
                                                     <div class="vr"></div>
-                                                    <div>Create Date : <span class="fw-semibold fs-15">{{this.dokumen.tanggal_dibuat}}</span></div>
+                                                    <div>Create Date : <span class="fw-semibold fs-15">{{
+                                                            this.dokumen.tanggal_dibuat
+                                                    }}</span>
+                                                    </div>
                                                     <div class="vr"></div>
                                                     <div>Due Date : <span class="fw-semibold fs-15">29 Dec, 2021</span>
                                                     </div>
@@ -925,7 +929,7 @@ export default {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    
+
                                                     <tr>
                                                         <td>
                                                             <div class="d-flex align-items-center">
@@ -936,8 +940,10 @@ export default {
                                                                     </div>
                                                                 </div>
                                                                 <div class="ms-3 flex-grow-1">
-                                                                    <h5 class="fs-14 mb-0"><a href="javascript:void(0);"
-                                                                            class="text-dark">Bank Management System</a>
+                                                                    <h5 class="fs-14 mb-0">
+                                                                        <router-link to="/baca-dokumen"
+                                                                            class="text-dark">Bank Management System
+                                                                        </router-link>
                                                                     </h5>
                                                                 </div>
                                                             </div>
@@ -970,7 +976,7 @@ export default {
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    
+
                                                 </tbody>
                                             </table>
                                         </div>
