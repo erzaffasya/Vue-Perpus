@@ -29,13 +29,14 @@ export default {
      */
     methods: {
         getValue() {
-            fetch("http://perpustakaan_itk.test/storage/documents/1/cover_1_1658128910.pdf", { mode: "no-cors" })
-                .then(
-                    (response) => {
-                        // this.pdfFile = response
-                        console.log(response, 'file');
-                    }
-                );
+            // fetch("http://perpustakaan_itk.test/storage/documents/1/cover_1_1658128910.pdf", { mode: "no-cors" })
+            //     .then(
+            //         (response) => {
+            //             // this.pdfFile = response
+            //             console.log(response, 'file');
+            //         }
+            //     );
+            this.pdfFile = "http://perpustakaan_itk.test/api/showDokumen/"
         },
         handleLoaded(instance) {
             console.log("PSPDFKit has loaded: ", instance);
@@ -52,33 +53,3 @@ export default {
     },
 };
 </script>
-
-<style>
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    text-align: center;
-    color: #2c3e50;
-}
-
-body {
-    margin: 0;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-.custom-file-upload {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-    background: #4A8FED;
-    padding: 10px;
-    color: #fff;
-    font: inherit;
-    font-size: 16px;
-    font-weight: bold;
-}
-</style>
