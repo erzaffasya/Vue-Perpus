@@ -86,7 +86,7 @@
             <div class="d-flex flex-column h-100">
               <div class="d-flex">
                 <div class="flex-grow-1">
-                  <p class="text-muted mb-4">{{ item.time }}</p>
+                  <p class="text-muted mb-4">{{ item.tanggal_dibuat }}</p>
                 </div>
                 <div class="flex-shrink-0">
                   <div class="d-flex gap-1 align-items-center">
@@ -127,10 +127,10 @@
                 </div>
                 <div class="flex-grow-1">
                   <h5 class="mb-1 fs-15">
-                    <router-link to="/apps/projects-overview" class="text-dark">{{ item.label }}</router-link>
+                    <router-link :to="{ name: 'detail-dokumen', params: { id: item.id } }" class="text-dark">{{ item.judul }}</router-link>
                   </h5>
                   <p class="text-muted text-truncate-two-lines mb-3">
-                    {{ item.caption }}
+                    {{ item.kategori_id }}
                   </p>
                 </div>
               </div>
@@ -142,7 +142,7 @@
                   <div class="flex-shrink-0">
                     <div>
                       <i class="ri-list-check align-bottom me-1 text-muted"></i>
-                      {{ item.number }}
+                      {{ item.nama_pengarang }}
                     </div>
                   </div>
                 </div>

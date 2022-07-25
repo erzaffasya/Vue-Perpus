@@ -942,7 +942,7 @@ export default {
                                                                 <div class="ms-3 flex-grow-1">
                                                                     <h5 class="fs-14 mb-0">
                                                                         <router-link to="/baca-dokumen"
-                                                                            class="text-dark">Bank Management System
+                                                                            class="text-dark">Cover
                                                                         </router-link>
                                                                     </h5>
                                                                 </div>
@@ -976,7 +976,52 @@ export default {
                                                             </div>
                                                         </td>
                                                     </tr>
-
+<tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="avatar-sm">
+                                                                    <div
+                                                                        class="avatar-title bg-light text-danger rounded fs-24">
+                                                                        <i class="ri-file-pdf-fill"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="ms-3 flex-grow-1">
+                                                                    <h5 class="fs-14 mb-0">
+                                                                        <router-link to="/baca-dokumen"
+                                                                            class="text-dark">Cover
+                                                                        </router-link>
+                                                                    </h5>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>PDF File</td>
+                                                        <td>8.89 MB</td>
+                                                        <td>24 Nov 2021</td>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <a href="javascript:void(0);"
+                                                                    class="btn btn-soft-secondary btn-sm btn-icon"
+                                                                    data-bs-toggle="dropdown" aria-expanded="true">
+                                                                    <i class="ri-more-fill"></i>
+                                                                </a>
+                                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                                    <li><a class="dropdown-item"
+                                                                            href="javascript:void(0);"><i
+                                                                                class="ri-eye-fill me-2 align-bottom text-muted"></i>View</a>
+                                                                    </li>
+                                                                    <li><a class="dropdown-item"
+                                                                            href="javascript:void(0);"><i
+                                                                                class="ri-download-2-fill me-2 align-bottom text-muted"></i>Download</a>
+                                                                    </li>
+                                                                    <li class="dropdown-divider"></li>
+                                                                    <li><a class="dropdown-item"
+                                                                            href="javascript:void(0);"><i
+                                                                                class="ri-delete-bin-5-fill me-2 align-bottom text-muted"></i>Delete</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
