@@ -1,22 +1,25 @@
 <template>
-    <div id="app">
-        <label for="file-upload" class="custom-file-upload">
-            Open PDF
-        </label>
-        <button type="submit" @click="getValue"></button>
-        <input id="file-upload" type="file" @change="openDocument" class="btn" />
-        <PSPDFKitContainer :pdfFile="pdfFile" @loaded="handleLoaded" />
-    </div>
+<div id="app">
+    <PSPDFKitContainer :pdfFile="pdfFile" @loaded="handleLoaded" />
+</div>
 </template>
 
 <script>
 import PSPDFKitContainer from "@/components/PSPDFKitContainer";
 
 export default {
+    name: "baca-dokumen",
+    props: {
+        jenisFile: Object,
+        id: Object,
+    },
     data() {
         return {
-            pdfFile: this.pdfFile || "/example.pdf",
+            pdfFile: this.pdfFile ,
         };
+    },
+    mounted() {
+        this.getValue();
     },
     /**
      * Render the `PSPDFKitContainer` component.
@@ -29,14 +32,8 @@ export default {
      */
     methods: {
         getValue() {
-            // fetch("http://perpustakaan_itk.test/storage/documents/1/cover_1_1658128910.pdf", { mode: "no-cors" })
-            //     .then(
-            //         (response) => {
-            //             // this.pdfFile = response
-            //             console.log(response, 'file');
-            //         }
-            //     );
-            this.pdfFile = "http://perpustakaan_itk.test/api/showDokumen/"
+            this.pdfFile = "http://127.0.0.1:8000/api/showDokumen/"+this.id+"/"+this.jenisFile;
+            console.log(this.pdfFile,'url');
         },
         handleLoaded(instance) {
             console.log("PSPDFKit has loaded: ", instance);

@@ -37,28 +37,29 @@ export default {
     getKategori() {
       apiKategori.lihatKategori().then((response) => {
         this.Kategori = response.data.data;
-        console.log(this.Kategori);
       });
     },
     getBerkas() {
       apiKategori.showKategori(this.Dokumen.kategori_id).then((response) => {
         this.Berkas = response.data.data;
-        this.Berkas.status =JSON.parse(this.Berkas.berkas)
+        this.Berkas.status = JSON.parse(this.Berkas.berkas)
         // $.each(JSON.parse(this.Berkas.berkas), function (key, value) {
         //   this.Berkas.status = key,value
 
         // });
-        console.log(this.Berkas.status['bab2'], 'getBerkas');
+        console.log(this.Berkas);
       });
     },
+    
     imageChange(event, name) {
       if (event) {
         $('.preview_' + name).attr('src', URL.createObjectURL(event.target.files[0]));
       }
       this.Dokumen[name] = event.target.files[0];
     },
+
     postDokumen() {
-      console.log(this.Dokumen);
+      // console.log(this.Dokumen);
       const fd = new FormData();
       $.each(this.Dokumen, function (key, value) {
         fd.append(key, value);

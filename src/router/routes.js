@@ -198,6 +198,7 @@ export default [
   {
     path: "/dokumen/detail-dokumen/:id",
     name: "detail-dokumen",
+    props: true,
     meta: {
       title: "Detail Dokumen",
       authRequired: true,
@@ -207,6 +208,7 @@ export default [
   {
     path: "/baca-dokumen",
     name: "baca-dokumen",
+    props: true,
     meta: {
       title: "Grid Dokumen",
       authRequired: true,
