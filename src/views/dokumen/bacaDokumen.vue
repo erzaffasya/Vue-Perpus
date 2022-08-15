@@ -32,7 +32,7 @@ export default {
      */
     methods: {
         getValue() {
-            this.pdfFile = "http://127.0.0.1:8000/api/showDokumen/"+this.id+"/"+this.jenisFile;
+            this.pdfFile = "http://perpustakaan_itk.test/api/showDokumen/"+this.id+"/"+this.jenisFile;
             console.log(this.pdfFile,'url');
         },
         handleLoaded(instance) {

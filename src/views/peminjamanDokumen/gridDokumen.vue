@@ -1,56 +1,63 @@
-  <script>
-  import { MoreHorizontalIcon } from "@zhuowenli/vue-feather-icons";
-  import Multiselect from "@vueform/multiselect";
-  import "@vueform/multiselect/themes/default.css";
-  import ApiDokumen from "../../apis/Dokumen.js";
-  import Layout from "../../layouts/main.vue";
-  import PageHeader from "@/components/page-header";
-  import appConfig from "../../../app.config";
-  
-  export default {
-    page: {
+<script>
+import { MoreHorizontalIcon } from "@zhuowenli/vue-feather-icons";
+import Multiselect from "@vueform/multiselect";
+import "@vueform/multiselect/themes/default.css";
+import ApiDokumen from "../../apis/Dokumen.js";
+import Layout from "../../layouts/main.vue";
+import PageHeader from "@/components/page-header";
+import appConfig from "../../../app.config";
+
+export default {
+  page: {
+    title: "Project List",
+    meta: [
+      {
+        name: "description",
+        content: appConfig.description,
+      },
+    ],
+  },
+  methods: {
+     toggleFavourite(ele) {
+      console.log("sukses");
+      ele.target.closest(".favourite-btn").classList.toggle("active");
+    },
+    getDokumen() {
+      ApiDokumen.lihatDokumen().then((response) => {
+        this.Dokumen = response.data.data;
+        console.log(this.Kategori);
+      });
+    },   
+  },
+  data() {
+    return {
       title: "Project List",
-      meta: [{ name: "description", content: appConfig.description }],
-    },
-    data() {
-      return {
-        title: "Project List",
-        items: [
-          {
-            text: "Projects",
-            href: "/",
-          },
-          {
-            text: "Project List",
-            active: true,
-          },
-        ],
-        Dokumen: {}
-      };
-    },
-    components: {
-      Layout,
-      PageHeader,
-      Multiselect,
-      MoreHorizontalIcon
-    },
-    mounted() {
-      this.getDokumen()
-    },
-    methods: {
-      getDokumen() {
-        ApiDokumen.lihatDokumen().then((response) => {
-          this.Dokumen = response.data.data;
-          console.log(this.Kategori);
-        });  
-      }
-    },
-    toggleFavourite(ele) {
-      ele.target.closest('.favourite-btn').classList.toggle("active");
-    }
+      items: [
+        {
+          text: "Projects",
+          href: "/",
+        },
+        {
+          text: "Project List",
+          active: true,
+        },
+      ],
+      Dokumen: {},
+      value: null,
+    };
+  },
+  components: {
+    Layout,
+    PageHeader,
+    Multiselect,
+    MoreHorizontalIcon,
+  },
+  mounted() {
+    this.getDokumen();
+  },
   
-  };
-  </script>
+};
+</script>
 
   <template>
   <Layout>
@@ -69,18 +76,28 @@
             <i class="ri-search-line search-icon"></i>
           </div>
 
-          <Multiselect class="multiselect form-control w-lg w-auto m-0" v-model="value" :close-on-select="true"
-            :searchable="true" :create-option="true" :options="[
+          <Multiselect
+            class="multiselect form-control w-lg w-auto m-0"
+            v-model="value"
+            :close-on-select="true"
+            :searchable="true"
+            :create-option="true"
+            :options="[
               { value: 'Status', label: 'Status' },
               { value: 'Active', label: 'Active' },
               { value: 'Block', label: 'Block' },
-            ]" />
+            ]"
+          />
         </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-xxl-3 col-sm-6 project-card" v-for="(item, index) of Dokumen" :key="index">
+      <div
+        class="col-xxl-3 col-sm-6 project-card"
+        v-for="(item, index) of Dokumen"
+        :key="index"
+      >
         <div class="card card-height-100">
           <div class="card-body">
             <div class="d-flex flex-column h-100">
@@ -89,29 +106,69 @@
                   <p class="text-muted mb-4">{{ item.tanggal_dibuat }}</p>
                 </div>
                 <div class="flex-shrink-0">
-                  <div class="d-flex gap-1 align-items-center">
-                    <button type="button" class="btn avatar-xs mt-n1 p-0 favourite-btn" @click="toggleFavourite">
+                  <div class="hstack gap-1 flex-wrap">
+                    <button
+                      type="button"
+                      class="btn py-0 fs-16 favourite-btn active"
+                      @click="toggleFavourite"
+                    >
                       <span class="avatar-title bg-transparent fs-15">
-                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill" @click="toggleFavourite"></i>
                       </span>
                     </button>
                     <div class="dropdown">
-                      <button class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-16"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <MoreHorizontalIcon class="icon-sm"></MoreHorizontalIcon>
+                      <button
+                        class="
+                          btn btn-link
+                          text-muted
+                          p-1
+                          mt-n2
+                          py-0
+                          text-decoration-none
+                          fs-16
+                        "
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="true"
+                      >
+                        <MoreHorizontalIcon
+                          class="icon-sm"
+                        ></MoreHorizontalIcon>
                       </button>
 
                       <div class="dropdown-menu dropdown-menu-end">
-                        <router-link class="dropdown-item" to="/apps/projects-overview"><i
-                            class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                          View</router-link>
-                        <router-link class="dropdown-item" to="/apps/projects-create"><i
-                            class="ri-pencil-fill align-bottom me-2 text-muted"></i>
-                          Edit</router-link>
+                        <router-link
+                          class="dropdown-item"
+                          to="/apps/projects-overview"
+                          ><i
+                            class="ri-eye-fill align-bottom me-2 text-muted"
+                          ></i>
+                          View</router-link
+                        >
+                        <router-link
+                          class="dropdown-item"
+                          to="/apps/projects-create"
+                          ><i
+                            class="ri-pencil-fill align-bottom me-2 text-muted"
+                          ></i>
+                          Edit</router-link
+                        >
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#removeProjectModal"><i
-                            class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
-                          Remove</a>
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          data-bs-toggle="modal"
+                          data-bs-target="#removeProjectModal"
+                          ><i
+                            class="
+                              ri-delete-bin-fill
+                              align-bottom
+                              me-2
+                              text-muted
+                            "
+                          ></i>
+                          Remove</a
+                        >
                       </div>
                     </div>
                   </div>
@@ -127,7 +184,11 @@
                 </div>
                 <div class="flex-grow-1">
                   <h5 class="mb-1 fs-15">
-                    <router-link :to="{ name: 'detail-dokumen', params: { id: item.id } }" class="text-dark">{{ item.judul }}</router-link>
+                    <router-link
+                      :to="{ name: 'detail-dokumen', params: { id: item.id } }"
+                      class="text-dark"
+                      >{{ item.judul }}</router-link
+                    >
                   </h5>
                   <p class="text-muted text-truncate-two-lines mb-3">
                     {{ item.kategori_id }}
@@ -147,8 +208,14 @@
                   </div>
                 </div>
                 <div class="progress progress-sm animated-progess">
-                  <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="34" aria-valuemin="0"
-                    aria-valuemax="100" :style="`width: ${item.progressBar};`"></div>
+                  <div
+                    class="progress-bar bg-primary"
+                    role="progressbar"
+                    aria-valuenow="34"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    :style="`width: ${item.progressBar};`"
+                  ></div>
                   <!-- /.progress-bar -->
                 </div>
                 <!-- /.progress -->
@@ -160,14 +227,34 @@
             <div class="d-flex align-items-center">
               <div class="flex-grow-1">
                 <div class="avatar-group">
-                  <a href="javascript: void(0);" v-for="(subitem, index) of item.subItem" :key="index"
-                    class="avatar-group-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top"
-                    title="Darline Williams">
+                  <a
+                    href="javascript: void(0);"
+                    v-for="(subitem, index) of item.subItem"
+                    :key="index"
+                    class="avatar-group-item"
+                    data-bs-toggle="tooltip"
+                    data-bs-trigger="hover"
+                    data-bs-placement="top"
+                    title="Darline Williams"
+                  >
                     <div class="avatar-xxs" v-if="!subitem.imgNumber">
-                      <img :src="subitem.imgFooter" alt="" class="rounded-circle img-fluid" />
+                      <img
+                        :src="subitem.imgFooter"
+                        alt=""
+                        class="rounded-circle img-fluid"
+                      />
                     </div>
                     <div class="avatar-xxs" v-if="!subitem.imgFooter">
-                      <div class="avatar-title fs-16 rounded-circle bg-light border-dashed border text-primary">
+                      <div
+                        class="
+                          avatar-title
+                          fs-16
+                          rounded-circle
+                          bg-light
+                          border-dashed border
+                          text-primary
+                        "
+                      >
                         {{ subitem.imgNumber }}
                       </div>
                     </div>
@@ -190,8 +277,6 @@
     </div>
     <!-- end row -->
 
-
-
     <div class="row g-0 text-center text-sm-start align-items-center mb-4">
       <div class="col-sm-6">
         <div>
@@ -205,7 +290,13 @@
       </div>
       <!-- end col -->
       <div class="col-sm-6">
-        <ul class="pagination pagination-separated justify-content-center justify-content-sm-end mb-sm-0">
+        <ul
+          class="
+            pagination pagination-separated
+            justify-content-center justify-content-sm-end
+            mb-sm-0
+          "
+        >
           <li class="page-item disabled">
             <a href="#" class="page-link">Previous</a>
           </li>
