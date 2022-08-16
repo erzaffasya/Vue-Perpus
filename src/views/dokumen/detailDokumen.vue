@@ -322,7 +322,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.cover.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -358,7 +358,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.lembar_pengesahan.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -394,7 +394,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.kata_pengantar.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -430,7 +430,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.ringkasan.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -466,7 +466,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.daftar_isi.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -502,7 +502,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.daftar_gambar.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -538,7 +538,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.daftar_tabel.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -574,7 +574,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.daftar_notasi.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -610,7 +610,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.abstract_en.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -646,7 +646,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.abstract_id.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -682,7 +682,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.bab1.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -718,7 +718,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.bab2.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -754,7 +754,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.bab3.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -790,7 +790,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.bab4.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -826,7 +826,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.kesimpulan.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -862,7 +862,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.daftar_pustaka.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -898,7 +898,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.lampiran.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -934,7 +934,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.paper.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -970,7 +970,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.lembar_persetujuan.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -1006,7 +1006,7 @@ export default {
                                                         </div>
                                                     </td>
                                                     <td>PDF File</td>
-                                                    <td>8.89 MB</td>
+                                                    <td>{{this.dokumen.full_dokumen.size}}</td>
                                                     <td>24 Nov 2021</td>
                                                     <td>
                                                         <div class="dropdown">
@@ -1028,10 +1028,10 @@ export default {
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="text-center mt-3">
+                                    <!-- <div class="text-center mt-3">n
                                         <a href="javascript:void(0);" class="text-success "><i class="mdi mdi-loading mdi-spin fs-20 align-middle me-2"></i> Load
                                             more </a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
