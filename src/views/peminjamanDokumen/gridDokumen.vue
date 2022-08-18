@@ -3,6 +3,7 @@ import { MoreHorizontalIcon } from "@zhuowenli/vue-feather-icons";
 import Multiselect from "@vueform/multiselect";
 import "@vueform/multiselect/themes/default.css";
 import ApiDokumen from "../../apis/Dokumen.js";
+import ApiBookmark from "../../apis/Bookmark.js";
 import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
 import appConfig from "../../../app.config";
@@ -19,7 +20,7 @@ export default {
   },
   methods: {
      toggleFavourite(ele) {
-      console.log("sukses");
+      console.log("sukses", ele);
       ele.target.closest(".favourite-btn").classList.toggle("active");
     },
     getDokumen() {
@@ -28,6 +29,12 @@ export default {
         console.log(this.Kategori);
       });
     },   
+    getBookmark(){
+       ApiBookmark.lihatBookmark().then((response) => {
+        this.Bookmark = response.data.data;
+        console.log(this.Bookmark);
+      });
+    }
   },
   data() {
     return {
@@ -43,6 +50,7 @@ export default {
         },
       ],
       Dokumen: {},
+      Bookmark: {},
       value: null,
     };
   },
@@ -54,6 +62,7 @@ export default {
   },
   mounted() {
     this.getDokumen();
+    this.getBookmark();
   },
   
 };
@@ -109,8 +118,8 @@ export default {
                   <div class="hstack gap-1 flex-wrap">
                     <button
                       type="button"
-                      class="btn py-0 fs-16 favourite-btn active"
-                      @click="toggleFavourite"
+                      class="btn py-0 fs-16 favourite-btn" :class="{active:item.isBookmark}"
+                      @click="toggleFavourite(item.id)"
                     >
                       <span class="avatar-title bg-transparent fs-15">
                         <i class="ri-star-fill" @click="toggleFavourite"></i>
