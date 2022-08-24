@@ -38,7 +38,7 @@ export default {
       pages: [],
       value: null,
       searchQuery: null,
-     
+
       defaultOptions: {
         animationData: animationData,
       },
@@ -226,14 +226,25 @@ export default {
                                     :key="index"
                                   >
                                     <th scope="row"></th>
-                                    <td class="customer_name">{{ data.id }}</td>
+                                    <td class="customer_name">
+                                      {{ index + 1 }}
+                                    </td>
                                     <td class="customer_name">
                                       {{ data.nama_kategori }}
                                     </td>
                                     <td class="product_name">
                                       {{ data.detail }}
                                     </td>
-                                    <td class="amount">{{ data.berkas }}</td>
+                                    <td class="amount">
+                                      <div
+                                        v-for="(item, index) in data.berkas"
+                                        :key="item"
+                                      >
+                                        <li v-if="item">
+                                          {{ index }}
+                                        </li>
+                                      </div>
+                                    </td>
                                     <td>
                                       <ul class="list-inline hstack gap-2 mb-0">
                                         <!-- <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover"

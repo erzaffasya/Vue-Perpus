@@ -19,7 +19,7 @@ export default {
 
   data() {
     return {
-      Kategori: {},
+      Kategori: { nama_kategori: "", detail: "", berkas: {}, newBerkas: {} },
       message: "",
     };
   },
@@ -69,9 +69,7 @@ export default {
       <div class="col-xxl-6">
         <div class="card">
           <div class="card-header align-items-center d-flex">
-            <h4 class="card-title mb-0 flex-grow-1">
-              Ubah Kategori
-            </h4>
+            <h4 class="card-title mb-0 flex-grow-1">Ubah Kategori</h4>
           </div>
           <!-- end card header -->
           <div class="card-body">
@@ -104,9 +102,187 @@ export default {
                       type="text"
                       class="form-control"
                       id="nameInput"
-                       v-model="Kategori.detail"
+                      v-model="Kategori.detail"
                       placeholder="Masukkan Detail Kategori"
                     />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <label for="nameInput" class="form-label"
+                      >Data yang Dibutuhkan</label
+                    >
+                    <hr />
+                  </div>
+                </div>
+                <div class="row mb-5">
+                  <div class="col-lg-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="Kategori.berkas.cover"
+                      id="cover"
+                    />
+                    <label class="form-check-label ml-2" for="cover">
+                      Cover
+                    </label>
+                  </div>
+                  <div class="col-lg-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="Kategori.berkas.lembar_pengesahan"
+                      id="lembar_pengesahan"
+                    />
+                    <label
+                      class="form-check-label ml-2"
+                      for="lembar_pengesahan"
+                    >
+                      Lembar Pengesahan
+                    </label>
+                  </div>
+                  <div class="col-lg-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="Kategori.berkas.kata_pengantar"
+                      id="kata_pengantar"
+                    />
+                    <label class="form-check-label ml-2" for="kata_pengantar">
+                      Kata Pengantar
+                    </label>
+                  </div>
+                  <div class="col-lg-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="Kategori.berkas.ringkasan"
+                      id="ringkasan"
+                    />
+                    <label class="form-check-label ml-2" for="ringkasan">
+                      Ringkasan
+                    </label>
+                  </div>
+                  <div class="col-lg-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="Kategori.berkas.daftar_isi"
+                      id="daftar_isi"
+                    />
+                    <label class="form-check-label ml-2" for="daftar_isi">
+                      Daftar Isi
+                    </label>
+                  </div>
+                  <div class="col-lg-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="Kategori.berkas.daftar_gambar"
+                      id="daftar_gambar"
+                    />
+                    <label class="form-check-label ml-2" for="daftar_gambar">
+                      Daftar Gambar
+                    </label>
+                  </div>
+                  <div class="col-lg-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="Kategori.berkas.daftar_tabel"
+                      id="daftar_tabel"
+                    />
+                    <label class="form-check-label ml-2" for="daftar_tabel">
+                      Daftar Tabel
+                    </label>
+                  </div>
+                  <div class="col-lg-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="Kategori.berkas.daftar_notasi"
+                      id="daftar_notasi"
+                    />
+                    <label class="form-check-label ml-2" for="daftar_notasi">
+                      Daftar Notasi
+                    </label>
+                  </div>
+                  <div class="col-lg-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="Kategori.berkas.lampiran"
+                      id="lampiran"
+                    />
+                    <label class="form-check-label ml-2" for="lampiran">
+                      Lampiran
+                    </label>
+                  </div>
+                  <div class="col-lg-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="Kategori.berkas.bab1"
+                      id="bab1"
+                    />
+                    <label class="form-check-label ml-2" for="bab1">
+                      Bab 1
+                    </label>
+                  </div>
+                  <div class="col-lg-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="Kategori.berkas.bab2"
+                      id="bab2"
+                    />
+                    <label class="form-check-label ml-2" for="bab2">
+                      Bab 2
+                    </label>
+                  </div>
+                  <div class="col-lg-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="Kategori.berkas.bab3"
+                      id="bab3"
+                    />
+                    <label class="form-check-label ml-2" for="bab3">
+                      Bab 3
+                    </label>
+                  </div>
+                  <div class="col-lg-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="Kategori.berkas.bab4"
+                      id="bab4"
+                    />
+                    <label class="form-check-label ml-2" for="bab4">
+                      Bab 4
+                    </label>
+                  </div>
+                  <div class="col-lg-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="Kategori.berkas.bab5"
+                      id="bab5"
+                    />
+                    <label class="form-check-label ml-2" for="bab5">
+                      Bab 5
+                    </label>
+                  </div>
+                  <div class="col-lg-4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="Kategori.berkas.full_dokumen"
+                      id="full_dokumen"
+                    />
+                    <label class="form-check-label ml-2" for="full_dokumen">
+                      Full Dokumen
+                    </label>
                   </div>
                 </div>
                 <div class="text-end">
