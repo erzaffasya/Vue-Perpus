@@ -1263,7 +1263,7 @@ export default {
             </ul>
           </div>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link menu-link" href="#bookmark" data-bs-toggle="collapse" role="button" aria-expanded="false"
             aria-controls="sidebarDashboards">
             <i class="ri-dashboard-2-line"></i>
@@ -1283,8 +1283,14 @@ export default {
               </li>
             </ul>
           </div>
+        </li> -->
+        
+        <li class="nav-item">
+          <router-link to="/bookmark/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatbookmark">
+            <i class="ri-honour-line"></i>
+            <span data-key="t-widgets">{{ $t("Bookmark") }}</span>
+          </router-link>
         </li>
-
 
         <li class="menu-title">
           <i class="ri-more-fill"></i>

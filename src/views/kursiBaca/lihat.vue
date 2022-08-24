@@ -42,7 +42,7 @@ export default {
       defaultOptions: {
         animationData: animationData,
       },
-      kategori: [],
+      kursiBaca: [],
     };
   },
   components: {
@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     displayedPosts() {
-      return this.paginate(this.kategori);
+      return this.paginate(this.kursiBaca);
     },
     resultQuery() {
       console.log(this.searchQuery);
@@ -93,7 +93,7 @@ export default {
   methods: {
     async getKursiBaca() {
       await apiKursiBaca.lihatKursiBaca().then((response) => {
-        this.kategori = response.data.data;
+        this.kursiBaca = response.data.data;
       });
     },
     onChangeStatus(e) {
@@ -103,17 +103,17 @@ export default {
       this.isPayment = e;
     },
     setPages() {
-      let numberOfPages = Math.ceil(this.kategori.length / this.perPage);
+      let numberOfPages = Math.ceil(this.kursiBaca.length / this.perPage);
       for (let index = 1; index <= numberOfPages; index++) {
         this.pages.push(index);
       }
     },
-    paginate(kategori) {
+    paginate(kursiBaca) {
       let page = this.page;
       let perPage = this.perPage;
       let from = page * perPage - perPage;
       let to = page * perPage;
-      return kategori.slice(from, to);
+      return kursiBaca.slice(from, to);
     },
     SearchData() {
       this.resultQuery;
@@ -207,7 +207,7 @@ export default {
                                     <th scope="col" style="width: 25px"></th>
                                     <th class="sort" data-sort="id">No</th>
                                     <th class="sort" data-sort="customer_name">
-                                      Nama Kategori
+                                      Nama kursiBaca
                                     </th>
                                     <th class="sort" data-sort="product_name">
                                       Deskripsi
@@ -252,7 +252,7 @@ export default {
                                         >
                                           <router-link
                                             :to="{
-                                              name: 'edit-kategori',
+                                              name: 'edit-kursiBaca',
                                               params: { id: data.id },
                                             }"
                                             class="

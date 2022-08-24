@@ -1,7 +1,7 @@
 <script>
-import apiKategori from "../../apis/Kategori.js";
+import apiKursiBaca from "../../apis/KursiBaca.js";
 import Swal from "sweetalert2";
-
+import apiRuanganBaca from "../../apis/RuanganBaca.js";
 import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
 import appConfig from "../../../app.config";
@@ -19,23 +19,24 @@ export default {
 
   data() {
     return {
-      Kategori: {},
+      KursiBaca: {},
       message: "",
+      RuanganBaca:{},
     };
   },
 
   methods: {
     store() {
-      apiKategori
-        .editKategori(this.$route.params.id, this.Kategori)
+      apiKursiBaca
+        .editKursiBaca(this.$route.params.id, this.KursiBaca)
         .then(() => {
           Swal.fire(
             "Berhasil!",
-            "Data Kategori Berhasil Diubah!",
+            "Data Kursi Baca Berhasil Diubah!",
             "success"
           ).then((result) => {
             if (result.value) {
-              window.location.href = "/kategori/lihat";
+              this.$router.push({ name: "lihat-kursiBaca" });
             }
           });
         })
@@ -43,21 +44,27 @@ export default {
           console.log(err);
         });
     },
-    getKategori(id) {
-      apiKategori
-        .showKategori(id)
+    async getKursiBaca(id) {
+      await apiKursiBaca
+        .showKursiBaca(id)
         .then((response) => {
-          this.Kategori = response.data.data;
-          console.log(this.Kategori.nama_kategori);
+          this.KursiBaca = response.data.data;
         })
         .catch((err) => {
           console.log(err);
         });
     },
+    async getRuanganBaca() {
+      await apiRuanganBaca.lihatRuanganBaca().then((response) => {
+        this.RuanganBaca = response.data.data;
+        console.log(this.RuanganBaca, 'Ruangan Baca');
+      });
+    },
   },
-  mounted() {
-    this.message = "";
-    this.getKategori(this.$route.params.id);
+
+  mounted() {   
+    this.getRuanganBaca();
+    this.getKursiBaca(this.$route.params.id);
   },
 };
 </script>
@@ -69,44 +76,65 @@ export default {
       <div class="col-xxl-6">
         <div class="card">
           <div class="card-header align-items-center d-flex">
-            <h4 class="card-title mb-0 flex-grow-1">
-              Ubah Kategori
-            </h4>
+            <h4 class="card-title mb-0 flex-grow-1">Ubah Kursi Baca</h4>
           </div>
           <!-- end card header -->
           <div class="card-body">
-            <p class="text-muted">Form edit kategori untuk perpustakaan ITK.</p>
+            <p class="text-muted">
+              Form edit Kursi Baca untuk perpustakaan ITK.
+            </p>
             <div class="live-preview">
               <form @submit.prevent="store()">
                 <div class="row mb-3">
                   <div class="col-lg-3">
-                    <label for="nameInput" class="form-label"
-                      >Nama Kategori</label
-                    >
+                    <label for="nameInput" class="form-label">Kode</label>
                   </div>
                   <div class="col-lg-9">
                     <input
                       type="text"
-                      name="nama_kategori"
                       class="form-control"
                       id="nameInput"
-                      v-model="Kategori.nama_kategori"
-                      placeholder="Masukkan Nama Kategori"
+                      v-model="KursiBaca.kode"
+                      placeholder="Masukkan Nama KursiBaca"
                     />
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3">
-                    <label for="nameInput" class="form-label">Detail</label>
+                    <label for="nameInput" class="form-label">Kursi</label>
                   </div>
                   <div class="col-lg-9">
                     <input
                       type="text"
                       class="form-control"
                       id="nameInput"
-                       v-model="Kategori.detail"
-                      placeholder="Masukkan Detail Kategori"
+                      v-model="KursiBaca.kursi"
+                      placeholder="Masukkan Detail KursiBaca"
                     />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-3">
+                    <label for="nameInput" class="form-label"
+                      >Ruangan Baca</label
+                    >
+                  </div>
+                  <div class="col-lg-9">
+                    <select
+                      class="form-select mb-2"
+                      v-model="KursiBaca.ruangan_baca_id"
+                      aria-label="Default select example"
+                      required
+                    >
+                      <!-- <option disabled selected>-- PILIH --</option> -->
+                      <option
+                        v-for="(item, index) in RuanganBaca"
+                        :key="index"
+                        :value="item.id"
+                      >
+                        {{ item.kode }} - {{ item.ruangan }}
+                      </option>
+                    </select>
                   </div>
                 </div>
                 <div class="text-end">
