@@ -11,8 +11,8 @@ export default {
   lihatBookmark() {
     return Api.get(url + "/api/bookmark");
   },
-  editBookmark(id, form) {
-    return Api.put(url + "/api/bookmark/" + id, form);
+  editBookmark(id) {
+    return Api.put(url + "/api/bookmark/" + id);
   },
   showBookmark(id) {
     return Api.get(url + "/api/bookmark/" + id);

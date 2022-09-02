@@ -42,7 +42,7 @@ export default {
     getBerkas() {
       apiKategori.showKategori(this.Dokumen.kategori_id).then((response) => {
         this.Berkas = response.data.data;
-        this.Berkas.status = JSON.parse(this.Berkas.berkas)
+        this.Berkas.status = this.Berkas.berkas
         // $.each(JSON.parse(this.Berkas.berkas), function (key, value) {
         //   this.Berkas.status = key,value
 

@@ -7,6 +7,7 @@ import ApiBookmark from "../../apis/Bookmark.js";
 import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
 import appConfig from "../../../app.config";
+import Swal from "sweetalert2";
 
 export default {
   page: {
@@ -19,22 +20,29 @@ export default {
     ],
   },
   methods: {
-     toggleFavourite(ele) {
+    toggleFavourite(ele) {
       console.log("sukses", ele);
-      ele.target.closest(".favourite-btn").classList.toggle("active");
+      this.editBookmark(ele);
+      ele.target?.closest(".favourite-btn").classList.toggle("active");
     },
     getDokumen() {
       ApiDokumen.lihatDokumen().then((response) => {
         this.Dokumen = response.data.data;
-        console.log(this.Kategori);
+        // console.log(this.Kategori);
       });
-    },   
-    getBookmark(){
-       ApiBookmark.lihatBookmark().then((response) => {
+    },
+    getBookmark() {
+      ApiBookmark.lihatBookmark().then((response) => {
         this.Bookmark = response.data.data;
-        console.log(this.Bookmark);
+        // console.log(this.Bookmark);
       });
-    }
+    },
+    editBookmark(id) {
+      ApiBookmark.editBookmark(id).then((response) => {
+        Swal.fire("Berhasil", response.data.data.message, "success");
+        this.getBookmark();
+      });
+    },
   },
   data() {
     return {
@@ -64,7 +72,6 @@ export default {
     this.getDokumen();
     this.getBookmark();
   },
-  
 };
 </script>
 
@@ -118,7 +125,8 @@ export default {
                   <div class="hstack gap-1 flex-wrap">
                     <button
                       type="button"
-                      class="btn py-0 fs-16 favourite-btn" :class="{active:item.isBookmark}"
+                      class="btn py-0 fs-16 favourite-btn"
+                      :class="{ active: item.isBookmark }"
                       @click="toggleFavourite(item.id)"
                     >
                       <span class="avatar-title bg-transparent fs-15">

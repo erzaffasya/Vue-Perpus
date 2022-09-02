@@ -2,15 +2,14 @@
 import { MoreHorizontalIcon } from "@zhuowenli/vue-feather-icons";
 import Multiselect from "@vueform/multiselect";
 import "@vueform/multiselect/themes/default.css";
-import ApiDokumen from "../../apis/Dokumen.js";
 import ApiBookmark from "../../apis/Bookmark.js";
 import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
 import appConfig from "../../../app.config";
-
+import Swal from "sweetalert2";
 export default {
   page: {
-    title: "Project List",
+    title: "Bookmark",
     meta: [
       {
         name: "description",
@@ -19,37 +18,36 @@ export default {
     ],
   },
   methods: {
-     toggleFavourite(ele) {
+    toggleFavourite(ele) {
       console.log("sukses", ele);
-      ele.target.closest(".favourite-btn").classList.toggle("active");
+      this.editBookmark(ele);
+      ele.target?.closest(".favourite-btn").classList.toggle("active");
     },
-    getDokumen() {
-      ApiDokumen.lihatDokumen().then((response) => {
-        this.Dokumen = response.data.data;
-        console.log(this.Kategori);
-      });
-    },   
-    getBookmark(){
-       ApiBookmark.lihatBookmark().then((response) => {
+    getBookmark() {
+      ApiBookmark.lihatBookmark().then((response) => {
         this.Bookmark = response.data.data;
-        console.log(this.Bookmark);
+        // console.log(this.Bookmark);
       });
-    }
+    },
+    editBookmark(id) {
+      ApiBookmark.editBookmark(id).then((response) => {
+        Swal.fire("Berhasil", response.data.data.message, "success");
+      });
+    },
   },
   data() {
     return {
-      title: "Project List",
+      title: "Bookmark",
       items: [
         {
-          text: "Projects",
+          text: "Bookmark",
           href: "/",
         },
         {
-          text: "Project List",
+          text: "Lihat Bookmark",
           active: true,
         },
       ],
-      Dokumen: {},
       Bookmark: {},
       value: null,
     };
@@ -61,10 +59,8 @@ export default {
     MoreHorizontalIcon,
   },
   mounted() {
-    this.getDokumen();
     this.getBookmark();
   },
-  
 };
 </script>
 
@@ -104,7 +100,7 @@ export default {
     <div class="row">
       <div
         class="col-xxl-3 col-sm-6 project-card"
-        v-for="(item, index) of Dokumen"
+        v-for="(item, index) of Bookmark"
         :key="index"
       >
         <div class="card card-height-100">
@@ -118,8 +114,9 @@ export default {
                   <div class="hstack gap-1 flex-wrap">
                     <button
                       type="button"
-                      class="btn py-0 fs-16 favourite-btn" :class="{active:item.isBookmark}"
-                      @click="toggleFavourite(item.id)"
+                      class="btn py-0 fs-16 favourite-btn active"
+                      :class="{ active: item.isBookmark }"
+                      @click="toggleFavourite(item.dokumen.id)"
                     >
                       <span class="avatar-title bg-transparent fs-15">
                         <i class="ri-star-fill" @click="toggleFavourite"></i>
@@ -194,9 +191,12 @@ export default {
                 <div class="flex-grow-1">
                   <h5 class="mb-1 fs-15">
                     <router-link
-                      :to="{ name: 'detail-dokumen', params: { id: item.id } }"
+                      :to="{
+                        name: 'detail-dokumen',
+                        params: { id: item.dokumen.id },
+                      }"
                       class="text-dark"
-                      >{{ item.judul }}</router-link
+                      >{{ item.dokumen.judul }}</router-link
                     >
                   </h5>
                   <p class="text-muted text-truncate-two-lines mb-3">
@@ -212,7 +212,7 @@ export default {
                   <div class="flex-shrink-0">
                     <div>
                       <i class="ri-list-check align-bottom me-1 text-muted"></i>
-                      {{ item.nama_pengarang }}
+                      {{ item.dokumen.nama_pengarang }}
                     </div>
                   </div>
                 </div>
