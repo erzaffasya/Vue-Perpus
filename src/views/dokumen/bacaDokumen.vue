@@ -6,6 +6,7 @@
 
 <script>
 import PSPDFKitContainer from "@/components/PSPDFKitContainer";
+// import apiDokumen from "../../apis/Dokumen.js";
 
 export default {
     name: "baca-dokumen",
@@ -15,7 +16,8 @@ export default {
     },
     data() {
         return {
-            pdfFile: this.pdfFile ,
+            pdfFile: this.pdfFile,
+            array: null,
         };
     },
     mounted() {
@@ -32,8 +34,10 @@ export default {
      */
     methods: {
         getValue() {
-            this.pdfFile = "http://perpustakaan_itk.test/api/showDokumen/"+this.id+"/"+this.jenisFile;
-            console.log(this.pdfFile,'url');
+            this.pdfFile = "http://localhost:8000/api/showDokumen/" + this.id + "/" + this.jenisFile;
+            //   this.array = { id: this.id, jenisFile: this.jenisFile };
+            //   this.pdfFile = apiDokumen.bacaDokumen(this.array);
+            console.log(this.pdfFile, "url");
         },
         handleLoaded(instance) {
             console.log("PSPDFKit has loaded: ", instance);
@@ -42,7 +46,7 @@ export default {
 
         openDocument(event) {
             // To access the Vue.js instance data properties, use `this` keyword.
-            if (this.pdfFile && this.pdfFile.startsWith('blob:')) {
+            if (this.pdfFile && this.pdfFile.startsWith("blob:")) {
                 window.URL.revokeObjectURL(this.pdfFile);
             }
             this.pdfFile = window.URL.createObjectURL(event.target.files[0]);
