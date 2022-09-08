@@ -34,7 +34,7 @@ export default {
      */
     methods: {
         getValue() {
-            this.pdfFile = "http://localhost:8000/api/showDokumen/" + this.id + "/" + this.jenisFile;
+            this.pdfFile = "http://lumen-perpustakaanitk.test/api/showDokumen/" + this.id + "/" + this.jenisFile;
             //   this.array = { id: this.id, jenisFile: this.jenisFile };
             //   this.pdfFile = apiDokumen.bacaDokumen(this.array);
             console.log(this.pdfFile, "url");
