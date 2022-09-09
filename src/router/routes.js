@@ -64,68 +64,40 @@ export default [
     },
     component: () => import("../views/dashboard/ecommerce/index.vue"),
   },
-  // ruanganBaca
+  // ruangan
   {
-    path: "/ruangan-baca/tambah",
-    name: "tambah-ruanganBaca",
+    path: "/ruangan/tambah",
+    name: "tambah-ruangan",
     meta: {
-      title: "Tambah Ruangan Baca",
+      title: "Tambah Ruangan",
       authRequired: true,
     },
-    component: () => import("../views/ruanganBaca/tambah"),
+    component: () => import("../views/ruangan/tambah"),
   },
   {
-    path: "/ruangan-baca/edit/:id",
-    name: "edit-ruanganBaca",
+    path: "/ruangan/edit/:id",
+    name: "edit-ruangan",
     meta: {
-      title: "Edit Ruangan Baca",
+      title: "Edit Ruangan",
       authRequired: true,
     },
-    component: () => import("../views/ruanganBaca/edit"),
+    component: () => import("../views/ruangan/edit"),
   },
   {
-    path: "/ruangan-baca/lihat",
-    name: "lihat-ruanganBaca",
+    path: "/ruangan/lihat",
+    name: "lihat-ruangan",
     meta: {
-      title: "Lihat Ruangan Baca",
+      title: "Lihat Ruangan",
       authRequired: true,
     },
-    component: () => import("../views/ruanganBaca/lihat"),
-  },
-  // kursiBaca
-  {
-    path: "/kursi-baca/tambah",
-    name: "tambah-kursiBaca",
-    meta: {
-      title: "Tambah Ruangan Baca",
-      authRequired: true,
-    },
-    component: () => import("../views/kursiBaca/tambah"),
-  },
-  {
-    path: "/kursi-baca/edit/:id",
-    name: "edit-kursiBaca",
-    meta: {
-      title: "Edit Ruangan Baca",
-      authRequired: true,
-    },
-    component: () => import("../views/kursiBaca/edit"),
-  },
-  {
-    path: "/kursi-baca/lihat",
-    name: "lihat-kursiBaca",
-    meta: {
-      title: "Lihat Ruangan Baca",
-      authRequired: true,
-    },
-    component: () => import("../views/kursiBaca/lihat"),
+    component: () => import("../views/ruangan/lihat"),
   },
   // peminjamanRuangan
   {
     path: "/peminjaman-ruangan/tambah",
     name: "tambah-peminjamanRuangan",
     meta: {
-      title: "Tambah Ruangan Baca",
+      title: "Tambah Ruangan",
       authRequired: true,
     },
     component: () => import("../views/peminjamanRuangan/tambah"),
@@ -134,7 +106,7 @@ export default [
     path: "/peminjaman-ruangan/edit/:id",
     name: "edit-peminjamanRuangan",
     meta: {
-      title: "Edit Ruangan Baca",
+      title: "Edit ruangan",
       authRequired: true,
     },
     component: () => import("../views/peminjamanRuangan/edit"),
@@ -143,7 +115,7 @@ export default [
     path: "/peminjaman-ruangan/lihat",
     name: "lihat-peminjamanRuangan",
     meta: {
-      title: "Lihat Ruangan Baca",
+      title: "Lihat Ruangan",
       authRequired: true,
     },
     component: () => import("../views/peminjamanRuangan/lihat"),

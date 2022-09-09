@@ -16,7 +16,8 @@ export default {
     hapusPeminjamanRuangan(id) {
         return Api.delete(url +'/api/peminjaman-ruangan/' + id);
     },
-    cekRuangan(ruang, tanggal) {
-        return Api.get(url +'/api/ruang-kosong/' + ruang + '/waktu/' + tanggal);
+    cekRuangan(tanggal, waktu_awal, waktu_akhir) {
+        return Api.get(url +'/api/ruang-kosong/' + tanggal + '/waktu_awal/' + waktu_awal + '/waktu_akhir/' + waktu_akhir);
     },
+    // ruang-kosong/+tanggal+/waktu_awal/{waktu_awal}/waktu_akhir/{waktu_akhir}
 }

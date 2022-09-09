@@ -31,11 +31,11 @@ export default {
         .then(() => {
           Swal.fire(
             "Berhasil!",
-            "Data Ruangan Baca Berhasil Diubah!",
+            "Data Ruangan Berhasil Diubah!",
             "success"
           ).then((result) => {
             if (result.value) {
-              this.$router.push({ name: "lihat-ruanganBaca"})
+              this.$router.push({ name: "lihat-ruangan"})
             }
           });
         })
@@ -69,7 +69,7 @@ export default {
       <div class="col-xxl-6">
         <div class="card">
           <div class="card-header align-items-center d-flex">
-            <h4 class="card-title mb-0 flex-grow-1">Ubah Ruangan Baca</h4>
+            <h4 class="card-title mb-0 flex-grow-1">Ubah Ruangan</h4>
           </div>
           <!-- end card header -->
           <div class="card-body">
@@ -80,33 +80,35 @@ export default {
               <form @submit.prevent="store()">
                 <div class="row mb-3">
                   <div class="col-lg-3">
-                    <label for="nameInput" class="form-label">Kode</label>
+                    <label for="nameInput" class="form-label">Nama Ruangan</label>
                   </div>
                   <div class="col-lg-9">
-                    <input
-                      type="text"
-                      name="nama_RuanganBaca"
-                      class="form-control"
-                      id="nameInput"
-                      v-model="RuanganBaca.kode"
-                      placeholder="Masukkan Nama RuanganBaca"
-                    />
+                    <input type="text" v-model="RuanganBaca.nama_ruangan" class="form-control" placeholder="Masukkan Nama Ruangan" required/>
+                  </div>
+                </div>
+                 <div class="row mb-3">
+                  <div class="col-lg-3">
+                    <label for="nameInput" class="form-label">Deskripsi</label>
+                  </div>
+                  <div class="col-lg-9">
+                    <input type="text" v-model="RuanganBaca.deskripsi" class="form-control" placeholder="Masukkan Deskripsi" required/>
+                  </div>
+                </div>
+                 <div class="row mb-3">
+                  <div class="col-lg-3">
+                    <label for="nameInput" class="form-label">Jumlah Orang</label>
+                  </div>
+                  <div class="col-lg-9">
+                    <input type="number" v-model="RuanganBaca.jumlah_orang" class="form-control" placeholder="Masukkan Jumlah Orang" required/>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3">
-                    <label for="nameInput" class="form-label"
-                      >Detail Ruangan</label
-                    >
+                    <label for="nameInput" class="form-label">Lokasi</label>
                   </div>
                   <div class="col-lg-9">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="nameInput"
-                      v-model="RuanganBaca.ruangan"
-                      placeholder="Masukkan Detail Ruangan Baca"
-                    />
+                    <input type="text" v-model="RuanganBaca.lokasi" class="form-control"
+                      placeholder="Masukkan Lokasi Ruangan" required/>
                   </div>
                 </div>
                 <div class="text-end">

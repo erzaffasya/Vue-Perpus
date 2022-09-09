@@ -1294,47 +1294,25 @@ export default {
 
         <li class="menu-title">
           <i class="ri-more-fill"></i>
-          <span data-key="t-components">{{ $t("t-components") }}</span>
+          <span data-key="t-Booking Ruangan">{{ $t("Booking Ruangan") }}</span>
         </li>
 
         <li class="nav-item">
           <a class="nav-link menu-link" href="#ruanganbaca" data-bs-toggle="collapse" role="button"
             aria-expanded="false" aria-controls="sidebarDashboards">
             <i class="ri-dashboard-2-line"></i>
-            <span data-key="t-dashboards"> {{ $t("Ruangan Baca") }}</span>
+            <span data-key="t-dashboards"> {{ $t("Ruangan") }}</span>
           </a>
           <div class="collapse menu-dropdown" id="ruanganbaca">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
-                <router-link to="/ruangan-baca/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahruanganbaca">
-                  {{ $t("Tambah Ruangan Baca") }}
+                <router-link to="/ruangan/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahruanganbaca">
+                  {{ $t("Tambah Ruangan") }}
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/ruangan-baca/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatruanganbaca">
-                  {{ $t("Lihat Ruangan Baca") }}
-                </router-link>
-              </li>
-            </ul>
-          </div>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link menu-link" href="#kursibaca" data-bs-toggle="collapse" role="button" aria-expanded="false"
-            aria-controls="sidebarDashboards">
-            <i class="ri-dashboard-2-line"></i>
-            <span data-key="t-dashboards"> {{ $t("Kursi Baca") }}</span>
-          </a>
-          <div class="collapse menu-dropdown" id="kursibaca">
-            <ul class="nav nav-sm flex-column">
-              <li class="nav-item">
-                <router-link to="/kursi-baca/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahkursibaca">
-                  {{ $t("Tambah Kursi Baca") }}
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link to="/kursi-baca/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatkursibaca">
-                  {{ $t("Lihat Kursi Baca") }}
+                <router-link to="/ruangan/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatruanganbaca">
+                  {{ $t("Lihat Ruangan") }}
                 </router-link>
               </li>
             </ul>

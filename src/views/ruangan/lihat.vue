@@ -38,7 +38,7 @@ export default {
       pages: [],
       value: null,
       searchQuery: null,
-     
+
       defaultOptions: {
         animationData: animationData,
       },
@@ -60,9 +60,12 @@ export default {
         const search = this.searchQuery.toLowerCase();
         return this.displayedPosts.filter((data) => {
           return (
-            (data.kode &&
-              data.kode.toLowerCase().includes(search)) ||
-            (data.ruangan && data.ruangan.toLowerCase().includes(search))
+            (data.nama_ruangan &&
+              data.nama_ruangan.toLowerCase().includes(search)) ||
+            (data.deskripsi && data.deskripsi.toLowerCase().includes(search)) ||
+            (data.jumlah_orang &&
+              data.jumlah_orang.toLowerCase().includes(search)) ||
+            (data.lokasi && data.lokasi.toLowerCase().includes(search))
           );
         });
       } else {
@@ -133,7 +136,7 @@ export default {
           apiRuanganBaca.hapusRuanganBaca(id).then(() => {
             this.getRuanganBaca();
           });
-          Swal.fire("Berhasil!", "Data Ruangan Baca Berhasil Dihapus.", "success");
+          Swal.fire("Berhasil!", "Data Ruangan Berhasil Dihapus.", "success");
         }
       });
     },
@@ -160,7 +163,7 @@ export default {
                   role="tab"
                   aria-selected="false"
                 >
-                  Data Ruangan Baca
+                  Data Ruangan
                 </a>
               </li>
             </ul>
@@ -206,10 +209,16 @@ export default {
                                     <th scope="col" style="width: 25px"></th>
                                     <th class="sort" data-sort="id">No</th>
                                     <th class="sort" data-sort="customer_name">
-                                      Kode
+                                      Nama Ruangan
                                     </th>
                                     <th class="sort" data-sort="product_name">
-                                      Ruangan
+                                      Deskripsi
+                                    </th>
+                                    <th class="sort" data-sort="product_name">
+                                      Jumlah Orang
+                                    </th>
+                                    <th class="sort" data-sort="product_name">
+                                      Lokasi
                                     </th>
                                     <th class="sort" data-sort="city">
                                       Action
@@ -224,10 +233,16 @@ export default {
                                     <th scope="row"></th>
                                     <td class="customer_name">{{ data.id }}</td>
                                     <td class="customer_name">
-                                      {{ data.kode }}
+                                      {{ data.nama_ruangan }}
                                     </td>
                                     <td class="product_name">
-                                      {{ data.ruangan }}
+                                      {{ data.deskripsi }}
+                                    </td>
+                                      <td class="product_name">
+                                      {{ data.jumlah_orang }}
+                                    </td>
+                                      <td class="product_name">
+                                      {{ data.lokasi }}
                                     </td>
                                     <td>
                                       <ul class="list-inline hstack gap-2 mb-0">
@@ -247,7 +262,7 @@ export default {
                                         >
                                           <router-link
                                             :to="{
-                                              name: 'edit-ruanganBaca',
+                                              name: 'edit-ruangan',
                                               params: { id: data.id },
                                             }"
                                             class="
