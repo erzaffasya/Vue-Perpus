@@ -69,8 +69,8 @@ export default {
             }).catch((error) => {
                 console.log(error, 'error');
                 //or in file components
-                this.$router.go()
-                // this.$router.push('/logout')
+                // this.$router.go()
+                this.$router.push('/logout')
             });
         },
 

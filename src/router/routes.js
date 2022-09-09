@@ -9,7 +9,7 @@ export default [
       title: "Login",
       beforeResolve(routeTo, routeFrom, next) {
         // If the user is already logged in
-        if (store.getters["auth/loggedIn"]) {
+        if (store.getters["authfack/loggedIn"]) {
           // Redirect to the home page instead
           next({ name: "default" });
         } else {
@@ -27,7 +27,7 @@ export default [
       title: "Register",
       beforeResolve(routeTo, routeFrom, next) {
         // If the user is already logged in
-        if (store.getters["auth/loggedIn"]) {
+        if (store.getters["authfack/loggedIn"]) {
           // Redirect to the home page instead
           next({ name: "default" });
         } else {
@@ -45,7 +45,7 @@ export default [
       title: "Forgot Password",
       beforeResolve(routeTo, routeFrom, next) {
         // If the user is already logged in
-        if (store.getters["auth/loggedIn"]) {
+        if (store.getters["authfack/loggedIn"]) {
           // Redirect to the home page instead
           next({ name: "default" });
         } else {

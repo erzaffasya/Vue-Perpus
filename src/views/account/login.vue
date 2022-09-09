@@ -3,12 +3,8 @@ import { mapState } from "vuex";
 import { required, email, helpers } from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 import appConfig from "../../../app.config";
-
-import {
-  authMethods,
-  authFackMethods,
-  notificationMethods,
-} from "@/state/helpers";
+import apiLogin from "../../apis/Auth";
+import { authHeader } from "../../helpers/authservice/auth-header";
 
 export default {
   setup() {
@@ -49,12 +45,9 @@ export default {
     },
   },
   methods: {
-    ...authMethods,
-    ...authFackMethods,
-    ...notificationMethods,
     // Try to log the user in with the username
     // and password they provided.
-    tryToLogIn() {
+    login() {
       this.submitted = true;
       // stop here if form is invalid
       this.v$.$touch();
@@ -62,41 +55,34 @@ export default {
       if (this.v$.$invalid) {
         return;
       } else {
-        if (process.env.VUE_APP_DEFAULT_AUTH === "firebase") {
-          this.tryingToLogIn = true;
-          // Reset the authError if it existed.
-          this.authError = null;
-          return (
-            this.logIn({
-              email: this.email,
-              password: this.password,
-            })
-              // eslint-disable-next-line no-unused-vars
-              .then((token) => {
-                this.tryingToLogIn = false;
-                this.isAuthError = false;
-                // Redirect to the originally requested page, or to the home page
-                this.$router.push(
-                  this.$route.query.redirectFrom || {
-                    name: "default",
-                  }
-                );
-              })
-              .catch((error) => {
-                this.tryingToLogIn = false;
-                this.authError = error ? error : "";
-                this.isAuthError = true;
-              })
-          );
-        } else if (process.env.VUE_APP_DEFAULT_AUTH === "fakebackend") {
-          const { email, password } = this;
-          if (email && password) {
-            this.login({
-              email,
-              password,
-            });
-          }
-        }
+        this.tryingToLogIn = true;
+        // Reset the authError if it existed.
+        this.authError = null;
+        return apiLogin
+          .login({
+            email: this.email,
+            password: this.password,
+          })
+          .then((response) => {
+            // this.tryingToLogIn = false;
+            this.isAuthError = false;
+            if (response.data.code == 200) {
+              localStorage.setItem("user", JSON.stringify(response.data.data));
+              console.log(authHeader(), "header");
+              // // Redirect to the originally requested page, or to the home page
+              this.$router.go();
+            } else {
+              this.tryingToLogIn = false;
+              this.authError = response.data.message.message;
+              this.isAuthError = true;
+            }
+          })
+          // eslint-disable-next-line no-unused-vars
+          .catch((error) => {
+            this.tryingToLogIn = false;
+            this.authError = "Koneksi Server Tidak Tersedia";
+            this.isAuthError = true;
+          });
       }
     },
   },
@@ -170,7 +156,7 @@ export default {
                     {{ notification.message }}
                   </div>
 
-                  <form @submit.prevent="tryToLogIn">
+                  <form @submit.prevent="login()">
                     <div class="mb-3">
                       <label for="email" class="form-label">Email</label>
                       <input
@@ -194,9 +180,7 @@ export default {
 
                     <div class="mb-3">
                       <div class="float-end">
-                        <router-link
-                          to="/forgot-password"
-                          class="text-muted"
+                        <router-link to="/forgot-password" class="text-muted"
                           >Forgot password?</router-link
                         >
                       </div>
