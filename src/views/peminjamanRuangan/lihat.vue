@@ -330,10 +330,10 @@ export default {
                                     <th scope="row"></th>
                                     <td class="id">{{ index + 1 }}</td>
                                     <td class="customer_name">
-                                      {{ data.user_id.name }}
+                                      {{ data.user.name }}
                                     </td>
                                     <td class="customer_name">
-                                      {{ data.ruangan_id.nama_ruangan }}
+                                      {{ data.ruangan.nama_ruangan }}
                                     </td>
                                     <td class="product_name">
                                       {{ data.tanggal }}

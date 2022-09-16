@@ -22,8 +22,8 @@ export default {
         },
       ],
       PeminjamanRuangan: {
-        ruangan_id: {},
-        user_id: {},
+        ruangan: {},
+        user: {},
       },
     };
   },
@@ -140,22 +140,22 @@ export default {
               <div class="col-sm-6">
                 <h6 class="text-uppercase fw-semibold mb-3">Data Pemohon</h6>
                 <p class="fw-medium mb-1 text-muted">
-                  {{ PeminjamanRuangan.user_id.name }}
-                  <b v-if="PeminjamanRuangan.user_id.nim">
-                    ( {{ PeminjamanRuangan.user_id.nim }} )
+                  {{ PeminjamanRuangan.user.name }}
+                  <b v-if="PeminjamanRuangan.user.nim">
+                    ( {{ PeminjamanRuangan.user.nim }} )
                   </b>
                 </p>
                 <p class="text-muted mb-1">
-                  {{ PeminjamanRuangan.user_id.email }}
+                  {{ PeminjamanRuangan.user.email }}
                 </p>
                 <p class="text-muted mb-1">
-                  {{ PeminjamanRuangan.user_id.prodi }}
+                  {{ PeminjamanRuangan.user.prodi }}
                 </p>
                 <p class="text-muted mb-1">
-                  {{ PeminjamanRuangan.user_id.jurusan }}
+                  {{ PeminjamanRuangan.user.jurusan }}
                 </p>
                 <p class="text-muted mb-1">
-                  {{ PeminjamanRuangan.user_id.role }}
+                  {{ PeminjamanRuangan.user.role }}
                 </p>
               </div>
             </div>
@@ -186,7 +186,7 @@ export default {
                   <tr>
                     <th scope="row" class="text-center">1</th>
                     <td class="text-center">
-                      {{ this.PeminjamanRuangan.ruangan_id.nama_ruangan }}
+                      {{ this.PeminjamanRuangan.ruangan.nama_ruangan }}
                     </td>
                     <td class="text-center">
                       {{ this.PeminjamanRuangan.tanggal }}
