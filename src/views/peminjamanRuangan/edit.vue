@@ -60,16 +60,16 @@ export default {
             <div class="d-sm-flex">
               <div class="flex-grow-1">
                 <img
-                  src="@/assets/images/logo-perpus.png"
+                  src="@/assets/images/dark-logo-perpustakaan.png"
                   class="card-logo card-logo-dark"
                   alt="logo dark"
-                  height="17"
+                  height="40"
                 />
                 <img
-                  src="@/assets/images/logo-perpus.png"
+                  src="@/assets/images/dark-logo-perpustakaan.png"
                   class="card-logo card-logo-light"
                   alt="logo light"
-                  height="17"
+                  height="40"
                 />
                 <div class="mt-sm-5 mt-4">
                   <h6 class="text-uppercase fw-semibold">Address</h6>
