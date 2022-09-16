@@ -1,63 +1,51 @@
 <script>
-import apiKategori from "../../apis/Kategori.js";
-import Swal from "sweetalert2";
-
 import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
 import appConfig from "../../../app.config";
-
+import apiPeminjamanRuangan from "../../apis/PeminjamanRuangan.js";
 export default {
   page: {
-    title: "Layouts",
+    title: "Invoice Details",
     meta: [{ name: "description", content: appConfig.description }],
   },
-
+  data() {
+    return {
+      title: "Invoice Details",
+      items: [
+        {
+          text: "Invoices",
+          href: "/",
+        },
+        {
+          text: "Invoice Details",
+          active: true,
+        },
+      ],
+      PeminjamanRuangan: {
+        ruangan_id: {},
+        user_id: {},
+      },
+    };
+  },
+  methods: {
+    getPeminjamanRuangan() {
+      apiPeminjamanRuangan
+        .showPeminjamanRuangan(this.$route.params.id)
+        .then((response) => {
+          console.log(response);
+          this.PeminjamanRuangan = response.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
   components: {
     Layout,
     PageHeader,
   },
-
-  data() {
-    return {
-      Kategori: {},
-      message: "",
-    };
-  },
-
-  methods: {
-    store() {
-      apiKategori
-        .editKategori(this.$route.params.id, this.Kategori)
-        .then(() => {
-          Swal.fire(
-            "Berhasil!",
-            "Data Kategori Berhasil Diubah!",
-            "success"
-          ).then((result) => {
-            if (result.value) {
-              window.location.href = "/kategori/lihat";
-            }
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    getKategori(id) {
-      apiKategori
-        .showKategori(id)
-        .then((response) => {
-          this.Kategori = response.data.data;
-          console.log(this.Kategori.nama_kategori);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
   mounted() {
-    this.message = "";
-    this.getKategori(this.$route.params.id);
+    this.getPeminjamanRuangan();
   },
 };
 </script>
@@ -65,59 +53,201 @@ export default {
 <template>
   <Layout>
     <PageHeader :title="title" :items="items" />
-    <div class="row">
-      <div class="col-xxl-6">
-        <div class="card">
-          <div class="card-header align-items-center d-flex">
-            <h4 class="card-title mb-0 flex-grow-1">
-              Ubah Kategori
-            </h4>
-          </div>
-          <!-- end card header -->
-          <div class="card-body">
-            <p class="text-muted">Form edit kategori untuk perpustakaan ITK.</p>
-            <div class="live-preview">
-              <form @submit.prevent="store()">
-                <div class="row mb-3">
-                  <div class="col-lg-3">
-                    <label for="nameInput" class="form-label"
-                      >Nama Kategori</label
-                    >
-                  </div>
-                  <div class="col-lg-9">
-                    <input
-                      type="text"
-                      name="nama_kategori"
-                      class="form-control"
-                      id="nameInput"
-                      v-model="Kategori.nama_kategori"
-                      placeholder="Masukkan Nama Kategori"
-                    />
-                  </div>
+    <div class="row justify-content-center">
+      <div class="col-xxl-9">
+        <div class="card" id="demo">
+          <div class="card-header border-bottom-dashed p-4">
+            <div class="d-sm-flex">
+              <div class="flex-grow-1">
+                <img
+                  src="@/assets/images/logo-perpus.png"
+                  class="card-logo card-logo-dark"
+                  alt="logo dark"
+                  height="17"
+                />
+                <img
+                  src="@/assets/images/logo-perpus.png"
+                  class="card-logo card-logo-light"
+                  alt="logo light"
+                  height="17"
+                />
+                <div class="mt-sm-5 mt-4">
+                  <h6 class="text-uppercase fw-semibold">Address</h6>
+                  <p class="text-muted mb-1">
+                    <b> Institut Teknologi Kalimantan </b>
+                  </p>
+                  <p class="text-muted mb-1">
+                    Karang Joang, Kota Balikpapan, Kalimantan Timur
+                  </p>
+                  <p class="text-muted mb-0">76127</p>
                 </div>
-                <div class="row mb-3">
-                  <div class="col-lg-3">
-                    <label for="nameInput" class="form-label">Detail</label>
-                  </div>
-                  <div class="col-lg-9">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="nameInput"
-                       v-model="Kategori.detail"
-                      placeholder="Masukkan Detail Kategori"
-                    />
-                  </div>
-                </div>
-                <div class="text-end">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </form>
+              </div>
+              <div class="flex-shrink-0 mt-sm-0 mt-3">
+                <h6>
+                  <span class="text-muted fw-normal"
+                    >Legal Registration No:</span
+                  >
+                  987654
+                </h6>
+                <h6>
+                  <span class="text-muted fw-normal">Email:</span>
+                  perpustakaan@itk.ac.id
+                </h6>
+                <h6>
+                  <span class="text-muted fw-normal">Website:</span>
+                  <a
+                    href="http://digilib.itk.ac.id/"
+                    target="_blank"
+                    class="link-primary"
+                    >www.perpustakaan.itk.ac.id</a
+                  >
+                </h6>
+                <!-- <h6 class="mb-0"><span class="text-muted fw-normal">Contact No:</span> -</h6> -->
+              </div>
             </div>
-            <div class="d-none code-view"></div>
           </div>
+          <!--end card-header-->
+          <div class="card-body p-4">
+            <div class="row g-3">
+              <div class="col-lg-4 col-4">
+                <p class="text-muted mb-2 text-uppercase fw-semibold">
+                  Invoice No
+                </p>
+                <h5 class="fs-15 mb-0">#VL25000355</h5>
+              </div>
+              <!--end col-->
+              <div class="col-lg-4 col-4">
+                <p class="text-muted mb-2 text-uppercase fw-semibold">Date</p>
+                <h5 class="fs-15 mb-0">
+                  23 Nov, 2021 <small class="text-muted">02:36PM</small>
+                </h5>
+              </div>
+              <!--end col-->
+              <div class="col-lg-4 col-4">
+                <p class="text-muted mb-2 text-uppercase fw-semibold">Status</p>
+                <span class="badge badge-soft-success fs-11">{{
+                  this.PeminjamanRuangan.status
+                }}</span>
+              </div>
+              <!--end col-->
+              <!--end col-->
+            </div>
+            <!--end row-->
+          </div>
+          <!--end card-body-->
+          <div class="card-body p-4 border-top border-top-dashed">
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <h6 class="text-uppercase fw-semibold mb-3">Data Pemohon</h6>
+                <p class="fw-medium mb-1 text-muted">
+                  {{ PeminjamanRuangan.user_id.name }}
+                  <b v-if="PeminjamanRuangan.user_id.nim">
+                    ( {{ PeminjamanRuangan.user_id.nim }} )
+                  </b>
+                </p>
+                <p class="text-muted mb-1">
+                  {{ PeminjamanRuangan.user_id.email }}
+                </p>
+                <p class="text-muted mb-1">
+                  {{ PeminjamanRuangan.user_id.prodi }}
+                </p>
+                <p class="text-muted mb-1">
+                  {{ PeminjamanRuangan.user_id.jurusan }}
+                </p>
+                <p class="text-muted mb-1">
+                  {{ PeminjamanRuangan.user_id.role }}
+                </p>
+              </div>
+            </div>
+            <!--end row-->
+          </div>
+          <!--end card-body-->
+          <div class="card-body p-4">
+            <div class="table-responsive">
+              <table
+                class="
+                  table table-borderless
+                  text-center
+                  table-nowrap
+                  align-middle
+                  mb-0
+                "
+              >
+                <thead>
+                  <tr class="table-active">
+                    <th scope="col" class="text-center">#</th>
+                    <th scope="col" class="text-center">Nama Ruangan</th>
+                    <th scope="col" class="text-center">Tanggal</th>
+                    <th scope="col" class="text-center">Waktu</th>
+                    <th scope="col" class="text-center">Keperluan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row" class="text-center">1</th>
+                    <td class="text-center">
+                      {{ this.PeminjamanRuangan.ruangan_id.nama_ruangan }}
+                    </td>
+                    <td class="text-center">
+                      {{ this.PeminjamanRuangan.tanggal }}
+                    </td>
+                    <td class="text-center">
+                      {{ this.PeminjamanRuangan.waktu_awal }} -
+                      {{ this.PeminjamanRuangan.waktu_akhir }}
+                    </td>
+                    <td class="text-center">
+                      {{ this.PeminjamanRuangan.keperluan }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!--end table-->
+            </div>
+            <div class="mt-3">
+              <h6 class="text-muted text-uppercase fw-semibold mb-3">
+                Payment Details:
+              </h6>
+              <p class="text-muted mb-1">
+                Payment Method: <span class="fw-medium">Mastercard</span>
+              </p>
+              <p class="text-muted mb-1">
+                Card Holder: <span class="fw-medium">David Nichols</span>
+              </p>
+              <p class="text-muted mb-1">
+                Card Number: <span class="fw-medium">xxx xxxx xxxx 1234</span>
+              </p>
+              <p class="text-muted">
+                Total Amount: <span class="fw-medium">$415.96</span>
+              </p>
+            </div>
+            <div class="mt-4">
+              <div class="alert alert-info">
+                <p class="mb-0">
+                  <span class="fw-semibold">NOTES:</span> All accounts are to be
+                  paid within 7 days from receipt of invoice. To be paid by
+                  cheque or credit card or direct payment online. If account is
+                  not paid within 7 days the credits details supplied as
+                  confirmation of work undertaken will be charged the agreed
+                  quoted fee noted above.
+                </p>
+              </div>
+            </div>
+            <div class="hstack gap-2 justify-content-end d-print-none mt-4">
+              <a href="javascript:window.print()" class="btn btn-info"
+                ><i class="ri-printer-line align-bottom me-1"></i> Print</a
+              >
+              <a href="javascript:void(0);" class="btn btn-primary"
+                ><i class="ri-download-2-line align-bottom me-1"></i>
+                Download</a
+              >
+            </div>
+          </div>
+          <!--end card-body-->
         </div>
+        <!--end card-->
       </div>
+      <!--end col-->
     </div>
+    <!--end row-->
   </Layout>
 </template>

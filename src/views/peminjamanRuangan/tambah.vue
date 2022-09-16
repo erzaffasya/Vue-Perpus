@@ -43,28 +43,35 @@ export default {
       });
     },
     cekRuangan() {
-      apiPeminjamanRuangan
-        .cekRuangan(
-          this.peminjamanRuangan.tanggal,
-          this.peminjamanRuangan.waktu_awal,
-          this.peminjamanRuangan.waktu_akhir,
-        )
-        .then((response) => {
-          this.cekKursi = response.data.data;
-          console.log(response);
-          if (response.data.status == "error") {
-            this.error = response.data.message;
-            // console.log(this.error);
-          }
-          // console.log(this.cekKursi);
-        });
+      if (
+        this.peminjamanRuangan.tanggal &&
+        this.peminjamanRuangan.waktu_awal &&
+        this.peminjamanRuangan.waktu_akhir
+      ) {
+        apiPeminjamanRuangan
+          .cekRuangan(
+            this.peminjamanRuangan.tanggal,
+            this.peminjamanRuangan.waktu_awal,
+            this.peminjamanRuangan.waktu_akhir
+          )
+          .then((response) => {
+            this.cekKursi = response.data.data;
+            console.log(response);
+            if (response.data.status == "error") {
+              this.error = response.data.message;
+              // console.log(this.error);
+            }
+            // console.log(this.cekKursi);
+          });
+      }
     },
+
     store(id) {
       // this.peminjamanRuangan = Object.assign({'kursi_baca_id' : id}, this.peminjamanRuangan);
-      // console.log(this.peminjamanRuangan);
+      console.log(id);
       apiPeminjamanRuangan
         .tambahPeminjamanRuangan(
-          Object.assign({ ruangan_id: id }, this.peminjamanRuangan)
+          Object.assign({ ruangan: id }, this.peminjamanRuangan)
         )
         .then((response) => {
           if (response.data.code == 200) {
@@ -158,9 +165,7 @@ export default {
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-3">
-                    <label for="nameInput" class="form-label"
-                      >Waktu Awal</label
-                    >
+                    <label for="nameInput" class="form-label">Waktu Awal</label>
                   </div>
                   <div class="col-lg-9">
                     <input
@@ -173,7 +178,7 @@ export default {
                     />
                   </div>
                 </div>
-                 <div class="row mb-3">
+                <div class="row mb-3">
                   <div class="col-lg-3">
                     <label for="nameInput" class="form-label"
                       >Waktu Akhir</label
@@ -190,11 +195,9 @@ export default {
                     />
                   </div>
                 </div>
-                 <div class="row mb-3">
+                <div class="row mb-3">
                   <div class="col-lg-3">
-                    <label for="nameInput" class="form-label"
-                      >Keperluan</label
-                    >
+                    <label for="nameInput" class="form-label">Keperluan</label>
                   </div>
                   <div class="col-lg-9">
                     <input
