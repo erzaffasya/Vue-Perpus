@@ -8,6 +8,9 @@ export default {
     title: "Invoice Details",
     meta: [{ name: "description", content: appConfig.description }],
   },
+  props: {
+    id: Object,
+  },
   data() {
     return {
       title: "Invoice Details",
@@ -30,13 +33,14 @@ export default {
   methods: {
     getPeminjamanRuangan() {
       apiPeminjamanRuangan
-        .showPeminjamanRuangan(this.$route.params.id)
+        .showPeminjamanRuangan(this.id)
         .then((response) => {
           console.log(response);
           this.PeminjamanRuangan = response.data.data;
         })
         .catch((err) => {
-          console.log(err);
+            this.$router.push({name: 'lihat-peminjamanRuangan'})
+          console.log(err, "error");
         });
     },
   },
@@ -72,7 +76,7 @@ export default {
                   height="40"
                 />
                 <div class="mt-sm-5 mt-4">
-                  <h6 class="text-uppercase fw-semibold">Address</h6>
+                  <h6 class="text-uppercase fw-semibold">Address {{id}}</h6>
                   <p class="text-muted mb-1">
                     <b> Institut Teknologi Kalimantan </b>
                   </p>

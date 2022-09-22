@@ -356,10 +356,7 @@ export default {
                                           data-bs-placement="top"
                                           title="View"
                                         >
-                                          <router-link
-                                            to="/ecommerce/order-details"
-                                            class="text-primary d-inline-block"
-                                          >
+                                         <router-link :to="{ name: 'invoice-peminjamanRuangan', params: { id: data.id}}" class="text-dark">
                                             <i class="ri-eye-fill fs-16"></i>
                                           </router-link>
                                         </li>

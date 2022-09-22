@@ -120,6 +120,16 @@ export default [
     },
     component: () => import("../views/peminjamanRuangan/lihat"),
   },
+  {
+    path: "/peminjaman-ruangan/invoice",
+    name: "invoice-peminjamanRuangan",
+    props: true,
+    meta: {
+      title: "Lihat Ruangan",
+      authRequired: true,
+    },
+    component: () => import("../views/peminjamanRuangan/invoice"),
+  },
   // Kategori
   {
     path: "/kategori/tambah",
