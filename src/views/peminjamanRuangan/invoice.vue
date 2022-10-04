@@ -76,7 +76,7 @@ export default {
                   height="40"
                 />
                 <div class="mt-sm-5 mt-4">
-                  <h6 class="text-uppercase fw-semibold">Address {{id}}</h6>
+                  <h6 class="text-uppercase fw-semibold">Address</h6>
                   <p class="text-muted mb-1">
                     <b> Institut Teknologi Kalimantan </b>
                   </p>
@@ -117,13 +117,14 @@ export default {
                 <p class="text-muted mb-2 text-uppercase fw-semibold">
                   Invoice No
                 </p>
-                <h5 class="fs-15 mb-0">#VL25000355</h5>
+                <h5 class="fs-15 mb-0">#{{PeminjamanRuangan.kode}}</h5>
               </div>
               <!--end col-->
               <div class="col-lg-4 col-4">
                 <p class="text-muted mb-2 text-uppercase fw-semibold">Date</p>
                 <h5 class="fs-15 mb-0">
-                  23 Nov, 2021 <small class="text-muted">02:36PM</small>
+                  {{PeminjamanRuangan.created_at}} 
+                  <!-- <small class="text-muted">02:36PM</small> -->
                 </h5>
               </div>
               <!--end col-->
@@ -227,12 +228,7 @@ export default {
             <div class="mt-4">
               <div class="alert alert-info">
                 <p class="mb-0">
-                  <span class="fw-semibold">NOTES:</span> All accounts are to be
-                  paid within 7 days from receipt of invoice. To be paid by
-                  cheque or credit card or direct payment online. If account is
-                  not paid within 7 days the credits details supplied as
-                  confirmation of work undertaken will be charged the agreed
-                  quoted fee noted above.
+                  <span class="fw-semibold">NOTES:</span> {{PeminjamanRuangan.catatan}}
                 </p>
               </div>
             </div>

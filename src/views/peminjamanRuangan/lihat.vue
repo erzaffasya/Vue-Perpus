@@ -366,6 +366,7 @@ export default {
                                           data-bs-trigger="hover"
                                           data-bs-placement="top"
                                           title="Edit"
+                                          v-if="data.status === 'Menunggu'"
                                         >
                                          <router-link
                                             :to="{
@@ -381,7 +382,7 @@ export default {
                                             <i class="ri-pencil-fill fs-16"></i>
                                           </router-link>
                                         </li>
-                                        <li
+                                        <!-- <li
                                           class="list-inline-item"
                                           data-bs-toggle="tooltip"
                                           data-bs-trigger="hover"
@@ -401,7 +402,7 @@ export default {
                                               class="ri-delete-bin-5-fill fs-16"
                                             ></i>
                                           </a>
-                                        </li>
+                                        </li> -->
                                       </ul>
                                     </td>
                                   </tr>

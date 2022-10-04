@@ -2,6 +2,7 @@
 import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
 import appConfig from "../../../app.config";
+import Swal from "sweetalert2";
 import apiPeminjamanRuangan from "../../apis/PeminjamanRuangan.js";
 export default {
   page: {
@@ -34,6 +35,28 @@ export default {
         .then((response) => {
           console.log(response);
           this.PeminjamanRuangan = response.data.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    updatePeminjamanRuangan(new_status) {
+      // console.log(new_status, 'status');
+      apiPeminjamanRuangan
+        .editPeminjamanRuangan(
+          this.$route.params.id,
+          Object.assign({ new_status: new_status }, this.PeminjamanRuangan)
+        )
+        .then((response) => {
+          console.log(response)
+          Swal.fire("Berhasil!", "Status Berhasil Diubah", "success").then(
+            (result) => {
+              // console.log(response.data.message)
+              if (result.value) {
+                this.$router.push({ name: "lihat-peminjamanRuangan"})
+              }
+            }
+          );
         })
         .catch((err) => {
           console.log(err);
@@ -113,13 +136,14 @@ export default {
                 <p class="text-muted mb-2 text-uppercase fw-semibold">
                   Invoice No
                 </p>
-                <h5 class="fs-15 mb-0">#VL25000355</h5>
+                <h5 class="fs-15 mb-0">#{{ PeminjamanRuangan.kode }}</h5>
               </div>
               <!--end col-->
               <div class="col-lg-4 col-4">
                 <p class="text-muted mb-2 text-uppercase fw-semibold">Date</p>
                 <h5 class="fs-15 mb-0">
-                  23 Nov, 2021 <small class="text-muted">02:36PM</small>
+                  {{ PeminjamanRuangan.created_at }}
+                  <!-- <small class="text-muted">02:36PM</small> -->
                 </h5>
               </div>
               <!--end col-->
@@ -221,25 +245,35 @@ export default {
               </p> -->
             </div>
             <div class="mt-4">
-              <div class="alert alert-info">
-                <p class="mb-0">
-                  <span class="fw-semibold">NOTES:</span> All accounts are to be
-                  paid within 7 days from receipt of invoice. To be paid by
-                  cheque or credit card or direct payment online. If account is
-                  not paid within 7 days the credits details supplied as
-                  confirmation of work undertaken will be charged the agreed
-                  quoted fee noted above.
-                </p>
-              </div>
+              <label
+                for="exampleFormControlTextarea1"
+                class="form-label text-muted text-uppercase fw-semibold"
+                >NOTES</label
+              ><textarea
+                class="form-control alert alert-info"
+                id="exampleFormControlTextarea1"
+                placeholder="Notes"
+                rows="2"
+                v-model="PeminjamanRuangan.catatan"
+                required=""
+              >
+-</textarea
+              >
             </div>
-            <div class="hstack gap-2 justify-content-end d-print-none mt-4">
-              <a href="javascript:window.print()" class="btn btn-info"
-                ><i class="ri-printer-line align-bottom me-1"></i> Print</a
+            <div class="hstack gap-2 justify-content-center d-print-none mt-4">
+              <button
+                @click="updatePeminjamanRuangan('Ditolak')"
+                class="btn btn-danger"
               >
-              <a href="javascript:void(0);" class="btn btn-primary"
-                ><i class="ri-download-2-line align-bottom me-1"></i>
-                Download</a
+                <i class="ri-printer-line align-bottom me-1"></i> Tolak
+              </button>
+
+              <button
+                @click="updatePeminjamanRuangan('Diterima')"
+                class="btn btn-primary"
               >
+                <i class="ri-download-2-line align-bottom me-1"></i> Terima
+              </button>
             </div>
           </div>
           <!--end card-body-->
