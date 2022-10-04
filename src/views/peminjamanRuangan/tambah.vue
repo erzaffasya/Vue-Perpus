@@ -190,9 +190,15 @@ export default {
                       v-model="peminjamanRuangan.waktu_akhir"
                       @change="cekRuangan()"
                       class="form-control"
+                      :class="{
+                        'is-invalid':
+                          peminjamanRuangan.waktu_awal >
+                          peminjamanRuangan.waktu_akhir,
+                      }"
                       placeholder="Masukkan Jumlah Orang"
                       required
                     />
+                    <div class="invalid-feedback"> Masukkan waktu akhir dengan benar. </div>
                   </div>
                 </div>
                 <div class="row mb-3">

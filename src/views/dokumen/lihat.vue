@@ -163,50 +163,40 @@ export default {
                 <a
                   class="nav-link active"
                   data-bs-toggle="tab"
-                  href="#nav-badge-home"
+                  href="#nav-pengajuan"
                   role="tab"
                   aria-selected="false"
                 >
-                  Explore
+                  Pengajuan
+                  <span class="badge bg-danger rounded-circle">5</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a
                   class="nav-link align-middle"
                   data-bs-toggle="tab"
-                  href="#nav-badge-profile"
+                  href="#nav-diproses"
                   role="tab"
                   aria-selected="false"
                 >
-                  Profile <span class="badge bg-success">Done</span>
+                  Diproses
                 </a>
               </li>
               <li class="nav-item">
                 <a
                   class="nav-link align-middle"
                   data-bs-toggle="tab"
-                  href="#nav-badge-messages"
+                  href="#nav-riwayat"
                   role="tab"
                   aria-selected="false"
                 >
-                  Messages <span class="badge bg-danger rounded-circle">5</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  data-bs-toggle="tab"
-                  href="#nav-badge-settings"
-                  role="tab"
-                  aria-selected="true"
-                >
-                  Settings
+                  Riwayat
                 </a>
               </li>
             </ul>
             <!-- Nav tabs -->
             <div class="tab-content text-muted">
-              <div class="tab-pane active" id="nav-badge-home" role="tabpanel">
+              <div class="tab-pane active" id="nav-pengajuan" role="tabpanel">
                 <div class="d-flex">
                   <div class="flex-grow-1 ms-2">
                     <div class="col-lg-12">
@@ -332,9 +322,7 @@ export default {
                                 <thead class="text-muted table-light">
                                   <tr class="text-uppercase">
                                     <th scope="col" style="width: 25px"></th>
-                                    <th class="sort" data-sort="id">
-                                      No
-                                    </th>
+                                    <th class="sort" data-sort="id">No</th>
                                     <th class="sort" data-sort="customer_name">
                                       Judul
                                     </th>
@@ -515,7 +503,7 @@ export default {
                   </div>
                 </div>
               </div>
-              <div class="tab-pane" id="nav-badge-profile" role="tabpanel">
+              <div class="tab-pane" id="nav-diproses" role="tabpanel">
                 <div class="d-flex">
                   <div class="flex-shrink-0">
                     <i class="ri-checkbox-circle-fill text-success"></i>
@@ -537,7 +525,7 @@ export default {
                   </div>
                 </div>
               </div>
-              <div class="tab-pane" id="nav-badge-messages" role="tabpanel">
+              <div class="tab-pane" id="nav-riwayat" role="tabpanel">
                 <div class="d-flex">
                   <div class="flex-shrink-0">
                     <i class="ri-checkbox-circle-fill text-success"></i>
@@ -556,28 +544,6 @@ export default {
                     For that very reason, I went on a quest and spoke to many
                     different professional graphic designers and asked them what
                     graphic design tips they live.
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="nav-badge-settings" role="tabpanel">
-                <div class="d-flex mt-2">
-                  <div class="flex-shrink-0">
-                    <i class="ri-checkbox-circle-fill text-success"></i>
-                  </div>
-                  <div class="flex-grow-1 ms-2">
-                    For that very reason, I went on a quest and spoke to many
-                    different professional graphic designers and asked them what
-                    graphic design tips they live.
-                  </div>
-                </div>
-                <div class="d-flex mt-2">
-                  <div class="flex-shrink-0">
-                    <i class="ri-checkbox-circle-fill text-success"></i>
-                  </div>
-                  <div class="flex-grow-1 ms-2">
-                    After gathering lots of different opinions and graphic
-                    design basics, I came up with a list of 30 graphic design
-                    tips that you can start implementing.
                   </div>
                 </div>
               </div>
