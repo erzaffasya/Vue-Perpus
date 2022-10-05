@@ -1342,6 +1342,40 @@ export default {
             </ul>
           </div>
         </li>
+        
+        <li class="menu-title">
+          <i class="ri-more-fill"></i>
+          <span data-key="t-pengunjung">{{ $t("pengunjung") }}</span>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link menu-link" href="#pengunjung" data-bs-toggle="collapse" role="button" aria-expanded="false"
+            aria-controls="sidebarDashboards">
+            <i class="ri-dashboard-2-line"></i>
+            <span data-key="t-dashboards"> {{ $t("Pengunjung") }}</span>
+          </a>
+          <div class="collapse menu-dropdown" id="pengunjung">
+            <ul class="nav nav-sm flex-column">
+              <li class="nav-item">
+                <router-link to="/pengunjung/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahpengunjung">
+                  {{ $t("Tambah Pengunjung") }}
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/pengunjung/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatpengunjung">
+                  {{ $t("Lihat Pengunjung") }}
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </li>
+        
+        <li class="nav-item">
+          <router-link class="nav-link remove-sidebar menu-link" to="/qrcode-pengunjung">
+            <i class="ri-honour-line"></i>
+            <span data-key="t-widgets">{{ $t("Scan QRcode") }}</span>
+          </router-link>
+        </li>
 
         <li class="menu-title">
           <i class="ri-more-fill"></i>
@@ -1354,6 +1388,8 @@ export default {
             <span data-key="t-widgets">{{ $t("Cari Dokumen") }}</span>
           </router-link>
         </li>
+
+
       </ul>
     </template>
   </div>

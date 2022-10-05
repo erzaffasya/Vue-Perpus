@@ -65,8 +65,6 @@ export default {
         async getProfile() {
             await apiProfile.getUser().then((response) => {
                 this.user = response.data.data;
-                console.log(this.user, 'navbar user');
-                console.log(localStorage.getItem('user'))
             }).catch((error) => {
                 console.log(error, 'error');
                 //or in file components

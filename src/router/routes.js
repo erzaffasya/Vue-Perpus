@@ -224,7 +224,44 @@ export default [
       authRequired: true,
     },
     component: () => import("../views/bookmark/lihat"),
+  },  
+  // pengunjung
+  {
+    path: "/qrcode-pengunjung",
+    name: "qrcode-pengunjung",
+    meta: {
+      title: "qrcode pengunjung",
+      authRequired: true,
+    },
+    component: () => import("../views/pengunjung/qrcode"),
   },
+  // {
+  //   path: "/pengunjung/tambah",
+  //   name: "tambah-pengunjung",
+  //   meta: {
+  //     title: "Tambah pengunjung",
+  //     authRequired: true,
+  //   },
+  //   component: () => import("../views/pengunjung/tambah"),
+  // },
+  // {
+  //   path: "/pengunjung/edit/:id",
+  //   name: "edit-pengunjung",
+  //   meta: {
+  //     title: "Edit pengunjung",
+  //     authRequired: true,
+  //   },
+  //   component: () => import("../views/pengunjung/edit"),
+  // },
+  // {
+  //   path: "/pengunjung/lihat",
+  //   name: "lihat-pengunjung",
+  //   meta: {
+  //     title: "Lihat pengunjung",
+  //     authRequired: true,
+  //   },
+  //   component: () => import("../views/pengunjung/lihat"),
+  // },
   // peminjaman
   {
     path: "/peminjaman-dokumen/tambah",
