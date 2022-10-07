@@ -3,6 +3,7 @@ import {
     SimpleBar
 } from "simplebar-vue3";
 import apiProfile from "../apis/Auth";
+import apiNotifikasi from "../apis/Notifikasi";
 import i18n from "../i18n";
 import $ from 'jquery';
 /**
@@ -12,6 +13,7 @@ export default {
     data() {
         return {
             user: {},
+            notifikasi: {},
             languages: [{
                     flag: require("@/assets/images/flags/us.svg"),
                     language: "en",
@@ -59,7 +61,8 @@ export default {
             .getElementById("topnav-hamburger-icon")
             .addEventListener("click", this.toggleHamburgerMenu);
         this.getProfile()
-        this.isCustomDropdown();
+        this.isCustomDropdown()
+        this.getNotifikasi()
     },
     methods: {
         async getProfile() {
@@ -72,7 +75,17 @@ export default {
                 this.$router.push('/logout')
             });
         },
-
+        async getNotifikasi() {
+            await apiNotifikasi.lihatNotifikasi().then((response) => {
+                this.notifikasi = response.data.data;
+                console.log(this.notifikasi)
+            }).catch((error) => {
+                console.log(error, 'error');
+                //or in file components
+                // this.$router.go()
+                this.$router.push('/logout')
+            });
+        },
         isCustomDropdown() {
             //Search bar
             var searchOptions = document.getElementById("search-close-options");
@@ -639,7 +652,7 @@ export default {
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="bx bx-bell fs-22"></i>
                         <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">
-                            3<span class="visually-hidden">unread messages</span></span>
+                            {{this.notifikasi.jumlah_notifikasi}}<span class="visually-hidden">unread messages</span></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
                         <div class="dropdown-head bg-primary bg-pattern rounded-top">
@@ -660,7 +673,7 @@ export default {
                                 <ul class="nav nav-tabs dropdown-tabs nav-tabs-custom" data-dropdown-tabs="true" id="notificationItemsTab" role="tablist" auto-close="outside" @click.capture.stop>
                                     <li class="nav-item">
                                         <a class="nav-link active" data-bs-toggle="tab" href="#all-noti-tab" role="tab" aria-selected="true">
-                                            All (4)
+                                            All ({{notifikasi.jumlah_notifikasi}})
                                         </a>
                                     </li>
                                     <li class="nav-item">
@@ -680,22 +693,22 @@ export default {
                         <div class="tab-content" id="notificationItemsTabContent">
                             <div class="tab-pane fade show active py-2 ps-2" id="all-noti-tab" role="tabpanel">
                                 <SimpleBar data-simplebar style="max-height: 300px" class="pe-2">
-                                    <div class="
-                        text-reset
-                        notification-item
-                        d-block
-                        dropdown-item
-                        position-relative
-                      ">
+                                    <!-- <div class="
+                                        text-reset
+                                        notification-item
+                                        d-block
+                                        dropdown-item
+                                        position-relative
+                                        ">
                                         <div class="d-flex">
                                             <div class="avatar-xs me-3">
                                                 <span class="
-                              avatar-title
-                              bg-soft-info
-                              text-info
-                              rounded-circle
-                              fs-16
-                            ">
+                                                    avatar-title
+                                                    bg-soft-info
+                                                    text-info
+                                                    rounded-circle
+                                                    fs-16
+                                                    ">
                                                     <i class="bx bx-badge-check"></i>
                                                 </span>
                                             </div>
@@ -708,11 +721,11 @@ export default {
                                                     </h6>
                                                 </a>
                                                 <p class="
-                              mb-0
-                              fs-11
-                              fw-medium
-                              text-uppercase text-muted
-                            ">
+                                                    mb-0
+                                                    fs-11
+                                                    fw-medium
+                                                    text-uppercase text-muted
+                                                    ">
                                                     <span><i class="mdi mdi-clock-outline"></i> Just 30 sec
                                                         ago</span>
                                                 </p>
@@ -721,61 +734,70 @@ export default {
                                                 <input class="form-check-input" type="checkbox" />
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
-                                    <div class="
-                        text-reset
-                        notification-item
-                        d-block
-                        dropdown-item
-                        position-relative
-                      ">
+                                    <div  v-for="item in notifikasi.data" class="
+                                            text-reset
+                                            notification-item
+                                            d-block
+                                            dropdown-item
+                                            position-relative
+                                        ">
                                         <div class="d-flex">
-                                            <img src="@/assets/images/users/avatar-2.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic" />
+                                            <!-- <img src="@/assets/images/users/avatar-2.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic" /> -->
+                                            <div class="avatar-xs me-3">
+                                                <span class="
+                                                    avatar-title
+                                                    bg-soft-danger
+                                                    text-danger
+                                                    rounded-circle
+                                                    fs-16
+                                                    ">
+                                                    <i class="bx bx-message-square-dots"></i>
+                                                </span>
+                                            </div>
                                             <div class="flex-1">
                                                 <a href="#!" class="stretched-link">
                                                     <h6 class="mt-0 mb-1 fs-13 fw-semibold">
-                                                        Angela Bernier
+                                                        {{item.pesan.judul}}
                                                     </h6>
                                                 </a>
                                                 <div class="fs-13 text-muted">
                                                     <p class="mb-1">
-                                                        Answered to your comment on the cash flow
-                                                        forecast's graph 🔔.
+                                                        {{item.pesan.pesan}}.
                                                     </p>
                                                 </div>
                                                 <p class="
-                              mb-0
-                              fs-11
-                              fw-medium
-                              text-uppercase text-muted
-                            ">
-                                                    <span><i class="mdi mdi-clock-outline"></i> 48 min
-                                                        ago</span>
+                                                    mb-0
+                                                    fs-11
+                                                    fw-medium
+                                                    text-uppercase text-muted
+                                                    ">
+                                                    <span><i class="mdi mdi-clock-outline"></i> {{item.created_at}}</span>
                                                 </p>
                                             </div>
-                                            <div class="px-2 fs-15">
+                                            <!-- <div class="px-2 fs-15">
                                                 <input class="form-check-input" type="checkbox" />
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
 
-                                    <div class="
-                        text-reset
-                        notification-item
-                        d-block
-                        dropdown-item
-                        position-relative
-                      ">
+                                    <!-- <div class="
+                                            text-reset
+                                            notification-item
+                                            d-block
+                                            dropdown-item
+                                            position-relative
+                                        ">
                                         <div class="d-flex">
                                             <div class="avatar-xs me-3">
                                                 <span class="
-                              avatar-title
-                              bg-soft-danger
-                              text-danger
-                              rounded-circle
-                              fs-16
-                            ">
+                                                    avatar-title
+                                                    bg-soft-danger
+                                                    text-danger
+                                                    rounded-circle
+                                                    fs-16
+                                                    ">
                                                     <i class="bx bx-message-square-dots"></i>
                                                 </span>
                                             </div>
@@ -788,11 +810,11 @@ export default {
                                                     </h6>
                                                 </a>
                                                 <p class="
-                              mb-0
-                              fs-11
-                              fw-medium
-                              text-uppercase text-muted
-                            ">
+                                                    mb-0
+                                                    fs-11
+                                                    fw-medium
+                                                    text-uppercase text-muted
+                                                    ">
                                                     <span><i class="mdi mdi-clock-outline"></i> 2 hrs
                                                         ago</span>
                                                 </p>
@@ -801,15 +823,15 @@ export default {
                                                 <input class="form-check-input" type="checkbox" />
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
-                                    <div class="
-                        text-reset
-                        notification-item
-                        d-block
-                        dropdown-item
-                        position-relative
-                      ">
+                                    <!-- <div class="
+                                            text-reset
+                                            notification-item
+                                            d-block
+                                            dropdown-item
+                                            position-relative
+                                        ">
                                         <div class="d-flex">
                                             <img src="@/assets/images/users/avatar-8.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic" />
                                             <div class="flex-1">
@@ -824,11 +846,11 @@ export default {
                                                     </p>
                                                 </div>
                                                 <p class="
-                              mb-0
-                              fs-11
-                              fw-medium
-                              text-uppercase text-muted
-                            ">
+                                                    mb-0
+                                                    fs-11
+                                                    fw-medium
+                                                    text-uppercase text-muted
+                                                    ">
                                                     <span><i class="mdi mdi-clock-outline"></i> 4 hrs
                                                         ago</span>
                                                 </p>
@@ -837,7 +859,7 @@ export default {
                                                 <input class="form-check-input" type="checkbox" />
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="my-3 text-center">
                                         <button type="button" class="btn btn-soft-success">

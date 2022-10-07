@@ -82,7 +82,7 @@ export default {
                                                     }}</span>
                                                 </div>
                                                 <div class="vr"></div>
-                                                <div>Due Date : <span class="fw-semibold fs-15">29 Dec, 2021</span>
+                                                <div><i class="ri-eye-line"></i> {{this.dokumen.jumlah_kunjungan}}
                                                 </div>
                                                 <div class="vr"></div>
                                                 <div class="badge rounded-pill bg-info fs-12">New</div>
@@ -147,7 +147,7 @@ export default {
                             <div class="card">
                                 <div class="card-body">
                                     <div class="text-muted">
-                                        <h6 class="mb-3 fw-semibold text-uppercase">Ringkasan1</h6>
+                                        <h6 class="mb-3 fw-semibold text-uppercase">Ringkasan</h6>
                                         <p>It will be as simple as occidental in fact, it will be Occidental. To an
                                             English person, it will seem like simplified English, as a skeptical
                                             Cambridge friend of mine told me what Occidental is. The European
