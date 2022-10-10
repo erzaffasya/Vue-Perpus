@@ -132,16 +132,8 @@ export default {
                       <p
                         class="text-uppercase fw-semibold text-muted text-truncate mb-0"
                       >
-                        Total Earnings
+                        Dokumen
                       </p>
-                    </div>
-                    <div class="flex-shrink-0">
-                      <h5 class="text-success fs-15 mb-0">
-                        <i
-                          class="ri-arrow-right-up-line fs-13 align-middle"
-                        ></i>
-                        +16.24 %
-                      </h5>
                     </div>
                   </div>
                   <div
@@ -177,17 +169,9 @@ export default {
                       <p
                         class="text-uppercase fw-medium text-muted text-truncate mb-0"
                       >
-                        Orders
+                        Peminjaman Dokumen
                       </p>
-                    </div>
-                    <div class="flex-shrink-0">
-                      <h5 class="text-danger fs-15 mb-0">
-                        <i
-                          class="ri-arrow-right-down-line fs-13 align-middle"
-                        ></i>
-                        -3.57 %
-                      </h5>
-                    </div>
+                    </div>                   
                   </div>
                   <div
                     class="d-flex align-items-end justify-content-between mt-4"
@@ -222,16 +206,8 @@ export default {
                       <p
                         class="text-uppercase fw-medium text-muted text-truncate mb-0"
                       >
-                        Customers
+                        Ruangan
                       </p>
-                    </div>
-                    <div class="flex-shrink-0">
-                      <h5 class="text-success fs-15 mb-0">
-                        <i
-                          class="ri-arrow-right-up-line fs-13 align-middle"
-                        ></i>
-                        +29.08 %
-                      </h5>
                     </div>
                   </div>
                   <div
@@ -268,11 +244,8 @@ export default {
                       <p
                         class="text-uppercase fw-medium text-muted text-truncate mb-0"
                       >
-                        My Balance
+                       Peminjaman Ruangan
                       </p>
-                    </div>
-                    <div class="flex-shrink-0">
-                      <h5 class="text-muted fs-15 mb-0">+0.00 %</h5>
                     </div>
                   </div>
                   <div
