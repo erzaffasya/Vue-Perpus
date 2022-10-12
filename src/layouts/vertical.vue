@@ -20,6 +20,7 @@ export default {
       isMenuCondensed: false,
       user: {},
       isLoad: false,
+      role: this.$parent.role
     };
   },
   computed: {

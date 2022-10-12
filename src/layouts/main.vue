@@ -34,6 +34,7 @@ export default {
     return {
       user: {},
       isLoad: false,
+      role: null,
     };
   },
 
@@ -43,7 +44,12 @@ export default {
   },
   created() {
     this.getProfile();
+    if (localStorage.user) {
+      const test = JSON.parse(localStorage.user);
+      this.role = test.user.role;
+    }
   },
+  mounted() {},
 };
 </script>
 

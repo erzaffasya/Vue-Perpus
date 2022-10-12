@@ -1052,7 +1052,7 @@ export default {
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <h6 class="dropdown-header">Welcome {{this.user}} {{ this.user.name }}!</h6>
+                        <h6 class="dropdown-header">Welcome {{ this.user.name }}!</h6>
                         <router-link class="dropdown-item" to="/pages/profile"><i class="
                     mdi mdi-account-circle
                     text-muted

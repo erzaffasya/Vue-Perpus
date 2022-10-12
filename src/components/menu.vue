@@ -9,6 +9,7 @@ export default {
       settings: {
         minScrollbarLength: 60,
       },
+      role: this.$parent.role
     };
   },
   computed: {
