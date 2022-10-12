@@ -2,30 +2,57 @@
 import { layoutComputed } from "@/state/helpers";
 
 import Vertical from "./vertical";
+import apiProfile from "../apis/Auth";
 // import Horizontal from "./horizontal";
 // import TwoColumns from "./twocolumn";
 
 export default {
-    components: {
-        Vertical,
-        // Horizontal,
-        // TwoColumns
-    },
-    data() {
-        return {};
-    },
-    computed: {
-        ...layoutComputed,
-    },
+  components: {
+    Vertical,
+    // Horizontal,
+    // TwoColumns
+  },
+  setup() {
+    function getProfile() {
+      apiProfile
+        .getUser()
+        .then((response) => {
+          this.user = response.data.data;
+          console.log(this.user, "kepala");
+          this.isLoad = true;
+        })
+        .catch((error) => {
+          console.log(error, "error");
+          this.$router.push("/logout");
+        });
+    }
+    return {
+      getProfile,
+    };
+  },
+  data() {
+    return {
+      user: {},
+      isLoad: false,
+    };
+  },
+
+  methods: {},
+  computed: {
+    ...layoutComputed,
+  },
+  created() {
+    this.getProfile();
+  },
 };
 </script>
 
 <template>
-<div>
+  <div>
     <Vertical :layout="layoutType">
-        <slot />
+      <slot />
     </Vertical>
- 
+
     <!-- <Horizontal v-if="layoutType === 'horizontal'" :layout="layoutType">
         <slot />
     </Horizontal>
@@ -33,5 +60,5 @@ export default {
     <TwoColumns v-if="layoutType === 'twocolumn'" :layout="layoutType">
         <slot />
     </TwoColumns> -->
-</div>
+  </div>
 </template>

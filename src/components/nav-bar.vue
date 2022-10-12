@@ -1,226 +1,239 @@
 <script>
-import {
-    SimpleBar
-} from "simplebar-vue3";
-import apiProfile from "../apis/Auth";
+import { SimpleBar } from "simplebar-vue3";
+// import apiProfile from "../apis/Auth";
 import apiNotifikasi from "../apis/Notifikasi";
 import i18n from "../i18n";
-import $ from 'jquery';
+import $ from "jquery";
 /**
  * Nav-bar Component
  */
 export default {
-    data() {
-        return {
-            user: {},
-            notifikasi: {},
-            languages: [{
-                    flag: require("@/assets/images/flags/us.svg"),
-                    language: "en",
-                    title: "English",
-                },
-                {
-                    flag: require("@/assets/images/flags/french.svg"),
-                    language: "fr",
-                    title: "French",
-                },
-                {
-                    flag: require("@/assets/images/flags/spain.svg"),
-                    language: "sp",
-                    title: "Spanish",
-                },
-                {
-                    flag: require("@/assets/images/flags/china.svg"),
-                    language: "ch",
-                    title: "Chinese",
-                },
-                {
-                    flag: require("@/assets/images/flags/germany.svg"),
-                    language: "gr",
-                    title: "Deutsche",
-                },
-                {
-                    flag: require("@/assets/images/flags/russia.svg"),
-                    language: "ru",
-                    title: "русский",
-                },
-            ],
-            lan: i18n.locale,
-            text: null,
-            flag: null,
-            value: null,
-            myVar: 1,
-        };
+  inherit: true,
+  props: ["user"],
+  data() {
+    return {
+      //   user: this.$parent.user,
+      notifikasi: {},
+      languages: [
+        {
+          flag: require("@/assets/images/flags/us.svg"),
+          language: "en",
+          title: "English",
+        },
+        {
+          flag: require("@/assets/images/flags/french.svg"),
+          language: "fr",
+          title: "French",
+        },
+        {
+          flag: require("@/assets/images/flags/spain.svg"),
+          language: "sp",
+          title: "Spanish",
+        },
+        {
+          flag: require("@/assets/images/flags/china.svg"),
+          language: "ch",
+          title: "Chinese",
+        },
+        {
+          flag: require("@/assets/images/flags/germany.svg"),
+          language: "gr",
+          title: "Deutsche",
+        },
+        {
+          flag: require("@/assets/images/flags/russia.svg"),
+          language: "ru",
+          title: "русский",
+        },
+      ],
+      lan: i18n.locale,
+      text: null,
+      flag: null,
+      value: null,
+      myVar: 1,
+    };
+  },
+  components: {
+    SimpleBar,
+  },
+  //   watch: {
+  //     user: {
+  //       handler(newVal, oldVal) {
+  //         console.log(`Dog changed: ${newVal} ${oldVal}`);
+  //       },
+  //     //   immediate: true,
+  //       deep:true
+  //     },
+  //   },
+  mounted() {
+    if (document.getElementById("topnav-hamburger-icon"))
+      document
+        .getElementById("topnav-hamburger-icon")
+        .addEventListener("click", this.toggleHamburgerMenu);
+    // this.getProfile()
+    this.isCustomDropdown();
+    this.getNotifikasi();
+  },
+  methods: {
+    // async getProfile() {
+    //     await apiProfile.getUser().then((response) => {
+    //         this.user = response.data.data;
+    //     }).catch((error) => {
+    //         console.log(error, 'error');
+    //         //or in file components
+    //         // this.$router.go()
+    //         this.$router.push('/logout')
+    //     });
+    // },
+    async getNotifikasi() {
+      await apiNotifikasi
+        .lihatNotifikasi()
+        .then((response) => {
+          this.notifikasi = response.data.data;
+          console.log(this.notifikasi);
+        })
+        .catch((error) => {
+          console.log(error, "error");
+          //or in file components
+          // this.$router.go()
+          this.$router.push("/logout");
+        });
     },
-    components: {
-        SimpleBar
+    isCustomDropdown() {
+      //Search bar
+      var searchOptions = document.getElementById("search-close-options");
+      var dropdown = document.getElementById("search-dropdown");
+      var searchInput = document.getElementById("search-options");
+
+      searchInput.addEventListener("focus", () => {
+        var inputLength = searchInput.value.length;
+        if (inputLength > 0) {
+          dropdown.classList.add("show");
+          searchOptions.classList.remove("d-none");
+        } else {
+          dropdown.classList.remove("show");
+          searchOptions.classList.add("d-none");
+        }
+      });
+
+      searchInput.addEventListener("keyup", () => {
+        var inputLength = searchInput.value.length;
+        if (inputLength > 0) {
+          dropdown.classList.add("show");
+          searchOptions.classList.remove("d-none");
+        } else {
+          dropdown.classList.remove("show");
+          searchOptions.classList.add("d-none");
+        }
+      });
+
+      searchOptions.addEventListener("click", () => {
+        searchInput.value = "";
+        dropdown.classList.remove("show");
+        searchOptions.classList.add("d-none");
+      });
+
+      document.body.addEventListener("click", (e) => {
+        if (e.target.getAttribute("id") !== "search-options") {
+          dropdown.classList.remove("show");
+          searchOptions.classList.add("d-none");
+        }
+      });
     },
-    mounted() {
-        if (document.getElementById("topnav-hamburger-icon"))
-            document
-            .getElementById("topnav-hamburger-icon")
-            .addEventListener("click", this.toggleHamburgerMenu);
-        this.getProfile()
-        this.isCustomDropdown()
-        this.getNotifikasi()
+    toggleHamburgerMenu() {
+      var windowSize = document.documentElement.clientWidth;
+
+      if (windowSize > 767)
+        document.querySelector(".hamburger-icon").classList.toggle("open");
+
+      //For collapse horizontal menu
+      if (
+        document.documentElement.getAttribute("data-layout") === "horizontal"
+      ) {
+        document.body.classList.contains("menu")
+          ? document.body.classList.remove("menu")
+          : document.body.classList.add("menu");
+      }
+
+      //For collapse vertical menu
+      if (document.documentElement.getAttribute("data-layout") === "vertical") {
+        if (windowSize < 1025 && windowSize > 767) {
+          document.body.classList.remove("vertical-sidebar-enable");
+          document.documentElement.getAttribute("data-sidebar-size") == "sm"
+            ? document.documentElement.setAttribute("data-sidebar-size", "")
+            : document.documentElement.setAttribute("data-sidebar-size", "sm");
+        } else if (windowSize > 1025) {
+          document.body.classList.remove("vertical-sidebar-enable");
+          document.documentElement.getAttribute("data-sidebar-size") == "lg"
+            ? document.documentElement.setAttribute("data-sidebar-size", "sm")
+            : document.documentElement.setAttribute("data-sidebar-size", "lg");
+        } else if (windowSize <= 767) {
+          document.body.classList.add("vertical-sidebar-enable");
+          document.documentElement.setAttribute("data-sidebar-size", "lg");
+          $(".remove-sidebar").click(function () {
+            document.body.classList.remove("vertical-sidebar-enable");
+          });
+        } else {
+          document.body.classList.remove("vertical-sidebar-enable");
+        }
+      }
+
+      //Two column menu
+      if (document.documentElement.getAttribute("data-layout") == "twocolumn") {
+        document.body.classList.contains("twocolumn-panel")
+          ? document.body.classList.remove("twocolumn-panel")
+          : document.body.classList.add("twocolumn-panel");
+      }
     },
-    methods: {
-        async getProfile() {
-            await apiProfile.getUser().then((response) => {
-                this.user = response.data.data;
-            }).catch((error) => {
-                console.log(error, 'error');
-                //or in file components
-                // this.$router.go()
-                this.$router.push('/logout')
-            });
-        },
-        async getNotifikasi() {
-            await apiNotifikasi.lihatNotifikasi().then((response) => {
-                this.notifikasi = response.data.data;
-                console.log(this.notifikasi)
-            }).catch((error) => {
-                console.log(error, 'error');
-                //or in file components
-                // this.$router.go()
-                this.$router.push('/logout')
-            });
-        },
-        isCustomDropdown() {
-            //Search bar
-            var searchOptions = document.getElementById("search-close-options");
-            var dropdown = document.getElementById("search-dropdown");
-            var searchInput = document.getElementById("search-options");
-
-            searchInput.addEventListener("focus", () => {
-                var inputLength = searchInput.value.length;
-                if (inputLength > 0) {
-                    dropdown.classList.add("show");
-                    searchOptions.classList.remove("d-none");
-                } else {
-                    dropdown.classList.remove("show");
-                    searchOptions.classList.add("d-none");
-                }
-            });
-
-            searchInput.addEventListener("keyup", () => {
-                var inputLength = searchInput.value.length;
-                if (inputLength > 0) {
-                    dropdown.classList.add("show");
-                    searchOptions.classList.remove("d-none");
-                } else {
-                    dropdown.classList.remove("show");
-                    searchOptions.classList.add("d-none");
-                }
-            });
-
-            searchOptions.addEventListener("click", () => {
-                searchInput.value = "";
-                dropdown.classList.remove("show");
-                searchOptions.classList.add("d-none");
-            });
-
-            document.body.addEventListener("click", (e) => {
-                if (e.target.getAttribute("id") !== "search-options") {
-                    dropdown.classList.remove("show");
-                    searchOptions.classList.add("d-none");
-                }
-            });
-        },
-        toggleHamburgerMenu() {
-            var windowSize = document.documentElement.clientWidth;
-
-            if (windowSize > 767)
-                document.querySelector(".hamburger-icon").classList.toggle("open");
-
-            //For collapse horizontal menu
-            if (
-                document.documentElement.getAttribute("data-layout") === "horizontal"
-            ) {
-                document.body.classList.contains("menu") ?
-                    document.body.classList.remove("menu") :
-                    document.body.classList.add("menu");
-            }
-
-            //For collapse vertical menu
-            if (document.documentElement.getAttribute("data-layout") === "vertical") {
-                if (windowSize < 1025 && windowSize > 767) {
-                    document.body.classList.remove("vertical-sidebar-enable");
-                    document.documentElement.getAttribute("data-sidebar-size") == "sm" ?
-                        document.documentElement.setAttribute("data-sidebar-size", "") :
-                        document.documentElement.setAttribute("data-sidebar-size", "sm");
-                } else if (windowSize > 1025) {
-                    document.body.classList.remove("vertical-sidebar-enable");
-                    document.documentElement.getAttribute("data-sidebar-size") == "lg" ?
-                        document.documentElement.setAttribute("data-sidebar-size", "sm") :
-                        document.documentElement.setAttribute("data-sidebar-size", "lg");
-                } else if (windowSize <= 767) {
-                    document.body.classList.add("vertical-sidebar-enable");
-                    document.documentElement.setAttribute("data-sidebar-size", "lg");
-                    $(".remove-sidebar").click(function () {
-                        document.body.classList.remove("vertical-sidebar-enable");
-                    });
-                } else {
-                    document.body.classList.remove("vertical-sidebar-enable");
-                }
-            }
-
-            //Two column menu
-            if (document.documentElement.getAttribute("data-layout") == "twocolumn") {
-                document.body.classList.contains("twocolumn-panel") ?
-                    document.body.classList.remove("twocolumn-panel") :
-                    document.body.classList.add("twocolumn-panel");
-            }
-        },
-        toggleMenu() {
-            this.$parent.toggleMenu();
-        },
-        toggleRightSidebar() {
-            this.$parent.toggleRightSidebar();
-        },
-        initFullScreen() {
-            document.body.classList.toggle("fullscreen-enable");
-            if (
-                !document.fullscreenElement &&
-                /* alternative standard method */
-                !document.mozFullScreenElement &&
-                !document.webkitFullscreenElement
-            ) {
-                // current working methods
-                if (document.documentElement.requestFullscreen) {
-                    document.documentElement.requestFullscreen();
-                } else if (document.documentElement.mozRequestFullScreen) {
-                    document.documentElement.mozRequestFullScreen();
-                } else if (document.documentElement.webkitRequestFullscreen) {
-                    document.documentElement.webkitRequestFullscreen(
-                        Element.ALLOW_KEYBOARD_INPUT
-                    );
-                }
-            } else {
-                if (document.cancelFullScreen) {
-                    document.cancelFullScreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.webkitCancelFullScreen) {
-                    document.webkitCancelFullScreen();
-                }
-            }
-        },
-        setLanguage(locale, country, flag) {
-            this.lan = locale;
-            this.text = country;
-            this.flag = flag;
-            document.getElementById("header-lang-img").setAttribute("src", flag);
-            i18n.global.locale = locale;
-        },
-        toggleDarkMode() {
-            if (document.documentElement.getAttribute("data-layout-mode") == "dark") {
-                document.documentElement.setAttribute("data-layout-mode", "light");
-            } else {
-                document.documentElement.setAttribute("data-layout-mode", "dark");
-            }
-        },
+    toggleMenu() {
+      this.$parent.toggleMenu();
     },
+    toggleRightSidebar() {
+      this.$parent.toggleRightSidebar();
+    },
+    initFullScreen() {
+      document.body.classList.toggle("fullscreen-enable");
+      if (
+        !document.fullscreenElement &&
+        /* alternative standard method */
+        !document.mozFullScreenElement &&
+        !document.webkitFullscreenElement
+      ) {
+        // current working methods
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) {
+          document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          document.documentElement.webkitRequestFullscreen(
+            Element.ALLOW_KEYBOARD_INPUT
+          );
+        }
+      } else {
+        if (document.cancelFullScreen) {
+          document.cancelFullScreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.webkitCancelFullScreen) {
+          document.webkitCancelFullScreen();
+        }
+      }
+    },
+    setLanguage(locale, country, flag) {
+      this.lan = locale;
+      this.text = country;
+      this.flag = flag;
+      document.getElementById("header-lang-img").setAttribute("src", flag);
+      i18n.global.locale = locale;
+    },
+    toggleDarkMode() {
+      if (document.documentElement.getAttribute("data-layout-mode") == "dark") {
+        document.documentElement.setAttribute("data-layout-mode", "light");
+      } else {
+        document.documentElement.setAttribute("data-layout-mode", "dark");
+      }
+    },
+  },
 };
 </script>
 
@@ -1026,20 +1039,20 @@ export default {
                       ms-1
                       fw-medium
                       user-name-text
-                    ">{{ user.name }}</span>
+                    ">{{ this.user.name }}</span>
                                 <span class="
                       d-none d-xl-block
                       ms-1
                       fs-12
                       text-muted
                       user-name-sub-text
-                    ">{{ user.role }}</span>
+                    ">{{ this.user.role }}</span>
                             </span>
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <h6 class="dropdown-header">Welcome {{ user.name }}!</h6>
+                        <h6 class="dropdown-header">Welcome {{this.user}} {{ this.user.name }}!</h6>
                         <router-link class="dropdown-item" to="/pages/profile"><i class="
                     mdi mdi-account-circle
                     text-muted

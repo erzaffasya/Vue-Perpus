@@ -7,26 +7,44 @@ import NavBar from "@/components/nav-bar";
 import Menu from "@/components/menu.vue";
 import RightBar from "@/components/right-bar";
 import Footer from "@/components/footer";
-
+import apiProfile from "../apis/Auth";
 /**
  * Vertical layout
  */
 export default {
   components: { NavBar, RightBar, Footer, SimpleBar, Menu },
+  inherit: true,
+  // props: ["isLoad"],
   data() {
     return {
       isMenuCondensed: false,
+      user: {},
+      isLoad: false,
     };
   },
   computed: {
     ...layoutComputed,
   },
-  created: () => {
+  created() {
     document.body.removeAttribute("data-layout", "horizontal");
     document.body.removeAttribute("data-topbar", "dark");
     document.body.removeAttribute("data-layout-size", "boxed");
+    this.getProfile();
   },
   methods: {
+    async getProfile() {
+      await apiProfile
+        .getUser()
+        .then((response) => {
+          this.user = response.data.data;
+          // console.log(this.user, 'vertikal')
+          this.isLoad = true;
+        })
+        .catch((error) => {
+          console.log(error, "error");
+          this.$router.push("/logout");
+        });
+    },
     toggleMenu() {
       document.body.classList.toggle("sidebar-enable");
 
@@ -53,13 +71,13 @@ export default {
       document.body.classList.remove("right-bar-enabled");
     },
   },
-  mounted() {},
 };
 </script>
 
 <template>
   <div id="layout-wrapper">
-    <NavBar />
+    <!-- <div v-if="!isLoad" class="spinner"/> -->
+    <NavBar :user="this.user" />
     <div>
       <!-- ========== Left Sidebar Start ========== -->
       <!-- ========== App Menu ========== -->
@@ -86,7 +104,14 @@ export default {
           </router-link>
           <button
             type="button"
-            class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
+            class="
+              btn btn-sm
+              p-0
+              fs-20
+              header-item
+              float-end
+              btn-vertical-sm-hover
+            "
             id="vertical-hover"
           >
             <i class="ri-record-circle-line"></i>
