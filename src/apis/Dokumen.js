@@ -8,8 +8,8 @@ export default {
       }
     });
   },
-  lihatDokumen() {
-    return Api.get(url + "/api/dokumen");
+  lihatDokumen(form) {
+    return Api.get(url + "/api/dokumen?status="+form);
   },
   editDokumen(id, form) {
     return Api.put(url + "/api/dokumen/" + id, form);

@@ -13,7 +13,7 @@ import Lottie from "@/components/widgets/lottie.vue";
 
 export default {
   page: {
-    title: "Orders",
+    title: "Dokumen",
     meta: [
       {
         name: "description",
@@ -23,14 +23,14 @@ export default {
   },
   data() {
     return {
-      title: "Orders",
+      title: "Dokumen",
       items: [
         {
-          text: "Ecommerce",
+          text: "Menu",
           href: "/",
         },
         {
-          text: "Orders",
+          text: "Dokumen",
           active: true,
         },
       ],
@@ -40,7 +40,8 @@ export default {
       value: null,
       value1: null,
       searchQuery: null,
-      statusTable: "Diproses",
+      statusTable: null,
+      isPagination: false,
       config: {
         wrap: true, // set wrap to true only when using 'input-group'
         altFormat: "M j, Y",
@@ -144,7 +145,7 @@ export default {
     },
   },
   created() {
-    this.getDokumen();
+    this.getPengajuan();
   },
   mounted() {},
   filters: {
@@ -153,20 +154,40 @@ export default {
     },
   },
   methods: {
-    getDokumen() {
-      apiDokumen.lihatDokumen().then((response) => {
+    // getDokumen() {
+    //   apiDokumen.lihatDokumen().then((response) => {
+    //     this.dokumen = response.data.data;
+    //     this.setPages();
+    //   });
+    // },
+    getPengajuan() {
+      // this.statusTable = "Revisi";
+      apiDokumen.lihatDokumen("Revisi").then((response) => {
         this.dokumen = response.data.data;
+        this.pages = [];
+        this.page = 1;
+        // if (!this.isPagination) {
+        this.setPages();
+        // }
+      });
+    },
+    getDiproses() {
+      // this.statusTable = "Diproses";
+      apiDokumen.lihatDokumen("Diproses").then((response) => {
+        this.dokumen = response.data.data;
+        this.pages = [];
+        this.page = 1;
         this.setPages();
       });
     },
-    getPengajuan() {
-      this.statusTable = "Revisi";
-    },
-    getDiproses() {
-      this.statusTable = "Diproses";
-    },
     getRiwayat() {
-      this.statusTable = ["Ditolak", "Diterima"];
+      // this.statusTable = ["Ditolak", "Diterima"];
+      apiDokumen.lihatDokumen("Riwayat").then((response) => {
+        this.dokumen = response.data.data;
+        this.pages = [];
+        this.page = 1;
+        this.setPages();
+      });
     },
     onChangeStatus(e) {
       this.isStatus = e;
