@@ -291,7 +291,7 @@ export default {
               <div class="card">
                 <div class="card-header align-items-center d-flex">
                   <h4 class="card-title mb-0 flex-grow-1">
-                    Best Selling Products
+                    Peminjaman Dokumen Terpopuler
                   </h4>
                   <div class="flex-shrink-0">
                     <div class="dropdown card-header-dropdown">
@@ -570,7 +570,7 @@ export default {
             <div class="col-xl-6">
               <div class="card card-height-100">
                 <div class="card-header align-items-center d-flex">
-                  <h4 class="card-title mb-0 flex-grow-1">Top Sellers</h4>
+                  <h4 class="card-title mb-0 flex-grow-1">Peminjaman Ruangan Terpopuler</h4>
                   <div class="flex-shrink-0">
                     <div class="dropdown card-header-dropdown">
                       <a
@@ -1132,7 +1132,7 @@ export default {
             <div class="card-body p-0">
               <div class="p-3">
                 <h6 class="text-muted mb-0 text-uppercase fw-semibold">
-                  Recent Activity
+                  Aktifitas Terakhir
                 </h6>
               </div>
               <SimpleBar
@@ -1340,7 +1340,7 @@ export default {
 
               <div class="p-3 mt-2">
                 <h6 class="text-muted mb-3 text-uppercase fw-semibold">
-                  Top 10 Categories
+                  10 Dokumen Teratas
                 </h6>
 
                 <ol class="ps-3 text-muted">

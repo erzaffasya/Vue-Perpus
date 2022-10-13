@@ -151,7 +151,7 @@ export default {
 <template>
   <div class="card">
     <div class="card-header border-0 align-items-center d-flex">
-      <h4 class="card-title mb-0 flex-grow-1">Revenue</h4>
+      <h4 class="card-title mb-0 flex-grow-1">Pengunjung Perpustakaan</h4>
       <div>
         <button type="button" class="btn btn-soft-secondary btn-sm me-1">ALL</button>
         <button type="button" class="btn btn-soft-secondary btn-sm me-1">1M</button>
