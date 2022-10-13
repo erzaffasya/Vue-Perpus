@@ -290,7 +290,7 @@ export default {
                                     v-model="this.searchQuery"
                                     type="text"
                                     class="form-control search"
-                                    placeholder="Search for order ID, customer, order status or something..."
+                                    placeholder="Cari Data..."
                                   />
                                   <i class="ri-search-line search-icon"></i>
                                 </div>
@@ -598,7 +598,7 @@ export default {
                                     v-model="this.searchQuery"
                                     type="text"
                                     class="form-control search"
-                                    placeholder="Search for order ID, customer, order status or something..."
+                                    placeholder="Cari Data..."
                                   />
                                   <i class="ri-search-line search-icon"></i>
                                 </div>
@@ -906,7 +906,7 @@ export default {
                                     v-model="this.searchQuery"
                                     type="text"
                                     class="form-control search"
-                                    placeholder="Search for order ID, customer, order status or something..."
+                                    placeholder="Cari Data..."
                                   />
                                   <i class="ri-search-line search-icon"></i>
                                 </div>

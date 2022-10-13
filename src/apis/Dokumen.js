@@ -9,7 +9,11 @@ export default {
     });
   },
   lihatDokumen(form) {
-    return Api.get(url + "/api/dokumen?status="+form);
+    if(form != null){
+      return Api.get(url + "/api/dokumen?status="+form);
+    }else{
+      return Api.get(url + "/api/dokumen");
+    }
   },
   editDokumen(id, form) {
     return Api.put(url + "/api/dokumen/" + id, form);
