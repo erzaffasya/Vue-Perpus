@@ -29,4 +29,7 @@ export default {
     console.log(url + "/api/showDokumen/" + state.id + "/" + state.jenisFile);
     return Api.get(url + "/api/showDokumen/" + state.id + "/" + state.jenisFile);
   },
+  revisiDokumen(id, form) {
+    return Api.put(url + "/api/revisi-dokumen/" + id, form);
+  },
 };

@@ -199,7 +199,7 @@ export default {
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Arrow Nav Steps {{this.Dokumen}} </h4>
+                    <h4 class="card-title mb-0">Tambah Dokumen </h4>
                 </div>
                 <!-- end card header -->
                 <div class="card-body form-steps">

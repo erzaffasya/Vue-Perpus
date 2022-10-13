@@ -20,6 +20,16 @@ export default {
       });
       // console.log(this.dokumen)
     },
+    revisiDokumen() {
+      apiDokumen
+        .revisiDokumen(this.$route.params.id, {
+          status: this.dokumen.status,
+          catatan: this.dokumen.catatan,
+        })
+        .then((response) => {
+          console.log(response);
+        });
+    },
   },
   page: {
     title: "Overview",
@@ -2434,7 +2444,7 @@ export default {
                     <div>
                       <!-- <label>Catatan Dokumen</label> -->
                       <ckeditor
-                        v-model="this.settingDokumen.deskripsi"
+                        v-model="this.dokumen.catatan"
                         :editor="editor"
                       ></ckeditor>
                     </div>
@@ -2456,7 +2466,7 @@ export default {
                       >
                       <Multiselect
                         class="form-control"
-                        v-model="this.settingDokumen.status"
+                        v-model="this.dokumen.status"
                         :close-on-select="true"
                         :searchable="true"
                         :create-option="true"
@@ -2468,7 +2478,7 @@ export default {
                       />
                     </div>
                     <div class="text-end mb-3">
-                      <button type="submit" class="btn btn-success w-sm">
+                      <button @click="revisiDokumen()" type="submit" class="btn btn-success w-sm">
                         Simpan
                       </button>
                     </div>

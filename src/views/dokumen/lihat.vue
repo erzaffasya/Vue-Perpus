@@ -226,8 +226,6 @@ export default {
         <div class="card">
           <div class="card-body">
             <p class="text-muted">
-              Example of nav tabs with badge wrapped in nav item.
-              {{ this.statusTable }}
             </p>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
