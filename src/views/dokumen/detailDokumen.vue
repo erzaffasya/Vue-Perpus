@@ -53,6 +53,7 @@ export default {
           active: true,
         },
       ],
+      role: this.$parent.role,
       dokumen: {},
       settingDokumen: {},
       editor: ClassicEditor,
@@ -98,7 +99,7 @@ export default {
                     </div>
                     <div class="col-md">
                       <div>
-                        <h4 class="fw-bold">{{ this.dokumen.judul }}</h4>
+                        <h4 class="fw-bold">{{ this.dokumen.judul }} {{this.role}}</h4>
                         <div class="hstack gap-3 flex-wrap">
                           <div>
                             <i class="ri-building-line align-bottom me-1"></i>
@@ -2478,7 +2479,11 @@ export default {
                       />
                     </div>
                     <div class="text-end mb-3">
-                      <button @click="revisiDokumen()" type="submit" class="btn btn-success w-sm">
+                      <button
+                        @click="revisiDokumen()"
+                        type="submit"
+                        class="btn btn-success w-sm"
+                      >
                         Simpan
                       </button>
                     </div>

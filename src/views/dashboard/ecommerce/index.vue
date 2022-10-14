@@ -1132,7 +1132,7 @@ export default {
             <div class="card-body p-0">
               <div class="p-3">
                 <h6 class="text-muted mb-0 text-uppercase fw-semibold">
-                  Aktifitas Terakhir
+                  Pengunjung Perpustakaan
                 </h6>
               </div>
               <SimpleBar
