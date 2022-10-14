@@ -14,13 +14,13 @@ import apiProfile from "../apis/Auth";
 export default {
   components: { NavBar, RightBar, Footer, SimpleBar, Menu },
   inherit: true,
-  // props: ["isLoad"],
+  props: ["role"],
   data() {
     return {
       isMenuCondensed: false,
       user: {},
       isLoad: false,
-      role: this.$parent.role
+      // role: this.$parent.role
     };
   },
   computed: {

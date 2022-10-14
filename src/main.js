@@ -45,7 +45,14 @@ AOS.init({
   duration: 1000,
 });
 
-createApp(App)
+var role = null;
+if (localStorage.user) {
+  const test = JSON.parse(localStorage.user);
+  role = test.user.role;
+}
+
+const app = createApp(App)
+app.provide('role', role)
   .use(store)
   .use(router)
   .use(VueApexCharts)
