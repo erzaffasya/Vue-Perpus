@@ -77,7 +77,6 @@ export default {
       return this.paginate(this.dokumen);
     },
     resultQuery() {
-      console.log(this.searchQuery);
       if (this.searchQuery && this.statusTable) {
         const search = this.searchQuery.toLowerCase();
         const statusTab = this.statusTable.toLowerCase();
@@ -87,8 +86,8 @@ export default {
               data.judul.toLowerCase().includes(search) &&
               data.status &&
               data.status.toLowerCase().includes(statusTab)) ||
-            (data.kategori_id &&
-              data.kategori_id.toLowerCase().includes(search) &&
+            (data.kategori.nama_kategori &&
+              data.kategori.nama_kategori.toLowerCase().includes(search) &&
               data.status &&
               data.status.toLowerCase().includes(statusTab)) ||
             (data.nama_pengarang &&
@@ -117,8 +116,8 @@ export default {
             (data.judul &&
               data.judul.toLowerCase().includes(search) &&
               data.status) ||
-            (data.kategori_id &&
-              data.kategori_id.toLowerCase().includes(search) &&
+            (data.kategori.nama_kategori &&
+              data.kategori.nama_kategori.toLowerCase().includes(search) &&
               data.status) ||
             (data.nama_pengarang &&
               data.nama_pengarang.toLowerCase().includes(search) &&
@@ -147,7 +146,9 @@ export default {
   created() {
     this.getPengajuan();
   },
-  mounted() {},
+  mounted() {
+    console.log(this.resultQuery,' result query')
+  },
   filters: {
     trimWords(value) {
       return value.split(" ").splice(0, 20).join(" ") + "...";
@@ -171,18 +172,18 @@ export default {
         // }
       });
     },
-    getDiproses() {
+    async getDiproses() {
       // this.statusTable = "Diproses";
-      apiDokumen.lihatDokumen("Diproses").then((response) => {
+      await apiDokumen.lihatDokumen("Diproses").then((response) => {
         this.dokumen = response.data.data;
         this.pages = [];
         this.page = 1;
         this.setPages();
       });
     },
-    getRiwayat() {
+    async getRiwayat() {
       // this.statusTable = ["Ditolak", "Diterima"];
-      apiDokumen.lihatDokumen("Riwayat").then((response) => {
+      await apiDokumen.lihatDokumen("Riwayat").then((response) => {
         this.dokumen = response.data.data;
         this.pages = [];
         this.page = 1;
@@ -435,7 +436,7 @@ export default {
                                       {{ data.judul }}
                                     </td>
                                     <td class="product_name">
-                                      {{ data.kategori_id }}
+                                      {{ data.kategori.nama_kategori }}
                                     </td>
                                     <td class="date">
                                       {{ data.jurusan }}
@@ -743,7 +744,7 @@ export default {
                                       {{ data.judul }}
                                     </td>
                                     <td class="product_name">
-                                      {{ data.kategori_id }}
+                                      {{ data.kategori.nama_kategori }}
                                     </td>
                                     <td class="date">
                                       {{ data.jurusan }}
@@ -1051,7 +1052,7 @@ export default {
                                       {{ data.judul }}
                                     </td>
                                     <td class="product_name">
-                                      {{ data.kategori_id }}
+                                      {{ data.kategori.nama_kategori }}
                                     </td>
                                     <td class="date">
                                       {{ data.jurusan }}

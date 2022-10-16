@@ -1,19 +1,22 @@
 import {Api,url} from '../apis/Api'
 
 export default {
-    tambahRuanganBaca(form) {
-        return Api.post(url +'/api/ruangan', form);
+    tambahUser(form) {
+        return Api.post(url +'/api/user', form);
     },
-    lihatRuanganBaca() {
-        return Api.get(url +'/api/ruangan');
+    lihatUser() {
+        return Api.get(url +'/api/user');
     },
-    editRuanganBaca(id, form) {
-        return Api.put(url +'/api/ruangan/' + id, form);
+    editUser(id, form) {
+        return Api.put(url +'/api/user/' + id, form);
     }, 
-    showRuanganBaca(id) {
-        return Api.get(url +'/api/ruangan/' + id);
+    showUser(id) {
+        return Api.get(url +'/api/user/' + id);
     },
-    hapusRuanganBaca(id) {
-        return Api.delete(url +'/api/ruangan/' + id);
+    hapusUser(id) {
+        return Api.delete(url +'/api/user/' + id);
+    },
+    searchRole(id) {
+        return Api.get(url +'/api/user?role=' + id);
     },
 }

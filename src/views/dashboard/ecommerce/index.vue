@@ -7,8 +7,8 @@ SwiperCore.use([]);
 import flatPickr from "vue-flatpickr-component";
 import { SimpleBar } from "simplebar-vue3";
 import "flatpickr/dist/flatpickr.css";
-import { CountTo } from "vue3-count-to";
-
+// import { CountTo } from "vue3-count-to";
+import apiStatistik from "../../../apis/Statistik.js";
 import Layout from "../../../layouts/main.vue";
 
 import Revenue from "./revenue";
@@ -16,7 +16,7 @@ import SalesLocation from "./sales-location";
 
 export default {
   components: {
-    CountTo,
+    // CountTo,
     Layout,
     Swiper,
     SwiperSlide,
@@ -25,10 +25,17 @@ export default {
     Revenue,
     SalesLocation,
   },
-  inject: ['role'],
+  inject: ["role"],
   data() {
     return {
       // title: "Dashboard",
+      jumlah: {
+        dokumen: null,
+        peminjamanDokumen: null,
+        ruangan: null,
+        peminjamanRuangan: null,
+        pengunjung: null,
+      },
       date: null,
       config: {
         mode: "range",
@@ -55,16 +62,53 @@ export default {
       },
     };
   },
-    methods:{
-    rightcolumn(){
-      if(document.querySelector('.layout-rightside-col').classList.contains('d-none')){
-        document.querySelector('.layout-rightside-col').classList.remove('d-none')
-      }else{
-        document.querySelector('.layout-rightside-col').classList.add('d-none')
+  methods: {
+    rightcolumn() {
+      if (
+        document
+          .querySelector(".layout-rightside-col")
+          .classList.contains("d-none")
+      ) {
+        document
+          .querySelector(".layout-rightside-col")
+          .classList.remove("d-none");
+      } else {
+        document.querySelector(".layout-rightside-col").classList.add("d-none");
       }
-    }
-  }
-  
+    },
+    dokumen() {
+      apiStatistik.jumlahDokumen().then((response) => {
+        this.jumlah.dokumen = response.data.data;
+      });
+    },
+    ruangan() {
+      apiStatistik.jumlahRuangan().then((response) => {
+        this.jumlah.ruangan = response.data.data;
+      });
+    },
+    peminjamanDokumen() {
+      apiStatistik.jumlahRuangan().then((response) => {
+        this.jumlah.peminjamanDokumen = response.data.data;
+      });
+    },
+    peminjamanRuangan() {
+      apiStatistik.jumlahRuangan().then((response) => {
+        this.jumlah.peminjamanRuangan = response.data.data;
+      });
+    },
+    pengunjung() {
+      apiStatistik.jumlahPengunjung().then((response) => {
+        this.jumlah.pengunjung = response.data.data;
+      });
+    },
+  },
+  mounted() {
+    this.dokumen();
+    this.ruangan();
+    this.pengunjung();
+    this.peminjamanDokumen();
+    this.peminjamanRuangan();
+  },
 };
 </script>
 
@@ -77,9 +121,9 @@ export default {
             <div class="col-12">
               <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                 <div class="flex-grow-1">
-                  <h4 class="fs-16 mb-1">Selamat Datang, {{role}} ! </h4>
+                  <h4 class="fs-16 mb-1">Selamat Datang, {{ role }} !</h4>
                   <p class="text-muted mb-0">
-                    Here's what's happening with your store today.
+                    Here's what's happening with your store today. {{ date }}
                   </p>
                 </div>
                 <div class="mt-3 mt-lg-0">
@@ -90,11 +134,21 @@ export default {
                           <flat-pickr
                             v-model="date"
                             :config="config"
-                            class="form-control border-0 dash-filter-picker shadow"
+                            class="
+                              form-control
+                              border-0
+                              dash-filter-picker
+                              shadow
+                            "
                           ></flat-pickr>
-                         
+
                           <div
-                            class="input-group-text bg-primary border-primary text-white"
+                            class="
+                              input-group-text
+                              bg-primary
+                              border-primary
+                              text-white
+                            "
                           >
                             <i class="ri-calendar-2-line"></i>
                           </div>
@@ -105,8 +159,12 @@ export default {
                       <div class="col-auto">
                         <button
                           type="button"
-                          class="btn btn-soft-info btn-icon waves-effect waves-light layout-rightside-btn"
-                           @click="rightcolumn"
+                          class="
+                            btn btn-soft-info btn-icon
+                            waves-effect waves-light
+                            layout-rightside-btn
+                          "
+                          @click="rightcolumn"
                         >
                           <i class="ri-pulse-line"></i>
                         </button>
@@ -131,7 +189,12 @@ export default {
                   <div class="d-flex align-items-center">
                     <div class="flex-grow-1 overflow-hidden">
                       <p
-                        class="text-uppercase fw-semibold text-muted text-truncate mb-0"
+                        class="
+                          text-uppercase
+                          fw-semibold
+                          text-muted text-truncate
+                          mb-0
+                        "
                       >
                         Dokumen
                       </p>
@@ -142,7 +205,7 @@ export default {
                   >
                     <div>
                       <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                        $<count-to :startVal='0' :endVal='559' :duration='5000'></count-to>k
+                        {{ this.jumlah.dokumen }}
                       </h4>
                       <a href="" class="text-decoration-underline"
                         >View net earnings</a
@@ -168,18 +231,23 @@ export default {
                   <div class="d-flex align-items-center">
                     <div class="flex-grow-1 overflow-hidden">
                       <p
-                        class="text-uppercase fw-medium text-muted text-truncate mb-0"
+                        class="
+                          text-uppercase
+                          fw-medium
+                          text-muted text-truncate
+                          mb-0
+                        "
                       >
                         Peminjaman Dokumen
                       </p>
-                    </div>                   
+                    </div>
                   </div>
                   <div
                     class="d-flex align-items-end justify-content-between mt-4"
                   >
                     <div>
                       <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                         <count-to :startVal='0' :endVal='36894' :duration='5000'></count-to>
+                        {{ this.jumlah.peminjamanDokumen }}
                       </h4>
                       <a href="" class="text-decoration-underline"
                         >View all orders</a
@@ -205,7 +273,12 @@ export default {
                   <div class="d-flex align-items-center">
                     <div class="flex-grow-1 overflow-hidden">
                       <p
-                        class="text-uppercase fw-medium text-muted text-truncate mb-0"
+                        class="
+                          text-uppercase
+                          fw-medium
+                          text-muted text-truncate
+                          mb-0
+                        "
                       >
                         Ruangan
                       </p>
@@ -216,8 +289,7 @@ export default {
                   >
                     <div>
                       <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                         <count-to :startVal='0' :endVal='183' :duration='5000'></count-to>M
-                        
+                        {{ this.jumlah.ruangan }}
                       </h4>
                       <a href="" class="text-decoration-underline"
                         >See details</a
@@ -243,9 +315,14 @@ export default {
                   <div class="d-flex align-items-center">
                     <div class="flex-grow-1 overflow-hidden">
                       <p
-                        class="text-uppercase fw-medium text-muted text-truncate mb-0"
+                        class="
+                          text-uppercase
+                          fw-medium
+                          text-muted text-truncate
+                          mb-0
+                        "
                       >
-                       Peminjaman Ruangan
+                        Peminjaman Ruangan
                       </p>
                     </div>
                   </div>
@@ -254,7 +331,7 @@ export default {
                   >
                     <div>
                       <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                        $<count-to :startVal='0' :endVal='165' :duration='5000'></count-to>
+                        {{ this.jumlah.peminjamanRuangan }}
                       </h4>
                       <a href="" class="text-decoration-underline"
                         >Withdraw money</a
@@ -325,7 +402,12 @@ export default {
                 <div class="card-body">
                   <div class="table-responsive table-card">
                     <table
-                      class="table table-hover table-centered align-middle table-nowrap mb-0"
+                      class="
+                        table table-hover table-centered
+                        align-middle
+                        table-nowrap
+                        mb-0
+                      "
                     >
                       <tbody>
                         <tr>
@@ -536,7 +618,13 @@ export default {
                   </div>
 
                   <div
-                    class="align-items-center mt-4 pt-2 justify-content-between d-flex"
+                    class="
+                      align-items-center
+                      mt-4
+                      pt-2
+                      justify-content-between
+                      d-flex
+                    "
                   >
                     <div class="flex-shrink-0">
                       <div class="text-muted">
@@ -571,7 +659,9 @@ export default {
             <div class="col-xl-6">
               <div class="card card-height-100">
                 <div class="card-header align-items-center d-flex">
-                  <h4 class="card-title mb-0 flex-grow-1">Peminjaman Ruangan Terpopuler</h4>
+                  <h4 class="card-title mb-0 flex-grow-1">
+                    Peminjaman Ruangan Terpopuler
+                  </h4>
                   <div class="flex-shrink-0">
                     <div class="dropdown card-header-dropdown">
                       <a
@@ -598,7 +688,12 @@ export default {
                 <div class="card-body">
                   <div class="table-responsive table-card">
                     <table
-                      class="table table-centered table-hover align-middle table-nowrap mb-0"
+                      class="
+                        table table-centered table-hover
+                        align-middle
+                        table-nowrap
+                        mb-0
+                      "
                     >
                       <tbody>
                         <tr>
@@ -636,7 +731,13 @@ export default {
                           <td>
                             <h5 class="fs-15 mb-0">
                               32%<i
-                                class="ri-bar-chart-fill text-success fs-16 align-middle ms-2"
+                                class="
+                                  ri-bar-chart-fill
+                                  text-success
+                                  fs-16
+                                  align-middle
+                                  ms-2
+                                "
                               ></i>
                             </h5>
                           </td>
@@ -677,7 +778,13 @@ export default {
                           <td>
                             <h5 class="fs-15 mb-0">
                               79%<i
-                                class="ri-bar-chart-fill text-success fs-16 align-middle ms-2"
+                                class="
+                                  ri-bar-chart-fill
+                                  text-success
+                                  fs-16
+                                  align-middle
+                                  ms-2
+                                "
                               ></i>
                             </h5>
                           </td>
@@ -718,7 +825,13 @@ export default {
                           <td>
                             <h5 class="fs-15 mb-0">
                               90%<i
-                                class="ri-bar-chart-fill text-success fs-16 align-middle ms-2"
+                                class="
+                                  ri-bar-chart-fill
+                                  text-success
+                                  fs-16
+                                  align-middle
+                                  ms-2
+                                "
                               ></i>
                             </h5>
                           </td>
@@ -759,7 +872,13 @@ export default {
                           <td>
                             <h5 class="fs-15 mb-0">
                               40%<i
-                                class="ri-bar-chart-fill text-success fs-16 align-middle ms-2"
+                                class="
+                                  ri-bar-chart-fill
+                                  text-success
+                                  fs-16
+                                  align-middle
+                                  ms-2
+                                "
                               ></i>
                             </h5>
                           </td>
@@ -800,7 +919,13 @@ export default {
                           <td>
                             <h5 class="fs-15 mb-0">
                               57%<i
-                                class="ri-bar-chart-fill text-success fs-16 align-middle ms-2"
+                                class="
+                                  ri-bar-chart-fill
+                                  text-success
+                                  fs-16
+                                  align-middle
+                                  ms-2
+                                "
                               ></i>
                             </h5>
                           </td>
@@ -812,7 +937,13 @@ export default {
                   </div>
 
                   <div
-                    class="align-items-center mt-4 pt-2 justify-content-between d-flex"
+                    class="
+                      align-items-center
+                      mt-4
+                      pt-2
+                      justify-content-between
+                      d-flex
+                    "
                   >
                     <div class="flex-shrink-0">
                       <div class="text-muted">
@@ -908,7 +1039,12 @@ export default {
                 <div class="card-body">
                   <div class="table-responsive table-card">
                     <table
-                      class="table table-borderless table-centered align-middle table-nowrap mb-0"
+                      class="
+                        table table-borderless table-centered
+                        align-middle
+                        table-nowrap
+                        mb-0
+                      "
                     >
                       <thead class="text-muted table-light">
                         <tr>
@@ -1145,7 +1281,12 @@ export default {
                   <div class="acitivity-item d-flex">
                     <div class="flex-shrink-0 avatar-xs acitivity-avatar">
                       <div
-                        class="avatar-title bg-soft-success text-success rounded-circle"
+                        class="
+                          avatar-title
+                          bg-soft-success
+                          text-success
+                          rounded-circle
+                        "
                       >
                         <i class="ri-shopping-cart-2-line"></i>
                       </div>
@@ -1161,7 +1302,12 @@ export default {
                   <div class="acitivity-item py-3 d-flex">
                     <div class="flex-shrink-0 avatar-xs acitivity-avatar">
                       <div
-                        class="avatar-title bg-soft-danger text-danger rounded-circle"
+                        class="
+                          avatar-title
+                          bg-soft-danger
+                          text-danger
+                          rounded-circle
+                        "
                       >
                         <i class="ri-stack-fill"></i>
                       </div>
@@ -1173,7 +1319,13 @@ export default {
                       </h6>
                       <p class="text-muted mb-1">By Nesta Technologies</p>
                       <div
-                        class="d-inline-flex gap-2 border border-dashed p-2 mb-2"
+                        class="
+                          d-inline-flex
+                          gap-2
+                          border border-dashed
+                          p-2
+                          mb-2
+                        "
                       >
                         <a
                           to="/ecommerce/product-details"
@@ -1257,7 +1409,12 @@ export default {
                     <div class="flex-shrink-0">
                       <div class="avatar-xs acitivity-avatar">
                         <div
-                          class="avatar-title rounded-circle bg-soft-danger text-danger"
+                          class="
+                            avatar-title
+                            rounded-circle
+                            bg-soft-danger
+                            text-danger
+                          "
                         >
                           <i class="ri-bookmark-fill"></i>
                         </div>
@@ -1299,7 +1456,12 @@ export default {
                     <div class="flex-shrink-0">
                       <div class="avatar-xs acitivity-avatar">
                         <div
-                          class="avatar-title rounded-circle bg-soft-info text-info"
+                          class="
+                            avatar-title
+                            rounded-circle
+                            bg-soft-info
+                            text-info
+                          "
                         >
                           <i class="ri-line-chart-line"></i>
                         </div>
@@ -1341,63 +1503,17 @@ export default {
 
               <div class="p-3 mt-2">
                 <h6 class="text-muted mb-3 text-uppercase fw-semibold">
-                  10 Dokumen Teratas
+                  10 Pengunjung Teratas 
                 </h6>
 
                 <ol class="ps-3 text-muted">
-                  <li class="py-1">
+                  <li class="py-1" v-for="(item, index) in jumlah.pengunjung" :key="index">
                     <a href="#" class="text-muted"
-                      >Mobile & Accessories
-                      <span class="float-end">(10,294)</span></a
+                      >  {{ item.name }}
+                      <span class="float-end">({{ item.jumlah_kunjungan }})</span></a
                     >
                   </li>
-                  <li class="py-1">
-                    <a href="#" class="text-muted"
-                      >Desktop <span class="float-end">(6,256)</span></a
-                    >
-                  </li>
-                  <li class="py-1">
-                    <a href="#" class="text-muted"
-                      >Electronics <span class="float-end">(3,479)</span></a
-                    >
-                  </li>
-                  <li class="py-1">
-                    <a href="#" class="text-muted"
-                      >Home & Furniture
-                      <span class="float-end">(2,275)</span></a
-                    >
-                  </li>
-                  <li class="py-1">
-                    <a href="#" class="text-muted"
-                      >Grocery <span class="float-end">(1,950)</span></a
-                    >
-                  </li>
-                  <li class="py-1">
-                    <a href="#" class="text-muted"
-                      >Fashion <span class="float-end">(1,582)</span></a
-                    >
-                  </li>
-                  <li class="py-1">
-                    <a href="#" class="text-muted"
-                      >Appliances <span class="float-end">(1,037)</span></a
-                    >
-                  </li>
-                  <li class="py-1">
-                    <a href="#" class="text-muted"
-                      >Beauty, Toys & More
-                      <span class="float-end">(924)</span></a
-                    >
-                  </li>
-                  <li class="py-1">
-                    <a href="#" class="text-muted"
-                      >Food & Drinks <span class="float-end">(701)</span></a
-                    >
-                  </li>
-                  <li class="py-1">
-                    <a href="#" class="text-muted"
-                      >Toys & Games <span class="float-end">(239)</span></a
-                    >
-                  </li>
+                  
                 </ol>
                 <div class="mt-3 text-center">
                   <a
@@ -1412,7 +1528,7 @@ export default {
                   Products Reviews
                 </h6>
                 <!-- Swiper -->
-                <div >
+                <div>
                   <swiper
                     class="vertical-swiper"
                     :slidesPerView="2"
@@ -1443,7 +1559,12 @@ export default {
                               <div class="flex-grow-1 ms-3">
                                 <div>
                                   <p
-                                    class="text-muted mb-1 fst-italic text-truncate-two-lines"
+                                    class="
+                                      text-muted
+                                      mb-1
+                                      fst-italic
+                                      text-truncate-two-lines
+                                    "
                                   >
                                     " Great product and looks great, lots of
                                     features. "
@@ -1483,7 +1604,12 @@ export default {
                               <div class="flex-grow-1 ms-3">
                                 <div>
                                   <p
-                                    class="text-muted mb-1 fst-italic text-truncate-two-lines"
+                                    class="
+                                      text-muted
+                                      mb-1
+                                      fst-italic
+                                      text-truncate-two-lines
+                                    "
                                   >
                                     " Amazing template, very easy to understand
                                     and manipulate. "
@@ -1523,7 +1649,12 @@ export default {
                               <div class="flex-grow-1 ms-3">
                                 <div>
                                   <p
-                                    class="text-muted mb-1 fst-italic text-truncate-two-lines"
+                                    class="
+                                      text-muted
+                                      mb-1
+                                      fst-italic
+                                      text-truncate-two-lines
+                                    "
                                   >
                                     "Very beautiful product and Very helpful
                                     customer service."
@@ -1563,7 +1694,12 @@ export default {
                               <div class="flex-grow-1 ms-3">
                                 <div>
                                   <p
-                                    class="text-muted mb-1 fst-italic text-truncate-two-lines"
+                                    class="
+                                      text-muted
+                                      mb-1
+                                      fst-italic
+                                      text-truncate-two-lines
+                                    "
                                   >
                                     " The product is very beautiful. I like it.
                                     "
@@ -1763,7 +1899,16 @@ export default {
               </div>
 
               <div
-                class="card sidebar-alert bg-light border-0 text-center mx-4 mb-0 mt-3"
+                class="
+                  card
+                  sidebar-alert
+                  bg-light
+                  border-0
+                  text-center
+                  mx-4
+                  mb-0
+                  mt-3
+                "
               >
                 <div class="card-body">
                   <img src="@/assets/images/giftbox.png" alt="" />
@@ -1777,7 +1922,14 @@ export default {
                       class="btn btn-primary btn-label rounded-pill"
                     >
                       <i
-                        class="ri-mail-fill label-icon align-middle rounded-pill fs-16 me-2"
+                        class="
+                          ri-mail-fill
+                          label-icon
+                          align-middle
+                          rounded-pill
+                          fs-16
+                          me-2
+                        "
                       ></i>
                       Invite Now
                     </button>

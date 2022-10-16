@@ -4,16 +4,14 @@ import { SimpleBar } from "simplebar-vue3";
 
 export default {
   components: { SimpleBar },
-  // props: ["role"],
-  inject: ['role'],
   data() {
     return {
       settings: {
         minScrollbarLength: 60,
       },
-      // role: this.$parent.role
     };
   },
+  inject: ["role"],
   computed: {
     ...layoutComputed,
     layoutType: {
@@ -22,7 +20,13 @@ export default {
       },
     },
   },
-
+  watch: {
+    $route: {
+      handler: "onRoutechange",
+      immediate: true,
+      deep: true,
+    },
+  },
   mounted() {
     setTimeout(() => {
       if (document.querySelectorAll(".navbar-nav .collapse")) {
@@ -159,7 +163,7 @@ export default {
     <template v-else>
       <ul class="navbar-nav h-100" id="navbar-nav">
         <li class="menu-title">
-          <span data-key="t-menu"> {{ $t("Dashboard") }}  </span>
+          <span data-key="t-menu"> {{ $t("Dashboard") }} </span>
         </li>
   
          <li class="nav-item">

@@ -5,6 +5,7 @@ import appConfig from "../../../app.config";
 import apiKategori from "../../apis/Kategori.js";
 // import apiUser from "../../apis/Kategori.js";    
 import apiDokumen from "../../apis/Dokumen.js";
+import apiUser from "../../apis/User.js";
 import animationData from "@/components/widgets/lupuorrc.json";
 import Lottie from "@/components/widgets/lottie.vue";
 import $ from 'jquery';
@@ -23,6 +24,7 @@ export default {
             title: "Wizard",
             Kategori: {},
             Dokumen: {},
+            dataPembimbing: {},
             KategoriID: "",
             Berkas: {
                 status: [],
@@ -126,8 +128,13 @@ export default {
             apiDokumen.tambahDokumen(fd).then((response) => {
                 this.Kategori = response.data.data;
             });
-
         },
+        selectDosen() {
+            apiUser.searchRole('Dosen').then((response) => {
+                this.dataPembimbing = response.data.data;
+                console.log(this.dataPembimbing)
+            });
+        }
     },
     components: {
         Layout,
@@ -136,7 +143,8 @@ export default {
         ckeditor: CKEditor.component
     },
     mounted() {
-        this.getKategori(),
+        this.selectDosen(),
+            this.getKategori(),
             document.querySelectorAll(".form-steps").forEach(function (form) {
 
                 // next tab
@@ -302,10 +310,13 @@ export default {
                                                                         <th scope="row" class="product-id">1</th>
                                                                         <td class="text-start">
                                                                             <div class="mb-2">
-                                                                                <input type="text" class="form-control bg-light border-0" v-model="this.Dokumen.pembimbing_1" />
-                                                                                <div class="invalid-feedback">
-                                                                                    Please enter a product name
-                                                                                </div>
+                                                                                <label for="lastName" class="form-label">Pembimbing 1</label>
+                                                                                <select class="form-select mb-2" v-model="this.Dokumen.pembimbing_1" aria-label="Default select example">
+                                                                                    <!-- <option disabled value="">-- PILIH DATA -- </option> -->
+                                                                                    <option v-for="(item, index) in dataPembimbing" :key="index" selected="" :value="item.id">
+                                                                                        {{ item.name }}
+                                                                                    </option>
+                                                                                </select>
                                                                             </div>
                                                                         </td>
                                                                     </tr>
@@ -313,10 +324,13 @@ export default {
                                                                         <th scope="row" class="product-id">2</th>
                                                                         <td class="text-start">
                                                                             <div class="mb-2">
-                                                                                <input type="text" class="form-control bg-light border-0" v-model="this.Dokumen.pembimbing_2" />
-                                                                                <div class="invalid-feedback">
-                                                                                    Please enter a product name
-                                                                                </div>
+                                                                                <label for="lastName" class="form-label">Pembimbing 2</label>
+                                                                                <select class="form-select mb-2" v-model="this.Dokumen.pembimbing_2" aria-label="Default select example">
+                                                                                    <!-- <option disabled value="">-- PILIH DATA -- </option> -->
+                                                                                    <option v-for="(item, index) in dataPembimbing" :key="index" selected="" :value="item.id">
+                                                                                        {{ item.name }}
+                                                                                    </option>
+                                                                                </select>
                                                                             </div>
                                                                         </td>
                                                                     </tr>

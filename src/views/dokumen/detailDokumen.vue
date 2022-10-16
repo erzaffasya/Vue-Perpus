@@ -40,6 +40,7 @@ export default {
       },
     ],
   },
+  inject: ['role'],
   data() {
     return {
       title: "Overview",
@@ -53,8 +54,9 @@ export default {
           active: true,
         },
       ],
-      role: this.$parent.role,
-      dokumen: {},
+      dokumen: {
+        kategori: {},
+      },
       settingDokumen: {},
       editor: ClassicEditor,
       editorData:
@@ -99,11 +101,11 @@ export default {
                     </div>
                     <div class="col-md">
                       <div>
-                        <h4 class="fw-bold">{{ this.dokumen.judul }} {{this.role}}</h4>
+                        <h4 class="fw-bold">{{ this.dokumen.judul }}</h4>
                         <div class="hstack gap-3 flex-wrap">
                           <div>
                             <i class="ri-building-line align-bottom me-1"></i>
-                            {{ this.dokumen.jurusan }}
+                            {{ this.dokumen.kategori.nama_kategori }}
                           </div>
                           <div class="vr"></div>
                           <div>
@@ -119,7 +121,7 @@ export default {
                           </div>
                           <div class="vr"></div>
                           <div class="badge rounded-pill bg-info fs-12">
-                            New
+                            New 
                           </div>
                           <div class="badge rounded-pill bg-danger fs-12">
                             High
@@ -178,14 +180,14 @@ export default {
                     Riwayat Peminjaman
                   </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" v-if="this.dokumen.status != 'Diterima' && this.dokumen.status != 'Ditolak' && role === 'Admin'" >
                   <a
                     class="nav-link fw-semibold"
                     data-bs-toggle="tab"
                     href="#setting-dokumen"
                     role="tab"
                   >
-                    Atur Dokumen
+                    Revisi Dokumen
                   </a>
                 </li>
               </ul>
@@ -240,25 +242,31 @@ export default {
                           <div class="col-lg-3 col-sm-6">
                             <div>
                               <p class="mb-2 text-uppercase fw-semibold fs-13">
-                                Create Date :
+                                Nama Pengarang :
                               </p>
-                              <h5 class="fs-15 mb-0">15 Sep, 2021</h5>
+                              <h5 class="fs-15 mb-0">
+                                {{ this.dokumen.nama_pengarang }}
+                              </h5>
                             </div>
                           </div>
                           <div class="col-lg-3 col-sm-6">
                             <div>
                               <p class="mb-2 text-uppercase fw-semibold fs-13">
-                                Due Date :
+                                Tahun Terbit :
                               </p>
-                              <h5 class="fs-15 mb-0">29 Dec, 2021</h5>
+                              <h5 class="fs-15 mb-0">
+                                {{ this.dokumen.tahun_terbit }}
+                              </h5>
                             </div>
                           </div>
                           <div class="col-lg-3 col-sm-6">
                             <div>
                               <p class="mb-2 text-uppercase fw-semibold fs-13">
-                                Priority :
+                                Penerbit :
                               </p>
-                              <div class="badge bg-danger fs-12">High</div>
+                              <h5 class="fs-15 mb-0">
+                                {{ this.dokumen.penerbit }}
+                              </h5>
                             </div>
                           </div>
                           <div class="col-lg-3 col-sm-6">
@@ -266,201 +274,59 @@ export default {
                               <p class="mb-2 text-uppercase fw-semibold fs-13">
                                 Status :
                               </p>
-                              <div class="badge bg-warning fs-12">
-                                Inprogess
+                              <div
+                                v-if="this.dokumen.status === 'Diterima'"
+                                class="badge bg-success fs-12"
+                              >
+                                Diterima
+                              </div>
+                              <div
+                                v-if="this.dokumen.status === 'Diproses'"
+                                class="badge bg-warning fs-12"
+                              >
+                                Diproses
+                              </div>
+                              <div
+                                v-if="this.dokumen.status === 'Revisi'"
+                                class="badge bg-warning fs-12"
+                              >
+                                Revisi
+                              </div>
+                              <div
+                                v-if="this.dokumen.status === 'Ditolak'"
+                                class="badge bg-danger fs-12"
+                              >
+                                Ditolak
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
 
-                      <div class="pt-3 border-top border-top-dashed mt-4">
+                      <div v-if="this.dokumen.pembimbing" class="pt-3 border-top border-top-dashed mt-4">
                         <h6 class="mb-3 fw-semibold text-uppercase">
-                          Resources
+                          Dosen Pembimbing
                         </h6>
                         <div class="row g-3">
-                          <div class="col-xxl-4 col-lg-6">
+                          <div v-for="(item, index) in dokumen.pembimbing" :key="index" class="col-xxl-4 col-lg-6">
                             <div class="border rounded border-dashed p-2">
                               <div class="d-flex align-items-center">
-                                <div class="flex-shrink-0 me-3">
-                                  <div class="avatar-sm">
-                                    <div
-                                      class="
-                                        avatar-title
-                                        bg-light
-                                        text-secondary
-                                        rounded
-                                        fs-24
-                                      "
-                                    >
-                                      <i class="ri-folder-zip-line"></i>
-                                    </div>
+                                <div class="d-flex align-items-center">
+                                  <div class="flex-shrink-0">
+                                    <img
+                                      src="/img/avatar-3.f7247f1c.jpg"
+                                      alt=""
+                                      class="avatar-sm rounded"
+                                    />
                                   </div>
-                                </div>
-                                <div class="flex-grow-1 overflow-hidden">
-                                  <h5 class="fs-15 mb-1">
-                                    <a
-                                      href="#"
-                                      class="text-body text-truncate d-block"
-                                      >App pages.zip</a
-                                    >
-                                  </h5>
-                                  <div>2.2MB</div>
-                                </div>
-                                <div class="flex-shrink-0 ms-2">
-                                  <div class="d-flex gap-1">
-                                    <button
-                                      type="button"
-                                      class="
-                                        btn btn-icon
-                                        text-muted
-                                        btn-sm
-                                        fs-18
-                                      "
-                                    >
-                                      <i class="ri-download-2-line"></i>
-                                    </button>
-                                    <div class="dropdown">
-                                      <button
-                                        class="
-                                          btn btn-icon
-                                          text-muted
-                                          btn-sm
-                                          fs-18
-                                          dropdown
-                                        "
-                                        type="button"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                      >
-                                        <i class="ri-more-fill"></i>
-                                      </button>
-                                      <ul class="dropdown-menu">
-                                        <li>
-                                          <a class="dropdown-item" href="#"
-                                            ><i
-                                              class="
-                                                ri-pencil-fill
-                                                align-bottom
-                                                me-2
-                                                text-muted
-                                              "
-                                            ></i>
-                                            Rename</a
-                                          >
-                                        </li>
-                                        <li>
-                                          <a class="dropdown-item" href="#"
-                                            ><i
-                                              class="
-                                                ri-delete-bin-fill
-                                                align-bottom
-                                                me-2
-                                                text-muted
-                                              "
-                                            ></i>
-                                            Delete</a
-                                          >
-                                        </li>
-                                      </ul>
-                                    </div>
+                                  <div class="flex-grow-1 ms-3">
+                                    <h6 class="fs-15 mb-1">{{item.name}}</h6>
+                                    <p class="text-muted mb-0">Dosen Pembimbing</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <!-- end col -->
-                          <div class="col-xxl-4 col-lg-6">
-                            <div class="border rounded border-dashed p-2">
-                              <div class="d-flex align-items-center">
-                                <div class="flex-shrink-0 me-3">
-                                  <div class="avatar-sm">
-                                    <div
-                                      class="
-                                        avatar-title
-                                        bg-light
-                                        text-secondary
-                                        rounded
-                                        fs-24
-                                      "
-                                    >
-                                      <i class="ri-file-ppt-2-line"></i>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="flex-grow-1 overflow-hidden">
-                                  <h5 class="fs-15 mb-1">
-                                    <a
-                                      href="#"
-                                      class="text-body text-truncate d-block"
-                                      >Velzon admin.ppt</a
-                                    >
-                                  </h5>
-                                  <div>2.4MB</div>
-                                </div>
-                                <div class="flex-shrink-0 ms-2">
-                                  <div class="d-flex gap-1">
-                                    <button
-                                      type="button"
-                                      class="
-                                        btn btn-icon
-                                        text-muted
-                                        btn-sm
-                                        fs-18
-                                      "
-                                    >
-                                      <i class="ri-download-2-line"></i>
-                                    </button>
-                                    <div class="dropdown">
-                                      <button
-                                        class="
-                                          btn btn-icon
-                                          text-muted
-                                          btn-sm
-                                          fs-18
-                                          dropdown
-                                        "
-                                        type="button"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                      >
-                                        <i class="ri-more-fill"></i>
-                                      </button>
-                                      <ul class="dropdown-menu">
-                                        <li>
-                                          <a class="dropdown-item" href="#"
-                                            ><i
-                                              class="
-                                                ri-pencil-fill
-                                                align-bottom
-                                                me-2
-                                                text-muted
-                                              "
-                                            ></i>
-                                            Rename</a
-                                          >
-                                        </li>
-                                        <li>
-                                          <a class="dropdown-item" href="#"
-                                            ><i
-                                              class="
-                                                ri-delete-bin-fill
-                                                align-bottom
-                                                me-2
-                                                text-muted
-                                              "
-                                            ></i>
-                                            Delete</a
-                                          >
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- end col -->
                         </div>
                         <!-- end row -->
                       </div>
