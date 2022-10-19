@@ -208,7 +208,7 @@ export default {
                         {{ this.jumlah.dokumen }}
                       </h4>
                       <a href="" class="text-decoration-underline"
-                        >View net earnings</a
+                        >Lihat data</a
                       >
                     </div>
                     <div class="avatar-sm flex-shrink-0">
@@ -250,7 +250,7 @@ export default {
                         {{ this.jumlah.peminjamanDokumen }}
                       </h4>
                       <a href="" class="text-decoration-underline"
-                        >View all orders</a
+                        >Lihat data</a
                       >
                     </div>
                     <div class="avatar-sm flex-shrink-0">
@@ -292,7 +292,7 @@ export default {
                         {{ this.jumlah.ruangan }}
                       </h4>
                       <a href="" class="text-decoration-underline"
-                        >See details</a
+                        >Lihat data</a
                       >
                     </div>
                     <div class="avatar-sm flex-shrink-0">
@@ -334,7 +334,7 @@ export default {
                         {{ this.jumlah.peminjamanRuangan }}
                       </h4>
                       <a href="" class="text-decoration-underline"
-                        >Withdraw money</a
+                        >Lihat data</a
                       >
                     </div>
                     <div class="avatar-sm flex-shrink-0">

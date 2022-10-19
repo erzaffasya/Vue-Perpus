@@ -40,7 +40,7 @@ export default {
       },
     ],
   },
-  inject: ['role'],
+  inject: ["role"],
   data() {
     return {
       title: "Overview",
@@ -121,7 +121,7 @@ export default {
                           </div>
                           <div class="vr"></div>
                           <div class="badge rounded-pill bg-info fs-12">
-                            New 
+                            New
                           </div>
                           <div class="badge rounded-pill bg-danger fs-12">
                             High
@@ -145,6 +145,20 @@ export default {
                     <button type="button" class="btn py-0 fs-16 text-body">
                       <i class="ri-flag-line"></i>
                     </button>
+                  </div>
+                  <div class="hstack gap-3 flex-wrap">
+                    <div class="flex-shrink-0">
+                      <button 
+                        v-if="this.dokumen.status === 'Diterima'"
+                        type="button"
+                        class="btn btn-success add-btn"
+                        data-bs-toggle="modal"
+                        id="create-btn"
+                        data-bs-target="#showModal"
+                      >
+                        <i class="ri-add-line align-bottom me-1"></i> Pinjam Dokumen
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -180,7 +194,14 @@ export default {
                     Riwayat Peminjaman
                   </a>
                 </li>
-                <li class="nav-item" v-if="this.dokumen.status != 'Diterima' && this.dokumen.status != 'Ditolak' && role === 'Admin'" >
+                <li
+                  class="nav-item"
+                  v-if="
+                    this.dokumen.status != 'Diterima' &&
+                    this.dokumen.status != 'Ditolak' &&
+                    role === 'Admin'
+                  "
+                >
                   <a
                     class="nav-link fw-semibold"
                     data-bs-toggle="tab"
@@ -303,12 +324,19 @@ export default {
                         </div>
                       </div>
 
-                      <div v-if="this.dokumen.pembimbing" class="pt-3 border-top border-top-dashed mt-4">
+                      <div
+                        v-if="this.dokumen.pembimbing"
+                        class="pt-3 border-top border-top-dashed mt-4"
+                      >
                         <h6 class="mb-3 fw-semibold text-uppercase">
                           Dosen Pembimbing
                         </h6>
                         <div class="row g-3">
-                          <div v-for="(item, index) in dokumen.pembimbing" :key="index" class="col-xxl-4 col-lg-6">
+                          <div
+                            v-for="(item, index) in dokumen.pembimbing"
+                            :key="index"
+                            class="col-xxl-4 col-lg-6"
+                          >
                             <div class="border rounded border-dashed p-2">
                               <div class="d-flex align-items-center">
                                 <div class="d-flex align-items-center">
@@ -320,8 +348,10 @@ export default {
                                     />
                                   </div>
                                   <div class="flex-grow-1 ms-3">
-                                    <h6 class="fs-15 mb-1">{{item.name}}</h6>
-                                    <p class="text-muted mb-0">Dosen Pembimbing</p>
+                                    <h6 class="fs-15 mb-1">{{ item.name }}</h6>
+                                    <p class="text-muted mb-0">
+                                      Dosen Pembimbing
+                                    </p>
                                   </div>
                                 </div>
                               </div>
