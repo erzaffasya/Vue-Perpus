@@ -2,6 +2,7 @@
 import Layout from "../../layouts/main.vue";
 import appConfig from "../../../app.config";
 import apiDokumen from "../../apis/Dokumen";
+import apiPeminjamanDokumen from "../../apis/PeminjamanDokumen";
 import Multiselect from "@vueform/multiselect";
 import CKEditor from "@ckeditor/ckeditor5-vue";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -13,6 +14,14 @@ export default {
   methods: {
     toggleFavourite(ele) {
       ele.target.closest(".favourite-btn").classList.toggle("active");
+    },
+    pinjamDokumen() {
+      console.log("terPinjam");
+      apiPeminjamanDokumen
+        .tambahPeminjamanDokumen({ dokumen_id: this.$route.params.id })
+        .then((response) => {
+          console.log(response, "sukses");
+        });
     },
     async getDokumen() {
       await apiDokumen.showDokumen(this.$route.params.id).then((response) => {
@@ -148,15 +157,17 @@ export default {
                   </div>
                   <div class="hstack gap-3 flex-wrap">
                     <div class="flex-shrink-0">
-                      <button 
+                      <button
                         v-if="this.dokumen.status === 'Diterima'"
                         type="button"
+                        @click="pinjamDokumen(this.$route.params.id)"
                         class="btn btn-success add-btn"
                         data-bs-toggle="modal"
                         id="create-btn"
                         data-bs-target="#showModal"
                       >
-                        <i class="ri-add-line align-bottom me-1"></i> Pinjam Dokumen
+                        <i class="ri-add-line align-bottom me-1"></i> Pinjam
+                        Dokumen
                       </button>
                     </div>
                   </div>

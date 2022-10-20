@@ -1,16 +1,16 @@
 <script>
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 import "@vueform/multiselect/themes/default.css";
-import "flatpickr/dist/flatpickr.css";
+// import "flatpickr/dist/flatpickr.css";
 import Multiselect from "@vueform/multiselect";
 import "@vueform/multiselect/themes/default.css";
-import flatPickr from "vue-flatpickr-component";
-import "flatpickr/dist/flatpickr.css";
+// import flatPickr from "vue-flatpickr-component";
+// import "flatpickr/dist/flatpickr.css";
 
 import Layout from "../../layouts/main.vue";
 import appConfig from "../../../app.config";
 import PageHeader from "@/components/page-header";
-import apiRuanganBaca from "../../apis/RuanganBaca.js";
+import apiPeminjamanDokumen from "../../apis/PeminjamanDokumen.js";
 import animationData from "@/components/widgets/msoeawqm.json";
 import Lottie from "@/components/widgets/lottie.vue";
 
@@ -46,50 +46,50 @@ export default {
       defaultOptions: {
         animationData: animationData,
       },
-      RuanganBaca: [],
-      date:null,
+      PeminjamanDokumen: [],
+      date: null,
       chartOptions: {
-       chart: {
-        type: "area",
-        height: 50,
-        sparkline: {
+        chart: {
+          type: "area",
+          height: 50,
+          sparkline: {
             enabled: true,
+          },
         },
-    },
-    fill: {
-        type: "gradient",
-        gradient: {
+        fill: {
+          type: "gradient",
+          gradient: {
             shadeIntensity: 1,
             inverseColors: false,
             opacityFrom: 0.45,
             opacityTo: 0.05,
             stops: [20, 100, 100, 100],
+          },
         },
-    },
-    stroke: {
-        curve: "smooth",
-        width: 2,
-    },
-    colors: ["#f44336"],
-    tooltip: {
-        fixed: {
+        stroke: {
+          curve: "smooth",
+          width: 2,
+        },
+        colors: ["#f44336"],
+        tooltip: {
+          fixed: {
             enabled: false,
-        },
-        x: {
+          },
+          x: {
             show: false,
-        },
-        y: {
+          },
+          y: {
             title: {
-                formatter: function () {
-                    return "";
-                },
+              formatter: function () {
+                return "";
+              },
             },
-        },
-        marker: {
+          },
+          marker: {
             show: false,
+          },
         },
-    },
-    },
+      },
       sellersList: [
         {
           id: 1,
@@ -109,7 +109,7 @@ export default {
           name: "Katia Stapleton",
           stock: "784",
           balance: "$97,642",
-           series: [{ data: [12, 14, 2, 47, 42, 15, 35, 75, 20, 67, 89] }],
+          series: [{ data: [12, 14, 2, 47, 42, 15, 35, 75, 20, 67, 89] }],
         },
         {
           id: 3,
@@ -125,7 +125,7 @@ export default {
           id: 4,
           isTrending: true,
           img: require("@/assets/images/companies/img-4.png"),
-           series: [{ data: [26, 15, 48, 12, 47, 19, 35, 19, 85, 68, 50] }],
+          series: [{ data: [26, 15, 48, 12, 47, 19, 35, 19, 85, 68, 50] }],
           label: "iTest Factory",
           name: "Oliver Tyler",
           stock: "159",
@@ -135,7 +135,7 @@ export default {
           id: 5,
           isTrending: false,
           img: require("@/assets/images/companies/img-5.png"),
-           series: [{ data: [60, 67, 12, 49, 6, 78, 63, 51, 33, 8, 16] }],
+          series: [{ data: [60, 67, 12, 49, 6, 78, 63, 51, 33, 8, 16] }],
           label: "Meta4Systems",
           name: "Zoe Dennis",
           stock: "363",
@@ -145,7 +145,7 @@ export default {
           id: 6,
           isTrending: true,
           img: require("@/assets/images/companies/img-6.png"),
-           series: [{ data: [78, 63, 51, 33, 8, 16, 60, 67, 12, 49 ] }],
+          series: [{ data: [78, 63, 51, 33, 8, 16, 60, 67, 12, 49] }],
           label: "Digitech Galaxy",
           name: "John Roberts",
           stock: "412",
@@ -155,7 +155,7 @@ export default {
           id: 7,
           isTrending: true,
           img: require("@/assets/images/companies/img-7.png"),
-           series: [{ data: [15, 35, 75, 20, 67, 8, 42, 30, 5, 35] }],
+          series: [{ data: [15, 35, 75, 20, 67, 8, 42, 30, 5, 35] }],
           label: "Syntyce Solutions",
           name: "Demi Allen",
           stock: "945",
@@ -179,11 +179,11 @@ export default {
     PageHeader,
     lottie: Lottie,
     Multiselect,
-    flatPickr
+    // flatPickr,
   },
   computed: {
     displayedPosts() {
-      return this.paginate(this.RuanganBaca);
+      return this.paginate(this.PeminjamanDokumen);
     },
     resultQuery() {
       console.log(this.searchQuery);
@@ -191,12 +191,14 @@ export default {
         const search = this.searchQuery.toLowerCase();
         return this.displayedPosts.filter((data) => {
           return (
-            (data.nama_ruangan &&
-              data.nama_ruangan.toLowerCase().includes(search)) ||
-            (data.deskripsi && data.deskripsi.toLowerCase().includes(search)) ||
-            (data.jumlah_orang &&
-              data.jumlah_orang.toLowerCase().includes(search)) ||
-            (data.lokasi && data.lokasi.toLowerCase().includes(search))
+            (data.nama && data.nama.toLowerCase().includes(search)) ||
+            (data.tgl_peminjaman &&
+              data.tgl_peminjaman.toLowerCase().includes(search)) ||
+            (data.tgl_pengembalian &&
+              data.tgl_pengembalian.toLowerCase().includes(search)) ||
+            (data.dokumen && data.dokumen.toLowerCase().includes(search)) ||
+            (data.durasi_peminjaman &&
+              data.durasi_peminjaman.toLowerCase().includes(search))
           );
         });
       } else {
@@ -213,7 +215,7 @@ export default {
     },
   },
   created() {
-    this.getRuanganBaca();
+    this.getBerlangsung();
   },
   mounted() {
     this.setPages();
@@ -224,10 +226,29 @@ export default {
     },
   },
   methods: {
-    async getRuanganBaca() {
-      await apiRuanganBaca.lihatRuanganBaca().then((response) => {
-        this.RuanganBaca = response.data.data;
-      });
+    getRiwayat() {
+      this.PeminjamanDokumen = [];
+      apiPeminjamanDokumen
+        .filterPeminjamanDokumen("riwayat")
+        .then((response) => {
+          console.log(response, "PeminjamanDokumen");
+          this.PeminjamanDokumen = response.data.data;
+          this.pages = [];
+          this.page = 1;
+          this.setPages();
+        });
+    },
+    getBerlangsung() {
+      this.PeminjamanDokumen = [];
+      apiPeminjamanDokumen
+        .filterPeminjamanDokumen("berlangsung")
+        .then((response) => {
+          console.log(response, "PeminjamanDokumen");
+          this.PeminjamanDokumen = response.data.data;
+          this.pages = [];
+          this.page = 1;
+          this.setPages();
+        });
     },
     onChangeStatus(e) {
       this.isStatus = e;
@@ -236,41 +257,43 @@ export default {
       this.isPayment = e;
     },
     setPages() {
-      let numberOfPages = Math.ceil(this.RuanganBaca.length / this.perPage);
+      let numberOfPages = Math.ceil(
+        this.PeminjamanDokumen.length / this.perPage
+      );
       for (let index = 1; index <= numberOfPages; index++) {
         this.pages.push(index);
       }
     },
-    paginate(RuanganBaca) {
+    paginate(PeminjamanDokumen) {
       let page = this.page;
       let perPage = this.perPage;
       let from = page * perPage - perPage;
       let to = page * perPage;
-      return RuanganBaca.slice(from, to);
+      return PeminjamanDokumen.slice(from, to);
     },
     SearchData() {
       this.resultQuery;
       // var isstatus = document.getElementById("idStatus").value;
       //   var payment = document.getElementById("idPayment").value;
     },
-    confirm(id) {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#34c38f",
-        cancelButtonColor: "#f46a6a",
-        confirmButtonText: "Yes, delete it!",
-      }).then((result) => {
-        if (result.value) {
-          apiRuanganBaca.hapusRuanganBaca(id).then(() => {
-            this.getRuanganBaca();
-          });
-          Swal.fire("Berhasil!", "Data Ruangan Berhasil Dihapus.", "success");
-        }
-      });
-    },
+    // confirm(id) {
+    //   Swal.fire({
+    //     title: "Are you sure?",
+    //     text: "You won't be able to revert this!",
+    //     icon: "warning",
+    //     showCancelButton: true,
+    //     confirmButtonColor: "#34c38f",
+    //     cancelButtonColor: "#f46a6a",
+    //     confirmButtonText: "Yes, delete it!",
+    //   }).then((result) => {
+    //     if (result.value) {
+    //       apiPeminjamanDokumen.hapusPeminjamanDokumen(id).then(() => {
+    //         this.getRiwayat();
+    //       });
+    //       Swal.fire("Berhasil!", "Data Ruangan Berhasil Dihapus.", "success");
+    //     }
+    //   });
+    // },
   },
 };
 </script>
@@ -288,6 +311,7 @@ export default {
             <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
               <li class="nav-item">
                 <a
+                  @click="getBerlangsung()"
                   class="nav-link active"
                   data-bs-toggle="tab"
                   href="#dataBerlangsung"
@@ -299,6 +323,7 @@ export default {
               </li>
               <li class="nav-item">
                 <a
+                  @click="getRiwayat()"
                   class="nav-link"
                   data-bs-toggle="tab"
                   href="#dataRiwayat"
@@ -385,11 +410,11 @@ export default {
                           <!--end row-->
                         </div>
                       </div>
-
+                      <!-- Berlangsung   -->
                       <div class="row mt-4">
                         <div
                           class="col-xl-3 col-lg-6"
-                          v-for="(item, index) of sellersList"
+                          v-for="(item, index) of resultQuery"
                           :key="index"
                         >
                           <div class="card ribbon-box right overflow-hidden">
@@ -436,17 +461,20 @@ export default {
                                 <div
                                   class="col-lg-6 border-end-dashed border-end"
                                 >
-                                  <h5>{{ item.stock }}</h5>
-                                  <span class="text-muted">Item Stock</span>
+                                  <h6>{{ item.dokumen.judul }}</h6>
+                                  <span class="text-muted">Judul</span>
                                 </div>
                                 <div class="col-lg-6">
-                                  <h5>{{ item.balance }}</h5>
-                                  <span class="text-muted">Wallet Balance</span>
+                                  <h6>{{ item.tgl_pengembalian }}</h6>
+                                  <span class="text-muted">Tanggal Pengembalian</span>
                                 </div>
                               </div>
                               <div class="mt-4">
                                 <router-link
-                                  to="/ecommerce/seller-details"
+                                  :to="{
+                                    name: 'detail-dokumen',
+                                    params: { id: item.dokumen.id },
+                                  }"
                                   class="btn btn-light w-100"
                                   >View Details</router-link
                                 >
@@ -457,680 +485,6 @@ export default {
                         <!--end col-->
                       </div>
                       <!--end row-->
-
-                      <div
-                        class="
-                          row
-                          g-0
-                          text-center text-sm-start
-                          align-items-center
-                          mb-3
-                        "
-                      >
-                        <div class="col-sm-6">
-                          <div>
-                            <p class="mb-sm-0">Showing 1 to 8 of 12 entries</p>
-                          </div>
-                        </div>
-                        <!-- end col -->
-                        <div class="col-sm-6">
-                          <ul
-                            class="
-                              pagination pagination-separated
-                              justify-content-center justify-content-sm-end
-                              mb-sm-0
-                            "
-                          >
-                            <li class="page-item disabled">
-                              <a href="#" class="page-link"
-                                ><i class="mdi mdi-chevron-left"></i
-                              ></a>
-                            </li>
-                            <li class="page-item active">
-                              <a href="#" class="page-link">1</a>
-                            </li>
-                            <li class="page-item">
-                              <a href="#" class="page-link">2</a>
-                            </li>
-                            <li class="page-item">
-                              <a href="#" class="page-link">3</a>
-                            </li>
-                            <li class="page-item">
-                              <a href="#" class="page-link">4</a>
-                            </li>
-                            <li class="page-item">
-                              <a href="#" class="page-link">5</a>
-                            </li>
-                            <li class="page-item">
-                              <a href="#" class="page-link"
-                                ><i class="mdi mdi-chevron-right"></i
-                              ></a>
-                            </li>
-                          </ul>
-                        </div>
-                        <!-- end col -->
-                      </div>
-                      <!-- end row -->
-
-                      <!-- Modal -->
-                      <div
-                        class="modal fade zoomIn"
-                        id="addSeller"
-                        tabindex="-1"
-                        aria-labelledby="addSellerLabel"
-                        aria-hidden="true"
-                      >
-                        <div
-                          class="modal-dialog modal-dialog-centered modal-lg"
-                        >
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="addSellerLabel">
-                                Add Seller
-                              </h5>
-                              <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                              ></button>
-                            </div>
-                            <div class="modal-content border-0 mt-3">
-                              <ul
-                                class="
-                                  nav nav-tabs nav-tabs-custom nav-success
-                                  p-2
-                                  pb-0
-                                  bg-light
-                                "
-                                role="tablist"
-                              >
-                                <li class="nav-item">
-                                  <a
-                                    class="nav-link active"
-                                    data-bs-toggle="tab"
-                                    href="#personalDetails"
-                                    role="tab"
-                                    aria-selected="true"
-                                  >
-                                    Personal Details
-                                  </a>
-                                </li>
-                                <li class="nav-item">
-                                  <a
-                                    class="nav-link"
-                                    data-bs-toggle="tab"
-                                    href="#businessDetails"
-                                    role="tab"
-                                    aria-selected="false"
-                                  >
-                                    Business Details
-                                  </a>
-                                </li>
-                                <li class="nav-item">
-                                  <a
-                                    class="nav-link"
-                                    data-bs-toggle="tab"
-                                    href="#bankDetails"
-                                    role="tab"
-                                    aria-selected="false"
-                                  >
-                                    Bank Details
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-                            <div class="modal-body">
-                              <div class="tab-content">
-                                <div
-                                  class="tab-pane active"
-                                  id="personalDetails"
-                                  role="tabpanel"
-                                >
-                                  <form action="#">
-                                    <div class="row">
-                                      <div class="col-lg-6">
-                                        <div class="mb-3">
-                                          <label
-                                            for="firstnameInput"
-                                            class="form-label"
-                                            >First Name</label
-                                          >
-                                          <input
-                                            type="text"
-                                            class="form-control"
-                                            id="firstnameInput"
-                                            placeholder="Enter your firstname"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-6">
-                                        <div class="mb-3">
-                                          <label
-                                            for="lastnameInput"
-                                            class="form-label"
-                                            >Last Name</label
-                                          >
-                                          <input
-                                            type="text"
-                                            class="form-control"
-                                            id="lastnameInput"
-                                            placeholder="Enter your lastname"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-6">
-                                        <div class="mb-3">
-                                          <label
-                                            for="contactnumberInput"
-                                            class="form-label"
-                                            >Contact Number</label
-                                          >
-                                          <input
-                                            type="number"
-                                            class="form-control"
-                                            id="contactnumberInput"
-                                            placeholder="Enter your number"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-6">
-                                        <div class="mb-3">
-                                          <label
-                                            for="phonenumberInput"
-                                            class="form-label"
-                                            >Phone Number</label
-                                          >
-                                          <input
-                                            type="number"
-                                            class="form-control"
-                                            id="phonenumberInput"
-                                            placeholder="Enter your number"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-6">
-                                        <div class="mb-3">
-                                          <label
-                                            for="emailidInput"
-                                            class="form-label"
-                                            >Email</label
-                                          >
-                                          <input
-                                            type="email"
-                                            class="form-control"
-                                            id="emailidInput"
-                                            placeholder="Enter your email"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-6">
-                                        <div class="mb-3">
-                                          <label
-                                            for="birthdayidInput"
-                                            class="form-label"
-                                            >Date of Birth</label
-                                          >
-                                          <flat-pickr
-                                            v-model="date"
-                                            placeholder="Enter your date of birth"
-                                            class="form-control"
-                                          ></flat-pickr>
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-4">
-                                        <div class="mb-3">
-                                          <label
-                                            for="cityidInput"
-                                            class="form-label"
-                                            >City</label
-                                          >
-                                          <input
-                                            type="text"
-                                            class="form-control"
-                                            id="cityidInput"
-                                            placeholder="Enter your city"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-4">
-                                        <div class="mb-3">
-                                          <label
-                                            for="countryidInput"
-                                            class="form-label"
-                                            >Country</label
-                                          >
-                                          <input
-                                            type="text"
-                                            class="form-control"
-                                            id="countryidInput"
-                                            placeholder="Enter your country"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-4">
-                                        <div class="mb-3">
-                                          <label
-                                            for="zipcodeidInput"
-                                            class="form-label"
-                                            >Zip Code</label
-                                          >
-                                          <input
-                                            type="text"
-                                            class="form-control"
-                                            id="zipcodeidInput"
-                                            placeholder="Enter your zipcode"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-12">
-                                        <div class="mb-3">
-                                          <label
-                                            for="exampleFormControlTextarea1"
-                                            class="form-label"
-                                            >Description</label
-                                          >
-                                          <textarea
-                                            class="form-control"
-                                            id="exampleFormControlTextarea1"
-                                            rows="3"
-                                            placeholder="Enter description"
-                                          ></textarea>
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-12">
-                                        <div
-                                          class="
-                                            hstack
-                                            gap-2
-                                            justify-content-end
-                                          "
-                                        >
-                                          <button
-                                            class="
-                                              btn btn-link
-                                              link-success
-                                              text-decoration-none
-                                              fw-medium
-                                            "
-                                            data-bs-dismiss="modal"
-                                          >
-                                            <i
-                                              class="
-                                                ri-close-line
-                                                me-1
-                                                align-middle
-                                              "
-                                            ></i>
-                                            Close
-                                          </button>
-                                          <button
-                                            type="submit"
-                                            class="btn btn-primary"
-                                          >
-                                            <i
-                                              class="
-                                                ri-save-3-line
-                                                align-bottom
-                                                me-1
-                                              "
-                                            ></i>
-                                            Save
-                                          </button>
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                  </form>
-                                </div>
-                                <div
-                                  class="tab-pane"
-                                  id="businessDetails"
-                                  role="tabpanel"
-                                >
-                                  <form action="#">
-                                    <div class="row">
-                                      <div class="col-lg-12">
-                                        <div class="mb-3">
-                                          <label
-                                            for="companynameInput"
-                                            class="form-label"
-                                            >Company Name</label
-                                          >
-                                          <input
-                                            type="text"
-                                            class="form-control"
-                                            id="companynameInput"
-                                            placeholder="Enter your company name"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-6">
-                                        <div class="mb-3">
-                                          <label
-                                            for="choices-single-default"
-                                            class="form-label"
-                                            >Company Type</label
-                                          >
-                                          <select
-                                            class="form-control"
-                                            data-trigger
-                                            name="choices-single-default"
-                                            id="choices-single-default"
-                                          >
-                                            <option value="">
-                                              Select type
-                                            </option>
-                                            <option value="All" selected>
-                                              All
-                                            </option>
-                                            <option value="Merchandising">
-                                              Merchandising
-                                            </option>
-                                            <option value="Manufacturing">
-                                              Manufacturing
-                                            </option>
-                                            <option value="Partnership">
-                                              Partnership
-                                            </option>
-                                            <option value="Corporation">
-                                              Corporation
-                                            </option>
-                                          </select>
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-6">
-                                        <div class="mb-3">
-                                          <label
-                                            for="pancardInput"
-                                            class="form-label"
-                                            >Pan Card Number</label
-                                          >
-                                          <input
-                                            type="text"
-                                            class="form-control"
-                                            id="pancardInput"
-                                            placeholder="Enter your pan-card number"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-4">
-                                        <div class="mb-3">
-                                          <label
-                                            for="websiteInput"
-                                            class="form-label"
-                                            >Website</label
-                                          >
-                                          <input
-                                            type="url"
-                                            class="form-control"
-                                            id="websiteInput"
-                                            placeholder="Enter your URL"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-4">
-                                        <div class="mb-3">
-                                          <label
-                                            for="faxInput"
-                                            class="form-label"
-                                            >Fax</label
-                                          >
-                                          <input
-                                            type="text"
-                                            class="form-control"
-                                            id="faxInput"
-                                            placeholder="Enter your fax"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-4">
-                                        <div class="mb-3">
-                                          <label
-                                            for="companyemailInput"
-                                            class="form-label"
-                                            >Email</label
-                                          >
-                                          <input
-                                            type="email"
-                                            class="form-control"
-                                            id="companyemailInput"
-                                            placeholder="Enter your email"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-6">
-                                        <div class="mb-3">
-                                          <label
-                                            for="worknumberInput"
-                                            class="form-label"
-                                            >Number</label
-                                          >
-                                          <input
-                                            type="number"
-                                            class="form-control"
-                                            id="worknumberInput"
-                                            placeholder="Enter your number"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-6">
-                                        <div class="mb-3">
-                                          <label
-                                            for="companylogoInput"
-                                            class="form-label"
-                                            >Company Logo</label
-                                          >
-                                          <input
-                                            type="file"
-                                            class="form-control"
-                                            id="companylogoInput"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-12">
-                                        <div
-                                          class="
-                                            hstack
-                                            gap-2
-                                            justify-content-end
-                                          "
-                                        >
-                                          <button
-                                            class="
-                                              btn btn-link
-                                              link-success
-                                              text-decoration-none
-                                              fw-medium
-                                            "
-                                            data-bs-dismiss="modal"
-                                          >
-                                            <i
-                                              class="
-                                                ri-close-line
-                                                me-1
-                                                align-middle
-                                              "
-                                            ></i>
-                                            Close
-                                          </button>
-                                          <button
-                                            type="submit"
-                                            class="btn btn-primary"
-                                          >
-                                            <i
-                                              class="
-                                                ri-save-3-line
-                                                align-bottom
-                                                me-1
-                                              "
-                                            ></i>
-                                            Save
-                                          </button>
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                  </form>
-                                </div>
-                                <div
-                                  class="tab-pane"
-                                  id="bankDetails"
-                                  role="tabpanel"
-                                >
-                                  <form action="#">
-                                    <div class="row">
-                                      <div class="col-lg-6">
-                                        <div class="mb-3">
-                                          <label
-                                            for="banknameInput"
-                                            class="form-label"
-                                            >Bank Name</label
-                                          >
-                                          <input
-                                            type="text"
-                                            class="form-control"
-                                            id="banknameInput"
-                                            placeholder="Enter your bank name"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-6">
-                                        <div class="mb-3">
-                                          <label
-                                            for="branchInput"
-                                            class="form-label"
-                                            >Branch</label
-                                          >
-                                          <input
-                                            type="text"
-                                            class="form-control"
-                                            id="branchInput"
-                                            placeholder="Branch"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-12">
-                                        <div class="mb-3">
-                                          <label
-                                            for="accountnameInput"
-                                            class="form-label"
-                                            >Account Holder Name</label
-                                          >
-                                          <input
-                                            type="text"
-                                            class="form-control"
-                                            id="accountnameInput"
-                                            placeholder="Enter account holder name"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-6">
-                                        <div class="mb-3">
-                                          <label
-                                            for="accountnumberInput"
-                                            class="form-label"
-                                            >Account Number</label
-                                          >
-                                          <input
-                                            type="number"
-                                            class="form-control"
-                                            id="accountnumberInput"
-                                            placeholder="Enter account number"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-6">
-                                        <div class="mb-3">
-                                          <label
-                                            for="ifscInput"
-                                            class="form-label"
-                                            >IFSC</label
-                                          >
-                                          <input
-                                            type="number"
-                                            class="form-control"
-                                            id="ifscInput"
-                                            placeholder="IFSC"
-                                          />
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                      <div class="col-lg-12">
-                                        <div
-                                          class="
-                                            hstack
-                                            gap-2
-                                            justify-content-end
-                                          "
-                                        >
-                                          <button
-                                            class="
-                                              btn btn-link
-                                              link-success
-                                              text-decoration-none
-                                              fw-medium
-                                            "
-                                            data-bs-dismiss="modal"
-                                          >
-                                            <i
-                                              class="
-                                                ri-close-line
-                                                me-1
-                                                align-middle
-                                              "
-                                            ></i>
-                                            Close
-                                          </button>
-                                          <button
-                                            type="submit"
-                                            class="btn btn-primary"
-                                          >
-                                            <i
-                                              class="
-                                                ri-save-3-line
-                                                align-bottom
-                                                me-1
-                                              "
-                                            ></i>
-                                            Save
-                                          </button>
-                                        </div>
-                                      </div>
-                                      <!--end col-->
-                                    </div>
-                                    <!--end row-->
-                                  </form>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -1175,16 +529,16 @@ export default {
                                     <th scope="col" style="width: 25px"></th>
                                     <th class="sort" data-sort="id">No</th>
                                     <th class="sort" data-sort="customer_name">
-                                      Nama Ruangan
+                                      Nama Peminjaman
                                     </th>
                                     <th class="sort" data-sort="product_name">
-                                      Deskripsi
+                                      Tanggal Peminjaman
                                     </th>
                                     <th class="sort" data-sort="product_name">
-                                      Jumlah Orang
+                                      Tanggal Pengembalian
                                     </th>
                                     <th class="sort" data-sort="product_name">
-                                      Lokasi
+                                      Dokumen
                                     </th>
                                     <th class="sort" data-sort="city">
                                       Action
@@ -1193,22 +547,24 @@ export default {
                                 </thead>
                                 <tbody class="list form-check-all">
                                   <tr
-                                    v-for="(data, index) of resultQuery"
-                                    :key="index"
+                                    v-for="(data, index1) of resultQuery"
+                                    :key="index1"
                                   >
                                     <th scope="row"></th>
-                                    <td class="customer_name">{{ data.id }}</td>
                                     <td class="customer_name">
-                                      {{ data.nama_ruangan }}
+                                      {{ index1 + 1 }}
+                                    </td>
+                                    <td class="customer_name">
+                                      {{ data.user.name }}
                                     </td>
                                     <td class="product_name">
-                                      {{ data.deskripsi }}
+                                      {{ data.tgl_peminjaman }}
                                     </td>
                                     <td class="product_name">
-                                      {{ data.jumlah_orang }}
+                                      {{ data.tgl_pengembalian }}
                                     </td>
                                     <td class="product_name">
-                                      {{ data.lokasi }}
+                                      {{ data.dokumen.judul }}
                                     </td>
                                     <td>
                                       <ul class="list-inline hstack gap-2 mb-0">
@@ -1248,7 +604,6 @@ export default {
                                           title="Remove"
                                         >
                                           <a
-                                            @click="confirm(data.id)"
                                             class="
                                               text-danger
                                               d-inline-block
@@ -1296,11 +651,11 @@ export default {
                                 </a>
                                 <ul class="pagination listjs-pagination mb-0">
                                   <li
-                                    v-for="(pageNumber, index) in pages.slice(
+                                    v-for="(pageNumber, index1) in pages.slice(
                                       page - 1,
                                       page + 5
                                     )"
-                                    :key="index"
+                                    :key="index1"
                                     @click="page = pageNumber"
                                     :class="{
                                       active: pageNumber == page,
