@@ -26,7 +26,7 @@ export default {
       ele.target?.closest(".favourite-btn").classList.toggle("active");
     },
     getDokumen() {
-      ApiDokumen.lihatDokumen().then((response) => {
+      ApiDokumen.lihatDokumen('Diterima').then((response) => {
         this.Dokumen = response.data.data;
         // console.log(this.Kategori);
       });

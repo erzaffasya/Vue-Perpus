@@ -158,15 +158,20 @@ export default {
                   <div class="hstack gap-3 flex-wrap">
                     <div class="flex-shrink-0">
                       <button
-                        v-if="this.dokumen.status === 'Diterima'"
+                        v-if="this.dokumen.status === 'Diterima' && this.dokumen.isPinjam == false"
                         type="button"
                         @click="pinjamDokumen(this.$route.params.id)"
                         class="btn btn-success add-btn"
-                        data-bs-toggle="modal"
-                        id="create-btn"
-                        data-bs-target="#showModal"
                       >
                         <i class="ri-add-line align-bottom me-1"></i> Pinjam
+                        Dokumen
+                      </button>
+                      <button
+                        v-if="this.dokumen.status === 'Diterima' && this.dokumen.isPinjam == true"
+                        type="button"
+                        class="btn btn-success add-btn"
+                      >
+                        <i class="ri-check-fill align-bottom me-1"></i> Sudah
                         Dokumen
                       </button>
                     </div>

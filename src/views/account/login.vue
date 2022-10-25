@@ -4,7 +4,6 @@ import { required, email, helpers } from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 import appConfig from "../../../app.config";
 import apiLogin from "../../apis/Auth";
-import { authHeader } from "../../helpers/authservice/auth-header";
 
 export default {
   setup() {
@@ -68,7 +67,6 @@ export default {
             this.isAuthError = false;
             if (response.data.code == 200) {
               localStorage.setItem("user", JSON.stringify(response.data.data));
-              console.log(authHeader(), "header");
               // // Redirect to the originally requested page, or to the home page
               this.$router.go();
             } else {

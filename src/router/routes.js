@@ -230,7 +230,7 @@ export default [
     path: "/qrcode-pengunjung",
     name: "qrcode-pengunjung",
     meta: {
-      title: "qrcode pengunjung",
+      title: "Scan Pengunjung",
       authRequired: true,
     },
     component: () => import("../views/pengunjung/qrcode"),

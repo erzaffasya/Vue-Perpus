@@ -229,12 +229,12 @@ export default {
           </a>
           <div class="collapse menu-dropdown" id="peminjaman-dokumen">
             <ul class="nav nav-sm flex-column">
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <router-link to="/peminjaman-dokumen/tambah" class="nav-link remove-sidebar custom-abc"
                   data-key="t-tambahpeminjaman-dokumen">
                   {{ $t("Tambah Peminjaman Dokumen") }}
                 </router-link>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <router-link to="/peminjaman-dokumen/lihat" class="nav-link remove-sidebar custom-abc"
                   data-key="t-lihatpeminjaman-dokumen">
