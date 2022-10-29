@@ -253,15 +253,15 @@ export default [
   //   },
   //   component: () => import("../views/pengunjung/edit"),
   // },
-  // {
-  //   path: "/pengunjung/lihat",
-  //   name: "lihat-pengunjung",
-  //   meta: {
-  //     title: "Lihat pengunjung",
-  //     authRequired: true,
-  //   },
-  //   component: () => import("../views/pengunjung/lihat"),
-  // },
+  {
+    path: "/pengunjung/lihat",
+    name: "lihat-pengunjung",
+    meta: {
+      title: "Lihat pengunjung",
+      authRequired: true,
+    },
+    component: () => import("../views/pengunjung/lihat"),
+  },
   // peminjaman
   {
     path: "/peminjaman-dokumen/tambah",

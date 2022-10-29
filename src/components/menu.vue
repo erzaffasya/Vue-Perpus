@@ -177,9 +177,9 @@ export default {
         <!-- Sidebar Kategori  -->
         <li class="menu-title">
           <i class="ri-more-fill"></i>
-          <span data-key="kategori">{{ $t("admin") }}</span>
+          <span data-key="kategori">{{ $t("admin") }} </span>
         </li>
-        <li class="nav-item">
+        <li v-if="role == 'Admin'" class="nav-item">
           <a class="nav-link menu-link" href="#kategori" data-bs-toggle="collapse" role="button" aria-expanded="false"
             aria-controls="sidebarDashboards">
             <i class="ri-dashboard-2-line"></i>
@@ -278,7 +278,7 @@ export default {
           <span data-key="t-Booking Ruangan">{{ $t("Booking Ruangan") }}</span>
         </li>
 
-        <li class="nav-item">
+        <li v-if="role == 'Admin'" class="nav-item">
           <a class="nav-link menu-link" href="#ruanganbaca" data-bs-toggle="collapse" role="button"
             aria-expanded="false" aria-controls="sidebarDashboards">
             <i class="ri-dashboard-2-line"></i>
@@ -337,7 +337,7 @@ export default {
           </a>
           <div class="collapse menu-dropdown" id="pengunjung">
             <ul class="nav nav-sm flex-column">
-              <li class="nav-item">
+              <li v-if="role == 'Admin'" class="nav-item">
                 <router-link to="/pengunjung/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahpengunjung">
                   {{ $t("Tambah Pengunjung") }}
                 </router-link>
@@ -351,7 +351,7 @@ export default {
           </div>
         </li>
         
-        <li class="nav-item">
+        <li v-if="role == 'Admin'" class="nav-item">
           <router-link class="nav-link remove-sidebar menu-link" to="/qrcode-pengunjung">
             <i class="ri-honour-line"></i>
             <span data-key="t-widgets">{{ $t("Scan QRcode") }}</span>

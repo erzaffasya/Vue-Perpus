@@ -5,7 +5,7 @@ export default{
         return Api.post(url +'/api/login', form);
     },
     async getUser() {
-        return Api.get(url +'/api/profile');
+        return Api.get(url +'/api/profil');
     },
     async logout() {
         return Api.get(url +'/api/logout');
