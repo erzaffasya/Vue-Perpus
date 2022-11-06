@@ -16,4 +16,13 @@ export default {
     jumlahPengunjung() {
         return Api.get(url + '/api/jumlah-pengunjung');
     },
+    pengunjungTerakhir() {
+        return Api.get(url + '/api/pengunjung-terakhir');
+    },
+    peminjamanDokumenPopuler() {
+        return Api.get(url + '/api/peminjaman-dokumen-populer');
+    },
+    peminjamanRuanganPopuler() {
+        return Api.get(url + '/api/peminjaman-ruangan-populer');
+    },
 }

@@ -36,6 +36,7 @@ export default {
         peminjamanRuangan: null,
         pengunjung: null,
       },
+      data: {},
       date: null,
       config: {
         mode: "range",
@@ -101,6 +102,21 @@ export default {
         this.jumlah.pengunjung = response.data.data;
       });
     },
+    pengunjungTerakhir() {
+      apiStatistik.pengunjungTerakhir().then((response) => {
+        this.data.pengunjungTerakhir = response.data.data;
+      });
+    },
+    peminjamanDokumenPopuler() {
+      apiStatistik.peminjamanDokumenPopuler().then((response) => {
+        this.data.peminjamanDokumenPopuler = response.data.data;
+      });
+    },
+    peminjamanRuanganPopuler() {
+      apiStatistik.peminjamanRuanganPopuler().then((response) => {
+        this.data.peminjamanRuanganPopuler = response.data.data;
+      });
+    },
   },
   mounted() {
     this.dokumen();
@@ -108,6 +124,9 @@ export default {
     this.pengunjung();
     this.peminjamanDokumen();
     this.peminjamanRuangan();
+    this.pengunjungTerakhir();
+    this.peminjamanDokumenPopuler()
+    this.peminjamanRuanganPopuler()
   },
 };
 </script>
@@ -410,7 +429,10 @@ export default {
                       "
                     >
                       <tbody>
-                        <tr>
+                        <tr
+                          v-for="(item, index) in data.peminjamanDokumenPopuler"
+                          :key="index"
+                        >
                           <td>
                             <div class="d-flex align-items-center">
                               <div class="avatar-sm bg-light rounded p-1 me-2">
@@ -425,199 +447,33 @@ export default {
                                   <router-link
                                     to="/ecommerce/product-details"
                                     class="text-reset"
-                                    >Branded T-Shirts</router-link
+                                    >{{ item.judul }}</router-link
                                   >
                                 </h5>
-                                <span class="text-muted">24 Apr 2021</span>
+                                <span class="text-muted">{{
+                                  item.nama_kategori
+                                }}</span>
                               </div>
                             </div>
                           </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">$29.00</h5>
-                            <span class="text-muted">Price</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">62</h5>
-                            <span class="text-muted">Orders</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">510</h5>
-                            <span class="text-muted">Stock</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">$1,798</h5>
-                            <span class="text-muted">Amount</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="avatar-sm bg-light rounded p-1 me-2">
-                                <img
-                                  src="@/assets/images/products/img-2.png"
-                                  alt=""
-                                  class="img-fluid d-block"
-                                />
-                              </div>
-                              <div>
-                                <h5 class="fs-15 my-1">
-                                  <router-link
-                                    to="/ecommerce/product-details"
-                                    class="text-reset"
-                                    >Bentwood Chair</router-link
-                                  >
-                                </h5>
-                                <span class="text-muted">19 Mar 2021</span>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">$85.20</h5>
-                            <span class="text-muted">Price</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">35</h5>
-                            <span class="text-muted">Orders</span>
-                          </td>
-                          <td>
+                          <td class="text-center">
                             <h5 class="fs-15 my-1 fw-normal">
-                              <span class="badge badge-soft-danger"
-                                >Out of stock</span
-                              >
+                              {{ item.tahun_terbit }}
                             </h5>
-                            <span class="text-muted">Stock</span>
+                            <span class="text-muted">Tahun Terbit</span>
                           </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">$2982</h5>
-                            <span class="text-muted">Amount</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="avatar-sm bg-light rounded p-1 me-2">
-                                <img
-                                  src="@/assets/images/products/img-3.png"
-                                  alt=""
-                                  class="img-fluid d-block"
-                                />
-                              </div>
-                              <div>
-                                <h5 class="fs-15 my-1">
-                                  <router-link
-                                    to="/ecommerce/product-details"
-                                    class="text-reset"
-                                    >Borosil Paper Cup</router-link
-                                  >
-                                </h5>
-                                <span class="text-muted">01 Mar 2021</span>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">$14.00</h5>
-                            <span class="text-muted">Price</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">80</h5>
-                            <span class="text-muted">Orders</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">749</h5>
-                            <span class="text-muted">Stock</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">$1120</h5>
-                            <span class="text-muted">Amount</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="avatar-sm bg-light rounded p-1 me-2">
-                                <img
-                                  src="@/assets/images/products/img-4.png"
-                                  alt=""
-                                  class="img-fluid d-block"
-                                />
-                              </div>
-                              <div>
-                                <h5 class="fs-15 my-1">
-                                  <router-link
-                                    to="/ecommerce/product-details"
-                                    class="text-reset"
-                                    >One Seater Sofa</router-link
-                                  >
-                                </h5>
-                                <span class="text-muted">11 Feb 2021</span>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">$127.50</h5>
-                            <span class="text-muted">Price</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">56</h5>
-                            <span class="text-muted">Orders</span>
-                          </td>
-                          <td>
+                          <td class="text-center">
                             <h5 class="fs-15 my-1 fw-normal">
-                              <span class="badge badge-soft-danger"
-                                >Out of stock</span
-                              >
+                              {{ item.total_peminjaman }}
                             </h5>
-                            <span class="text-muted">Stock</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">$7140</h5>
-                            <span class="text-muted">Amount</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="avatar-sm bg-light rounded p-1 me-2">
-                                <img
-                                  src="@/assets/images/products/img-5.png"
-                                  alt=""
-                                  class="img-fluid d-block"
-                                />
-                              </div>
-                              <div>
-                                <h5 class="fs-15 my-1">
-                                  <router-link
-                                    to="/ecommerce/product-details"
-                                    class="text-reset"
-                                    >Stillbird Helmet</router-link
-                                  >
-                                </h5>
-                                <span class="text-muted">17 Jan 2021</span>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">$54</h5>
-                            <span class="text-muted">Price</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">74</h5>
-                            <span class="text-muted">Orders</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">805</h5>
-                            <span class="text-muted">Stock</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 my-1 fw-normal">$3996</h5>
-                            <span class="text-muted">Amount</span>
+                            <span class="text-muted">Total Peminjaman</span>
                           </td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
 
-                  <div
+                  <!-- <div
                     class="
                       align-items-center
                       mt-4
@@ -651,7 +507,7 @@ export default {
                         <a href="#" class="page-link">→</a>
                       </li>
                     </ul>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -689,254 +545,58 @@ export default {
                   <div class="table-responsive table-card">
                     <table
                       class="
-                        table table-centered table-hover
+                        table table-hover table-centered
                         align-middle
                         table-nowrap
                         mb-0
                       "
                     >
                       <tbody>
-                        <tr>
+                        <tr
+                          v-for="(item, index) in data.peminjamanRuanganPopuler"
+                          :key="index"
+                        >
                           <td>
                             <div class="d-flex align-items-center">
-                              <div class="flex-shrink-0 me-2">
+                              <div class="avatar-sm bg-light rounded p-1 me-2">
                                 <img
-                                  src="@/assets/images/companies/img-1.png"
+                                  src="@/assets/images/products/img-1.png"
                                   alt=""
-                                  class="avatar-sm p-2"
+                                  class="img-fluid d-block"
                                 />
                               </div>
-                              <div>
-                                <h5 class="fs-15 my-1 fw-medium">
+                              <div style="overflow-x: auto;  width: 200px; height: 70px;" >
+                                <h5 class="fs-15 my-1">
                                   <router-link
-                                    to="/ecommerce/seller-details"
+                                    to="/ecommerce/product-details"
                                     class="text-reset"
-                                    >iTest Factory</router-link
+                                    >{{ item.nama_ruangan }}</router-link
                                   >
                                 </h5>
-                                <span class="text-muted">Oliver Tyler</span>
+                                <span class="text-muted" >{{
+                                  item.deskripsi
+                                }}</span>
                               </div>
                             </div>
                           </td>
-                          <td>
-                            <span class="text-muted">Bags and Wallets</span>
-                          </td>
-                          <td>
-                            <p class="mb-0">8547</p>
-                            <span class="text-muted">Stock</span>
-                          </td>
-                          <td>
-                            <span class="text-muted">$541200</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 mb-0">
-                              32%<i
-                                class="
-                                  ri-bar-chart-fill
-                                  text-success
-                                  fs-16
-                                  align-middle
-                                  ms-2
-                                "
-                              ></i>
+                          <td class="text-center">
+                            <h5 class="fs-15 my-1 fw-normal">
+                              {{ item.lokasi }}
                             </h5>
+                            <span class="text-muted">Lokasi</span>
+                          </td>
+                          <td class="text-center">
+                            <h5 class="fs-15 my-1 fw-normal">
+                              {{ item.total_peminjaman }}
+                            </h5>
+                            <span class="text-muted">Total Peminjaman</span>
                           </td>
                         </tr>
-                        <!-- end -->
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="flex-shrink-0 me-2">
-                                <img
-                                  src="@/assets/images/companies/img-2.png"
-                                  alt=""
-                                  class="avatar-sm p-2"
-                                />
-                              </div>
-                              <div class="flex-grow-1">
-                                <h5 class="fs-15 my-1 fw-medium">
-                                  <router-link
-                                    to="/ecommerce/seller-details"
-                                    class="text-reset"
-                                    >Digitech Galaxy</router-link
-                                  >
-                                </h5>
-                                <span class="text-muted">John Roberts</span>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <span class="text-muted">Watches</span>
-                          </td>
-                          <td>
-                            <p class="mb-0">895</p>
-                            <span class="text-muted">Stock</span>
-                          </td>
-                          <td>
-                            <span class="text-muted">$75030</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 mb-0">
-                              79%<i
-                                class="
-                                  ri-bar-chart-fill
-                                  text-success
-                                  fs-16
-                                  align-middle
-                                  ms-2
-                                "
-                              ></i>
-                            </h5>
-                          </td>
-                        </tr>
-                        <!-- end -->
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="flex-shrink-0 me-2">
-                                <img
-                                  src="@/assets/images/companies/img-3.png"
-                                  alt=""
-                                  class="avatar-sm p-2"
-                                />
-                              </div>
-                              <div class="flex-gow-1">
-                                <h5 class="fs-15 my-1 fw-medium">
-                                  <router-link
-                                    to="/ecommerce/seller-details"
-                                    class="text-reset"
-                                    >Nesta Technologies</router-link
-                                  >
-                                </h5>
-                                <span class="text-muted">Harley Fuller</span>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <span class="text-muted">Bike Accessories</span>
-                          </td>
-                          <td>
-                            <p class="mb-0">3470</p>
-                            <span class="text-muted">Stock</span>
-                          </td>
-                          <td>
-                            <span class="text-muted">$45600</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 mb-0">
-                              90%<i
-                                class="
-                                  ri-bar-chart-fill
-                                  text-success
-                                  fs-16
-                                  align-middle
-                                  ms-2
-                                "
-                              ></i>
-                            </h5>
-                          </td>
-                        </tr>
-                        <!-- end -->
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="flex-shrink-0 me-2">
-                                <img
-                                  src="@/assets/images/companies/img-8.png"
-                                  alt=""
-                                  class="avatar-sm p-2"
-                                />
-                              </div>
-                              <div class="flex-grow-1">
-                                <h5 class="fs-15 my-1 fw-medium">
-                                  <router-link
-                                    to="/ecommerce/seller-details"
-                                    class="text-reset"
-                                    >Zoetic Fashion</router-link
-                                  >
-                                </h5>
-                                <span class="text-muted">James Bowen</span>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <span class="text-muted">Clothes</span>
-                          </td>
-                          <td>
-                            <p class="mb-0">5488</p>
-                            <span class="text-muted">Stock</span>
-                          </td>
-                          <td>
-                            <span class="text-muted">$29456</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 mb-0">
-                              40%<i
-                                class="
-                                  ri-bar-chart-fill
-                                  text-success
-                                  fs-16
-                                  align-middle
-                                  ms-2
-                                "
-                              ></i>
-                            </h5>
-                          </td>
-                        </tr>
-                        <!-- end -->
-                        <tr>
-                          <td>
-                            <div class="d-flex align-items-center">
-                              <div class="flex-shrink-0 me-2">
-                                <img
-                                  src="@/assets/images/companies/img-5.png"
-                                  alt=""
-                                  class="avatar-sm p-2"
-                                />
-                              </div>
-                              <div class="flex-grow-1">
-                                <h5 class="fs-15 my-1 fw-medium">
-                                  <router-link
-                                    to="/ecommerce/seller-details"
-                                    class="text-reset"
-                                    >Meta4Systems</router-link
-                                  >
-                                </h5>
-                                <span class="text-muted">Zoe Dennis</span>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <span class="text-muted">Furniture</span>
-                          </td>
-                          <td>
-                            <p class="mb-0">4100</p>
-                            <span class="text-muted">Stock</span>
-                          </td>
-                          <td>
-                            <span class="text-muted">$11260</span>
-                          </td>
-                          <td>
-                            <h5 class="fs-15 mb-0">
-                              57%<i
-                                class="
-                                  ri-bar-chart-fill
-                                  text-success
-                                  fs-16
-                                  align-middle
-                                  ms-2
-                                "
-                              ></i>
-                            </h5>
-                          </td>
-                        </tr>
-                        <!-- end -->
                       </tbody>
                     </table>
-                    <!-- end table -->
                   </div>
 
-                  <div
+                  <!-- <div
                     class="
                       align-items-center
                       mt-4
@@ -970,7 +630,7 @@ export default {
                         <a href="#" class="page-link">→</a>
                       </li>
                     </ul>
-                  </div>
+                  </div> -->
                 </div>
                 <!-- .card-body-->
               </div>
@@ -1278,92 +938,9 @@ export default {
                 class="p-3 pt-0"
               >
                 <div class="acitivity-timeline acitivity-main">
-                  <div class="acitivity-item d-flex">
-                    <div class="flex-shrink-0 avatar-xs acitivity-avatar">
-                      <div
-                        class="
-                          avatar-title
-                          bg-soft-success
-                          text-success
-                          rounded-circle
-                        "
-                      >
-                        <i class="ri-shopping-cart-2-line"></i>
-                      </div>
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                      <h6 class="mb-1 lh-base">Purchase by James Price</h6>
-                      <p class="text-muted mb-1">
-                        Product noise evolve smartwatch
-                      </p>
-                      <small class="mb-0 text-muted">02:14 PM Today</small>
-                    </div>
-                  </div>
-                  <div class="acitivity-item py-3 d-flex">
-                    <div class="flex-shrink-0 avatar-xs acitivity-avatar">
-                      <div
-                        class="
-                          avatar-title
-                          bg-soft-danger
-                          text-danger
-                          rounded-circle
-                        "
-                      >
-                        <i class="ri-stack-fill"></i>
-                      </div>
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                      <h6 class="mb-1 lh-base">
-                        Added new
-                        <span class="fw-semibold">style collection</span>
-                      </h6>
-                      <p class="text-muted mb-1">By Nesta Technologies</p>
-                      <div
-                        class="
-                          d-inline-flex
-                          gap-2
-                          border border-dashed
-                          p-2
-                          mb-2
-                        "
-                      >
-                        <a
-                          to="/ecommerce/product-details"
-                          class="bg-light rounded p-1"
-                        >
-                          <img
-                            src="@/assets/images/products/img-8.png"
-                            alt=""
-                            class="img-fluid d-block"
-                          />
-                        </a>
-                        <a
-                          to="/ecommerce/product-details"
-                          class="bg-light rounded p-1"
-                        >
-                          <img
-                            src="@/assets/images/products/img-2.png"
-                            alt=""
-                            class="img-fluid d-block"
-                          />
-                        </a>
-                        <a
-                          to="/ecommerce/product-details"
-                          class="bg-light rounded p-1"
-                        >
-                          <img
-                            src="@/assets/images/products/img-10.png"
-                            alt=""
-                            class="img-fluid d-block"
-                          />
-                        </a>
-                      </div>
-                      <p class="mb-0 text-muted">
-                        <small>9:47 PM Yesterday</small>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="acitivity-item py-3 d-flex">
+                  
+                  <div  v-for="(item, index) in data.pengunjungTerakhir"
+                          :key="index" class="acitivity-item py-3 d-flex">
                     <div class="flex-shrink-0">
                       <img
                         src="@/assets/images/users/avatar-2.jpg"
@@ -1373,147 +950,37 @@ export default {
                     </div>
                     <div class="flex-grow-1 ms-3">
                       <h6 class="mb-1 lh-base">
-                        Natasha Carey have liked the products
+                        {{item.user.name}}
                       </h6>
                       <p class="text-muted mb-1">
-                        Allow users to like products in your WooCommerce store.
+                        Mengunjungi Perpustakaan ITK.
                       </p>
-                      <small class="mb-0 text-muted">25 Dec, 2021</small>
+                      <small class="mb-0 text-muted">{{item.created_at}}</small>
                     </div>
                   </div>
-                  <div class="acitivity-item py-3 d-flex">
-                    <div class="flex-shrink-0">
-                      <div class="avatar-xs acitivity-avatar">
-                        <div class="avatar-title rounded-circle bg-secondary">
-                          <i class="mdi mdi-sale fs-15"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                      <h6 class="mb-1 lh-base">
-                        Today offers by
-                        <router-link
-                          to="/ecommerce/seller-details"
-                          class="link-secondary"
-                          >Digitech Galaxy</router-link
-                        >
-                      </h6>
-                      <p class="text-muted mb-2">
-                        Offer is valid on orders of Rs.500 Or above for selected
-                        products only.
-                      </p>
-                      <small class="mb-0 text-muted">12 Dec, 2021</small>
-                    </div>
-                  </div>
-                  <div class="acitivity-item py-3 d-flex">
-                    <div class="flex-shrink-0">
-                      <div class="avatar-xs acitivity-avatar">
-                        <div
-                          class="
-                            avatar-title
-                            rounded-circle
-                            bg-soft-danger
-                            text-danger
-                          "
-                        >
-                          <i class="ri-bookmark-fill"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                      <h6 class="mb-1 lh-base">Favoried Product</h6>
-                      <p class="text-muted mb-2">
-                        Esther James have favorited product.
-                      </p>
-                      <small class="mb-0 text-muted">25 Nov, 2021</small>
-                    </div>
-                  </div>
-                  <div class="acitivity-item py-3 d-flex">
-                    <div class="flex-shrink-0">
-                      <div class="avatar-xs acitivity-avatar">
-                        <div class="avatar-title rounded-circle bg-secondary">
-                          <i class="mdi mdi-sale fs-15"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                      <h6 class="mb-1 lh-base">
-                        Flash sale starting
-                        <span class="text-primary">Tomorrow.</span>
-                      </h6>
-                      <p class="text-muted mb-0">
-                        Flash sale by
-                        <a
-                          href="javascript:void(0);"
-                          class="link-secondary fw-medium"
-                          >Zoetic Fashion</a
-                        >
-                      </p>
-                      <small class="mb-0 text-muted">22 Oct, 2021</small>
-                    </div>
-                  </div>
-                  <div class="acitivity-item py-3 d-flex">
-                    <div class="flex-shrink-0">
-                      <div class="avatar-xs acitivity-avatar">
-                        <div
-                          class="
-                            avatar-title
-                            rounded-circle
-                            bg-soft-info
-                            text-info
-                          "
-                        >
-                          <i class="ri-line-chart-line"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                      <h6 class="mb-1 lh-base">Monthly sales report</h6>
-                      <p class="text-muted mb-2">
-                        <span class="text-danger">2 days left</span>
-                        notification to submit the monthly sales report.
-                        <a
-                          href="javascript:void(0);"
-                          class="link-warning text-decoration-underline"
-                          >Reports Builder</a
-                        >
-                      </p>
-                      <small class="mb-0 text-muted">15 Oct</small>
-                    </div>
-                  </div>
-                  <div class="acitivity-item d-flex">
-                    <div class="flex-shrink-0">
-                      <img
-                        src="@/assets/images/users/avatar-3.jpg"
-                        alt=""
-                        class="avatar-xs rounded-circle acitivity-avatar"
-                      />
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                      <h6 class="mb-1 lh-base">Frank Hook Commented</h6>
-                      <p class="text-muted mb-2 fst-italic">
-                        " A product that has reviews is more likable to be sold
-                        than a product. "
-                      </p>
-                      <small class="mb-0 text-muted">26 Aug, 2021</small>
-                    </div>
-                  </div>
+                  
+                 
                 </div>
               </SimpleBar>
 
               <div class="p-3 mt-2">
                 <h6 class="text-muted mb-3 text-uppercase fw-semibold">
-                  10 Pengunjung Teratas 
+                  10 Pengunjung Teratas
                 </h6>
 
                 <ol class="ps-3 text-muted">
-                  <li class="py-1" v-for="(item, index) in jumlah.pengunjung" :key="index">
-                    <a href="#" class="text-muted"
-                      >  {{ item.name }}
-                      <span class="float-end">({{ item.jumlah_kunjungan }})</span></a
+                  <li
+                    class="py-1"
+                    v-for="(item, index) in jumlah.pengunjung"
+                    :key="index"
+                  >
+                    <a href="#" class="text-muted">
+                      {{ item.name }}
+                      <span class="float-end"
+                        >({{ item.jumlah_kunjungan }})</span
+                      ></a
                     >
                   </li>
-                  
                 </ol>
                 <div class="mt-3 text-center">
                   <a
@@ -1525,7 +992,7 @@ export default {
               </div>
               <div class="p-3">
                 <h6 class="text-muted mb-3 text-uppercase fw-semibold">
-                  Products Reviews
+                  Peminjaman Dokumen
                 </h6>
                 <!-- Swiper -->
                 <div>
@@ -1534,7 +1001,7 @@ export default {
                     :slidesPerView="2"
                     :spaceBetween="10"
                     :mousewheel="true"
-                    :loop="true"
+                    :loop="false"
                     :direction="'vertical'"
                     :autoplay="{
                       delay: 2500,
@@ -1589,141 +1056,7 @@ export default {
                         </div>
                       </div>
                     </swiper-slide>
-                    <swiper-slide>
-                      <div class="swiper-slide">
-                        <div class="card border border-dashed shadow-none">
-                          <div class="card-body">
-                            <div class="d-flex">
-                              <div class="flex-shrink-0">
-                                <img
-                                  src="@/assets/images/users/avatar-3.jpg"
-                                  alt=""
-                                  class="avatar-sm rounded"
-                                />
-                              </div>
-                              <div class="flex-grow-1 ms-3">
-                                <div>
-                                  <p
-                                    class="
-                                      text-muted
-                                      mb-1
-                                      fst-italic
-                                      text-truncate-two-lines
-                                    "
-                                  >
-                                    " Amazing template, very easy to understand
-                                    and manipulate. "
-                                  </p>
-                                  <div class="fs-11 align-middle text-warning">
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-half-fill"></i>
-                                  </div>
-                                </div>
-                                <div class="text-end mb-0 text-muted">
-                                  - by
-                                  <cite title="Source Title">Henry Baird</cite>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </swiper-slide>
-                    <swiper-slide>
-                      <div class="swiper-slide">
-                        <div class="card border border-dashed shadow-none">
-                          <div class="card-body">
-                            <div class="d-flex">
-                              <div class="flex-shrink-0 avatar-sm">
-                                <div class="avatar-title bg-light rounded">
-                                  <img
-                                    src="@/assets/images/companies/img-8.png"
-                                    alt=""
-                                    height="30"
-                                  />
-                                </div>
-                              </div>
-                              <div class="flex-grow-1 ms-3">
-                                <div>
-                                  <p
-                                    class="
-                                      text-muted
-                                      mb-1
-                                      fst-italic
-                                      text-truncate-two-lines
-                                    "
-                                  >
-                                    "Very beautiful product and Very helpful
-                                    customer service."
-                                  </p>
-                                  <div class="fs-11 align-middle text-warning">
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-line"></i>
-                                    <i class="ri-star-line"></i>
-                                  </div>
-                                </div>
-                                <div class="text-end mb-0 text-muted">
-                                  - by
-                                  <cite title="Source Title"
-                                    >Zoetic Fashion</cite
-                                  >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </swiper-slide>
-                    <swiper-slide>
-                      <div class="swiper-slide">
-                        <div class="card border border-dashed shadow-none">
-                          <div class="card-body">
-                            <div class="d-flex">
-                              <div class="flex-shrink-0">
-                                <img
-                                  src="@/assets/images/users/avatar-2.jpg"
-                                  alt=""
-                                  class="avatar-sm rounded"
-                                />
-                              </div>
-                              <div class="flex-grow-1 ms-3">
-                                <div>
-                                  <p
-                                    class="
-                                      text-muted
-                                      mb-1
-                                      fst-italic
-                                      text-truncate-two-lines
-                                    "
-                                  >
-                                    " The product is very beautiful. I like it.
-                                    "
-                                  </p>
-                                  <div class="fs-11 align-middle text-warning">
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-half-fill"></i>
-                                    <i class="ri-star-line"></i>
-                                  </div>
-                                </div>
-                                <div class="text-end mb-0 text-muted">
-                                  - by
-                                  <cite title="Source Title"
-                                    >Nancy Martino</cite
-                                  >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </swiper-slide>
+                  
                   </swiper>
                 </div>
               </div>
