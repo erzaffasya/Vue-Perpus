@@ -9,7 +9,7 @@ import PSPDFKit from "pspdfkit";
  * PSPDFKit for Web example component.
  */
 export default {
-    name: 'PSPDFKit',
+    name: '',
     /**
        * The component receives `pdfFile` as a prop, which is type of `String` and is required.
        */

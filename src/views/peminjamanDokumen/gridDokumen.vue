@@ -27,7 +27,7 @@ export default {
     },
     getDokumen() {
       ApiDokumen.lihatDokumen('Diterima').then((response) => {
-        this.Dokumen = response.data.data;
+        this.Dokumen = response.data.data.data;
         // console.log(this.Kategori);
       });
     },

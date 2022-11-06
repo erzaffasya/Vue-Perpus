@@ -235,15 +235,15 @@ export default [
     },
     component: () => import("../views/pengunjung/qrcode"),
   },
-  // {
-  //   path: "/pengunjung/tambah",
-  //   name: "tambah-pengunjung",
-  //   meta: {
-  //     title: "Tambah pengunjung",
-  //     authRequired: true,
-  //   },
-  //   component: () => import("../views/pengunjung/tambah"),
-  // },
+  {
+    path: "/pengunjung/tambah",
+    name: "tambah-pengunjung",
+    meta: {
+      title: "Tambah pengunjung",
+      authRequired: true,
+    },
+    component: () => import("../views/pengunjung/tambah"),
+  },
   // {
   //   path: "/pengunjung/edit/:id",
   //   name: "edit-pengunjung",

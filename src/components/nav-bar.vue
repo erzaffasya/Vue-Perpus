@@ -400,20 +400,9 @@ export default {
                     </div>
                 </div>
 
-                <div class="dropdown ms-1 topbar-head-dropdown header-item">
-                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img id="header-lang-img" src="@/assets/images/flags/us.svg" alt="Header Language" height="20" class="rounded" />
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
-                        <a href="javascript:void(0);" v-for="(entry, i) in languages" :key="`Lang${i}`" :value="entry" @click="setLanguage(entry.language, entry.title, entry.flag)" :class="{ active: lan === entry.language }" class="dropdown-item notify-item language py-2" data-lang="en" title="English">
-                            <img :src="entry.flag" alt="user-image" class="me-2 rounded" height="18" />
-                            <span class="align-middle">{{ entry.title }}</span>
-                        </a>
-                    </div>
-                </div>
+               
 
-                <div class="dropdown topbar-head-dropdown ms-1 header-item">
+                <!-- <div class="dropdown topbar-head-dropdown ms-1 header-item">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="bx bx-category-alt fs-22"></i>
                     </button>
@@ -478,9 +467,9 @@ export default {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="dropdown topbar-head-dropdown ms-1 header-item">
+                <!-- <div class="dropdown topbar-head-dropdown ms-1 header-item">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" id="page-header-cart-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="bx bx-shopping-bag fs-22"></i>
                         <span class="
@@ -643,13 +632,13 @@ export default {
                             </router-link>
                         </div>
                     </div>
-                </div>
-
+                </div> -->
+<!-- 
                 <div class="ms-1 header-item d-none d-sm-flex">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-toggle="fullscreen" @click="initFullScreen">
                         <i class="bx bx-fullscreen fs-22"></i>
                     </button>
-                </div>
+                </div> -->
 
                 <div class="ms-1 header-item d-none d-sm-flex">
                     <button type="button" class="

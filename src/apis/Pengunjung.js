@@ -2,12 +2,7 @@ import { Api, url } from '../apis/Api'
 
 export default {
     tambahPengunjung(form) {
-        return Api.post(url + '/api/pengunjung', form, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        });
+        return Api.post(url + '/api/pengunjung', form);
     },
     lihatPengunjung() {
         return Api.get(url + '/api/pengunjung');
