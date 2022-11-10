@@ -124,32 +124,6 @@ export default {
               <form>
                 <div class="row mb-3">
                   <div class="col-lg-3">
-                    <label for="nameInput" class="form-label"
-                      >Pilih Ruangan</label
-                    >
-                  </div>
-                  <div class="col-lg-9">
-                    <select
-                      class="form-select mb-2"
-                      v-model="peminjamanRuangan.ruangan_id"
-                      @click="cekRuangan()"
-                      aria-label="Default select example"
-                      required
-                    >
-                      <!-- <option disabled selected>-- PILIH --</option> -->
-                      <option
-                        v-for="(item, index) in ruanganBaca"
-                        :key="index"
-                        selected=""
-                        :value="item.id"
-                      >
-                        {{ item.nama_ruangan }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-lg-3">
                     <label for="nameInput" class="form-label">Tanggal</label>
                   </div>
                   <div class="col-lg-9">

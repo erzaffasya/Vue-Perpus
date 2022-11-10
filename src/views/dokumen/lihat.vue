@@ -271,7 +271,7 @@ export default {
             <!-- Nav tabs -->
             <div class="tab-content text-muted">
               <div class="tab-pane active" id="nav-pengajuan" role="tabpanel">
-                <div class="d-flex">
+                <div class="">
                   <div class="flex-grow-1 ms-2">
                     <div class="col-lg-12">
                       <div class="card" id="orderList">
@@ -579,7 +579,7 @@ export default {
                 </div>
               </div>
               <div class="tab-pane" id="nav-diproses" role="tabpanel">
-                <div class="d-flex">
+                <div class="">
                   <div class="flex-grow-1 ms-2">
                     <div class="col-lg-12">
                       <div class="card" id="orderList">
@@ -887,7 +887,7 @@ export default {
                 </div>
               </div>
               <div class="tab-pane" id="nav-riwayat" role="tabpanel">
-                <div class="d-flex">
+                <div class="">
                   <div class="flex-grow-1 ms-2">
                     <div class="col-lg-12">
                       <div class="card" id="orderList">

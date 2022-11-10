@@ -125,8 +125,8 @@ export default {
     this.peminjamanDokumen();
     this.peminjamanRuangan();
     this.pengunjungTerakhir();
-    this.peminjamanDokumenPopuler()
-    this.peminjamanRuanganPopuler()
+    this.peminjamanDokumenPopuler();
+    this.peminjamanRuanganPopuler();
   },
 };
 </script>
@@ -565,7 +565,13 @@ export default {
                                   class="img-fluid d-block"
                                 />
                               </div>
-                              <div style="overflow-x: auto;  width: 200px; height: 70px;" >
+                              <div
+                                style="
+                                  overflow-x: auto;
+                                  width: 200px;
+                                  height: 70px;
+                                "
+                              >
                                 <h5 class="fs-15 my-1">
                                   <router-link
                                     to="/ecommerce/product-details"
@@ -573,7 +579,7 @@ export default {
                                     >{{ item.nama_ruangan }}</router-link
                                   >
                                 </h5>
-                                <span class="text-muted" >{{
+                                <span class="text-muted">{{
                                   item.deskripsi
                                 }}</span>
                               </div>
@@ -938,9 +944,11 @@ export default {
                 class="p-3 pt-0"
               >
                 <div class="acitivity-timeline acitivity-main">
-                  
-                  <div  v-for="(item, index) in data.pengunjungTerakhir"
-                          :key="index" class="acitivity-item py-3 d-flex">
+                  <div
+                    v-for="(item, index) in data.pengunjungTerakhir"
+                    :key="index"
+                    class="acitivity-item py-3 d-flex"
+                  >
                     <div class="flex-shrink-0">
                       <img
                         src="@/assets/images/users/avatar-2.jpg"
@@ -950,16 +958,16 @@ export default {
                     </div>
                     <div class="flex-grow-1 ms-3">
                       <h6 class="mb-1 lh-base">
-                        {{item.user.name}}
+                        {{ item.user.name }}
                       </h6>
                       <p class="text-muted mb-1">
                         Mengunjungi Perpustakaan ITK.
                       </p>
-                      <small class="mb-0 text-muted">{{item.created_at}}</small>
+                      <small class="mb-0 text-muted">{{
+                        item.created_at
+                      }}</small>
                     </div>
                   </div>
-                  
-                 
                 </div>
               </SimpleBar>
 
@@ -993,6 +1001,7 @@ export default {
               <div class="p-3">
                 <h6 class="text-muted mb-3 text-uppercase fw-semibold">
                   Peminjaman Dokumen
+                  <span class="badge badge-soft-success">Aktif</span>
                 </h6>
                 <!-- Swiper -->
                 <div>
@@ -1056,11 +1065,80 @@ export default {
                         </div>
                       </div>
                     </swiper-slide>
-                  
                   </swiper>
                 </div>
               </div>
 
+              <div class="p-3">
+                <h6 class="text-muted mb-3 text-uppercase fw-semibold">
+                  Peminjaman Ruangan
+                  <span class="badge badge-soft-success">Aktif</span>
+                </h6>
+                <!-- Swiper -->
+                <div>
+                  <swiper
+                    class="vertical-swiper"
+                    :slidesPerView="2"
+                    :spaceBetween="10"
+                    :mousewheel="true"
+                    :loop="false"
+                    :direction="'vertical'"
+                    :autoplay="{
+                      delay: 2500,
+                      disableOnInteraction: false,
+                    }"
+                    style="height: 250px"
+                  >
+                    <swiper-slide>
+                      <div class="swiper-slide">
+                        <div class="card border border-dashed shadow-none">
+                          <div class="card-body">
+                            <div class="d-flex">
+                              <div class="flex-shrink-0 avatar-sm">
+                                <div class="avatar-title bg-light rounded">
+                                  <img
+                                    src="@/assets/images/companies/img-1.png"
+                                    alt=""
+                                    height="30"
+                                  />
+                                </div>
+                              </div>
+                              <div class="flex-grow-1 ms-3">
+                                <div>
+                                  <p
+                                    class="
+                                      text-muted
+                                      mb-1
+                                      fst-italic
+                                      text-truncate-two-lines
+                                    "
+                                  >
+                                    " Great product and looks great, lots of
+                                    features. "
+                                  </p>
+                                  <div class="fs-11 align-middle text-warning">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                  </div>
+                                </div>
+                                <div class="text-end mb-0 text-muted">
+                                  - by
+                                  <cite title="Source Title"
+                                    >Force Medicines</cite
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </swiper-slide>
+                  </swiper>
+                </div>
+              </div>
               <div class="p-3">
                 <h6 class="text-muted mb-3 text-uppercase fw-semibold">
                   Customer Reviews
