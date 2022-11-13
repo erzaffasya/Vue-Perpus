@@ -32,4 +32,7 @@ export default {
   revisiDokumen(id, form) {
     return Api.put(url + "/api/revisi-dokumen/" + id, form);
   },
+  riwayatPeminjamanDokumen(id) {
+    return Api.get(url + "/api/dokumen/riwayat-peminjaman/" + id);
+  },
 };

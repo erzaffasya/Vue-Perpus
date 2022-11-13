@@ -9,6 +9,7 @@ import { SimpleBar } from "simplebar-vue3";
 import "flatpickr/dist/flatpickr.css";
 // import { CountTo } from "vue3-count-to";
 import apiStatistik from "../../../apis/Statistik.js";
+import apiPeminjamanDokumen from "../../../apis/PeminjamanDokumen.js";
 import Layout from "../../../layouts/main.vue";
 
 import Revenue from "./revenue";
@@ -117,6 +118,11 @@ export default {
         this.data.peminjamanRuanganPopuler = response.data.data;
       });
     },
+    peminjamanDokumenAktif() {
+      apiPeminjamanDokumen.peminjamanDokumenAktif().then((response) => {
+        this.data.peminjamanDokumenAktif = response.data.data;
+      });
+    },
   },
   mounted() {
     this.dokumen();
@@ -127,6 +133,7 @@ export default {
     this.pengunjungTerakhir();
     this.peminjamanDokumenPopuler();
     this.peminjamanRuanganPopuler();
+    this.peminjamanDokumenAktif();
   },
 };
 </script>
@@ -991,11 +998,11 @@ export default {
                   </li>
                 </ol>
                 <div class="mt-3 text-center">
-                  <a
+                  <!-- <a
                     href="javascript:void(0);"
                     class="text-muted text-decoration-underline"
                     >View all Categories</a
-                  >
+                  > -->
                 </div>
               </div>
               <div class="p-3">
@@ -1018,7 +1025,10 @@ export default {
                     }"
                     style="height: 250px"
                   >
-                    <swiper-slide>
+                    <swiper-slide
+                      v-for="(item, index) in data.peminjamanDokumenAktif"
+                      :key="index"
+                    >
                       <div class="swiper-slide">
                         <div class="card border border-dashed shadow-none">
                           <div class="card-body">
@@ -1042,22 +1052,14 @@ export default {
                                       text-truncate-two-lines
                                     "
                                   >
-                                    " Great product and looks great, lots of
-                                    features. "
+                                   <b> {{ item.dokumen.judul }} </b>
                                   </p>
                                   <div class="fs-11 align-middle text-warning">
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-fill"></i>
+                                    {{ item.dokumen.nama_kategori }}
                                   </div>
                                 </div>
                                 <div class="text-end mb-0 text-muted">
-                                  - by
-                                  <cite title="Source Title"
-                                    >Force Medicines</cite
-                                  >
+                                  <p>{{ item.durasi_peminjaman }}</p>
                                 </div>
                               </div>
                             </div>
@@ -1137,214 +1139,6 @@ export default {
                       </div>
                     </swiper-slide>
                   </swiper>
-                </div>
-              </div>
-              <div class="p-3">
-                <h6 class="text-muted mb-3 text-uppercase fw-semibold">
-                  Customer Reviews
-                </h6>
-                <div class="bg-light px-3 py-2 rounded-2 mb-2">
-                  <div class="d-flex align-items-center">
-                    <div class="flex-grow-1">
-                      <div class="fs-16 align-middle text-warning">
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-fill"></i>
-                        <i class="ri-star-half-fill"></i>
-                      </div>
-                    </div>
-                    <div class="flex-shrink-0">
-                      <h6 class="mb-0">4.5 out of 5</h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="text-center">
-                  <div class="text-muted">
-                    Total <span class="fw-medium">5.50k</span> reviews
-                  </div>
-                </div>
-
-                <div class="mt-3">
-                  <div class="row align-items-center g-2">
-                    <div class="col-auto">
-                      <div class="p-1">
-                        <h6 class="mb-0">5 star</h6>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="p-1">
-                        <div class="progress animated-progess progress-sm">
-                          <div
-                            class="progress-bar bg-success"
-                            role="progressbar"
-                            style="width: 50.16%"
-                            aria-valuenow="50.16"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <div class="p-1">
-                        <h6 class="mb-0 text-muted">2758</h6>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- end row -->
-
-                  <div class="row align-items-center g-2">
-                    <div class="col-auto">
-                      <div class="p-1">
-                        <h6 class="mb-0">4 star</h6>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="p-1">
-                        <div class="progress animated-progess progress-sm">
-                          <div
-                            class="progress-bar bg-success"
-                            role="progressbar"
-                            style="width: 29.32%"
-                            aria-valuenow="29.32"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <div class="p-1">
-                        <h6 class="mb-0 text-muted">1063</h6>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- end row -->
-
-                  <div class="row align-items-center g-2">
-                    <div class="col-auto">
-                      <div class="p-1">
-                        <h6 class="mb-0">3 star</h6>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="p-1">
-                        <div class="progress animated-progess progress-sm">
-                          <div
-                            class="progress-bar bg-warning"
-                            role="progressbar"
-                            style="width: 18.12%"
-                            aria-valuenow="18.12"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <div class="p-1">
-                        <h6 class="mb-0 text-muted">997</h6>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- end row -->
-
-                  <div class="row align-items-center g-2">
-                    <div class="col-auto">
-                      <div class="p-1">
-                        <h6 class="mb-0">2 star</h6>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="p-1">
-                        <div class="progress animated-progess progress-sm">
-                          <div
-                            class="progress-bar bg-success"
-                            role="progressbar"
-                            style="width: 4.98%"
-                            aria-valuenow="4.98"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-auto">
-                      <div class="p-1">
-                        <h6 class="mb-0 text-muted">227</h6>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- end row -->
-
-                  <div class="row align-items-center g-2">
-                    <div class="col-auto">
-                      <div class="p-1">
-                        <h6 class="mb-0">1 star</h6>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="p-1">
-                        <div class="progress animated-progess progress-sm">
-                          <div
-                            class="progress-bar bg-danger"
-                            role="progressbar"
-                            style="width: 7.42%"
-                            aria-valuenow="7.42"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <div class="p-1">
-                        <h6 class="mb-0 text-muted">408</h6>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- end row -->
-                </div>
-              </div>
-
-              <div
-                class="
-                  card
-                  sidebar-alert
-                  bg-light
-                  border-0
-                  text-center
-                  mx-4
-                  mb-0
-                  mt-3
-                "
-              >
-                <div class="card-body">
-                  <img src="@/assets/images/giftbox.png" alt="" />
-                  <div class="mt-4">
-                    <h5>Invite New Seller</h5>
-                    <p class="text-muted lh-base">
-                      Refer a new seller to us and earn $100 per refer.
-                    </p>
-                    <button
-                      type="button"
-                      class="btn btn-primary btn-label rounded-pill"
-                    >
-                      <i
-                        class="
-                          ri-mail-fill
-                          label-icon
-                          align-middle
-                          rounded-pill
-                          fs-16
-                          me-2
-                        "
-                      ></i>
-                      Invite Now
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>

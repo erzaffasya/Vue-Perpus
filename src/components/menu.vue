@@ -177,7 +177,7 @@ export default {
         <!-- Sidebar Kategori  -->
         <li class="menu-title">
           <i class="ri-more-fill"></i>
-          <span data-key="kategori">{{ $t("admin") }} </span>
+          <span data-key="kategori">{{ $t("Dokumen") }} </span>
         </li>
         <li v-if="role == 'Admin'" class="nav-item">
           <a class="nav-link menu-link" href="#kategori" data-bs-toggle="collapse" role="button" aria-expanded="false"

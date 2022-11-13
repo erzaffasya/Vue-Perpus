@@ -1039,7 +1039,7 @@ export default {
                                     :key="index"
                                   >
                                     <th scope="row">
-                                      {{ index + 1 }}
+                                      {{ index + 1 }} 
                                     </th>
                                     <td class="id">
                                       <router-link

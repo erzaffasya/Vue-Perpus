@@ -229,10 +229,10 @@ export default {
                                     <td class="customer_name">
                                       {{ index + 1 }}
                                     </td>
-                                    <td class="customer_name">
+                                    <td  class="customer_name">
                                       {{ data.nama_kategori }}
                                     </td>
-                                    <td class="product_name">
+                                    <td style="overflow-x: auto;  width: 200px; height: 70px;" class="product_name">
                                       {{ data.detail }}
                                     </td>
                                     <td class="amount">

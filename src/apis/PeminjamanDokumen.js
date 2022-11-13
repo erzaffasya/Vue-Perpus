@@ -19,5 +19,8 @@ export default {
     filterPeminjamanDokumen(id) {
         return Api.get(url +'/api/peminjaman-dokumen?filter='+id);
     },
+    peminjamanDokumenAktif(){
+        return Api.get(url + '/api/peminjaman-dokumen-aktif')
+    }
     // ruang-kosong/+tanggal+/waktu_awal/{waktu_awal}/waktu_akhir/{waktu_akhir}
 }

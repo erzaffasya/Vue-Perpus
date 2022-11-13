@@ -178,7 +178,7 @@ export default [
     component: () => import("../views/dokumen/lihat"),
   },
   {
-    path: "/dokumen/detail-dokumen/:id",
+    path: "/dokumen/detail-dokumen",
     name: "detail-dokumen",
     props: true,
     meta: {

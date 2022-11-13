@@ -39,6 +39,11 @@ export default {
           console.log(response);
         });
     },
+    riwayatPeminjamanDokumen() {
+      apiDokumen.riwayatPeminjamanDokumen(this.$route.params.id).then((response) => {
+         this.riwayatPeminjaman = response.data.data;
+      });
+    },
   },
   page: {
     title: "Overview",
@@ -66,6 +71,7 @@ export default {
       dokumen: {
         kategori: {},
       },
+      riwayatPeminjaman: {},
       settingDokumen: {},
       editor: ClassicEditor,
       editorData:
@@ -78,8 +84,9 @@ export default {
     Multiselect,
     ckeditor: CKEditor.component,
   },
+
   mounted() {
-    this.getDokumen();
+    this.getDokumen(); 
   },
   // created() {
   //     this.getDokumen();
@@ -158,7 +165,10 @@ export default {
                   <div class="hstack gap-3 flex-wrap">
                     <div class="flex-shrink-0">
                       <button
-                        v-if="this.dokumen.status === 'Diterima' && this.dokumen.isPinjam == false"
+                        v-if="
+                          this.dokumen.status === 'Diterima' &&
+                          this.dokumen.isPinjam == false
+                        "
                         type="button"
                         @click="pinjamDokumen(this.$route.params.id)"
                         class="btn btn-success add-btn"
@@ -167,7 +177,10 @@ export default {
                         Dokumen
                       </button>
                       <button
-                        v-if="this.dokumen.status === 'Diterima' && this.dokumen.isPinjam == true"
+                        v-if="
+                          this.dokumen.status === 'Diterima' &&
+                          this.dokumen.isPinjam == true
+                        "
                         type="button"
                         class="btn btn-success add-btn"
                       >
@@ -204,8 +217,9 @@ export default {
                   <a
                     class="nav-link fw-semibold"
                     data-bs-toggle="tab"
-                    href="#peminjaman-dokumen"
+                    href="#riwayat-peminjaman"
                     role="tab"
+                    @click="riwayatPeminjamanDokumen()"
                   >
                     Riwayat Peminjaman
                   </a>
@@ -213,9 +227,9 @@ export default {
                 <li
                   class="nav-item"
                   v-if="
+                    role === 'Admin' &&
                     this.dokumen.status != 'Diterima' &&
-                    this.dokumen.status != 'Ditolak' &&
-                    role === 'Admin'
+                    this.dokumen.status != 'Ditolak' 
                   "
                 >
                   <a
@@ -2346,7 +2360,51 @@ export default {
             </div>
           </div>
           <!-- end tab pane -->
-          <div class="tab-pane fade show" id="setting-dokumen" role="tabpanel">
+
+          <div class="tab-pane fade" id="riwayat-peminjaman" role="tabpanel">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Activities</h5>
+                <div class="acitivity-timeline py-3">
+                  <div
+                    v-for="(item, index) in riwayatPeminjaman"
+                    :key="index"
+                    class="acitivity-item d-flex"
+                  >
+                    <div class="flex-shrink-0 ">
+                      <img
+                        src="@/assets/images/users/avatar-1.jpg"
+                        alt=""
+                        class="avatar-xs rounded-circle acitivity-avatar"
+                      />
+                    </div>
+                    <div class="flex-grow-1 ms-3 mb-4">
+                      <h6 class="mb-1">
+                        {{item.user.name}}
+                        <!-- <span
+                          class="
+                            badge
+                            bg-soft-primary
+                            text-primary
+                            align-middle
+                          "
+                          >New</span
+                        > -->
+                      </h6>
+                      <p class="text-muted mb-2">
+                        Melakukan peminjaman dokumen.
+                      </p>
+                      <small class="mb-0 text-muted">{{item.tgl_peminjaman}}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--end card-body-->
+            </div>
+            <!--end card-->
+          </div>
+
+          <div class="tab-pane fade" id="setting-dokumen" role="tabpanel">
             <div class="row">
               <div class="col-xl-8 col-lg-8">
                 <div class="card">
