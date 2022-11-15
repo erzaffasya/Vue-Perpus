@@ -25,4 +25,7 @@ export default {
     peminjamanRuanganPopuler() {
         return Api.get(url + '/api/peminjaman-ruangan-populer');
     },
+    grafikPerpustakaan(){
+        return Api.get(url + '/api/grafik-perpustakaan');
+    }
 }

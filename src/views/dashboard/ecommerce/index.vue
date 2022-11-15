@@ -13,7 +13,6 @@ import apiPeminjamanDokumen from "../../../apis/PeminjamanDokumen.js";
 import Layout from "../../../layouts/main.vue";
 
 import Revenue from "./revenue";
-import SalesLocation from "./sales-location";
 
 export default {
   components: {
@@ -24,7 +23,6 @@ export default {
     flatPickr,
     SimpleBar,
     Revenue,
-    SalesLocation,
   },
   inject: ["role"],
   data() {
@@ -385,7 +383,43 @@ export default {
             <!-- end col -->
 
             <div class="col-xl-4">
-              <SalesLocation />
+              <div class="card card-height-100">
+                <div class="card-header align-items-center d-flex">
+                  <h4 class="card-title mb-0 flex-grow-1">
+                    Store Visits by Source
+                  </h4>
+                  <div class="flex-shrink-0">
+                    <div class="dropdown card-header-dropdown">
+                      <a
+                        class="text-reset dropdown-btn"
+                        href="#"
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <span class="text-muted"
+                          >Report<i class="mdi mdi-chevron-down ms-1"></i
+                        ></span>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item" href="#">Download Report</a>
+                        <a class="dropdown-item" href="#">Export</a>
+                        <a class="dropdown-item" href="#">Import</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- end card header -->
+
+                <div class="card-body">
+                  <apexchart
+                    class="apex-charts"
+                    dir="ltr"
+                    :series="series"
+                    :options="chartOptions"
+                  ></apexchart>
+                </div>
+              </div>
             </div>
             <!-- end col -->
           </div>
@@ -978,33 +1012,6 @@ export default {
                 </div>
               </SimpleBar>
 
-              <div class="p-3 mt-2">
-                <h6 class="text-muted mb-3 text-uppercase fw-semibold">
-                  10 Pengunjung Teratas
-                </h6>
-
-                <ol class="ps-3 text-muted">
-                  <li
-                    class="py-1"
-                    v-for="(item, index) in jumlah.pengunjung"
-                    :key="index"
-                  >
-                    <a href="#" class="text-muted">
-                      {{ item.name }}
-                      <span class="float-end"
-                        >({{ item.jumlah_kunjungan }})</span
-                      ></a
-                    >
-                  </li>
-                </ol>
-                <div class="mt-3 text-center">
-                  <!-- <a
-                    href="javascript:void(0);"
-                    class="text-muted text-decoration-underline"
-                    >View all Categories</a
-                  > -->
-                </div>
-              </div>
               <div class="p-3">
                 <h6 class="text-muted mb-3 text-uppercase fw-semibold">
                   Peminjaman Dokumen
@@ -1139,6 +1146,34 @@ export default {
                       </div>
                     </swiper-slide>
                   </swiper>
+                </div>
+              </div>
+
+              <div class="p-3 mt-2">
+                <h6 class="text-muted mb-3 text-uppercase fw-semibold">
+                  10 Pengunjung Teratas
+                </h6>
+
+                <ol class="ps-3 text-muted">
+                  <li
+                    class="py-1"
+                    v-for="(item, index) in jumlah.pengunjung"
+                    :key="index"
+                  >
+                    <a href="#" class="text-muted">
+                      {{ item.name }}
+                      <span class="float-end"
+                        >({{ item.jumlah_kunjungan }})</span
+                      ></a
+                    >
+                  </li>
+                </ol>
+                <div class="mt-3 text-center">
+                  <!-- <a
+                    href="javascript:void(0);"
+                    class="text-muted text-decoration-underline"
+                    >View all Categories</a
+                  > -->
                 </div>
               </div>
             </div>
