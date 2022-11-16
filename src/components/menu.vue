@@ -163,13 +163,13 @@ export default {
     <template v-else>
       <ul class="navbar-nav h-100" id="navbar-nav">
         <li class="menu-title">
-          <span data-key="t-menu"> {{ $t("Dashboard") }} </span>
+          <span data-key="t-menu"> Dashboard </span>
         </li>
   
          <li class="nav-item">
           <router-link to="/" class="nav-link remove-sidebar custom-abc" data-key="t-dashboard">
             <i class="ri-honour-line"></i>
-            <span data-key="t-widgets">{{ $t("Dashboard") }}</span>
+            <span data-key="t-widgets">Dashboard</span>
           </router-link>
         </li>
         <!-- end Dashboard Menu -->
@@ -177,24 +177,24 @@ export default {
         <!-- Sidebar Kategori  -->
         <li class="menu-title">
           <i class="ri-more-fill"></i>
-          <span data-key="kategori">{{ $t("Dokumen") }} </span>
+          <span data-key="kategori">Dokumen</span>
         </li>
         <li v-if="role == 'Admin'" class="nav-item">
           <a class="nav-link menu-link" href="#kategori" data-bs-toggle="collapse" role="button" aria-expanded="false"
             aria-controls="sidebarDashboards">
             <i class="ri-dashboard-2-line"></i>
-            <span data-key="t-dashboards"> {{ $t("Kategori") }}</span>
+            <span data-key="t-dashboards"> Kategori</span>
           </a>
           <div class="collapse menu-dropdown" id="kategori">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
                 <router-link to="/kategori/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahkategori">
-                  {{ $t("Tambah Kategori") }}
+                  Tambah Kategori
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link to="/kategori/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatkategori">
-                  {{ $t("Lihat Kategori") }}
+                  Lihat Kategori
                 </router-link>
               </li>
             </ul>
@@ -204,18 +204,18 @@ export default {
           <a class="nav-link menu-link" href="#dokumen" data-bs-toggle="collapse" role="button" aria-expanded="false"
             aria-controls="sidebarDashboards">
             <i class="ri-dashboard-2-line"></i>
-            <span data-key="t-dashboards"> {{ $t("Dokumen") }}</span>
+            <span data-key="t-dashboards"> Dokumen</span>
           </a>
           <div class="collapse menu-dropdown" id="dokumen">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
                 <router-link to="/dokumen/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahdokumen">
-                  {{ $t("Tambah Dokumen") }}
+                  Tambah Dokumen
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link to="/dokumen/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatdokumen">
-                  {{ $t("Lihat Dokumen") }}
+                  Lihat Dokumen
                 </router-link>
               </li>
             </ul>
@@ -225,20 +225,20 @@ export default {
           <a class="nav-link menu-link" href="#peminjaman-dokumen" data-bs-toggle="collapse" role="button"
             aria-expanded="false" aria-controls="sidebarDashboards">
             <i class="ri-dashboard-2-line"></i>
-            <span data-key="t-dashboards"> {{ $t("Peminjaman Dokumen") }}</span>
+            <span data-key="t-dashboards"> Peminjaman Dokumen</span>
           </a>
           <div class="collapse menu-dropdown" id="peminjaman-dokumen">
             <ul class="nav nav-sm flex-column">
               <!-- <li class="nav-item">
                 <router-link to="/peminjaman-dokumen/tambah" class="nav-link remove-sidebar custom-abc"
                   data-key="t-tambahpeminjaman-dokumen">
-                  {{ $t("Tambah Peminjaman Dokumen") }}
+                  Tambah Peminjaman Dokumen
                 </router-link>
               </li> -->
               <li class="nav-item">
                 <router-link to="/peminjaman-dokumen/lihat" class="nav-link remove-sidebar custom-abc"
                   data-key="t-lihatpeminjaman-dokumen">
-                  {{ $t("Lihat Peminjaman Dokumen") }}
+                  Lihat Peminjaman Dokumen
                 </router-link>
               </li>
             </ul>
@@ -248,18 +248,18 @@ export default {
           <a class="nav-link menu-link" href="#bookmark" data-bs-toggle="collapse" role="button" aria-expanded="false"
             aria-controls="sidebarDashboards">
             <i class="ri-dashboard-2-line"></i>
-            <span data-key="t-dashboards"> {{ $t("Bookmark") }}</span>
+            <span data-key="t-dashboards"> Bookmark</span>
           </a>
           <div class="collapse menu-dropdown" id="bookmark">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
                 <router-link to="/bookmark/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahbookmark">
-                  {{ $t("Tambah Bookmark") }}
+                  Tambah Bookmark
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link to="/bookmark/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatbookmark">
-                  {{ $t("Lihat Bookmark") }}
+                  Lihat Bookmark
                 </router-link>
               </li>
             </ul>
@@ -269,31 +269,31 @@ export default {
         <li class="nav-item">
           <router-link to="/bookmark/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatbookmark">
             <i class="ri-honour-line"></i>
-            <span data-key="t-widgets">{{ $t("Bookmark") }}</span>
+            <span data-key="t-widgets">Bookmark</span>
           </router-link>
         </li>
 
         <li class="menu-title">
           <i class="ri-more-fill"></i>
-          <span data-key="t-Booking Ruangan">{{ $t("Booking Ruangan") }}</span>
+          <span data-key="t-Booking Ruangan">Booking Ruangan</span>
         </li>
 
         <li v-if="role == 'Admin'" class="nav-item">
           <a class="nav-link menu-link" href="#ruanganbaca" data-bs-toggle="collapse" role="button"
             aria-expanded="false" aria-controls="sidebarDashboards">
             <i class="ri-dashboard-2-line"></i>
-            <span data-key="t-dashboards"> {{ $t("Ruangan") }}</span>
+            <span data-key="t-dashboards"> Ruangan</span>
           </a>
           <div class="collapse menu-dropdown" id="ruanganbaca">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
                 <router-link to="/ruangan/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahruanganbaca">
-                  {{ $t("Tambah Ruangan") }}
+                  Tambah Ruangan
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link to="/ruangan/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatruanganbaca">
-                  {{ $t("Lihat Ruangan") }}
+                  Lihat Ruangan
                 </router-link>
               </li>
             </ul>
@@ -304,20 +304,20 @@ export default {
           <a class="nav-link menu-link" href="#peminjamanruangan" data-bs-toggle="collapse" role="button"
             aria-expanded="false" aria-controls="sidebarDashboards">
             <i class="ri-dashboard-2-line"></i>
-            <span data-key="t-dashboards"> {{ $t("Peminjaman Ruangan") }}</span>
+            <span data-key="t-dashboards"> Peminjaman Ruangan</span>
           </a>
           <div class="collapse menu-dropdown" id="peminjamanruangan">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
                 <router-link to="/peminjaman-ruangan/tambah" class="nav-link remove-sidebar custom-abc"
                   data-key="t-tambahpeminjamanruangan">
-                  {{ $t("Tambah Peminjaman Ruangan") }}
+                  Tambah Peminjaman Ruangan
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link to="/peminjaman-ruangan/lihat" class="nav-link remove-sidebar custom-abc"
                   data-key="t-lihatpeminjamanruangan">
-                  {{ $t("Lihat Peminjaman Ruangan") }}
+                  Lihat Peminjaman Ruangan
                 </router-link>
               </li>
             </ul>
@@ -326,25 +326,25 @@ export default {
         
         <li class="menu-title">
           <i class="ri-more-fill"></i>
-          <span data-key="t-pengunjung">{{ $t("pengunjung") }}</span>
+          <span data-key="t-pengunjung">pengunjung</span>
         </li>
 
         <li class="nav-item">
           <a class="nav-link menu-link" href="#pengunjung" data-bs-toggle="collapse" role="button" aria-expanded="false"
             aria-controls="sidebarDashboards">
             <i class="ri-dashboard-2-line"></i>
-            <span data-key="t-dashboards"> {{ $t("Pengunjung") }}</span>
+            <span data-key="t-dashboards"> Pengunjung</span>
           </a>
           <div class="collapse menu-dropdown" id="pengunjung">
             <ul class="nav nav-sm flex-column">
               <li v-if="role == 'Admin'" class="nav-item">
                 <router-link to="/pengunjung/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahpengunjung">
-                  {{ $t("Tambah Pengunjung") }}
+                  Tambah Pengunjung
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link to="/pengunjung/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatpengunjung">
-                  {{ $t("Lihat Pengunjung") }}
+                  Lihat Pengunjung
                 </router-link>
               </li>
             </ul>
@@ -354,19 +354,19 @@ export default {
         <li v-if="role == 'Admin'" class="nav-item">
           <router-link class="nav-link remove-sidebar menu-link" to="/qrcode-pengunjung">
             <i class="ri-honour-line"></i>
-            <span data-key="t-widgets">{{ $t("Scan QRcode") }}</span>
+            <span data-key="t-widgets">Scan QRcode</span>
           </router-link>
         </li>
 
         <li class="menu-title">
           <i class="ri-more-fill"></i>
-          <span data-key="t-components">{{ $t("t-components") }}</span>
+          <span data-key="t-components">t-components</span>
         </li>
 
         <li class="nav-item">
           <router-link class="nav-link remove-sidebar menu-link" to="/grid-dokumen">
             <i class="ri-honour-line"></i>
-            <span data-key="t-widgets">{{ $t("Cari Dokumen") }}</span>
+            <span data-key="t-widgets">Cari Dokumen</span>
           </router-link>
         </li>
 

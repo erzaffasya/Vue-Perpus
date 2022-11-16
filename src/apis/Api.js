@@ -3,7 +3,8 @@ import { authHeader } from "../helpers/authservice/auth-header";
 let Api = axios.create();
 // let url = "http://perpustakaan_itk.test";
 // let url = "  ";
-let url = "http://lumen-perpustakaanitk.test";
+// let url = "http://lumen-perpustakaanitk.test";
+let url = "http://digilib.itk.ac.id/Lumen-PerpustakaanITK/public";
 
 // Api.defaults.withCredentials = true;
 Api.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
