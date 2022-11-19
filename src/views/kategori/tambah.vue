@@ -22,32 +22,31 @@ export default {
         detail: "",
         berkas: {},
       },
-    }
+    };
   },
   methods: {
     store() {
       console.log(this.kategori);
       const fd = new FormData();
-      fd.append('nama_kategori', this.kategori.nama_kategori)
-      fd.append('detail', this.kategori.detail)
-      fd.append('berkas', JSON.stringify(this.kategori.berkas))
-      apiKategori
-        .tambahKategori(fd)
-        .then(response => {
-          if (response.data.code == 200) {
-            Swal.fire("Berhasil!", "Data Kategori Berhasil Ditambah!", "success").then(
-              (result) => {
-                if (result.value) {
-                  // this.$router.push("lihat");
-                }
-              }
-            );
-          } else {
-            Swal.fire("Error!", "Data Kategori Gagal Ditambah!", "error")
-          }
-
-        })
-    }
+      fd.append("nama_kategori", this.kategori.nama_kategori);
+      fd.append("detail", this.kategori.detail);
+      fd.append("berkas", JSON.stringify(this.kategori.berkas));
+      apiKategori.tambahKategori(fd).then((response) => {
+        if (response.data.code == 200) {
+          Swal.fire(
+            "Berhasil!",
+            "Data Kategori Berhasil Ditambah!",
+            "success"
+          ).then((result) => {
+            if (result.value) {
+              // this.$router.push("lihat");
+            }
+          });
+        } else {
+          Swal.fire("Error!", "Data Kategori Gagal Ditambah!", "error");
+        }
+      });
+    },
   },
 };
 </script>
@@ -70,11 +69,17 @@ export default {
               <form @submit.prevent="store()">
                 <div class="row mb-3">
                   <div class="col-lg-3">
-                    <label for="nameInput" class="form-label">Nama Kategori</label>
+                    <label for="nameInput" class="form-label"
+                      >Nama Kategori</label
+                    >
                   </div>
                   <div class="col-lg-9">
-                    <input type="text" v-model="kategori.nama_kategori" class="form-control"
-                      placeholder="Masukkan Nama Kategori" />
+                    <input
+                      type="text"
+                      v-model="kategori.nama_kategori"
+                      class="form-control"
+                      placeholder="Masukkan Nama Kategori"
+                    />
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -82,119 +87,212 @@ export default {
                     <label for="nameInput" class="form-label">Detail</label>
                   </div>
                   <div class="col-lg-9">
-                    <input type="text" v-model="kategori.detail" class="form-control"
-                      placeholder="Masukkan Detail Kategori" />
+                    <input
+                      type="text"
+                      v-model="kategori.detail"
+                      class="form-control"
+                      placeholder="Masukkan Detail Kategori"
+                    />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-3">
+                    <label for="nameInput" class="form-label"
+                      >Dosen Pembimbing</label
+                    >
+                  </div>
+                  <div class="col-lg-9">
+                    <select
+                      v-model="kategori.isPembibing"
+                      class="form-select mb-3"
+                      aria-label="Default select example"
+                    >
+                      <option disabled>Pilih Opsi</option>
+                      <option value="0">Tidak Aktif</option>
+                      <option value="1">Aktif</option>
+                    </select>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col-lg-12">
-                    <label for="nameInput" class="form-label">Data yang Dibutuhkan</label>
-                    <hr>
+                    <label for="nameInput" class="form-label"
+                      >Data yang Dibutuhkan</label
+                    >
+                    <hr />
                   </div>
                 </div>
                 <div class="row mb-5">
                   <div class="col-lg-4">
-                    <input class="form-check-input" type="checkbox" v-model="kategori.berkas.cover" id="cover">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="kategori.berkas.cover"
+                      id="cover"
+                    />
                     <label class="form-check-label ml-2" for="cover">
                       Cover
                     </label>
                   </div>
                   <div class="col-lg-4">
-                    <input class="form-check-input" type="checkbox" v-model="kategori.berkas.lembar_pengesahan"
-                      id="lembar_pengesahan">
-                    <label class="form-check-label ml-2" for="lembar_pengesahan">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="kategori.berkas.lembar_pengesahan"
+                      id="lembar_pengesahan"
+                    />
+                    <label
+                      class="form-check-label ml-2"
+                      for="lembar_pengesahan"
+                    >
                       Lembar Pengesahan
                     </label>
                   </div>
                   <div class="col-lg-4">
-                    <input class="form-check-input" type="checkbox" v-model="kategori.berkas.kata_pengantar"
-                      id="kata_pengantar">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="kategori.berkas.kata_pengantar"
+                      id="kata_pengantar"
+                    />
                     <label class="form-check-label ml-2" for="kata_pengantar">
                       Kata Pengantar
                     </label>
                   </div>
                   <div class="col-lg-4">
-                    <input class="form-check-input" type="checkbox" v-model="kategori.berkas.ringkasan" id="ringkasan">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="kategori.berkas.ringkasan"
+                      id="ringkasan"
+                    />
                     <label class="form-check-label ml-2" for="ringkasan">
                       Ringkasan
                     </label>
                   </div>
                   <div class="col-lg-4">
-                    <input class="form-check-input" type="checkbox" v-model="kategori.berkas.daftar_isi"
-                      id="daftar_isi">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="kategori.berkas.daftar_isi"
+                      id="daftar_isi"
+                    />
                     <label class="form-check-label ml-2" for="daftar_isi">
                       Daftar Isi
                     </label>
                   </div>
                   <div class="col-lg-4">
-                    <input class="form-check-input" type="checkbox" v-model="kategori.berkas.daftar_gambar"
-                      id="daftar_gambar">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="kategori.berkas.daftar_gambar"
+                      id="daftar_gambar"
+                    />
                     <label class="form-check-label ml-2" for="daftar_gambar">
                       Daftar Gambar
                     </label>
                   </div>
                   <div class="col-lg-4">
-                    <input class="form-check-input" type="checkbox" v-model="kategori.berkas.daftar_tabel"
-                      id="daftar_tabel">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="kategori.berkas.daftar_tabel"
+                      id="daftar_tabel"
+                    />
                     <label class="form-check-label ml-2" for="daftar_tabel">
                       Daftar Tabel
                     </label>
                   </div>
                   <div class="col-lg-4">
-                    <input class="form-check-input" type="checkbox" v-model="kategori.berkas.daftar_notasi"
-                      id="daftar_notasi">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="kategori.berkas.daftar_notasi"
+                      id="daftar_notasi"
+                    />
                     <label class="form-check-label ml-2" for="daftar_notasi">
                       Daftar Notasi
                     </label>
                   </div>
                   <div class="col-lg-4">
-                    <input class="form-check-input" type="checkbox" v-model="kategori.berkas.lampiran" id="lampiran">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="kategori.berkas.lampiran"
+                      id="lampiran"
+                    />
                     <label class="form-check-label ml-2" for="lampiran">
                       Lampiran
                     </label>
                   </div>
                   <div class="col-lg-4">
-                    <input class="form-check-input" type="checkbox" v-model="kategori.berkas.bab1" id="bab1">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="kategori.berkas.bab1"
+                      id="bab1"
+                    />
                     <label class="form-check-label ml-2" for="bab1">
                       Bab 1
                     </label>
                   </div>
                   <div class="col-lg-4">
-                    <input class="form-check-input" type="checkbox" v-model="kategori.berkas.bab2" id="bab2">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="kategori.berkas.bab2"
+                      id="bab2"
+                    />
                     <label class="form-check-label ml-2" for="bab2">
                       Bab 2
                     </label>
                   </div>
                   <div class="col-lg-4">
-                    <input class="form-check-input" type="checkbox" v-model="kategori.berkas.bab3" id="bab3">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="kategori.berkas.bab3"
+                      id="bab3"
+                    />
                     <label class="form-check-label ml-2" for="bab3">
                       Bab 3
                     </label>
                   </div>
                   <div class="col-lg-4">
-                    <input class="form-check-input" type="checkbox" v-model="kategori.berkas.bab4" id="bab4">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="kategori.berkas.bab4"
+                      id="bab4"
+                    />
                     <label class="form-check-label ml-2" for="bab4">
                       Bab 4
                     </label>
                   </div>
                   <div class="col-lg-4">
-                    <input class="form-check-input" type="checkbox" v-model="kategori.berkas.bab5" id="bab5">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="kategori.berkas.bab5"
+                      id="bab5"
+                    />
                     <label class="form-check-label ml-2" for="bab5">
                       Bab 5
                     </label>
                   </div>
                   <div class="col-lg-4">
-                    <input class="form-check-input" type="checkbox" v-model="kategori.berkas.full_dokumen"
-                      id="full_dokumen">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="kategori.berkas.full_dokumen"
+                      id="full_dokumen"
+                    />
                     <label class="form-check-label ml-2" for="full_dokumen">
                       Full Dokumen
                     </label>
                   </div>
                 </div>
                 <div class="text-end">
-                  <button type="submit" class="btn btn-primary">
-                    Submit
-                  </button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
               </form>
             </div>

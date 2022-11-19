@@ -281,7 +281,15 @@ export default [
     },
     component: () => import("../views/peminjamanDokumen/lihat"),
   },
-
+  {
+    path: "/cek-bebas-pustaka",
+    name: "cek-bebas-pustaka",
+    meta: {
+      title: "Cek Bebas Pustaka",
+      authRequired: true,
+    },
+    component: () => import("../views/cekBebasPustaka/lihat"),
+  },
   {
     path: "/dashboard/crypto",
     name: "dashboard-crypto",

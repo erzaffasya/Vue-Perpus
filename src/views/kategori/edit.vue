@@ -107,6 +107,24 @@ export default {
                     />
                   </div>
                 </div>
+                    <div class="row mb-3">
+                  <div class="col-lg-3">
+                    <label for="nameInput" class="form-label"
+                      >Dosen Pembimbing</label
+                    >
+                  </div>
+                  <div class="col-lg-9">
+                    <select
+                      v-model="Kategori.isPembibing"
+                      class="form-select mb-3"
+                      aria-label="Default select example"
+                    >
+                      <option disabled>Pilih Opsi</option>
+                      <option value="0">Tidak Aktif</option>
+                      <option value="1">Aktif</option>
+                    </select>
+                  </div>
+                </div>
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <label for="nameInput" class="form-label"
