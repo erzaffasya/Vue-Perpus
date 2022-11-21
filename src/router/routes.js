@@ -291,6 +291,15 @@ export default [
     component: () => import("../views/cekBebasPustaka/lihat"),
   },
   {
+    path: "/jurusan/lihat-dokumen",
+    name: "jurusan-cek-dokumen",
+    meta: {
+      title: "Cek Dokumen Jurusan",
+      authRequired: true,
+    },
+    component: () => import("../views/jurusan/index"),
+  },
+  {
     path: "/dashboard/crypto",
     name: "dashboard-crypto",
     meta: {

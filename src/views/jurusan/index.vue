@@ -1,14 +1,12 @@
 <script>
-import Multiselect from "@vueform/multiselect";
-import "@vueform/multiselect/themes/default.css";
-import flatPickr from "vue-flatpickr-component";
-import "flatpickr/dist/flatpickr.css";
 import Swal from "sweetalert2";
+import "@vueform/multiselect/themes/default.css";
+import "flatpickr/dist/flatpickr.css";
 
 import Layout from "../../layouts/main.vue";
 import appConfig from "../../../app.config";
 import PageHeader from "@/components/page-header";
-import apiPeminjamanRuangan from "../../apis/PeminjamanRuangan.js";
+import apiDokumen from "../../apis/Dokumen.js";
 import animationData from "@/components/widgets/msoeawqm.json";
 import Lottie from "@/components/widgets/lottie.vue";
 
@@ -22,7 +20,6 @@ export default {
       },
     ],
   },
-  inject: ["role"],
   data() {
     return {
       // title: "Orders",
@@ -40,41 +37,22 @@ export default {
       perPage: 8,
       pages: [],
       value: null,
-      value1: null,
       searchQuery: null,
-      config: {
-        wrap: true, // set wrap to true only when using 'input-group'
-        altFormat: "M j, Y",
-        altInput: true,
-        dateFormat: "d M, Y",
-        mode: "range",
+
+      defaultOptions: {
+        animationData: animationData,
       },
-      timeConfig: {
-        wrap: true, // set wrap to true only when using 'input-group'
-        altFormat: "M j, Y",
-        altInput: true,
-        dateFormat: "d M, Y",
-        enableTime: true,
-        noCalendar: true,
-      },
-      date: null,
-      date2: null,
-      defaultOptions: { animationData: animationData },
-      peminjamanRuangan: [],
-      isStatus: null,
-      isPayment: null,
+      Dokumen: [],
     };
   },
   components: {
     Layout,
     PageHeader,
     lottie: Lottie,
-    Multiselect,
-    flatPickr,
   },
   computed: {
     displayedPosts() {
-      return this.paginate(this.peminjamanRuangan);
+      return this.paginate(this.Dokumen);
     },
     resultQuery() {
       console.log(this.searchQuery);
@@ -83,12 +61,14 @@ export default {
         return this.displayedPosts.filter((data) => {
           return (
             (data.judul && data.judul.toLowerCase().includes(search)) ||
-            (data.kategori_id &&
-              data.kategori_id.toLowerCase().includes(search)) ||
-            (data.nama_pengarang &&
-              data.nama_pengarang.toLowerCase().includes(search)) ||
-            (data.status && data.status.toLowerCase().includes(search)) ||
-            (data.jurusan && data.jurusan.toLowerCase().includes(search))
+            (data.jurusan && data.jurusan.toLowerCase().includes(search)) ||
+            (data.user_id && data.user_id.toLowerCase().includes(search)) ||
+            (data.kategori.nama_kategori &&
+              data.kategori.nama_kategori.toLowerCase().includes(search)) ||
+            (data.kategori.status &&
+              data.kategori.status.toLowerCase().includes(search)) ||
+            (data.kategori.tanggal_dibuat &&
+              data.kategori.tanggal_dibuat.toLowerCase().includes(search))
           );
         });
       } else {
@@ -105,21 +85,20 @@ export default {
     },
   },
   created() {
-    this.getPeminjamanRuangan();
+    this.getDokumen();
   },
-  mounted() {},
+  mounted() {
+    this.setPages();
+  },
   filters: {
     trimWords(value) {
       return value.split(" ").splice(0, 20).join(" ") + "...";
     },
   },
   methods: {
-    getPeminjamanRuangan() {
-      apiPeminjamanRuangan.lihatPeminjamanRuangan().then((response) => {
-        this.peminjamanRuangan = response.data.data;
-        this.pages = [];
-        this.page = 1;
-        this.setPages();
+    async getDokumen() {
+      await apiDokumen.lihatDokumen().then((response) => {
+        this.Dokumen = response.data.data.data;
       });
     },
     onChangeStatus(e) {
@@ -129,24 +108,22 @@ export default {
       this.isPayment = e;
     },
     setPages() {
-      let numberOfPages = Math.ceil(
-        this.peminjamanRuangan.length / this.perPage
-      );
+      let numberOfPages = Math.ceil(this.Dokumen.length / this.perPage);
       for (let index = 1; index <= numberOfPages; index++) {
         this.pages.push(index);
       }
     },
-    paginate(peminjamanRuangan) {
+    paginate(Dokumen) {
       let page = this.page;
       let perPage = this.perPage;
       let from = page * perPage - perPage;
       let to = page * perPage;
-      return peminjamanRuangan.slice(from, to);
+      return Dokumen.slice(from, to);
     },
     SearchData() {
       this.resultQuery;
       // var isstatus = document.getElementById("idStatus").value;
-      // var payment = document.getElementById("idPayment").value;
+      //   var payment = document.getElementById("idPayment").value;
     },
     confirm(id) {
       Swal.fire({
@@ -159,14 +136,10 @@ export default {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.value) {
-          apiPeminjamanRuangan.hapusPeminjamanRuangan(id).then(() => {
-            this.getPeminjamanRuangan();
+          apiDokumen.hapusDokumen(id).then(() => {
+            this.getDokumen();
           });
-          Swal.fire(
-            "Berhasil!",
-            "Data Peminjaman Ruangan Berhasil Dihapus.",
-            "success"
-          );
+          Swal.fire("Berhasil!", "Data Ruangan Berhasil Dihapus.", "success");
         }
       });
     },
@@ -193,7 +166,7 @@ export default {
                   role="tab"
                   aria-selected="false"
                 >
-                  Explore
+                  Data Ruangan
                 </a>
               </li>
             </ul>
@@ -211,111 +184,23 @@ export default {
                           "
                         >
                           <form>
-                            <div class="row g-3">
-                              <div class="col-xxl-5 col-sm-6">
+                            <div class="d-flex row g-3">
+                              <div class="col-xxl-5 me-auto mr-auto col-sm-6">
                                 <div class="search-box">
                                   <input
                                     v-model="this.searchQuery"
                                     type="text"
                                     class="form-control search"
-                                    placeholder="Cari Data..."
+                                    placeholder="Search"
                                   />
                                   <i class="ri-search-line search-icon"></i>
                                 </div>
                               </div>
-                              <!--end col-->
-                              <div class="col-xxl-2 col-sm-6">
-                                <div>
-                                  <flat-pickr
-                                    placeholder="Select date"
-                                    v-model="date"
-                                    :config="config"
-                                    class="form-control flatpickr-input"
-                                    id="demo-datepicker"
-                                  ></flat-pickr>
-                                </div>
-                              </div>
-                              <!--end col-->
-                              <div class="col-xxl-2 col-sm-4">
-                                <div>
-                                  <Multiselect
-                                    class="form-control"
-                                    v-model="value"
-                                    :close-on-select="true"
-                                    :searchable="true"
-                                    :create-option="true"
-                                    @input="onChangePayment"
-                                    :options="[
-                                      { value: '', label: 'Status' },
-                                      { value: 'All', label: 'All' },
-                                      { value: 'Pending', label: 'Pending' },
-                                      {
-                                        value: 'Inprogress',
-                                        label: 'Inprogress',
-                                      },
-                                      {
-                                        value: 'Cancelled',
-                                        label: 'Cancelled',
-                                      },
-                                      { value: 'Pickups', label: 'Pickups' },
-                                      { value: 'Returns', label: 'Returns' },
-                                      {
-                                        value: 'Delivered',
-                                        label: 'Delivered',
-                                      },
-                                    ]"
-                                  />
-                                </div>
-                              </div>
-                              <!--end col-->
-                              <div class="col-xxl-2 col-sm-4">
-                                <div>
-                                  <Multiselect
-                                    class="form-control"
-                                    v-model="value1"
-                                    :close-on-select="true"
-                                    :searchable="true"
-                                    :create-option="true"
-                                    @input="onChangeStatus"
-                                    :options="[
-                                      { value: '', label: 'Select Payment' },
-                                      { value: 'All', label: 'All' },
-                                      {
-                                        value: 'Mastercard',
-                                        label: 'Mastercard',
-                                      },
-                                      { value: 'Paypal', label: 'Paypal' },
-                                      { value: 'Visa', label: 'Visa' },
-                                      { value: 'COD', label: 'COD' },
-                                    ]"
-                                  />
-                                </div>
-                              </div>
-                              <!--end col-->
-                              <div class="col-xxl-1 col-sm-4">
-                                <div>
-                                  <button
-                                    type="button"
-                                    class="btn btn-primary w-100"
-                                    @click="SearchData"
-                                  >
-                                    <i
-                                      class="
-                                        ri-equalizer-fill
-                                        me-1
-                                        align-bottom
-                                      "
-                                    ></i>
-                                    Filters
-                                  </button>
-                                </div>
-                              </div>
-                              <!--end col-->
                             </div>
                             <!--end row-->
                           </form>
                         </div>
-                        <div class="card-body pt-0">
+                        <div class="card-body pt-2">
                           <div>
                             <div class="table-responsive table-card mb-1">
                               <table
@@ -327,20 +212,22 @@ export default {
                                     <th scope="col" style="width: 25px"></th>
                                     <th class="sort" data-sort="id">No</th>
                                     <th class="sort" data-sort="customer_name">
-                                      Nama Pemohon
-                                    </th>
-                                    <th class="sort" data-sort="customer_name">
-                                      Ruangan
+                                      Nama Mahasiswa
                                     </th>
                                     <th class="sort" data-sort="product_name">
-                                      Tanggal
+                                      Jurusan
                                     </th>
-                                    <th class="sort" data-sort="date">Waktu</th>
-                                    <th class="sort" data-sort="amount">
-                                      Keperluan
+                                    <th class="sort" data-sort="product_name">
+                                      Nama Dokumen
                                     </th>
-                                    <th class="sort" data-sort="status">
+                                    <th class="sort" data-sort="product_name">
+                                      Kategori
+                                    </th>
+                                    <th class="sort" data-sort="product_name">
                                       Status
+                                    </th>
+                                    <th class="sort" data-sort="product_name">
+                                      Tanggal Pengumpulan
                                     </th>
                                     <th class="sort" data-sort="city">
                                       Action
@@ -353,28 +240,28 @@ export default {
                                     :key="index"
                                   >
                                     <th scope="row"></th>
-                                    <td class="id">{{ index + 1 }}</td>
+                                    <td class="customer_name">{{ data.id }}</td>
                                     <td class="customer_name">
-                                      {{ data.user.name }}
-                                    </td>
-                                    <td class="customer_name">
-                                      {{ data.ruangan.nama_ruangan }}
+                                      {{ data.user_id }}
                                     </td>
                                     <td class="product_name">
-                                      {{ data.tanggal }}
+                                      {{ data.jurusan }}
                                     </td>
-                                    <td class="date">
-                                      {{ data.waktu_awal }} -
-                                      {{ data.waktu_akhir }}
-                                      <!-- <small class="text-muted">02:21 AM</small> -->
+                                    <td class="product_name">
+                                      {{ data.judul }}
                                     </td>
-                                    <td class="amount">{{ data.keperluan }}</td>
-                                    <td class="status">
+                                    <td class="product_name">
+                                      {{ data.kategori.nama_kategori }}
+                                    </td>
+                                      <td class="product_name">
                                       {{ data.status }}
+                                    </td>
+                                      <td class="product_name">
+                                      {{ data.tanggal_dibuat }}
                                     </td>
                                     <td>
                                       <ul class="list-inline hstack gap-2 mb-0">
-                                        <li
+                                   <li
                                           class="list-inline-item"
                                           data-bs-toggle="tooltip"
                                           data-bs-trigger="hover"
@@ -383,28 +270,24 @@ export default {
                                         >
                                           <router-link
                                             :to="{
-                                              name: 'invoice-peminjamanRuangan',
+                                              name: 'detail-dokumen',
                                               params: { id: data.id },
                                             }"
-                                            class="text-dark"
+                                            class="text-primary d-inline-block"
                                           >
                                             <i class="ri-eye-fill fs-16"></i>
                                           </router-link>
                                         </li>
-                                        <li
+                                        <!-- <li
                                           class="list-inline-item edit"
                                           data-bs-toggle="tooltip"
                                           data-bs-trigger="hover"
                                           data-bs-placement="top"
                                           title="Edit"
-                                          v-if="
-                                            data.status === 'Menunggu' &&
-                                            role === 'Admin'
-                                          "
                                         >
                                           <router-link
                                             :to="{
-                                              name: 'edit-peminjamanRuangan',
+                                              name: 'edit-ruangan',
                                               params: { id: data.id },
                                             }"
                                             class="
@@ -421,7 +304,6 @@ export default {
                                           data-bs-toggle="tooltip"
                                           data-bs-trigger="hover"
                                           data-bs-placement="top"
-                                          v-if="data.status === 'Menunggu'"
                                           title="Remove"
                                         >
                                           <a
@@ -438,7 +320,7 @@ export default {
                                               class="ri-delete-bin-5-fill fs-16"
                                             ></i>
                                           </a>
-                                        </li>
+                                        </li> -->
                                       </ul>
                                     </td>
                                   </tr>

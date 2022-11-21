@@ -39,7 +39,7 @@ export default {
             "success"
           ).then((result) => {
             if (result.value) {
-              // this.$router.push("lihat");
+              this.$router.push("lihat");
             }
           });
         } else {

@@ -8,7 +8,7 @@ import {
 
 export default {
     components: {
-        SimpleBar
+        SimpleBar,
     },
     data() {
         return {
@@ -161,9 +161,7 @@ export default {
     <div id="two-column-menu"></div>
 
     <template v-if="layoutType === 'twocolumn'">
-        <SimpleBar class="navbar-nav" id="navbar-nav">
-
-        </SimpleBar>
+        <SimpleBar class="navbar-nav" id="navbar-nav"> </SimpleBar>
     </template>
 
     <template v-else>
@@ -181,199 +179,194 @@ export default {
             <!-- end Dashboard Menu -->
 
             <!-- Sidebar Kategori  -->
-            <li class="menu-title">
-                <i class="ri-more-fill"></i>
-                <span data-key="kategori">Dokumen</span>
-            </li>
-            <li v-if="role == 'Admin'" class="nav-item">
-                <a class="nav-link menu-link" href="#kategori" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
-                    <i class="ri-dashboard-2-line"></i>
-                    <span data-key="t-dashboards"> Kategori</span>
-                </a>
-                <div class="collapse menu-dropdown" id="kategori">
-                    <ul class="nav nav-sm flex-column">
-                        <li class="nav-item">
-                            <router-link to="/kategori/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahkategori">
-                                Tambah Kategori
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/kategori/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatkategori">
-                                Lihat Kategori
-                            </router-link>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link menu-link" href="#dokumen" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
-                    <i class="ri-dashboard-2-line"></i>
-                    <span data-key="t-dashboards"> Dokumen</span>
-                </a>
-                <div class="collapse menu-dropdown" id="dokumen">
-                    <ul class="nav nav-sm flex-column">
-                        <li class="nav-item">
-                            <router-link to="/dokumen/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahdokumen">
-                                Tambah Dokumen
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/dokumen/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatdokumen">
-                                Lihat Dokumen
-                            </router-link>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link menu-link" href="#peminjaman-dokumen" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
-                    <i class="ri-dashboard-2-line"></i>
-                    <span data-key="t-dashboards"> Peminjaman Dokumen</span>
-                </a>
-                <div class="collapse menu-dropdown" id="peminjaman-dokumen">
-                    <ul class="nav nav-sm flex-column">
-                        <!-- <li class="nav-item">
-                <router-link to="/peminjaman-dokumen/tambah" class="nav-link remove-sidebar custom-abc"
-                  data-key="t-tambahpeminjaman-dokumen">
-                  Tambah Peminjaman Dokumen
-                </router-link>
-              </li> -->
-                        <li class="nav-item">
-                            <router-link to="/peminjaman-dokumen/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatpeminjaman-dokumen">
-                                Lihat Peminjaman Dokumen
-                            </router-link>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <!-- <li class="nav-item">
-          <a class="nav-link menu-link" href="#bookmark" data-bs-toggle="collapse" role="button" aria-expanded="false"
-            aria-controls="sidebarDashboards">
-            <i class="ri-dashboard-2-line"></i>
-            <span data-key="t-dashboards"> Bookmark</span>
-          </a>
-          <div class="collapse menu-dropdown" id="bookmark">
-            <ul class="nav nav-sm flex-column">
-              <li class="nav-item">
-                <router-link to="/bookmark/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahbookmark">
-                  Tambah Bookmark
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link to="/bookmark/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatbookmark">
-                  Lihat Bookmark
-                </router-link>
-              </li>
-            </ul>
-          </div>
-        </li> -->
+            <div>
+                <li class="menu-title">
+                    <i class="ri-more-fill"></i>
+                    <span data-key="kategori">Dokumen</span>
+                </li>
+                <li v-if="role == 'Admin'" class="nav-item">
+                    <a class="nav-link menu-link" href="#kategori" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line"></i>
+                        <span data-key="t-dashboards"> Kategori</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="kategori">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <router-link to="/kategori/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahkategori">
+                                    Tambah Kategori
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/kategori/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatkategori">
+                                    Lihat Kategori
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#dokumen" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line"></i>
+                        <span data-key="t-dashboards"> Dokumen</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="dokumen">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <router-link to="/dokumen/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahdokumen">
+                                    Tambah Dokumen
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/dokumen/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatdokumen">
+                                    Lihat Dokumen
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#peminjaman-dokumen" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line"></i>
+                        <span data-key="t-dashboards"> Peminjaman Dokumen</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="peminjaman-dokumen">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <router-link to="/peminjaman-dokumen/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatpeminjaman-dokumen">
+                                    Lihat Peminjaman Dokumen
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
-            <li class="nav-item">
-                <router-link to="/bookmark/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatbookmark">
-                    <i class="ri-honour-line"></i>
-                    <span data-key="t-widgets">Bookmark</span>
-                </router-link>
-            </li>
+                <li class="nav-item">
+                    <router-link to="/bookmark/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatbookmark">
+                        <i class="ri-honour-line"></i>
+                        <span data-key="t-widgets">Bookmark</span>
+                    </router-link>
+                </li>
+            </div>
+            <div>
+                <li class="menu-title">
+                    <i class="ri-more-fill"></i>
+                    <span data-key="t-Booking Ruangan">Booking Ruangan</span>
+                </li>
 
-            <li class="menu-title">
-                <i class="ri-more-fill"></i>
-                <span data-key="t-Booking Ruangan">Booking Ruangan</span>
-            </li>
+                <li v-if="role == 'Admin'" class="nav-item">
+                    <a class="nav-link menu-link" href="#ruanganbaca" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line"></i>
+                        <span data-key="t-dashboards"> Ruangan</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="ruanganbaca">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <router-link to="/ruangan/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahruanganbaca">
+                                    Tambah Ruangan
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/ruangan/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatruanganbaca">
+                                    Lihat Ruangan
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
-            <li v-if="role == 'Admin'" class="nav-item">
-                <a class="nav-link menu-link" href="#ruanganbaca" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
-                    <i class="ri-dashboard-2-line"></i>
-                    <span data-key="t-dashboards"> Ruangan</span>
-                </a>
-                <div class="collapse menu-dropdown" id="ruanganbaca">
-                    <ul class="nav nav-sm flex-column">
-                        <li class="nav-item">
-                            <router-link to="/ruangan/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahruanganbaca">
-                                Tambah Ruangan
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/ruangan/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatruanganbaca">
-                                Lihat Ruangan
-                            </router-link>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#peminjamanruangan" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line"></i>
+                        <span data-key="t-dashboards"> Peminjaman Ruangan</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="peminjamanruangan">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <router-link to="/peminjaman-ruangan/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahpeminjamanruangan">
+                                    Tambah Peminjaman Ruangan
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/peminjaman-ruangan/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatpeminjamanruangan">
+                                    Lihat Peminjaman Ruangan
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </div>
+            <div>
+                <li class="menu-title">
+                    <i class="ri-more-fill"></i>
+                    <span data-key="t-pengunjung">pengunjung</span>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link menu-link" href="#peminjamanruangan" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
-                    <i class="ri-dashboard-2-line"></i>
-                    <span data-key="t-dashboards"> Peminjaman Ruangan</span>
-                </a>
-                <div class="collapse menu-dropdown" id="peminjamanruangan">
-                    <ul class="nav nav-sm flex-column">
-                        <li class="nav-item">
-                            <router-link to="/peminjaman-ruangan/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahpeminjamanruangan">
-                                Tambah Peminjaman Ruangan
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/peminjaman-ruangan/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatpeminjamanruangan">
-                                Lihat Peminjaman Ruangan
-                            </router-link>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#pengunjung" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line"></i>
+                        <span data-key="t-dashboards"> Pengunjung</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="pengunjung">
+                        <ul class="nav nav-sm flex-column">
+                            <li v-if="role == 'Admin'" class="nav-item">
+                                <router-link to="/pengunjung/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahpengunjung">
+                                    Tambah Pengunjung
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/pengunjung/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatpengunjung">
+                                    Lihat Pengunjung
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
-            <li class="menu-title">
-                <i class="ri-more-fill"></i>
-                <span data-key="t-pengunjung">pengunjung</span>
-            </li>
+                <li v-if="role == 'Admin'" class="nav-item">
+                    <router-link class="nav-link remove-sidebar menu-link" to="/qrcode-pengunjung">
+                        <i class="ri-honour-line"></i>
+                        <span data-key="t-widgets">Scan QRcode</span>
+                    </router-link>
+                </li>
+            </div>
+            <div>
+                <li class="menu-title">
+                    <i class="ri-more-fill"></i>
+                    <span data-key="t-components">Jurusan</span>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link menu-link" href="#pengunjung" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
-                    <i class="ri-dashboard-2-line"></i>
-                    <span data-key="t-dashboards"> Pengunjung</span>
-                </a>
-                <div class="collapse menu-dropdown" id="pengunjung">
-                    <ul class="nav nav-sm flex-column">
-                        <li v-if="role == 'Admin'" class="nav-item">
-                            <router-link to="/pengunjung/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahpengunjung">
-                                Tambah Pengunjung
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link to="/pengunjung/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatpengunjung">
-                                Lihat Pengunjung
-                            </router-link>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+                <li v-if="role == 'Tendik' || role == 'Admin'" class="nav-item">
+                    <router-link class="nav-link remove-sidebar menu-link" to="/jurusan/lihat-dokumen">
+                        <i class="ri-honour-line"></i>
+                        <span data-key="t-widgets">Cek Dokumen</span>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link remove-sidebar menu-link" to="/cek-bebas-pustaka">
+                        <i class="ri-honour-line"></i>
+                        <span data-key="t-widgets">Cek Bebas Pustaka</span>
+                    </router-link>
+                </li>
+                <li v-if="role == 'Dosen'" class="nav-item">
+                    <router-link class="nav-link remove-sidebar menu-link" to="/cek-bebas-pustaka">
+                        <i class="ri-honour-line"></i>
+                        <span data-key="t-widgets">Dokumen Bimbingan</span>
+                    </router-link>
+                </li>
+            </div>
+            <div>
+                <li class="menu-title">
+                    <i class="ri-more-fill"></i>
+                    <span data-key="t-components">components</span>
+                </li>
 
-            <li v-if="role == 'Admin'" class="nav-item">
-                <router-link class="nav-link remove-sidebar menu-link" to="/qrcode-pengunjung">
-                    <i class="ri-honour-line"></i>
-                    <span data-key="t-widgets">Scan QRcode</span>
-                </router-link>
-            </li>
-
-            <li class="menu-title">
-                <i class="ri-more-fill"></i>
-                <span data-key="t-components">t-components</span>
-            </li>
-
-            <li class="nav-item">
-                <router-link class="nav-link remove-sidebar menu-link" to="/grid-dokumen">
-                    <i class="ri-honour-line"></i>
-                    <span data-key="t-widgets">Cari Dokumen</span>
-                </router-link>
-            </li>
-
-            <li class="nav-item">
-                <router-link class="nav-link remove-sidebar menu-link" to="/cek-bebas-pustaka">
-                    <i class="ri-honour-line"></i>
-                    <span data-key="t-widgets">Cek Bebas Pustaka</span>
-                </router-link>
-            </li>
-
+                <li class="nav-item">
+                    <router-link class="nav-link remove-sidebar menu-link" to="/grid-dokumen">
+                        <i class="ri-honour-line"></i>
+                        <span data-key="t-widgets">Cari Dokumen</span>
+                    </router-link>
+                </li>
+            </div>
         </ul>
     </template>
 </div>
