@@ -179,7 +179,7 @@ export default {
             <!-- end Dashboard Menu -->
 
             <!-- Sidebar Kategori  -->
-            <div>
+            <div v-if="role != 'Tendik'">
                 <li class="menu-title">
                     <i class="ri-more-fill"></i>
                     <span data-key="kategori">Dokumen</span>
@@ -221,6 +221,11 @@ export default {
                                     Lihat Dokumen
                                 </router-link>
                             </li>
+                            <li v-if="role =='Dosen'" class="nav-item">
+                                <router-link to="/dokumen/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatdokumen">
+                                    Bimbingan
+                                </router-link>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -247,7 +252,7 @@ export default {
                     </router-link>
                 </li>
             </div>
-            <div>
+            <div v-if="role != 'Tendik'">
                 <li class="menu-title">
                     <i class="ri-more-fill"></i>
                     <span data-key="t-Booking Ruangan">Booking Ruangan</span>
@@ -295,7 +300,7 @@ export default {
                     </div>
                 </li>
             </div>
-            <div>
+            <div v-if="role != 'Tendik'">
                 <li class="menu-title">
                     <i class="ri-more-fill"></i>
                     <span data-key="t-pengunjung">pengunjung</span>
@@ -354,7 +359,7 @@ export default {
                     </router-link>
                 </li>
             </div>
-            <div>
+            <div v-if="role != 'Tendik'">
                 <li class="menu-title">
                     <i class="ri-more-fill"></i>
                     <span data-key="t-components">components</span>

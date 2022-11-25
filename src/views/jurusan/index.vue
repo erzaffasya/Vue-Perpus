@@ -215,6 +215,9 @@ export default {
                                       Nama Mahasiswa
                                     </th>
                                     <th class="sort" data-sort="product_name">
+                                      NIM
+                                    </th>
+                                    <th class="sort" data-sort="product_name">
                                       Jurusan
                                     </th>
                                     <th class="sort" data-sort="product_name">
@@ -244,6 +247,9 @@ export default {
                                     <td class="customer_name">
                                       {{ data.user_id }}
                                     </td>
+                                    <td class="customer_name">
+                                      {{ data.nim }}
+                                    </td>
                                     <td class="product_name">
                                       {{ data.jurusan }}
                                     </td>
@@ -253,15 +259,15 @@ export default {
                                     <td class="product_name">
                                       {{ data.kategori.nama_kategori }}
                                     </td>
-                                      <td class="product_name">
+                                    <td class="product_name">
                                       {{ data.status }}
                                     </td>
-                                      <td class="product_name">
+                                    <td class="product_name">
                                       {{ data.tanggal_dibuat }}
                                     </td>
                                     <td>
                                       <ul class="list-inline hstack gap-2 mb-0">
-                                   <li
+                                        <li
                                           class="list-inline-item"
                                           data-bs-toggle="tooltip"
                                           data-bs-trigger="hover"

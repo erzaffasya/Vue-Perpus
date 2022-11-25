@@ -26,9 +26,9 @@ export default {
       ele.target?.closest(".favourite-btn").classList.toggle("active");
     },
     getDokumen() {
-      ApiDokumen.lihatDokumen('Diterima').then((response) => {
-        this.Dokumen = response.data.data.data;
-        // console.log(this.Kategori);
+      ApiDokumen.lihatDokumen("Diterima").then((response) => {
+        this.Dokumen = response.data.data;
+        console.log(this.Dokumen, 'dokumen');
       });
     },
     getBookmark() {
@@ -46,14 +46,14 @@ export default {
   },
   data() {
     return {
-      title: "Project List",
+      title: "Data Dokumen",
       items: [
         {
-          text: "Projects",
+          text: "Dokumen",
           href: "/",
         },
         {
-          text: "Project List",
+          text: "Cari Dokumen",
           active: true,
         },
       ],
@@ -109,9 +109,10 @@ export default {
     </div>
 
     <div class="row">
+      {{Dokumen.meta}} 
       <div
         class="col-xxl-3 col-sm-6 project-card"
-        v-for="(item, index) of Dokumen"
+        v-for="(item, index) of Dokumen.data"
         :key="index"
       >
         <div class="card card-height-100">
@@ -119,6 +120,7 @@ export default {
             <div class="d-flex flex-column h-100">
               <div class="d-flex">
                 <div class="flex-grow-1">
+                  
                   <p class="text-muted mb-4">{{ item.tanggal_dibuat }}</p>
                 </div>
                 <div class="flex-shrink-0">
@@ -160,7 +162,7 @@ export default {
                           ><i
                             class="ri-eye-fill align-bottom me-2 text-muted"
                           ></i>
-                          View</router-link
+                          View  </router-link
                         >
                         <router-link
                           class="dropdown-item"
@@ -306,36 +308,38 @@ export default {
         </div>
       </div>
       <!-- end col -->
-      <div class="col-sm-6">
-        <ul
-          class="
-            pagination pagination-separated
-            justify-content-center justify-content-sm-end
-            mb-sm-0
-          "
-        >
-          <li class="page-item disabled">
-            <a href="#" class="page-link">Previous</a>
-          </li>
-          <li class="page-item active">
-            <a href="#" class="page-link">1</a>
-          </li>
-          <li class="page-item">
-            <a href="#" class="page-link">2</a>
-          </li>
-          <li class="page-item">
-            <a href="#" class="page-link">3</a>
-          </li>
-          <li class="page-item">
-            <a href="#" class="page-link">4</a>
-          </li>
-          <li class="page-item">
-            <a href="#" class="page-link">5</a>
-          </li>
-          <li class="page-item">
-            <a href="#" class="page-link">Next</a>
-          </li>
-        </ul>
+      <div class="d-flex justify-content-end mt-3">
+        <div class="pagination-wrap hstack gap-2">
+          <!-- <a
+            class="page-item pagination-prev disabled"
+            href="#"
+            v-if="Dokumen.meta.current_page != 1"
+            
+          >
+            Previous
+          </a> -->
+          <!-- <ul class="pagination listjs-pagination mb-0">
+            <li
+              v-for="(pageNumber, index) in pages.slice(page - 1, page + 5)"
+              :key="index"
+              @click="page = pageNumber"
+              :class="{
+                active: pageNumber == page,
+                disabled: pageNumber == '...',
+              }"
+            >
+              <a class="page" href="#">{{ pageNumber }}</a>
+            </li>
+          </ul> -->
+          <!-- <a
+            class="page-item pagination-next"
+            href="#"
+            
+            v-if="Dokumen.last_page < Dokumen.meta.current_page"
+          >
+            Next
+          </a> -->
+        </div>
       </div>
       <!-- end col -->
     </div>
