@@ -19,7 +19,103 @@ export default {
       },
     ],
   },
+  data() {
+    return {
+      title: "Data Dokumen",
+      items: [
+        {
+          text: "Dokumen",
+          href: "/",
+        },
+        {
+          text: "Cari Dokumen",
+          active: true,
+        },
+      ],
+      Dokumen: [],
+      Bookmark: {},
+      page: 1,
+      perPage: 12,
+      pages: [],
+      value: null,
+      value1: null,
+      searchQuery: null,
+      statusTable: null,
+      isPagination: false,
+    };
+  },
+  computed: {
+    displayedPosts() {
+      return this.paginate(this.Dokumen);
+    },
+    resultQuery() {
+      if (this.searchQuery) {
+        const search = this.searchQuery.toLowerCase();
+        return this.displayedPosts.filter((data) => {
+          return (
+            (data.judul && data.judul.toLowerCase().includes(search)) ||
+            (data.jurusan && data.jurusan.toLowerCase().includes(search)) ||
+            (data.user_id && data.user_id.toLowerCase().includes(search)) ||
+            (data.kategori.nama_kategori &&
+              data.kategori.nama_kategori.toLowerCase().includes(search)) ||
+            (data.kategori.status &&
+              data.kategori.status.toLowerCase().includes(search)) ||
+            (data.kategori.tanggal_dibuat &&
+              data.kategori.tanggal_dibuat.toLowerCase().includes(search))
+          );
+        });
+      } else {
+        return this.displayedPosts;
+      }
+    },
+  },
+  watch: {
+    posts() {
+      this.setPages();
+    },
+    resultQuery(newValue) {
+      return newValue;
+    },
+  },
+  created() {
+    this.getDokumen();
+  },
+
+  mounted() {
+    this.setPages();
+    this.getDokumen();
+    this.getBookmark();
+  },
+  filters: {
+    trimWords(value) {
+      return value.split(" ").splice(0, 20).join(" ") + "...";
+    },
+  },
   methods: {
+    onChangeStatus(e) {
+      this.isStatus = e;
+    },
+    onChangePayment(e) {
+      this.isPayment = e;
+    },
+    setPages() {
+      let numberOfPages = Math.ceil(this.Dokumen.length / this.perPage);
+      for (let index = 1; index <= numberOfPages; index++) {
+        this.pages.push(index);
+      }
+    },
+    paginate(Dokumen) {
+      let page = this.page;
+      let perPage = this.perPage;
+      let from = page * perPage - perPage;
+      let to = page * perPage;
+      return Dokumen.slice(from, to);
+    },
+    SearchData() {
+      this.resultQuery;
+      // var isstatus = document.getElementById("idStatus").value;
+      //   var payment = document.getElementById("idPayment").value;
+    },
     toggleFavourite(ele) {
       console.log("sukses", ele);
       this.editBookmark(ele);
@@ -27,8 +123,10 @@ export default {
     },
     getDokumen() {
       ApiDokumen.lihatDokumen("Diterima").then((response) => {
-        this.Dokumen = response.data.data;
-        console.log(this.Dokumen, 'dokumen');
+        this.Dokumen = response.data.data.data;
+        this.pages = [];
+        this.page = 1;
+        this.setPages();
       });
     },
     getBookmark() {
@@ -44,33 +142,12 @@ export default {
       });
     },
   },
-  data() {
-    return {
-      title: "Data Dokumen",
-      items: [
-        {
-          text: "Dokumen",
-          href: "/",
-        },
-        {
-          text: "Cari Dokumen",
-          active: true,
-        },
-      ],
-      Dokumen: {},
-      Bookmark: {},
-      value: null,
-    };
-  },
+
   components: {
     Layout,
     PageHeader,
     Multiselect,
     MoreHorizontalIcon,
-  },
-  mounted() {
-    this.getDokumen();
-    this.getBookmark();
   },
 };
 </script>
@@ -88,7 +165,7 @@ export default {
       <div class="col-sm">
         <div class="d-flex justify-content-sm-end gap-2">
           <div class="search-box ms-2">
-            <input type="text" class="form-control" placeholder="Search..." />
+            <input v-model="searchQuery" type="text" class="form-control" placeholder="Search..." />
             <i class="ri-search-line search-icon"></i>
           </div>
 
@@ -109,10 +186,10 @@ export default {
     </div>
 
     <div class="row">
-      {{Dokumen.meta}} 
+      {{ Dokumen.meta }}
       <div
         class="col-xxl-3 col-sm-6 project-card"
-        v-for="(item, index) of Dokumen.data"
+        v-for="(item, index) of resultQuery"
         :key="index"
       >
         <div class="card card-height-100">
@@ -120,7 +197,6 @@ export default {
             <div class="d-flex flex-column h-100">
               <div class="d-flex">
                 <div class="flex-grow-1">
-                  
                   <p class="text-muted mb-4">{{ item.tanggal_dibuat }}</p>
                 </div>
                 <div class="flex-shrink-0">
@@ -162,8 +238,8 @@ export default {
                           ><i
                             class="ri-eye-fill align-bottom me-2 text-muted"
                           ></i>
-                          View  </router-link
-                        >
+                          View
+                        </router-link>
                         <router-link
                           class="dropdown-item"
                           to="/apps/projects-create"
@@ -197,7 +273,7 @@ export default {
                 <div class="flex-shrink-0 me-3">
                   <div class="avatar-sm">
                     <span class="avatar-title bg-soft-warning rounded p-2">
-                      <img :src="item.img" alt="" class="img-fluid p-1" />
+                      <img :src="item.gambar_dokumen" alt="" class="img-fluid p-1" />
                     </span>
                   </div>
                 </div>
@@ -310,15 +386,15 @@ export default {
       <!-- end col -->
       <div class="d-flex justify-content-end mt-3">
         <div class="pagination-wrap hstack gap-2">
-          <!-- <a
+          <a
             class="page-item pagination-prev disabled"
             href="#"
-            v-if="Dokumen.meta.current_page != 1"
-            
+            v-if="page != 1"
+            @click="page--"
           >
             Previous
-          </a> -->
-          <!-- <ul class="pagination listjs-pagination mb-0">
+          </a>
+          <ul class="pagination listjs-pagination mb-0">
             <li
               v-for="(pageNumber, index) in pages.slice(page - 1, page + 5)"
               :key="index"
@@ -330,15 +406,15 @@ export default {
             >
               <a class="page" href="#">{{ pageNumber }}</a>
             </li>
-          </ul> -->
-          <!-- <a
+          </ul>
+          <a
             class="page-item pagination-next"
             href="#"
-            
-            v-if="Dokumen.last_page < Dokumen.meta.current_page"
+            @click="page++"
+            v-if="page < pages.length"
           >
             Next
-          </a> -->
+          </a>
         </div>
       </div>
       <!-- end col -->

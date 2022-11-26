@@ -98,7 +98,10 @@ export default {
   methods: {
     async getDokumen() {
       await apiDokumen.lihatDokumen().then((response) => {
-        this.Dokumen = response.data.data.data;
+        this.Dokumen = response.data.data.data;        
+        this.pages = [];
+        this.page = 1;
+        this.setPages();
       });
     },
     onChangeStatus(e) {

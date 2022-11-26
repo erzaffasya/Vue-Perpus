@@ -40,9 +40,24 @@ export default {
         });
     },
     riwayatPeminjamanDokumen() {
-      apiDokumen.riwayatPeminjamanDokumen(this.$route.params.id).then((response) => {
-         this.riwayatPeminjaman = response.data.data;
-      });
+      apiDokumen
+        .riwayatPeminjamanDokumen(this.$route.params.id)
+        .then((response) => {
+          this.riwayatPeminjaman = response.data.data;
+        });
+    },
+    downloadDokumen(detail) {
+      apiDokumen
+        .downloadDokumen(this.$route.params.id, detail)
+        .then((response) => {
+          console.log("clicked");
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", detail + ".pdf");
+          document.body.appendChild(link);
+          link.click();
+        });
     },
   },
   page: {
@@ -86,7 +101,7 @@ export default {
   },
 
   mounted() {
-    this.getDokumen(); 
+    this.getDokumen();
   },
   // created() {
   //     this.getDokumen();
@@ -108,7 +123,7 @@ export default {
                       <div class="avatar-md">
                         <div class="avatar-title bg-white rounded-circle">
                           <img
-                            src="@/assets/images/brands/slack.png"
+                            :src="dokumen.gambar_dokumen"
                             alt=""
                             class="avatar-xs"
                           />
@@ -229,7 +244,7 @@ export default {
                   v-if="
                     role === 'Admin' &&
                     this.dokumen.status != 'Diterima' &&
-                    this.dokumen.status != 'Ditolak' 
+                    this.dokumen.status != 'Ditolak'
                   "
                 >
                   <a
@@ -470,9 +485,12 @@ export default {
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                   <li>
-                                    <a
+                                    <router-link
+                                      :to="{
+                                        name: 'baca-dokumen',
+                                        params: { id: id, jenisFile: 'cover' },
+                                      }"
                                       class="dropdown-item"
-                                      href="javascript:void(0);"
                                       ><i
                                         class="
                                           ri-eye-fill
@@ -481,11 +499,12 @@ export default {
                                           text-muted
                                         "
                                       ></i
-                                      >View</a
+                                      >View</router-link
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                      @click="downloadDokumen('cover')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -497,22 +516,6 @@ export default {
                                         "
                                       ></i
                                       >Download</a
-                                    >
-                                  </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
                                     >
                                   </li>
                                 </ul>
@@ -557,17 +560,24 @@ export default {
                             <td>24 Nov 2021</td>
                             <td>
                               <div class="dropdown">
-                                <a
-                                  href="javascript:void(0);"
+                                <router-link
+                                   :to="{
+                                        name: 'baca-dokumen',
+                                        params: { id: id, jenisFile: 'lembar_pengesahan' },
+                                      }"
                                   class="btn btn-soft-secondary btn-sm btn-icon"
                                   data-bs-toggle="dropdown"
                                   aria-expanded="true"
                                 >
-                                  <i class="ri-more-fill"></i>
-                                </a>
+                                  <i class="ri-more-fill">View</i>
+                                </router-link>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                   <li>
-                                    <a
+                                    <router-link
+                                      :to="{
+                                        name: 'baca-dokumen',
+                                        params: { id: id, jenisFile: 'lembar_pengesahan' },
+                                      }"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -578,11 +588,12 @@ export default {
                                           text-muted
                                         "
                                       ></i
-                                      >View</a
+                                      >View</router-link
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('lembar_pengesahan')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -594,22 +605,6 @@ export default {
                                         "
                                       ></i
                                       >Download</a
-                                    >
-                                  </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
                                     >
                                   </li>
                                 </ul>
@@ -678,8 +673,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('kata_pengantar')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -691,22 +687,6 @@ export default {
                                         "
                                       ></i
                                       >Download</a
-                                    >
-                                  </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
                                     >
                                   </li>
                                 </ul>
@@ -775,8 +755,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('ringkasan')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -790,22 +771,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                 
                                 </ul>
                               </div>
                             </td>
@@ -872,8 +838,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('daftar_isi')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -887,22 +854,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                  
                                 </ul>
                               </div>
                             </td>
@@ -969,8 +921,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('daftar_gambar')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -984,22 +937,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                 
                                 </ul>
                               </div>
                             </td>
@@ -1066,8 +1004,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('daftar_tabel')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1081,22 +1020,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                 
                                 </ul>
                               </div>
                             </td>
@@ -1163,8 +1087,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('daftar_notasi')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1178,22 +1103,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                  
                                 </ul>
                               </div>
                             </td>
@@ -1260,8 +1170,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('abstract_en')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1275,22 +1186,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                 
                                 </ul>
                               </div>
                             </td>
@@ -1357,8 +1253,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('abstract_id')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1372,22 +1269,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                  
                                 </ul>
                               </div>
                             </td>
@@ -1451,8 +1333,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('bab1')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1466,22 +1349,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                  
                                 </ul>
                               </div>
                             </td>
@@ -1545,8 +1413,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('bab2')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1560,22 +1429,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                  
                                 </ul>
                               </div>
                             </td>
@@ -1639,8 +1493,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('bab3')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1654,22 +1509,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                  
                                 </ul>
                               </div>
                             </td>
@@ -1733,8 +1573,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('bab4')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1748,22 +1589,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                  
                                 </ul>
                               </div>
                             </td>
@@ -1830,8 +1656,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('kesimpulan')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1845,22 +1672,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                  
                                 </ul>
                               </div>
                             </td>
@@ -1927,8 +1739,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('daftar_pustaka')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1942,22 +1755,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                  
                                 </ul>
                               </div>
                             </td>
@@ -2024,8 +1822,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('lampiran')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -2039,22 +1838,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                  
                                 </ul>
                               </div>
                             </td>
@@ -2118,8 +1902,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('paper')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -2133,22 +1918,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                  
                                 </ul>
                               </div>
                             </td>
@@ -2215,8 +1985,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('lembar_persetujuan')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -2230,22 +2001,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                  
                                 </ul>
                               </div>
                             </td>
@@ -2312,8 +2068,9 @@ export default {
                                       >View</a
                                     >
                                   </li>
-                                  <li>
+                                  <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
+                                     @click="downloadDokumen('full_dokumen')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -2327,22 +2084,7 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  <li class="dropdown-divider"></li>
-                                  <li>
-                                    <a
-                                      class="dropdown-item"
-                                      href="javascript:void(0);"
-                                      ><i
-                                        class="
-                                          ri-delete-bin-5-fill
-                                          me-2
-                                          align-bottom
-                                          text-muted
-                                        "
-                                      ></i
-                                      >Delete</a
-                                    >
-                                  </li>
+                                  
                                 </ul>
                               </div>
                             </td>
@@ -2350,10 +2092,6 @@ export default {
                         </tbody>
                       </table>
                     </div>
-                    <!-- <div class="text-center mt-3">n
-                                        <a href="javascript:void(0);" class="text-success "><i class="mdi mdi-loading mdi-spin fs-20 align-middle me-2"></i> Load
-                                            more </a>
-                                    </div> -->
                   </div>
                 </div>
               </div>
@@ -2371,7 +2109,7 @@ export default {
                     :key="index"
                     class="acitivity-item d-flex"
                   >
-                    <div class="flex-shrink-0 ">
+                    <div class="flex-shrink-0">
                       <img
                         src="@/assets/images/users/avatar-1.jpg"
                         alt=""
@@ -2380,7 +2118,7 @@ export default {
                     </div>
                     <div class="flex-grow-1 ms-3 mb-4">
                       <h6 class="mb-1">
-                        {{item.user.name}}
+                        {{ item.user.name }}
                         <!-- <span
                           class="
                             badge
@@ -2394,7 +2132,9 @@ export default {
                       <p class="text-muted mb-2">
                         Melakukan peminjaman dokumen.
                       </p>
-                      <small class="mb-0 text-muted">{{item.tgl_peminjaman}}</small>
+                      <small class="mb-0 text-muted">{{
+                        item.tgl_peminjaman
+                      }}</small>
                     </div>
                   </div>
                 </div>

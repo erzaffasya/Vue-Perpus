@@ -1,9 +1,9 @@
 <script>
 import Layout from "../../layouts/main.vue";
+import Swal from "sweetalert2";
 import PageHeader from "@/components/page-header";
 import appConfig from "../../../app.config";
 import apiKategori from "../../apis/Kategori.js";
-// import apiUser from "../../apis/Kategori.js";    
 import apiDokumen from "../../apis/Dokumen.js";
 import apiUser from "../../apis/User.js";
 import animationData from "@/components/widgets/lupuorrc.json";
@@ -22,6 +22,7 @@ export default {
     data() {
         return {
             title: "Wizard",
+            isSuccess: false,
             Kategori: {},
             Dokumen: {},
             dataPembimbing: {},
@@ -91,22 +92,19 @@ export default {
         };
     },
     methods: {
+        setStatus(){
+            this.isSuccess = true
+        },
         getKategori() {
             apiKategori.lihatKategori().then((response) => {
                 this.Kategori = response.data.data;
             });
         },
         getBerkas() {
-            // this.Dokumen.reset();
             this.Dokumen = {}
             apiKategori.showKategori(this.KategoriID).then((response) => {
-                //  this.Dokumen = {}
                 this.Berkas = response.data.data;
                 this.Berkas.status = this.Berkas.berkas
-                // $.each(JSON.parse(this.Berkas.berkas), function (key, value) {
-                //   this.Berkas.status = key,value
-
-                // });
                 console.log(this.Berkas);
             });
         },
@@ -126,8 +124,21 @@ export default {
             });
             fd.append("kategori_id", this.KategoriID)
             apiDokumen.tambahDokumen(fd).then((response) => {
-                this.Kategori = response.data.data;
-            });
+                if (response.data.code == 200) {
+                    Swal.fire(
+                        "Berhasil!",
+                        "Dokumen Berhasil Ditambah!",
+                        "success"
+                    ).then((result) => {
+                        if (result.value) {
+                            document.getElementById("v-pills-finish-tab").click();
+                        }
+                    });
+                } else {
+                    this.isSuccess = false
+                    Swal.fire("Error!", "Data Dokumen Gagal Ditambah!" + response.data.message, "error");
+                }
+            })
         },
         selectDosen() {
             apiUser.searchRole('Dosen').then((response) => {
@@ -207,7 +218,7 @@ export default {
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Tambah Dokumen </h4>
+                    <h4 class="card-title mb-0">Tambah Dokumen {{step}} </h4>
                 </div>
                 <!-- end card header -->
                 <div class="card-body form-steps">
@@ -215,31 +226,25 @@ export default {
                         <div class="row gy-5">
                             <div class="col-lg-3">
                                 <div class="nav flex-column custom-nav nav-pills" role="tablist" aria-orientation="vertical">
-                                    <button class="nav-link active" id="v-pills-bill-info-tab" data-bs-toggle="pill" data-bs-target="#v-pills-bill-info" type="button" role="tab" aria-controls="v-pills-bill-info" aria-selected="true">
+                                    <button :disabled="isSuccess" class="nav-link active" id="v-pills-bill-info-tab" data-bs-toggle="pill" data-bs-target="#v-pills-bill-info" type="button" role="tab" aria-controls="v-pills-bill-info" aria-selected="true">
                                         <span class="step-title me-2">
                                             <i class="ri-close-circle-fill step-icon me-2"></i>
                                             Step 1
                                         </span>
                                         Data Dokumen
                                     </button>
-                                    <button class="nav-link" id="v-pills-bill-address-tab" data-bs-toggle="pill" data-bs-target="#v-pills-bill-address" type="button" role="tab" aria-controls="v-pills-bill-address" aria-selected="false">
+                                    <button :disabled="isSuccess || !Dokumen.judul || !Dokumen.tahun_terbit || !Dokumen.penerbit || !KategoriID || !Dokumen.nama_pengarang || !Dokumen.deskripsi || !Dokumen['gambar_dokumen']" class="nav-link" id="v-pills-bill-address-tab" data-bs-toggle="pill" data-bs-target="#v-pills-bill-address" type="button" role="tab" aria-controls="v-pills-bill-address" aria-selected="false">
                                         <span class="step-title me-2">
                                             <i class="ri-close-circle-fill step-icon me-2"></i>
                                             Step 2
                                         </span>
-                                        Berkas
+                                        Berkas & Validasi
                                     </button>
-                                    <button class="nav-link" id="v-pills-payment-tab" data-bs-toggle="pill" data-bs-target="#v-pills-payment" type="button" role="tab" aria-controls="v-pills-payment" aria-selected="false">
+
+                                    <button :disabled="!isSuccess" class="nav-link" id="v-pills-finish-tab" data-bs-toggle="pill" data-bs-target="#v-pills-finish" type="button" role="tab" aria-controls="v-pills-finish" aria-selected="false">
                                         <span class="step-title me-2">
                                             <i class="ri-close-circle-fill step-icon me-2"></i>
                                             Step 3
-                                        </span>
-                                        Konfirmasi
-                                    </button>
-                                    <button class="nav-link" id="v-pills-finish-tab" data-bs-toggle="pill" data-bs-target="#v-pills-finish" type="button" role="tab" aria-controls="v-pills-finish" aria-selected="false">
-                                        <span class="step-title me-2">
-                                            <i class="ri-close-circle-fill step-icon me-2"></i>
-                                            Step 4
                                         </span>
                                         Selesai
                                     </button>
@@ -281,13 +286,17 @@ export default {
 
                                                     <div class="col-12">
                                                         <label for="email" class="form-label">Penerbit
-                                                            <span class="text-muted">(Optional)</span></label>
+                                                            <span class="text-muted"></span></label>
                                                         <input type="text" class="form-control" v-model="Dokumen.penerbit" id="email" placeholder="Masukkan Penerbit" />
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="email" class="form-label">Nama Pengarang
                                                         </label>
                                                         <input type="text" class="form-control" v-model="Dokumen.nama_pengarang" id="email" placeholder="Masukkan Nama Pengarang" />
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label for="address" class="form-label">Gambar Dokumen</label>
+                                                        <input id="cover" @change="imageChange($event, 'gambar_dokumen')" ref="gambar_dokumen" class="form-control" type="file" />
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="email" class="form-label">Deskripsi
@@ -347,8 +356,11 @@ export default {
                                                 </div>
                                             </div>
 
-                                            <div  class="d-flex align-items-start gap-3 mt-4">
-                                                <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="v-pills-bill-address-tab">
+                                            <div class="d-flex align-items-start gap-3 mt-4">
+                                                <button v-if="!Dokumen.judul || !Dokumen.tahun_terbit || !Dokumen.penerbit || !KategoriID || !Dokumen.nama_pengarang || !Dokumen.deskripsi || !Dokumen['gambar_dokumen']" disabled type="button" class="btn btn-warning btn-label right ms-auto nexttab nexttab" data-nexttab="v-pills-bill-address-tab">
+                                                    <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Locked
+                                                </button>
+                                                <button :hidden="!Dokumen.judul || !Dokumen.tahun_terbit || !Dokumen.penerbit || !KategoriID || !Dokumen.nama_pengarang || !Dokumen.deskripsi || !Dokumen['gambar_dokumen']" type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="v-pills-bill-address-tab">
                                                     <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Selanjutnya
                                                 </button>
                                             </div>
@@ -364,87 +376,115 @@ export default {
                                                 <div v-if="this.Berkas.status['cover']" class="row g-3">
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">Cover</label>
-                                                        <input id="cover" @change="imageChange($event, 'cover')" ref="cover" class="form-control" type="file" />
+                                                        <input required id="cover" @change="imageChange($event, 'cover')" ref="cover" class="form-control" type="file" />
                                                     </div>
                                                 </div>
                                                 <div class="row g-3 mt-1" v-if="this.Berkas.status['lembar_pengesahan']">
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">Lembar Pengesahan</label>
-                                                        <input id="lembar_pengesahan" @change="imageChange($event, 'lembar_pengesahan')" ref="lembar_pengesahan" class="form-control" type="file" />
+                                                        <input required id="lembar_pengesahan" @change="imageChange($event, 'lembar_pengesahan')" ref="lembar_pengesahan" class="form-control" type="file" />
                                                     </div>
                                                 </div>
                                                 <div class="row g-3 mt-1" v-if="this.Berkas.status['kata_pengantar']">
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">Kata Pengantar</label>
-                                                        <input id="kata_pengantar" @change="imageChange($event, 'kata_pengantar')" ref="kata_pengantar" class="form-control" type="file" />
+                                                        <input required id="kata_pengantar" @change="imageChange($event, 'kata_pengantar')" ref="kata_pengantar" class="form-control" type="file" />
                                                     </div>
                                                 </div>
                                                 <div class="row g-3 mt-1" v-if="this.Berkas.status['ringkasan']">
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">Intisari/Ringkasan</label>
-                                                        <input id="ringkasan" @change="imageChange($event, 'ringkasan')" ref="ringkasan" class="form-control" type="file" />
+                                                        <input required id="ringkasan" @change="imageChange($event, 'ringkasan')" ref="ringkasan" class="form-control" type="file" />
                                                     </div>
                                                 </div>
                                                 <div class="row g-3 mt-1" v-if="this.Berkas.status['daftar_isi']">
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">Daftar Isi</label>
-                                                        <input id="daftar_isi" @change="imageChange($event, 'daftar_isi')" ref="daftar_isi" class="form-control" type="file" />
+                                                        <input required id="daftar_isi" @change="imageChange($event, 'daftar_isi')" ref="daftar_isi" class="form-control" type="file" />
                                                     </div>
                                                 </div>
                                                 <div class="row g-3 mt-1 " v-if="this.Berkas.status['daftar_gambar']">
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">Daftar Gambar</label>
-                                                        <input id="daftar_gambar" @change="imageChange($event, 'daftar_gambar')" ref="daftar_gambar" class="form-control" type="file" />
+                                                        <input required id="daftar_gambar" @change="imageChange($event, 'daftar_gambar')" ref="daftar_gambar" class="form-control" type="file" />
                                                     </div>
                                                 </div>
                                                 <div class="row g-3 mt-1" v-if="this.Berkas.status['daftar_tabel']">
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">Daftar Tabel</label>
-                                                        <input id="daftar_tabel" @change="imageChange($event, 'daftar_tabel')" ref="daftar_tabel" class="form-control" type="file" />
+                                                        <input required id="daftar_tabel" @change="imageChange($event, 'daftar_tabel')" ref="daftar_tabel" class="form-control" type="file" />
                                                     </div>
                                                 </div>
                                                 <div class="row g-3 mt-1" v-if="this.Berkas.status['daftar_notasi']">
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">Daftar Notasi</label>
-                                                        <input id="daftar_notasi" @change="imageChange($event, 'daftar_notasi')" ref="daftar_notasi" class="form-control" type="file" />
+                                                        <input required id="daftar_notasi" @change="imageChange($event, 'daftar_notasi')" ref="daftar_notasi" class="form-control" type="file" />
+                                                    </div>
+                                                </div>
+                                                <div class="row g-3 mt-1" v-if="this.Berkas.status['abstract_end']">
+                                                    <div class="col-12">
+                                                        <label for="address" class="form-label">Abstract [EN]</label>
+                                                        <input required id="abstract_end" @change="imageChange($event, 'abstract_end')" ref="abstract_end" class="form-control" type="file" />
+                                                    </div>
+                                                </div>
+                                                <div class="row g-3 mt-1" v-if="this.Berkas.status['abtract_id']">
+                                                    <div class="col-12">
+                                                        <label for="address" class="form-label">Abstrak [ID]</label>
+                                                        <input required id="abtract_id" @change="imageChange($event, 'abtract_id')" ref="abtract_id" class="form-control" type="file" />
                                                     </div>
                                                 </div>
                                                 <div class="row g-3 mt-1" v-if="this.Berkas.status['bab1']">
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">BAB 1</label>
-                                                        <input id="bab1" @change="imageChange($event, 'bab1')" ref="bab1" class="form-control" type="file" />
+                                                        <input required id="bab1" @change="imageChange($event, 'bab1')" ref="bab1" class="form-control" type="file" />
                                                     </div>
                                                 </div>
                                                 <div class="row g-3 mt-1" v-if="this.Berkas.status['bab2']">
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">BAB 2</label>
-                                                        <input id="bab2" @change="imageChange($event, 'bab2')" ref="bab2" class="form-control" type="file" />
+                                                        <input required id="bab2" @change="imageChange($event, 'bab2')" ref="bab2" class="form-control" type="file" />
                                                     </div>
                                                 </div>
                                                 <div class="row g-3 mt-1" v-if="this.Berkas.status['bab3']">
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">BAB 3</label>
-                                                        <input id="bab3" @change="imageChange($event, 'bab3')" ref="bab3" class="form-control" type="file" />
+                                                        <input required id="bab3" @change="imageChange($event, 'bab3')" ref="bab3" class="form-control" type="file" />
                                                     </div>
                                                 </div>
                                                 <div class="row g-3 mt-1" v-if="this.Berkas.status['bab4']">
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">BAB 4</label>
-                                                        <input id="bab4" @change="imageChange($event, 'bab4')" ref="bab4" class="form-control" type="file" />
+                                                        <input required id="bab4" @change="imageChange($event, 'bab4')" ref="bab4" class="form-control" type="file" />
                                                     </div>
                                                 </div>
                                                 <div class="row g-3 mt-1" v-if="this.Berkas.status['lampiran']">
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">Lampiran</label>
-                                                        <input id="lampiran" @change="imageChange($event, 'lampiran')" ref="lampiran" class="form-control" type="file" />
+                                                        <input required id="lampiran" @change="imageChange($event, 'lampiran')" ref="lampiran" class="form-control" type="file" />
                                                     </div>
                                                 </div>
-
+                                                <div class="row g-3 mt-1" v-if="this.Berkas.status['paper']">
+                                                    <div class="col-12">
+                                                        <label for="address" class="form-label">Paper</label>
+                                                        <input required id="paper" @change="imageChange($event, 'paper')" ref="paper" class="form-control" type="file" />
+                                                    </div>
+                                                </div>
+                                                <div class="row g-3 mt-1" v-if="this.Berkas.status['lembar_persetujuan']">
+                                                    <div class="col-12">
+                                                        <label for="address" class="form-label">lembar_persetujuan</label>
+                                                        <input required id="lembar_persetujuan" @change="imageChange($event, 'lembar_persetujuan')" ref="lembar_persetujuan" class="form-control" type="file" />
+                                                    </div>
+                                                </div>
                                                 <div class="row g-3 mt-1" v-if="this.Berkas.status['full_dokumen']">
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">Full Dokumen</label>
-                                                        <input id="full_dokumen" @change="imageChange($event, 'full_dokumen')" ref="full_dokumen" class="form-control" type="file" />
+                                                        <input required id="full_dokumen" @change="imageChange($event, 'full_dokumen')" ref="full_dokumen" class="form-control" type="file" />
                                                     </div>
+                                                </div>
+                                                <div class="form-check mb-3">
+                                                    <input type="checkbox" class="form-check-input" id="validationFormCheck1" required>
+                                                    <label class="form-check-label" for="validationFormCheck1">Check this checkbox</label>
+                                                    <div class="invalid-feedback">Example invalid feedback text</div>
                                                 </div>
                                             </div>
                                             <div class="d-flex align-items-start gap-3 mt-4">
@@ -452,41 +492,22 @@ export default {
                                                     <i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
                                                     Kembali
                                                 </button>
-                                                <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="v-pills-payment-tab">
-                                                    <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Selanjutnya
+                                                <button @click="this.setStatus()" type="submit" class="btn btn-success btn-label right ms-auto">
+                                                    <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Submit
                                                 </button>
                                             </div>
                                         </div>
                                         <!-- end tab pane -->
-                                        <div class="tab-pane fade" id="v-pills-payment" role="tabpanel" aria-labelledby="v-pills-payment-tab">
-                                            <div>
-                                                <h5>Konfirmasi</h5>
-                                                <p class="text-muted">
-                                                    Harap Konfirmasi Data dan Berkas Sebelum Disimpan.
-                                                </p>
-                                            </div>
 
-                                            <div class="d-flex align-items-start gap-3 mt-4">
-                                                <button type="button" class="btn btn-light btn-label previestab" data-previous="v-pills-bill-address-tab">
-                                                    <i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
-                                                    Kembali
-                                                </button>
-                                                <button type="submit" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="v-pills-finish-tab">
-                                                    <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>
-                                                    Simpan
-                                                </button>
-                                            </div>
-                                        </div>
                                         <!-- end tab pane -->
                                         <div class="tab-pane fade" id="v-pills-finish" role="tabpanel" aria-labelledby="v-pills-finish-tab">
                                             <div class="text-center pt-4 pb-2">
                                                 <div class="mb-4">
                                                     <lottie colors="primary:#0ab39c,secondary:#405189" :options="defaultOptions" :height="120" :width="120" />
                                                 </div>
-                                                <h5>Your Order is Completed !</h5>
+                                                <h5>Dokumen anda berhasil diunggah!</h5>
                                                 <p class="text-muted">
-                                                    You Will receive an order confirmation email with
-                                                    details of your order.
+                                                    Tim Perpustakaan ITK akan segera menverifikasi dokumen anda, <br> Mohon untuk cek status dokumen anda secara berkala. Terima Kasih!
                                                 </p>
                                             </div>
                                         </div>

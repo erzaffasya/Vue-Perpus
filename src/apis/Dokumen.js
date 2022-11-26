@@ -35,4 +35,7 @@ export default {
   riwayatPeminjamanDokumen(id) {
     return Api.get(url + "/api/dokumen/riwayat-peminjaman/" + id);
   },
+  downloadDokumen(id, detail) {
+    return Api.get(url + "/api/download-dokumen/" + id + '/' + detail,{responseType: 'blob'});
+  },
 };

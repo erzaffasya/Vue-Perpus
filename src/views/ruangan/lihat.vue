@@ -96,6 +96,9 @@ export default {
     async getRuanganBaca() {
       await apiRuanganBaca.lihatRuanganBaca().then((response) => {
         this.RuanganBaca = response.data.data;
+        this.pages = [];
+        this.page = 1;
+        this.setPages();
       });
     },
     onChangeStatus(e) {

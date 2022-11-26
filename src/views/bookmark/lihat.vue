@@ -1,6 +1,5 @@
 <script>
 import { MoreHorizontalIcon } from "@zhuowenli/vue-feather-icons";
-import Multiselect from "@vueform/multiselect";
 import "@vueform/multiselect/themes/default.css";
 import ApiBookmark from "../../apis/Bookmark.js";
 import Layout from "../../layouts/main.vue";
@@ -17,7 +16,64 @@ export default {
       },
     ],
   },
+  computed: {
+    displayedPosts() {
+      return this.paginate(this.Bookmark);
+    },
+    resultQuery() {
+      if (this.searchQuery) {
+        const search = this.searchQuery.toLowerCase();
+        return this.displayedPosts.filter((data) => {
+          return (
+            (data.dokumen.judul && data.dokumen.judul.toLowerCase().includes(search))
+          );
+        });
+      } else {
+        return this.displayedPosts;
+      }
+    },
+  },
+  watch: {
+    posts() {
+      this.setPages();
+    },
+    resultQuery(newValue) {
+      return newValue;
+    },
+  },
+  created() {
+    this.getBookmark();
+  },
+  filters: {
+    trimWords(value) {
+      return value.split(" ").splice(0, 20).join(" ") + "...";
+    },
+  },
   methods: {
+    onChangeStatus(e) {
+      this.isStatus = e;
+    },
+    onChangePayment(e) {
+      this.isPayment = e;
+    },
+    setPages() {
+      let numberOfPages = Math.ceil(this.Bookmark.length / this.perPage);
+      for (let index = 1; index <= numberOfPages; index++) {
+        this.pages.push(index);
+      }
+    },
+    paginate(Bookmark) {
+      let page = this.page;
+      let perPage = this.perPage;
+      let from = page * perPage - perPage;
+      let to = page * perPage;
+      return Bookmark.slice(from, to);
+    },
+    SearchData() {
+      this.resultQuery;
+      // var isstatus = document.getElementById("idStatus").value;
+      //   var payment = document.getElementById("idPayment").value;
+    },
     toggleFavourite(ele) {
       console.log("sukses", ele);
       this.editBookmark(ele);
@@ -26,7 +82,9 @@ export default {
     getBookmark() {
       ApiBookmark.lihatBookmark().then((response) => {
         this.Bookmark = response.data.data;
-        // console.log(this.Bookmark);
+        this.pages = [];
+        this.page = 1;
+        this.setPages();
       });
     },
     editBookmark(id) {
@@ -48,17 +106,24 @@ export default {
           active: true,
         },
       ],
-      Bookmark: {},
+      Bookmark: [],
       value: null,
+      page: 1,
+      perPage: 12,
+      pages: [],
+      value1: null,
+      searchQuery: null,
+      statusTable: null,
+      isPagination: false,
     };
   },
   components: {
     Layout,
     PageHeader,
-    Multiselect,
     MoreHorizontalIcon,
   },
   mounted() {
+    this.setPages();
     this.getBookmark();
   },
 };
@@ -77,22 +142,9 @@ export default {
       <div class="col-sm">
         <div class="d-flex justify-content-sm-end gap-2">
           <div class="search-box ms-2">
-            <input type="text" class="form-control" placeholder="Search..." />
+            <input v-model="this.searchQuery" type="text" class="form-control" placeholder="Search..." />
             <i class="ri-search-line search-icon"></i>
           </div>
-
-          <Multiselect
-            class="multiselect form-control w-lg w-auto m-0"
-            v-model="value"
-            :close-on-select="true"
-            :searchable="true"
-            :create-option="true"
-            :options="[
-              { value: 'Status', label: 'Status' },
-              { value: 'Active', label: 'Active' },
-              { value: 'Block', label: 'Block' },
-            ]"
-          />
         </div>
       </div>
     </div>
@@ -100,7 +152,7 @@ export default {
     <div class="row">
       <div
         class="col-xxl-3 col-sm-6 project-card"
-        v-for="(item, index) of Bookmark"
+        v-for="(item, index) of resultQuery"
         :key="index"
       >
         <div class="card card-height-100">
@@ -286,50 +338,38 @@ export default {
     </div>
     <!-- end row -->
 
-    <div class="row g-0 text-center text-sm-start align-items-center mb-4">
-      <div class="col-sm-6">
-        <div>
-          <p class="mb-sm-0 text-muted">
-            Showing <span class="fw-semibold">1</span> to
-            <span class="fw-semibold">10</span> of
-            <span class="fw-semibold text-decoration-underline">12</span>
-            entries
-          </p>
-        </div>
-      </div>
-      <!-- end col -->
-      <div class="col-sm-6">
-        <ul
-          class="
-            pagination pagination-separated
-            justify-content-center justify-content-sm-end
-            mb-sm-0
-          "
+    <div class="d-flex justify-content-end mt-3">
+      <div class="pagination-wrap hstack gap-2">
+        <a
+          class="page-item pagination-prev disabled"
+          href="#"
+          v-if="page != 1"
+          @click="page--"
         >
-          <li class="page-item disabled">
-            <a href="#" class="page-link">Previous</a>
-          </li>
-          <li class="page-item active">
-            <a href="#" class="page-link">1</a>
-          </li>
-          <li class="page-item">
-            <a href="#" class="page-link">2</a>
-          </li>
-          <li class="page-item">
-            <a href="#" class="page-link">3</a>
-          </li>
-          <li class="page-item">
-            <a href="#" class="page-link">4</a>
-          </li>
-          <li class="page-item">
-            <a href="#" class="page-link">5</a>
-          </li>
-          <li class="page-item">
-            <a href="#" class="page-link">Next</a>
+          Previous
+        </a>
+        <ul class="pagination listjs-pagination mb-0">
+          <li
+            v-for="(pageNumber, index) in pages.slice(page - 1, page + 5)"
+            :key="index"
+            @click="page = pageNumber"
+            :class="{
+              active: pageNumber == page,
+              disabled: pageNumber == '...',
+            }"
+          >
+            <a class="page" href="#">{{ pageNumber }}</a>
           </li>
         </ul>
+        <a
+          class="page-item pagination-next"
+          href="#"
+          @click="page++"
+          v-if="page < pages.length"
+        >
+          Next
+        </a>
       </div>
-      <!-- end col -->
     </div>
     <!-- end row -->
   </Layout>

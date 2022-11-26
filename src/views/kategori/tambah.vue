@@ -21,6 +21,7 @@ export default {
         nama_kategori: "",
         detail: "",
         berkas: {},
+        isPembibing: 0
       },
     };
   },
@@ -107,7 +108,6 @@ export default {
                       class="form-select mb-3"
                       aria-label="Default select example"
                     >
-                      <option disabled>Pilih Opsi</option>
                       <option value="0">Tidak Aktif</option>
                       <option value="1">Aktif</option>
                     </select>
