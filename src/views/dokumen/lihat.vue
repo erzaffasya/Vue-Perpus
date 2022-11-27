@@ -147,7 +147,7 @@ export default {
     this.getPengajuan();
   },
   mounted() {
-    console.log(this.resultQuery,' result query')
+    console.log(this.resultQuery, " result query");
   },
   filters: {
     trimWords(value) {
@@ -226,8 +226,7 @@ export default {
       <div class="col-xxl-12">
         <div class="card">
           <div class="card-body">
-            <p class="text-muted">
-            </p>
+            <p class="text-muted"></p>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
               <li class="nav-item">
@@ -478,17 +477,15 @@ export default {
                                           data-bs-placement="top"
                                           title="Edit"
                                         >
-                                          <a
-                                            href="#showModal"
-                                            data-bs-toggle="modal"
-                                            class="
-                                              text-primary
-                                              d-inline-block
-                                              edit-item-btn
-                                            "
+                                          <router-link
+                                            :to="{
+                                              name: 'tambah-dokumen',
+                                              params: { id: data.id },
+                                            }"
+                                            class="text-primary d-inline-block"
                                           >
                                             <i class="ri-pencil-fill fs-16"></i>
-                                          </a>
+                                          </router-link>
                                         </li>
                                         <li
                                           class="list-inline-item"
@@ -1039,7 +1036,7 @@ export default {
                                     :key="index"
                                   >
                                     <th scope="row">
-                                      {{ index + 1 }} 
+                                      {{ index + 1 }}
                                     </th>
                                     <td class="id">
                                       <router-link

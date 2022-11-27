@@ -2,7 +2,7 @@
 // import Swal from "sweetalert2";
 import "@vueform/multiselect/themes/default.css";
 // import "flatpickr/dist/flatpickr.css";
-import Multiselect from "@vueform/multiselect";
+// import Multiselect from "@vueform/multiselect";
 import "@vueform/multiselect/themes/default.css";
 // import flatPickr from "vue-flatpickr-component";
 // import "flatpickr/dist/flatpickr.css";
@@ -90,95 +90,14 @@ export default {
           },
         },
       },
-      sellersList: [
-        {
-          id: 1,
-          isTrending: true,
-          img: require("@/assets/images/companies/img-1.png"),
-          label: "Force Medicines",
-          name: "David Marshall",
-          stock: "452",
-          balance: "$45,415",
-          series: [{ data: [12, 14, 2, 47, 42, 15, 47, 75, 65, 19, 14] }],
-        },
-        {
-          id: 2,
-          isTrending: false,
-          img: require("@/assets/images/companies/img-2.png"),
-          label: "Micro Design",
-          name: "Katia Stapleton",
-          stock: "784",
-          balance: "$97,642",
-          series: [{ data: [12, 14, 2, 47, 42, 15, 35, 75, 20, 67, 89] }],
-        },
-        {
-          id: 3,
-          isTrending: false,
-          img: require("@/assets/images/companies/img-3.png"),
-          label: "Nesta Technologies",
-          name: "Harley Fuller",
-          stock: "320",
-          balance: "$27,102",
-          series: [{ data: [45, 20, 8, 42, 30, 5, 35, 79, 22, 54, 64] }],
-        },
-        {
-          id: 4,
-          isTrending: true,
-          img: require("@/assets/images/companies/img-4.png"),
-          series: [{ data: [26, 15, 48, 12, 47, 19, 35, 19, 85, 68, 50] }],
-          label: "iTest Factory",
-          name: "Oliver Tyler",
-          stock: "159",
-          balance: "$14,933",
-        },
-        {
-          id: 5,
-          isTrending: false,
-          img: require("@/assets/images/companies/img-5.png"),
-          series: [{ data: [60, 67, 12, 49, 6, 78, 63, 51, 33, 8, 16] }],
-          label: "Meta4Systems",
-          name: "Zoe Dennis",
-          stock: "363",
-          balance: "$73,426",
-        },
-        {
-          id: 6,
-          isTrending: true,
-          img: require("@/assets/images/companies/img-6.png"),
-          series: [{ data: [78, 63, 51, 33, 8, 16, 60, 67, 12, 49] }],
-          label: "Digitech Galaxy",
-          name: "John Roberts",
-          stock: "412",
-          balance: "$34,241",
-        },
-        {
-          id: 7,
-          isTrending: true,
-          img: require("@/assets/images/companies/img-7.png"),
-          series: [{ data: [15, 35, 75, 20, 67, 8, 42, 30, 5, 35] }],
-          label: "Syntyce Solutions",
-          name: "Demi Allen",
-          stock: "945",
-          balance: "$17,200",
-        },
-        {
-          id: 8,
-          isTrending: false,
-          img: require("@/assets/images/companies/img-8.png"),
-          series: [{ data: [45, 32, 68, 55, 36, 10, 48, 25, 74, 54] }],
-          label: "Zoetic Fashion",
-          name: "James Bowen",
-          stock: "784",
-          balance: "$97,642",
-        },
-      ],
+     
     };
   },
   components: {
     Layout,
     PageHeader,
     lottie: Lottie,
-    Multiselect,
+    // Multiselect,
     // flatPickr,
   },
   computed: {
@@ -343,7 +262,7 @@ export default {
                       <div class="card">
                         <div class="card-header border-0 rounded">
                           <div class="row g-2">
-                            <div class="col-xl-3">
+                            <!-- <div class="col-xl-3">
                               <div class="search-box">
                                 <input
                                   type="text"
@@ -352,9 +271,9 @@ export default {
                                 />
                                 <i class="ri-search-line search-icon"></i>
                               </div>
-                            </div>
+                            </div> -->
                             <!--end col-->
-                            <div class="col-xl-2 ms-auto">
+                            <!-- <div class="col-xl-2 ms-auto">
                               <div>
                                 <Multiselect
                                   class="form-control"
@@ -385,9 +304,9 @@ export default {
                                   ]"
                                 />
                               </div>
-                            </div>
+                            </div> -->
                             <!--end col-->
-                            <div class="col-lg-auto">
+                            <!-- <div class="col-lg-auto">
                               <div class="hstack gap-2">
                                 <button type="button" class="btn btn-danger">
                                   <i
@@ -404,7 +323,7 @@ export default {
                                   Add Seller
                                 </button>
                               </div>
-                            </div>
+                            </div> -->
                             <!--end col-->
                           </div>
                           <!--end row-->
@@ -437,7 +356,7 @@ export default {
                                   >Trending</span
                                 >
                               </div>
-                              <img :src="item.img" alt="" height="45" />
+                              <img :src="item.gambar_dokumen" alt="" height="45" />
                               <h5 class="mb-1 mt-4">
                                 <router-link
                                   to="/ecommerce/seller-details"
@@ -462,7 +381,7 @@ export default {
                                   class="col-lg-6 border-end-dashed border-end"
                                 >
                                   <h6>{{ item.dokumen.judul }}</h6>
-                                  <span class="text-muted">Judul</span>
+                                  <span class="text-muted">Judul </span>
                                 </div>
                                 <div class="col-lg-6">
                                   <h6>{{ item.tgl_pengembalian }}</h6>

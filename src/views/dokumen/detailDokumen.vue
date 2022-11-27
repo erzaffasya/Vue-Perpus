@@ -1,4 +1,5 @@
 <script>
+import Swal from "sweetalert2";
 import Layout from "../../layouts/main.vue";
 import appConfig from "../../../app.config";
 import apiDokumen from "../../apis/Dokumen";
@@ -20,7 +21,19 @@ export default {
       apiPeminjamanDokumen
         .tambahPeminjamanDokumen({ dokumen_id: this.$route.params.id })
         .then((response) => {
-          console.log(response, "sukses");
+          if (response.data.code == 200) {
+            Swal.fire(
+              "Berhasil!",
+              "Peminjaman Dokumen Berhasil Ditambah!",
+              "success"
+            ).then((result) => {
+              if (result.value) {
+                this.$router.push("lihat");
+              }
+            });
+          } else {
+            Swal.fire("Error!", "Peminjaman Dokumen Gagal Ditambah!", "error");
+          }
         });
     },
     async getDokumen() {
@@ -36,7 +49,17 @@ export default {
           catatan: this.dokumen.catatan,
         })
         .then((response) => {
-          console.log(response);
+          if (response.data.code == 200) {
+            Swal.fire(
+              "Berhasil!",
+              "Data Dokumen Berhasil Direvisi!",
+              "success"
+            ).then((result) => {
+              if (result.value) {
+                this.$router.push("lihat");
+              }
+            });
+          }
         });
     },
     riwayatPeminjamanDokumen() {
@@ -561,10 +584,13 @@ export default {
                             <td>
                               <div class="dropdown">
                                 <router-link
-                                   :to="{
-                                        name: 'baca-dokumen',
-                                        params: { id: id, jenisFile: 'lembar_pengesahan' },
-                                      }"
+                                  :to="{
+                                    name: 'baca-dokumen',
+                                    params: {
+                                      id: id,
+                                      jenisFile: 'lembar_pengesahan',
+                                    },
+                                  }"
                                   class="btn btn-soft-secondary btn-sm btn-icon"
                                   data-bs-toggle="dropdown"
                                   aria-expanded="true"
@@ -576,7 +602,10 @@ export default {
                                     <router-link
                                       :to="{
                                         name: 'baca-dokumen',
-                                        params: { id: id, jenisFile: 'lembar_pengesahan' },
+                                        params: {
+                                          id: id,
+                                          jenisFile: 'lembar_pengesahan',
+                                        },
                                       }"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
@@ -593,7 +622,9 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('lembar_pengesahan')"
+                                      @click="
+                                        downloadDokumen('lembar_pengesahan')
+                                      "
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -675,7 +706,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('kata_pengantar')"
+                                      @click="downloadDokumen('kata_pengantar')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -757,7 +788,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('ringkasan')"
+                                      @click="downloadDokumen('ringkasan')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -771,7 +802,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                 
                                 </ul>
                               </div>
                             </td>
@@ -840,7 +870,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('daftar_isi')"
+                                      @click="downloadDokumen('daftar_isi')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -854,7 +884,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  
                                 </ul>
                               </div>
                             </td>
@@ -923,7 +952,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('daftar_gambar')"
+                                      @click="downloadDokumen('daftar_gambar')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -937,7 +966,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                 
                                 </ul>
                               </div>
                             </td>
@@ -1006,7 +1034,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('daftar_tabel')"
+                                      @click="downloadDokumen('daftar_tabel')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1020,7 +1048,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                 
                                 </ul>
                               </div>
                             </td>
@@ -1089,7 +1116,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('daftar_notasi')"
+                                      @click="downloadDokumen('daftar_notasi')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1103,7 +1130,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  
                                 </ul>
                               </div>
                             </td>
@@ -1172,7 +1198,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('abstract_en')"
+                                      @click="downloadDokumen('abstract_en')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1186,7 +1212,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                 
                                 </ul>
                               </div>
                             </td>
@@ -1255,7 +1280,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('abstract_id')"
+                                      @click="downloadDokumen('abstract_id')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1269,7 +1294,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  
                                 </ul>
                               </div>
                             </td>
@@ -1335,7 +1359,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('bab1')"
+                                      @click="downloadDokumen('bab1')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1349,7 +1373,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  
                                 </ul>
                               </div>
                             </td>
@@ -1415,7 +1438,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('bab2')"
+                                      @click="downloadDokumen('bab2')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1429,7 +1452,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  
                                 </ul>
                               </div>
                             </td>
@@ -1495,7 +1517,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('bab3')"
+                                      @click="downloadDokumen('bab3')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1509,7 +1531,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  
                                 </ul>
                               </div>
                             </td>
@@ -1575,7 +1596,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('bab4')"
+                                      @click="downloadDokumen('bab4')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1589,7 +1610,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  
                                 </ul>
                               </div>
                             </td>
@@ -1658,7 +1678,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('kesimpulan')"
+                                      @click="downloadDokumen('kesimpulan')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1672,7 +1692,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  
                                 </ul>
                               </div>
                             </td>
@@ -1741,7 +1760,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('daftar_pustaka')"
+                                      @click="downloadDokumen('daftar_pustaka')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1755,7 +1774,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  
                                 </ul>
                               </div>
                             </td>
@@ -1824,7 +1842,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('lampiran')"
+                                      @click="downloadDokumen('lampiran')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1838,7 +1856,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  
                                 </ul>
                               </div>
                             </td>
@@ -1904,7 +1921,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('paper')"
+                                      @click="downloadDokumen('paper')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -1918,7 +1935,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  
                                 </ul>
                               </div>
                             </td>
@@ -1987,7 +2003,9 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('lembar_persetujuan')"
+                                      @click="
+                                        downloadDokumen('lembar_persetujuan')
+                                      "
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -2001,7 +2019,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  
                                 </ul>
                               </div>
                             </td>
@@ -2070,7 +2087,7 @@ export default {
                                   </li>
                                   <li v-if="role == 'Admin' || role == 'Dosen'">
                                     <a
-                                     @click="downloadDokumen('full_dokumen')"
+                                      @click="downloadDokumen('full_dokumen')"
                                       class="dropdown-item"
                                       href="javascript:void(0);"
                                       ><i
@@ -2084,7 +2101,6 @@ export default {
                                       >Download</a
                                     >
                                   </li>
-                                  
                                 </ul>
                               </div>
                             </td>

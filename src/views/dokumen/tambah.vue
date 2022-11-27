@@ -19,6 +19,7 @@ export default {
             content: appConfig.description
         }],
     },
+    props: ["id"],
     data() {
         return {
             title: "Wizard",
@@ -95,6 +96,11 @@ export default {
         setStatus(){
             this.isSuccess = true
         },
+        getDokumen(){
+            apiDokumen.showDokumen(this.id).then((response) => {
+                this.Dokumen = response.data.data;
+            });
+        },
         getKategori() {
             apiKategori.lihatKategori().then((response) => {
                 this.Kategori = response.data.data;
@@ -154,6 +160,7 @@ export default {
         ckeditor: CKEditor.component
     },
     mounted() {
+        this.getDokumen();
         this.selectDosen(),
             this.getKategori(),
             document.querySelectorAll(".form-steps").forEach(function (form) {
@@ -218,7 +225,7 @@ export default {
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Tambah Dokumen {{step}} </h4>
+                    <h4 class="card-title mb-0">Tambah Dokumen {{this.id}} </h4>
                 </div>
                 <!-- end card header -->
                 <div class="card-body form-steps">

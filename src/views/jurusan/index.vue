@@ -169,7 +169,7 @@ export default {
                   role="tab"
                   aria-selected="false"
                 >
-                  Data Ruangan
+                  Data Dokumen
                 </a>
               </li>
             </ul>

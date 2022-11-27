@@ -162,6 +162,7 @@ export default [
   {
     path: "/dokumen/tambah",
     name: "tambah-dokumen",
+    props: true,
     meta: {
       title: "Tambah Dokumen",
       authRequired: true,
