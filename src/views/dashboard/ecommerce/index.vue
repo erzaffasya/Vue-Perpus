@@ -292,7 +292,7 @@ export default {
 
             <div class="col-xl-3 col-md-6">
               <!-- card -->
-              <div class="card card-animate">
+              <div v-if="role == 'Admin'" class="card card-animate">
                 <div class="card-body">
                   <div class="d-flex align-items-center">
                     <div class="flex-grow-1 overflow-hidden">

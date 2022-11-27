@@ -37,5 +37,8 @@ export default {
   },
   downloadDokumen(id, detail) {
     return Api.get(url + "/api/download-dokumen/" + id + '/' + detail,{responseType: 'blob'});
+  },  
+  cariDokumen(id) {
+    return Api.get(url + "/api/cari-dokumen/" + id);
   },
 };
