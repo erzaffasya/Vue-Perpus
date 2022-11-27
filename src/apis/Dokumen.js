@@ -9,10 +9,17 @@ export default {
     });
   },
   lihatDokumen(form) {
-    if(form != null){
-      return Api.get(url + "/api/dokumen?status="+form);
-    }else{
+    if (form != null) {
+      return Api.get(url + "/api/dokumen?status=" + form);
+    } else {
       return Api.get(url + "/api/dokumen");
+    }
+  },
+  simpelDokumen(form) {
+    if (form != null) {
+      return Api.get(url + "/api/data-dokumen?kategori=" + form);
+    } else {
+      return Api.get(url + "/api/data-dokumen");
     }
   },
   editDokumen(id, form) {
@@ -36,8 +43,8 @@ export default {
     return Api.get(url + "/api/dokumen/riwayat-peminjaman/" + id);
   },
   downloadDokumen(id, detail) {
-    return Api.get(url + "/api/download-dokumen/" + id + '/' + detail,{responseType: 'blob'});
-  },  
+    return Api.get(url + "/api/download-dokumen/" + id + '/' + detail, { responseType: 'blob' });
+  },
   cariDokumen(id) {
     return Api.get(url + "/api/cari-dokumen/" + id);
   },

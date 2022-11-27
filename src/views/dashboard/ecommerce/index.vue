@@ -231,8 +231,11 @@ export default {
                       <h4 class="fs-22 fw-semibold ff-secondary mb-4">
                         {{ this.jumlah.dokumen }}
                       </h4>
-                      <a href="" class="text-decoration-underline"
-                        >Lihat data</a
+                      <router-link
+                        :to="{
+                          name: 'lihat-dokumen'
+                        }"  class="text-decoration-underline"
+                        >Lihat data</router-link
                       >
                     </div>
                     <div class="avatar-sm flex-shrink-0">
@@ -273,8 +276,11 @@ export default {
                       <h4 class="fs-22 fw-semibold ff-secondary mb-4">
                         {{ this.jumlah.peminjamanDokumen }}
                       </h4>
-                      <a href="" class="text-decoration-underline"
-                        >Lihat data</a
+                      <router-link
+                        :to="{
+                          name: 'lihat-peminjaman-dokumen'
+                        }"  class="text-decoration-underline"
+                        >Lihat data</router-link
                       >
                     </div>
                     <div class="avatar-sm flex-shrink-0">
@@ -315,8 +321,13 @@ export default {
                       <h4 class="fs-22 fw-semibold ff-secondary mb-4">
                         {{ this.jumlah.ruangan }}
                       </h4>
-                      <a href="" class="text-decoration-underline"
-                        >Lihat data</a
+                      <router-link
+                        :to="{
+                          name: 'lihat-ruangan',
+                          params: { id: data.id },
+                        }"
+                        class="text-decoration-underline"
+                        >Lihat data</router-link
                       >
                     </div>
                     <div class="avatar-sm flex-shrink-0">
@@ -357,8 +368,11 @@ export default {
                       <h4 class="fs-22 fw-semibold ff-secondary mb-4">
                         {{ this.jumlah.peminjamanRuangan }}
                       </h4>
-                      <a href="" class="text-decoration-underline"
-                        >Lihat data</a
+                      <router-link
+                        :to="{
+                          name: 'lihat-peminjamanRuangan'
+                        }" class="text-decoration-underline"
+                        >Lihat data</router-link
                       >
                     </div>
                     <div class="avatar-sm flex-shrink-0">
@@ -1059,7 +1073,7 @@ export default {
                                       text-truncate-two-lines
                                     "
                                   >
-                                   <b> {{ item.dokumen.judul }} </b>
+                                    <b> {{ item.dokumen.judul }} </b>
                                   </p>
                                   <div class="fs-11 align-middle text-warning">
                                     {{ item.dokumen.nama_kategori }}

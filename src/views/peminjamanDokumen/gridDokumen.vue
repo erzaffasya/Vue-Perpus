@@ -3,6 +3,7 @@ import { MoreHorizontalIcon } from "@zhuowenli/vue-feather-icons";
 import Multiselect from "@vueform/multiselect";
 import "@vueform/multiselect/themes/default.css";
 import ApiDokumen from "../../apis/Dokumen.js";
+import ApiKategori from "../../apis/Kategori.js";
 import ApiBookmark from "../../apis/Bookmark.js";
 import Layout from "../../layouts/main.vue";
 import PageHeader from "@/components/page-header";
@@ -33,7 +34,9 @@ export default {
         },
       ],
       Dokumen: [],
+      filterKategori: null,
       Bookmark: {},
+      Kategori: [],
       page: 1,
       perPage: 12,
       pages: [],
@@ -76,15 +79,16 @@ export default {
     resultQuery(newValue) {
       return newValue;
     },
-  },
-  created() {
-    this.getDokumen();
+    filterKategori(newFilterKategori, oldFilterKategori) {
+      console.log(newFilterKategori, oldFilterKategori);
+      this.getDokumen();
+    },
   },
 
   mounted() {
     this.setPages();
     this.getDokumen();
-    this.getBookmark();
+    this.getKategori();
   },
   filters: {
     trimWords(value) {
@@ -92,12 +96,6 @@ export default {
     },
   },
   methods: {
-    onChangeStatus(e) {
-      this.isStatus = e;
-    },
-    onChangePayment(e) {
-      this.isPayment = e;
-    },
     setPages() {
       let numberOfPages = Math.ceil(this.Dokumen.length / this.perPage);
       for (let index = 1; index <= numberOfPages; index++) {
@@ -113,8 +111,6 @@ export default {
     },
     SearchData() {
       this.resultQuery;
-      // var isstatus = document.getElementById("idStatus").value;
-      //   var payment = document.getElementById("idPayment").value;
     },
     toggleFavourite(ele) {
       console.log("sukses", ele);
@@ -122,17 +118,20 @@ export default {
       ele.target?.closest(".favourite-btn").classList.toggle("active");
     },
     getDokumen() {
-      ApiDokumen.lihatDokumen("Diterima").then((response) => {
-        this.Dokumen = response.data.data.data;
+      ApiDokumen.simpelDokumen(this.filterKategori).then((response) => {
+        this.Dokumen = response.data.data;
         this.pages = [];
         this.page = 1;
         this.setPages();
       });
     },
-    getBookmark() {
-      ApiBookmark.lihatBookmark().then((response) => {
-        this.Bookmark = response.data.data;
-        // console.log(this.Bookmark);
+    getKategori() {
+      ApiKategori.lihatKategori().then((response) => {
+        // this.Kategori  = response.data.data;
+        response.data.data.forEach((value) => {
+          let data = {value: value.id, label: value.nama_kategori}
+          this.Kategori.push(data)
+        });
       });
     },
     editBookmark(id) {
@@ -165,28 +164,30 @@ export default {
       <div class="col-sm">
         <div class="d-flex justify-content-sm-end gap-2">
           <div class="search-box ms-2">
-            <input v-model="searchQuery" type="text" class="form-control" placeholder="Search..." />
+            <input
+              v-model="searchQuery"
+              type="text"
+              class="form-control"
+              placeholder="Search..."
+            />
             <i class="ri-search-line search-icon"></i>
           </div>
 
           <Multiselect
             class="multiselect form-control w-lg w-auto m-0"
-            v-model="value"
+            v-model="filterKategori"
             :close-on-select="true"
             :searchable="true"
-            :create-option="true"
-            :options="[
-              { value: 'Status', label: 'Status' },
-              { value: 'Active', label: 'Active' },
-              { value: 'Block', label: 'Block' },
-            ]"
+            :options="
+             this.Kategori 
+            "
           />
         </div>
       </div>
     </div>
 
     <div class="row">
-      {{ Dokumen.meta }}
+      
       <div
         class="col-xxl-3 col-sm-6 project-card"
         v-for="(item, index) of resultQuery"
@@ -273,7 +274,11 @@ export default {
                 <div class="flex-shrink-0 me-3">
                   <div class="avatar-sm">
                     <span class="avatar-title bg-soft-warning rounded p-2">
-                      <img :src="item.gambar_dokumen" alt="" class="img-fluid p-1" />
+                      <img
+                        :src="item.gambar_dokumen"
+                        alt=""
+                        class="img-fluid p-1"
+                      />
                     </span>
                   </div>
                 </div>

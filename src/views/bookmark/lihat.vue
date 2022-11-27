@@ -236,7 +236,7 @@ export default {
                 <div class="flex-shrink-0 me-3">
                   <div class="avatar-sm">
                     <span class="avatar-title bg-soft-warning rounded p-2">
-                      <img :src="item.img" alt="" class="img-fluid p-1" />
+                      <img :src="item.gambar_dokumen" alt="" class="img-fluid p-1" />
                     </span>
                   </div>
                 </div>
