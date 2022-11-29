@@ -5,6 +5,7 @@ import PageHeader from "@/components/page-header";
 import appConfig from "../../../app.config";
 import apiKategori from "../../apis/Kategori.js";
 import apiDokumen from "../../apis/Dokumen.js";
+import apiDosenPembimbing from "../../apis/DosenPembimbing.js";
 import apiUser from "../../apis/User.js";
 import animationData from "@/components/widgets/lupuorrc.json";
 import Lottie from "@/components/widgets/lottie.vue";
@@ -28,6 +29,7 @@ export default {
             Dokumen: {},
             dataPembimbing: {},
             KategoriID: "",
+            Dospem: {},
             Berkas: {
                 status: [],
             },
@@ -93,12 +95,28 @@ export default {
         };
     },
     methods: {
-        setStatus(){
+        setStatus() {
             this.isSuccess = true
         },
-        getDokumen(){
-            apiDokumen.showDokumen(this.id).then((response) => {
-                this.Dokumen = response.data.data;
+        getDokumen() {
+            try {
+                apiDokumen.showDokumen(this.id).then((response) => {
+                    this.KategoriID = response.data.data.kategori.id
+                    apiKategori.showKategori(this.KategoriID).then((response) => {
+                        this.Berkas = response.data.data;
+                        this.Berkas.status = this.Berkas.berkas
+                    });
+                    this.getDospem()
+                    this.Dokumen = response.data.data
+                });
+            } catch (error) {
+                console.log(error)
+            }
+
+        },
+        getDospem() {
+            apiDosenPembimbing.getByDokumenId(this.id).then((response) => {
+                this.Dospem = response.data.data;
             });
         },
         getKategori() {
@@ -111,7 +129,6 @@ export default {
             apiKategori.showKategori(this.KategoriID).then((response) => {
                 this.Berkas = response.data.data;
                 this.Berkas.status = this.Berkas.berkas
-                console.log(this.Berkas);
             });
         },
 
@@ -149,7 +166,24 @@ export default {
         selectDosen() {
             apiUser.searchRole('Dosen').then((response) => {
                 this.dataPembimbing = response.data.data;
-                console.log(this.dataPembimbing)
+            });
+        },
+        hapusDospem(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#34c38f",
+                cancelButtonColor: "#f46a6a",
+                confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+                if (result.value) {
+                    apiDosenPembimbing.hapusDosenPembimbing(id).then(() => {
+                        this.getDospem();
+                    });
+                    Swal.fire("Berhasil!", "Data Dosen Pembimbing Berhasil Dihapus.", "success");
+                }
             });
         }
     },
@@ -225,7 +259,7 @@ export default {
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Tambah Dokumen {{this.id}} </h4>
+                    <h4 class="card-title mb-0">Tambah Dokumen {{this.KategoriID}} </h4>
                 </div>
                 <!-- end card header -->
                 <div class="card-body form-steps">
@@ -359,6 +393,37 @@ export default {
 
                                                         <!--end row-->
 
+                                                    </div>
+                                                    <div v-if="Object.keys(Dospem).length >= 1" class="card">
+                                                        <div class="card-header align-items-center d-flex border-bottom-dashed">
+                                                            <h4 class="card-title mb-0 flex-grow-1">Data Dosen Pembimbing</h4>
+                                                        </div>
+
+                                                        <div class="card-body">
+                                                            <div data-simplebar style="height: 100px;" class="mx-n3 px-3">
+                                                                <div class="vstack gap-3">
+
+                                                                    <!-- end member item -->
+                                                                    <div v-for="(item, index) in Dospem" :key="index" selected="" :value="item.id" class="d-flex align-items-center">
+                                                                        <div class="avatar-xs flex-shrink-0 me-3">
+                                                                            <div class="avatar-title bg-soft-danger text-danger rounded-circle">
+                                                                                HB
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="flex-grow-1">
+                                                                            <h5 class="fs-15 mb-0"><a href="#" class="text-body d-block">{{item.nama_pembimbing}}</a></h5>
+                                                                        </div>
+                                                                        <div class="flex-shrink-0">
+                                                                            <div class="d-flex align-items-center gap-1">
+                                                                                <button type="button" @click="hapusDospem(item.id)" class="btn btn-danger btn-sm">Delete</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- end list -->
+                                                            </div>
+                                                        </div>
+                                                        <!-- end card body -->
                                                     </div>
                                                 </div>
                                             </div>

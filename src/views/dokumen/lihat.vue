@@ -777,25 +777,6 @@ export default {
                                           </router-link>
                                         </li>
                                         <li
-                                          class="list-inline-item edit"
-                                          data-bs-toggle="tooltip"
-                                          data-bs-trigger="hover"
-                                          data-bs-placement="top"
-                                          title="Edit"
-                                        >
-                                          <a
-                                            href="#showModal"
-                                            data-bs-toggle="modal"
-                                            class="
-                                              text-primary
-                                              d-inline-block
-                                              edit-item-btn
-                                            "
-                                          >
-                                            <i class="ri-pencil-fill fs-16"></i>
-                                          </a>
-                                        </li>
-                                        <li
                                           class="list-inline-item"
                                           data-bs-toggle="tooltip"
                                           data-bs-trigger="hover"
@@ -1084,25 +1065,7 @@ export default {
                                             <i class="ri-eye-fill fs-16"></i>
                                           </router-link>
                                         </li>
-                                        <li
-                                          class="list-inline-item edit"
-                                          data-bs-toggle="tooltip"
-                                          data-bs-trigger="hover"
-                                          data-bs-placement="top"
-                                          title="Edit"
-                                        >
-                                          <a
-                                            href="#showModal"
-                                            data-bs-toggle="modal"
-                                            class="
-                                              text-primary
-                                              d-inline-block
-                                              edit-item-btn
-                                            "
-                                          >
-                                            <i class="ri-pencil-fill fs-16"></i>
-                                          </a>
-                                        </li>
+                                        
                                         <li
                                           class="list-inline-item"
                                           data-bs-toggle="tooltip"
