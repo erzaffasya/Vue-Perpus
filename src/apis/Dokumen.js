@@ -23,7 +23,11 @@ export default {
     }
   },
   editDokumen(id, form) {
-    return Api.put(url + "/api/dokumen/" + id, form);
+    return Api.post(url + "/api/dokumen/" + id + "?_method=PUT", form, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   },
   showDokumen(id) {
     return Api.get(url + "/api/dokumen/" + id);

@@ -164,7 +164,7 @@ export default {
     getPengajuan() {
       // this.statusTable = "Revisi";
       apiDokumen.lihatDokumen("Revisi").then((response) => {
-        this.dokumen = response.data.data.data;
+        this.dokumen = response.data.data;
         this.pages = [];
         this.page = 1;
         // if (!this.isPagination) {
@@ -175,7 +175,7 @@ export default {
     async getDiproses() {
       // this.statusTable = "Diproses";
       await apiDokumen.lihatDokumen("Diproses").then((response) => {
-        this.dokumen = response.data.data.data;
+        this.dokumen = response.data.data;
         this.pages = [];
         this.page = 1;
         this.setPages();
@@ -184,7 +184,7 @@ export default {
     async getRiwayat() {
       // this.statusTable = ["Ditolak", "Diterima"];
       await apiDokumen.lihatDokumen("Riwayat").then((response) => {
-        this.dokumen = response.data.data.data;
+        this.dokumen = response.data.data;
         this.pages = [];
         this.page = 1;
         this.setPages();
