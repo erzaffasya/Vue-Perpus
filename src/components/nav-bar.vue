@@ -69,19 +69,32 @@ export default {
         this.isCustomDropdown();
         this.getNotifikasi();
     },
-     watch: {
-    search_navbar(newQuestion, oldQuestion) {
-        console.log(newQuestion, oldQuestion, 'erza')
-        this.getCariDokumen()
-    }
-  },
+    watch: {
+        search_navbar(newQuestion, oldQuestion) {
+            console.log(newQuestion, oldQuestion, 'erza')
+            this.getCariDokumen()
+        }
+    },
     methods: {
         async getNotifikasi() {
             await apiNotifikasi
                 .lihatNotifikasi()
                 .then((response) => {
                     this.notifikasi = response.data.data;
-                    console.log(this.notifikasi);
+                })
+                .catch((error) => {
+                    console.log(error, "error");
+                    //or in file components
+                    // this.$router.go()
+                    //   this.$router.push("/logout");
+                });
+        },
+        bacaNotifikasi() {
+            apiNotifikasi
+                .bacaNotifikasi()
+                .then(() => {
+                    // this.notifikasi = response.data.data;
+                    // console.log(response, 'baca notif')
                 })
                 .catch((error) => {
                     console.log(error, "error");
@@ -304,8 +317,7 @@ export default {
                             <div class="notification-list">
                                 <!-- item -->
                                 <div v-for="item in data_pencarian">
-                                    <router-link
-                                            :to="{
+                                    <router-link :to="{
                                               name: 'detail-dokumen',
                                               params: { id: item.id },
                                             }" class="d-flex dropdown-item notify-item py-2">
@@ -357,10 +369,10 @@ export default {
                 </div>
 
                 <div class="dropdown topbar-head-dropdown ms-1 header-item">
-                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" @click="bacaNotifikasi()" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="bx bx-bell fs-22"></i>
                         <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">
-                            {{this.notifikasi.jumlah_notifikasi}}<span class="visually-hidden">unread messages</span></span>
+                            {{this.notifikasi.notifikasi_unread}}<span class="visually-hidden">unread messages</span></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
                         <div class="dropdown-head bg-primary bg-pattern rounded-top">

@@ -62,8 +62,7 @@ export default {
           return (
             (data.nama_kategori &&
               data.nama_kategori.toLowerCase().includes(search)) ||
-            (data.detail && data.detail.toLowerCase().includes(search)) ||
-            (data.berkas && data.berkas.toLowerCase().includes(search))
+            (data.detail && data.detail.toLowerCase().includes(search))
           );
         });
       } else {
