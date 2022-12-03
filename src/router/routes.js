@@ -331,13 +331,22 @@ export default [
     component: () => import("../views/apps/tasks/kanban"),
   },
  
-  {
-    path: "/pages/profile",
-    name: "profile",
-    meta: { title: "Profile", authRequired: true },
-    component: () => import("../views/pages/profile/simple"),
-  },
+  // {
+  //   path: "/pages/profile",
+  //   name: "profile",
+  //   meta: { title: "Profile", authRequired: true },
+  //   component: () => import("../views/pages/profile/simple"),
+  // },
 
+  {
+    path: "/profil",
+    name: "profil",
+    meta: {
+      title: "Lihat Profil",
+      authRequired: true,
+    },
+    component: () => import("../views/account/profil"),
+  },
   {
     path: "/pages/maintenance",
     name: "maintenance",

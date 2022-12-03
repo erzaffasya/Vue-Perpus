@@ -216,7 +216,10 @@ export default {
         ckeditor: CKEditor.component
     },
     mounted() {
-        this.getDokumen();
+        if (this.id) {
+            this.getDokumen();
+        }
+
         this.selectDosen(),
             this.getKategori(),
             document.querySelectorAll(".form-steps").forEach(function (form) {

@@ -487,14 +487,14 @@ export default {
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
                         <h6 class="dropdown-header">Welcome {{ this.user.name }}!</h6>
-                        <router-link class="dropdown-item" to="/pages/profile"><i class="
+                        <router-link class="dropdown-item" to="/profil"><i class="
                     mdi mdi-account-circle
                     text-muted
                     fs-16
                     align-middle
                     me-1
                   "></i>
-                            <span class="align-middle">Profile</span>
+                            <span class="align-middle">Profil</span>
                         </router-link>
 
                         <router-link class="dropdown-item" to="/apps/tasks-kanban"><i class="

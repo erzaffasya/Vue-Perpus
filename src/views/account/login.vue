@@ -57,30 +57,35 @@ export default {
         this.tryingToLogIn = true;
         // Reset the authError if it existed.
         this.authError = null;
-        return apiLogin
-          .login({
-            email: this.email,
-            password: this.password,
-          })
-          .then((response) => {
-            // this.tryingToLogIn = false;
-            this.isAuthError = false;
-            if (response.data.code == 200) {
-              localStorage.setItem("user", JSON.stringify(response.data.data));
-              // // Redirect to the originally requested page, or to the home page
-              this.$router.go();
-            } else {
+        return (
+          apiLogin
+            .login({
+              email: this.email,
+              password: this.password,
+            })
+            .then((response) => {
+              // this.tryingToLogIn = false;
+              this.isAuthError = false;
+              if (response.data.code == 200) {
+                localStorage.setItem(
+                  "user",
+                  JSON.stringify(response.data.data)
+                );
+                // // Redirect to the originally requested page, or to the home page
+                this.$router.go();
+              } else {
+                this.tryingToLogIn = false;
+                this.authError = response.data.message.message;
+                this.isAuthError = true;
+              }
+            })
+            // eslint-disable-next-line no-unused-vars
+            .catch((error) => {
               this.tryingToLogIn = false;
-              this.authError = response.data.message.message;
+              this.authError = "Koneksi Server Tidak Tersedia";
               this.isAuthError = true;
-            }
-          })
-          // eslint-disable-next-line no-unused-vars
-          .catch((error) => {
-            this.tryingToLogIn = false;
-            this.authError = "Koneksi Server Tidak Tersedia";
-            this.isAuthError = true;
-          });
+            })
+        );
       }
     },
   },
@@ -122,9 +127,7 @@ export default {
                   />
                 </router-link>
               </div>
-              <p class="mt-3 fs-15 fw-medium">
-                Sistem Informasi Perpustakaan
-              </p>
+              <p class="mt-3 fs-15 fw-medium">Sistem Informasi Perpustakaan</p>
             </div>
           </div>
         </div>
@@ -220,16 +223,10 @@ export default {
                       </div>
                     </div>
 
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="auth-remember-check"
-                      />
-                      <label class="form-check-label" for="auth-remember-check"
-                        >Remember me</label
-                      >
+                    <div class="">
+                      <label class="form-check-label">
+                        Lupa password? <a target="_blank" href="https://gerbang.itk.ac.id/?hal=lupapw">Klik Disini!</a>
+                      </label>
                     </div>
 
                     <div class="mt-4">
@@ -317,7 +314,8 @@ export default {
           <div class="col-lg-12">
             <div class="text-center">
               <p class="mb-0 text-muted">
-                &copy; {{ new Date().getFullYear() }} Perpustakaan. Institut Teknologi Kalimantan
+                &copy; {{ new Date().getFullYear() }} Perpustakaan. Institut
+                Teknologi Kalimantan
               </p>
             </div>
           </div>
