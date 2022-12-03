@@ -239,7 +239,7 @@ export default {
                   aria-selected="false"
                 >
                   Pengajuan
-                  <span class="badge bg-danger rounded-circle">5</span>
+                  <!-- <span class="badge bg-danger rounded-circle">5</span> -->
                 </a>
               </li>
               <li class="nav-item">

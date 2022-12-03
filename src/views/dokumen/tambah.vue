@@ -98,6 +98,20 @@ export default {
         setStatus() {
             this.isSuccess = true
         },
+        checkDospem() {
+            if (this.Dokumen.pembimbing_1 == this.Dokumen.pembimbing_2) {
+                Swal.fire(
+                    "Error!",
+                    "Dosen Pembimbing Tidak Boleh Sama!",
+                    "error"
+                ).then((result) => {
+                    if (result.value) {
+                        this.Dokumen.pembimbing_2 = null
+                    }
+                });
+                this.Dokumen.pembimbing_2 = null
+            }
+        },
         getDokumen() {
             try {
                 apiDokumen.showDokumen(this.id).then((response) => {
@@ -386,7 +400,7 @@ export default {
                                                                         <td class="text-start">
                                                                             <div class="mb-2">
                                                                                 <label for="lastName" class="form-label">Pembimbing 1</label>
-                                                                                <select class="form-select mb-2" v-model="this.Dokumen.pembimbing_1" aria-label="Default select example">
+                                                                                <select @change="checkDospem()" class="form-select mb-2" v-model="this.Dokumen.pembimbing_1" aria-label="Default select example">
                                                                                     <!-- <option disabled value="">-- PILIH DATA -- </option> -->
                                                                                     <option v-for="(item, index) in dataPembimbing" :key="index" selected="" :value="item.id">
                                                                                         {{ item.name }}
@@ -400,7 +414,7 @@ export default {
                                                                         <td class="text-start">
                                                                             <div class="mb-2">
                                                                                 <label for="lastName" class="form-label">Pembimbing 2</label>
-                                                                                <select class="form-select mb-2" v-model="this.Dokumen.pembimbing_2" aria-label="Default select example">
+                                                                                <select @change="checkDospem()" class="form-select mb-2" v-model="this.Dokumen.pembimbing_2" aria-label="Default select example">
                                                                                     <!-- <option disabled value="">-- PILIH DATA -- </option> -->
                                                                                     <option v-for="(item, index) in dataPembimbing" :key="index" selected="" :value="item.id">
                                                                                         {{ item.name }}

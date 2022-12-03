@@ -82,13 +82,13 @@ export default {
                 <i
                   class="ri-map-pin-user-line me-1 text-white-75 fs-16 align-middle"
                 ></i
-                >California, United States
+                >{{User.jurusan}}
               </div>
               <div>
                 <i
                   class="ri-building-line me-1 text-white-75 fs-16 align-middle"
                 ></i
-                >Themesbrand
+                >{{User.prodi}}
               </div>
             </div>
           </div>
@@ -124,7 +124,7 @@ export default {
           <div class="tab-content pt-4 text-muted">
             <div class="tab-pane active" id="overview-tab" role="tabpanel">
               <div class="row">
-                <div class="col-xxl-3">
+                <div class="col-xxl-4">
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title mb-5">Complete Your Profile</h5>
@@ -153,15 +153,15 @@ export default {
                           <tbody>
                             <tr>
                               <th class="ps-0" scope="row">Full Name :</th>
-                              <td class="text-muted">Anna Adame</td>
+                              <td class="text-muted">{{User.name}}</td>
                             </tr>
                             <tr>
                               <th class="ps-0" scope="row">Mobile :</th>
-                              <td class="text-muted">+(1) 987 6543</td>
+                              <td class="text-muted">{{User.no_telp}}</td>
                             </tr>
                             <tr>
                               <th class="ps-0" scope="row">E-mail :</th>
-                              <td class="text-muted">daveadame@velzon.com</td>
+                              <td class="text-muted">{{User.email}}</td>
                             </tr>
                             <tr>
                               <th class="ps-0" scope="row">Location :</th>
@@ -171,7 +171,7 @@ export default {
                             </tr>
                             <tr>
                               <th class="ps-0" scope="row">Joining Date</th>
-                              <td class="text-muted">24 Nov 2021</td>
+                              <td class="text-muted">{{User.created_at}}</td>
                             </tr>
                           </tbody>
                         </table>
@@ -393,7 +393,7 @@ export default {
                   <!--end card-->
                 </div>
                 <!--end col-->
-                <div class="col-xxl-9">
+                <div class="col-xxl-8">
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title mb-3">About</h5>
@@ -478,7 +478,7 @@ export default {
                                   href="#today"
                                   role="tab"
                                 >
-                                  Today
+                                  Kunjungan
                                 </a>
                               </li>
                               <li class="nav-item">
@@ -488,7 +488,7 @@ export default {
                                   href="#weekly"
                                   role="tab"
                                 >
-                                  Weekly
+                                  Peminjaman Dokumen
                                 </a>
                               </li>
                               <li class="nav-item">
@@ -498,7 +498,7 @@ export default {
                                   href="#monthly"
                                   role="tab"
                                 >
-                                  Monthly
+                                  Peminjaman Ruangan
                                 </a>
                               </li>
                             </ul>
