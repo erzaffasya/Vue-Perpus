@@ -182,7 +182,7 @@ export default {
   <div class="card">
     <div class="card-header border-0 align-items-center d-flex">
       <h4 class="card-title mb-0 flex-grow-1">Pengunjung Perpustakaan</h4>
-      <div>
+      <!-- <div>
         <button type="button" class="btn btn-soft-secondary btn-sm me-1">
           ALL
         </button>
@@ -193,13 +193,13 @@ export default {
           6M
         </button>
         <button type="button" class="btn btn-soft-primary btn-sm">1Y</button>
-      </div>
+      </div> -->
     </div>
     <!-- end card header -->
 
     <div class="card-header p-0 border-0 bg-soft-light">
       <div class="row g-0 text-center">
-        <div class="col-6 col-sm-3">
+        <div class="col-6 col-sm-4">
           <div class="p-3 border border-dashed border-start-0">
             <h5 class="mb-1">
               <count-to
@@ -212,7 +212,7 @@ export default {
           </div>
         </div>
         <!--end col-->
-        <div class="col-6 col-sm-3">
+        <div class="col-6 col-sm-4">
           <div class="p-3 border border-dashed border-start-0">
             <h5 class="mb-1">
               <count-to :startVal="0" :endVal="this.dataGrafik.jumlah_peminjaman_dokumen" :duration="4000"></count-to
@@ -222,7 +222,7 @@ export default {
           </div>
         </div>
         <!--end col-->
-        <div class="col-6 col-sm-3">
+        <div class="col-6 col-sm-4">
           <div class="p-3 border border-dashed border-start-0">
             <h5 class="mb-1">
               <count-to :startVal="0" :endVal="this.dataGrafik.jumlah_peminjaman_ruangan" :duration="4000"></count-to>
@@ -231,14 +231,7 @@ export default {
           </div>
         </div>
         <!--end col-->
-        <div class="col-6 col-sm-3">
-          <div class="p-3 border border-dashed border-start-0 border-end-0">
-            <h5 class="mb-1 text-success">
-              <count-to :startVal="0" :endVal="18" :duration="4000"></count-to>%
-            </h5>
-            <p class="text-muted mb-0">Conversation Ratio</p>
-          </div>
-        </div>
+        
         <!--end col-->
       </div>
     </div>

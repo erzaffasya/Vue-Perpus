@@ -1,5 +1,4 @@
 <script>
-import Multiselect from "@vueform/multiselect";
 import "@vueform/multiselect/themes/default.css";
 import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
@@ -23,17 +22,17 @@ export default {
   },
   data() {
     return {
-      // title: "Orders",
-      // items: [
-      //   {
-      //     text: "Ecommerce",
-      //     href: "/",
-      //   },
-      //   {
-      //     text: "Orders",
-      //     active: true,
-      //   },
-      // ],
+      title: "Pengunjung",
+      items: [
+        {
+          text: "Pengunjung",
+          href: "/",
+        },
+        {
+          text: "Lihat Pengunjung",
+          active: true,
+        },
+      ],
       page: 1,
       perPage: 8,
       pages: [],
@@ -44,30 +43,18 @@ export default {
         wrap: true, // set wrap to true only when using 'input-group'
         altFormat: "M j, Y",
         altInput: true,
-        dateFormat: "d M, Y",
-        mode: "range",
-      },
-      timeConfig: {
-        wrap: true, // set wrap to true only when using 'input-group'
-        altFormat: "M j, Y",
-        altInput: true,
-        dateFormat: "d M, Y",
-        enableTime: true,
-        noCalendar: true,
+        dateFormat: "Y-m-d",
       },
       date: null,
       date2: null,
       defaultOptions: { animationData: animationData },
       Pengunjung: [],
-      isStatus: null,
-      isPayment: null,
     };
   },
   components: {
     Layout,
     PageHeader,
     lottie: Lottie,
-    Multiselect,
     flatPickr,
   },
   computed: {
@@ -81,8 +68,7 @@ export default {
         return this.displayedPosts.filter((data) => {
           return (
             (data.user.name && data.user.name.toLowerCase().includes(search)) ||
-            (data.created_at &&
-              data.created_at.toLowerCase().includes(search)) 
+            (data.created_at && data.created_at.toLowerCase().includes(search))
           );
         });
       } else {
@@ -111,20 +97,26 @@ export default {
     getPengunjung() {
       apiPengunjung.lihatPengunjung().then((response) => {
         this.Pengunjung = response.data.data;
-        console.log(this.Pengunjung);
+        this.pages = [];
+        this.page = 1;
         this.setPages();
       });
     },
-    onChangeStatus(e) {
-      this.isStatus = e;
-    },
-    onChangePayment(e) {
-      this.isPayment = e;
+    onChangeTanggal() {
+      apiPengunjung
+        .filterTanggalPengunjung({
+          tanggal_awal: this.date,
+          tanggal_akhir: this.date2,
+        })
+        .then((response) => {
+          this.Pengunjung = response.data.data;
+          this.pages = [];
+          this.page = 1;
+          this.setPages();
+        });
     },
     setPages() {
-      let numberOfPages = Math.ceil(
-        this.Pengunjung.length / this.perPage
-      );
+      let numberOfPages = Math.ceil(this.Pengunjung.length / this.perPage);
       for (let index = 1; index <= numberOfPages; index++) {
         this.pages.push(index);
       }
@@ -138,8 +130,6 @@ export default {
     },
     SearchData() {
       this.resultQuery;
-      // var isstatus = document.getElementById("idStatus").value;
-      // var payment = document.getElementById("idPayment").value;
     },
   },
 };
@@ -150,11 +140,44 @@ export default {
     <PageHeader :title="title" :items="items" />
     <div class="row">
       <!--end col-->
+      
       <div class="col-xxl-12">
         <div class="card">
           <div class="card-body">
             <!-- <p class="text-muted">Example of nav tabs with badge wrapped in nav item.</p> -->
             <!-- Nav tabs -->
+            <div class="col-xl-3 col-md-6">
+              <!-- card -->
+              <div class="card card-animate">
+                <div class="card-body">
+                  <div class="d-flex align-items-center">
+                    <div class="flex-grow-1 overflow-hidden">
+                      <p
+                        class="text-uppercase fw-semibold text-muted text-truncate mb-0"
+                      >
+                        Total Pengunjung
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="d-flex align-items-end justify-content-between mt-4"
+                  >
+                    <div>
+                      <h4 class="fs-22 fw-semibold ff-secondary mb-4">
+                       {{this.Pengunjung.length}}
+                      </h4>
+                    </div>
+                    <div class="avatar-sm flex-shrink-0">
+                      <span class="avatar-title bg-soft-primary rounded fs-3">
+                        <i class=" bx bx-male text-primary"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <!-- end card body -->
+              </div>
+              <!-- end card -->
+            </div>
             <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
               <li class="nav-item">
                 <a
@@ -164,16 +187,19 @@ export default {
                   role="tab"
                   aria-selected="false"
                 >
-                  Explore
+                  Data Kunjungan
                 </a>
               </li>
             </ul>
             <!-- Nav tabs -->
+            
             <div class="tab-content text-muted">
               <div class="tab-pane active" id="nav-badge-home" role="tabpanel">
                 <div class="">
                   <div class="flex-grow-1 ms-2">
+                    
                     <div class="col-lg-12">
+                      
                       <div class="card" id="orderList">
                         <div
                           class="
@@ -201,92 +227,31 @@ export default {
                                     placeholder="Select date"
                                     v-model="date"
                                     :config="config"
+                                    @change="onChangeTanggal()"
                                     class="form-control flatpickr-input"
                                     id="demo-datepicker"
                                   ></flat-pickr>
                                 </div>
                               </div>
-                              <!--end col-->
-                              <div class="col-xxl-2 col-sm-4">
+
+                              <div class="col-xxl-2 col-sm-6">
                                 <div>
-                                  <Multiselect
-                                    class="form-control"
-                                    v-model="value"
-                                    :close-on-select="true"
-                                    :searchable="true"
-                                    :create-option="true"
-                                    @input="onChangePayment"
-                                    :options="[
-                                      { value: '', label: 'Status' },
-                                      { value: 'All', label: 'All' },
-                                      { value: 'Pending', label: 'Pending' },
-                                      {
-                                        value: 'Inprogress',
-                                        label: 'Inprogress',
-                                      },
-                                      {
-                                        value: 'Cancelled',
-                                        label: 'Cancelled',
-                                      },
-                                      { value: 'Pickups', label: 'Pickups' },
-                                      { value: 'Returns', label: 'Returns' },
-                                      {
-                                        value: 'Delivered',
-                                        label: 'Delivered',
-                                      },
-                                    ]"
-                                  />
+                                  <flat-pickr
+                                    placeholder="Select date"
+                                    v-model="date2"
+                                    :config="config"
+                                    @change="onChangeTanggal()"
+                                    class="form-control flatpickr-input"
+                                    id="demo-datepicker"
+                                  ></flat-pickr>
                                 </div>
                               </div>
-                              <!--end col-->
-                              <div class="col-xxl-2 col-sm-4">
-                                <div>
-                                  <Multiselect
-                                    class="form-control"
-                                    v-model="value1"
-                                    :close-on-select="true"
-                                    :searchable="true"
-                                    :create-option="true"
-                                    @input="onChangeStatus"
-                                    :options="[
-                                      { value: '', label: 'Select Payment' },
-                                      { value: 'All', label: 'All' },
-                                      {
-                                        value: 'Mastercard',
-                                        label: 'Mastercard',
-                                      },
-                                      { value: 'Paypal', label: 'Paypal' },
-                                      { value: 'Visa', label: 'Visa' },
-                                      { value: 'COD', label: 'COD' },
-                                    ]"
-                                  />
-                                </div>
-                              </div>
-                              <!--end col-->
-                              <div class="col-xxl-1 col-sm-4">
-                                <div>
-                                  <button
-                                    type="button"
-                                    class="btn btn-primary w-100"
-                                    @click="SearchData"
-                                  >
-                                    <i
-                                      class="
-                                        ri-equalizer-fill
-                                        me-1
-                                        align-bottom
-                                      "
-                                    ></i>
-                                    Filters
-                                  </button>
-                                </div>
-                              </div>
-                              <!--end col-->
+                              
                             </div>
                             <!--end row-->
                           </form>
                         </div>
-                        <div class="card-body pt-0">
+                        <div class="card-body pt-4">
                           <div>
                             <div class="table-responsive table-card mb-1">
                               <table
@@ -299,9 +264,9 @@ export default {
                                     <th class="sort" data-sort="id">No</th>
                                     <th class="sort" data-sort="customer_name">
                                       Nama
-                                    </th>                        
+                                    </th>
                                     <th class="sort" data-sort="status">
-                                      Tanggal
+                                      Tanggal {{ date }}
                                     </th>
                                   </tr>
                                 </thead>
@@ -314,11 +279,11 @@ export default {
                                     <td class="id">{{ index + 1 }}</td>
                                     <td class="customer_name">
                                       {{ data.user.name }}
-                                    </td>                                   
-                                    
-                                    <td class="amount">{{ data.created_at }}</td>
-                              
-                                   
+                                    </td>
+
+                                    <td class="amount">
+                                      {{ data.created_at }}
+                                    </td>
                                   </tr>
                                 </tbody>
                               </table>

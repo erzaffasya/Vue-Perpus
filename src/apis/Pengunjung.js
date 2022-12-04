@@ -7,6 +7,13 @@ export default {
     lihatPengunjung() {
         return Api.get(url + '/api/pengunjung');
     },
+    filterTanggalPengunjung(form) {
+        if (form.tanggal_awal && form.tanggal_akhir) {
+            return Api.get(url + "/api/pengunjung?tanggal_awal=" + form.tanggal_awal + "&tanggal_akhir=" + form.tanggal_akhir);
+        } else {
+            return Api.get(url + "/api/pengunjung?tanggal_awal=" + form.tanggal_awal);
+        }
+    },
     editPengunjung(id, form) {
         return Api.put(url + '/api/pengunjung/' + id, form);
     },

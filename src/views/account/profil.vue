@@ -28,14 +28,14 @@ export default {
         },
       ],
       thumbsSwiper: null,
-      User: {}
+      User: {},
     };
   },
   methods: {
     getUser() {
       apiUser.getUser().then((response) => {
-        this.User = response.data.data; 
-        console.log(this.User)       
+        this.User = response.data.data;
+        console.log(this.User);
       });
     },
   },
@@ -45,7 +45,7 @@ export default {
     SwiperSlide,
   },
   mounted() {
-    this.getUser()
+    this.getUser();
   },
 };
 </script>
@@ -75,20 +75,26 @@ export default {
         <!--end col-->
         <div class="col">
           <div class="p-2">
-            <h3 class="text-white mb-1">{{User.name}}</h3>
-            <p class="text-white-75">{{User.role}}</p>
+            <h3 class="text-white mb-1">{{ User.name }}</h3>
+            <p class="text-white-75">{{ User.role }}</p>
             <div class="hstack text-white-50 gap-1">
               <div class="me-2">
                 <i
-                  class="ri-map-pin-user-line me-1 text-white-75 fs-16 align-middle"
+                  class="
+                    ri-map-pin-user-line
+                    me-1
+                    text-white-75
+                    fs-16
+                    align-middle
+                  "
                 ></i
-                >{{User.jurusan}}
+                >{{ User.jurusan }}
               </div>
               <div>
                 <i
                   class="ri-building-line me-1 text-white-75 fs-16 align-middle"
                 ></i
-                >{{User.prodi}}
+                >{{ User.prodi }}
               </div>
             </div>
           </div>
@@ -104,7 +110,13 @@ export default {
           <div class="d-flex">
             <!-- Nav tabs -->
             <ul
-              class="nav nav-pills animation-nav profile-nav gap-2 gap-lg-3 flex-grow-1"
+              class="
+                nav nav-pills
+                animation-nav
+                profile-nav
+                gap-2 gap-lg-3
+                flex-grow-1
+              "
               role="tablist"
             >
               <li class="nav-item">
@@ -127,41 +139,21 @@ export default {
                 <div class="col-xxl-4">
                   <div class="card">
                     <div class="card-body">
-                      <h5 class="card-title mb-5">Complete Your Profile</h5>
-                      <div
-                        class="progress animated-progess custom-progress progress-label"
-                      >
-                        <div
-                          class="progress-bar bg-ifo"
-                          role="progressbar"
-                          style="width: 30%"
-                          aria-valuenow="30"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        >
-                          <div class="label">30%</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="card">
-                    <div class="card-body">
                       <h5 class="card-title mb-3">Info</h5>
                       <div class="table-responsive">
                         <table class="table table-borderless mb-0">
                           <tbody>
                             <tr>
                               <th class="ps-0" scope="row">Full Name :</th>
-                              <td class="text-muted">{{User.name}}</td>
+                              <td class="text-muted">{{ User.name }}</td>
                             </tr>
                             <tr>
                               <th class="ps-0" scope="row">Mobile :</th>
-                              <td class="text-muted">{{User.no_telp}}</td>
+                              <td class="text-muted">{{ User.no_telp }}</td>
                             </tr>
                             <tr>
                               <th class="ps-0" scope="row">E-mail :</th>
-                              <td class="text-muted">{{User.email}}</td>
+                              <td class="text-muted">{{ User.email }}</td>
                             </tr>
                             <tr>
                               <th class="ps-0" scope="row">Location :</th>
@@ -171,7 +163,7 @@ export default {
                             </tr>
                             <tr>
                               <th class="ps-0" scope="row">Joining Date</th>
-                              <td class="text-muted">{{User.created_at}}</td>
+                              <td class="text-muted">{{ User.created_at }}</td>
                             </tr>
                           </tbody>
                         </table>
@@ -183,209 +175,72 @@ export default {
 
                   <div class="card">
                     <div class="card-body">
-                      <div class="d-flex align-items-center mb-4">
-                        <div class="flex-grow-1">
-                          <h5 class="card-title mb-0">Suggestions</h5>
-                        </div>
-                        <div class="flex-shrink-0">
-                          <div class="dropdown">
-                            <a
-                              href="#"
-                              role="button"
-                              id="dropdownMenuLink2"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
-                            >
-                              <i class="ri-more-2-fill fs-15"></i>
-                            </a>
-
-                            <ul
-                              class="dropdown-menu dropdown-menu-end"
-                              aria-labelledby="dropdownMenuLink2"
-                            >
-                              <li>
-                                <a class="dropdown-item" href="#">View</a>
-                              </li>
-                              <li>
-                                <a class="dropdown-item" href="#">Edit</a>
-                              </li>
-                              <li>
-                                <a class="dropdown-item" href="#">Delete</a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
+                         <h5 class="card-title mb-3">Berkas</h5>
+                         <hr>
                       <div>
-                        <div class="d-flex align-items-center py-3">
-                          <div class="avatar-xs flex-shrink-0 me-3">
-                            <img
-                              src="@/assets/images/users/avatar-3.jpg"
-                              alt=""
-                              class="img-fluid rounded-circle"
-                            />
-                          </div>
-                          <div class="flex-grow-1">
-                            <div>
-                              <h5 class="fs-15 mb-1">Esther James</h5>
-                              <p class="fs-13 text-muted mb-0">
-                                Frontend Developer
-                              </p>
+                        <swiper
+                          class="vertical-swiper"
+                          :slidesPerView="2"
+                          :spaceBetween="10"
+                          :mousewheel="true"
+                          :loop="false"
+                          :direction="'vertical'"
+                          :autoplay="{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                          }"
+                          style="height: 250px"
+                        >
+                          <swiper-slide>
+                            <div class="swiper-slide">
+                              <div
+                                class="card border border-dashed shadow-none"
+                              >
+                                <div class="card-body">
+                                  <div class="d-flex">
+                                    <div class="flex-shrink-0 avatar-sm">
+                                      <div
+                                        class="avatar-title bg-light rounded"
+                                      >
+                                        <img
+                                          src="@/assets/images/companies/img-1.png"
+                                          alt=""
+                                          height="30"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                      <div>
+                                        <p
+                                          class="
+                                            text-muted
+                                            mb-1
+                                            fst-italic
+                                            text-truncate-two-lines
+                                          "
+                                        >
+                                          <b> asdasd </b>
+                                        </p>
+                                        <div
+                                          class="
+                                            fs-11
+                                            align-middle
+                                            text-warning
+                                          "
+                                        >
+                                          asdasd
+                                        </div>
+                                      </div>
+                                      <div class="text-end mb-0 text-muted">
+                                        <p>asdas</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                          <div class="flex-shrink-0 ms-2">
-                            <button
-                              type="button"
-                              class="btn btn-sm btn-outline-success"
-                            >
-                              <i class="ri-user-add-line align-middle"></i>
-                            </button>
-                          </div>
-                        </div>
-                        <div class="d-flex align-items-center py-3">
-                          <div class="avatar-xs flex-shrink-0 me-3">
-                            <img
-                              src="@/assets/images/users/avatar-4.jpg"
-                              alt=""
-                              class="img-fluid rounded-circle"
-                            />
-                          </div>
-                          <div class="flex-grow-1">
-                            <div>
-                              <h5 class="fs-15 mb-1">Jacqueline Steve</h5>
-                              <p class="fs-13 text-muted mb-0">
-                                UI/UX Designer
-                              </p>
-                            </div>
-                          </div>
-                          <div class="flex-shrink-0 ms-2">
-                            <button
-                              type="button"
-                              class="btn btn-sm btn-outline-success"
-                            >
-                              <i class="ri-user-add-line align-middle"></i>
-                            </button>
-                          </div>
-                        </div>
-                        <div class="d-flex align-items-center py-3">
-                          <div class="avatar-xs flex-shrink-0 me-3">
-                            <img
-                              src="@/assets/images/users/avatar-5.jpg"
-                              alt=""
-                              class="img-fluid rounded-circle"
-                            />
-                          </div>
-                          <div class="flex-grow-1">
-                            <div>
-                              <h5 class="fs-15 mb-1">George Whalen</h5>
-                              <p class="fs-13 text-muted mb-0">
-                                Backend Developer
-                              </p>
-                            </div>
-                          </div>
-                          <div class="flex-shrink-0 ms-2">
-                            <button
-                              type="button"
-                              class="btn btn-sm btn-outline-success"
-                            >
-                              <i class="ri-user-add-line align-middle"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- end card body -->
-                  </div>
-                  <!--end card-->
-
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="d-flex align-items-center mb-4">
-                        <div class="flex-grow-1">
-                          <h5 class="card-title mb-0">Popular Posts</h5>
-                        </div>
-                        <div class="flex-shrink-0">
-                          <div class="dropdown">
-                            <a
-                              href="#"
-                              role="button"
-                              id="dropdownMenuLink1"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
-                            >
-                              <i class="ri-more-2-fill fs-15"></i>
-                            </a>
-
-                            <ul
-                              class="dropdown-menu dropdown-menu-end"
-                              aria-labelledby="dropdownMenuLink1"
-                            >
-                              <li>
-                                <a class="dropdown-item" href="#">View</a>
-                              </li>
-                              <li>
-                                <a class="dropdown-item" href="#">Edit</a>
-                              </li>
-                              <li>
-                                <a class="dropdown-item" href="#">Delete</a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex mb-4">
-                        <div class="flex-shrink-0">
-                          <img
-                            src="@/assets/images/small/img-4.jpg"
-                            alt=""
-                            height="50"
-                            class="rounded"
-                          />
-                        </div>
-                        <div class="flex-grow-1 ms-3 overflow-hidden">
-                          <a href="javascript:void(0);"
-                            ><h6 class="text-truncate fs-15">
-                              Design your apps in your own way
-                            </h6></a
-                          >
-                          <p class="text-muted mb-0">15 Dec 2021</p>
-                        </div>
-                      </div>
-                      <div class="d-flex mb-4">
-                        <div class="flex-shrink-0">
-                          <img
-                            src="@/assets/images/small/img-5.jpg"
-                            alt=""
-                            height="50"
-                            class="rounded"
-                          />
-                        </div>
-                        <div class="flex-grow-1 ms-3 overflow-hidden">
-                          <a href="javascript:void(0);"
-                            ><h6 class="text-truncate fs-15">
-                              Smartest Applications for Business
-                            </h6></a
-                          >
-                          <p class="text-muted mb-0">28 Nov 2021</p>
-                        </div>
-                      </div>
-                      <div class="d-flex">
-                        <div class="flex-shrink-0">
-                          <img
-                            src="@/assets/images/small/img-6.jpg"
-                            alt=""
-                            height="50"
-                            class="rounded"
-                          />
-                        </div>
-                        <div class="flex-grow-1 ms-3 overflow-hidden">
-                          <a href="javascript:void(0);"
-                            ><h6 class="text-truncate fs-15">
-                              How to get creative in your work
-                            </h6></a
-                          >
-                          <p class="text-muted mb-0">21 Nov 2021</p>
-                        </div>
+                          </swiper-slide>
+                        </swiper>
                       </div>
                     </div>
                     <!--end card-body-->
@@ -394,81 +249,21 @@ export default {
                 </div>
                 <!--end col-->
                 <div class="col-xxl-8">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title mb-3">About</h5>
-                      <p>
-                        Hi I'm Anna Adame, It will be as simple as Occidental;
-                        in fact, it will be Occidental. To an English person, it
-                        will seem like simplified English, as a skeptical
-                        Cambridge friend of mine told me what Occidental is
-                        European languages are members of the same family.
-                      </p>
-                      <p>
-                        You always want to make sure that your fonts work well
-                        together and try to limit the number of fonts you use to
-                        three or less. Experiment and play around with the fonts
-                        that you already have in the software you’re working
-                        with reputable font websites. This may be the most
-                        commonly encountered tip I received from the designers I
-                        spoke with. They highly encourage that you use different
-                        fonts in one design, but do not over-exaggerate and go
-                        overboard.
-                      </p>
-                      <div class="row">
-                        <div class="col-6 col-md-4">
-                          <div class="d-flex mt-4">
-                            <div
-                              class="flex-shrink-0 avatar-xs align-self-center me-3"
-                            >
-                              <div
-                                class="avatar-title bg-light rounded-circle fs-16 text-primary"
-                              >
-                                <i class="ri-user-2-fill"></i>
-                              </div>
-                            </div>
-                            <div class="flex-grow-1 overflow-hidden">
-                              <p class="mb-1">Designation :</p>
-                              <h6 class="text-truncate mb-0">
-                                Lead Designer / Developer
-                              </h6>
-                            </div>
-                          </div>
-                        </div>
-                        <!--end col-->
-                        <div class="col-6 col-md-4">
-                          <div class="d-flex mt-4">
-                            <div
-                              class="flex-shrink-0 avatar-xs align-self-center me-3"
-                            >
-                              <div
-                                class="avatar-title bg-light rounded-circle fs-16 text-primary"
-                              >
-                                <i class="ri-global-line"></i>
-                              </div>
-                            </div>
-                            <div class="flex-grow-1 overflow-hidden">
-                              <p class="mb-1">Website :</p>
-                              <a href="#" class="fw-semibold">www.velzon.com</a>
-                            </div>
-                          </div>
-                        </div>
-                        <!--end col-->
-                      </div>
-                      <!--end row-->
-                    </div>
-                    <!--end card-body-->
-                  </div>
-                  <!-- end card -->
-
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="card">
                         <div class="card-header align-items-center d-flex">
-                          <h4 class="card-title mb-0 me-2">Recent Activity</h4>
+                          <h4 class="card-title mb-0 me-2">Aktivitas Terbaru</h4>
                           <div class="flex-shrink-0 ms-auto">
                             <ul
-                              class="nav justify-content-end nav-tabs-custom rounded card-header-tabs border-bottom-0"
+                              class="
+                                nav
+                                justify-content-end
+                                nav-tabs-custom
+                                rounded
+                                card-header-tabs
+                                border-bottom-0
+                              "
                               role="tablist"
                             >
                               <li class="nav-item">
@@ -582,7 +377,12 @@ export default {
                                         <div class="d-flex">
                                           <div class="flex-shrink-0 avatar-xs">
                                             <div
-                                              class="avatar-title bg-light text-success rounded-circle"
+                                              class="
+                                                avatar-title
+                                                bg-light
+                                                text-success
+                                                rounded-circle
+                                              "
                                             >
                                               M
                                             </div>
@@ -609,11 +409,21 @@ export default {
                                         <div class="row g-2">
                                           <div class="col-auto">
                                             <div
-                                              class="d-flex border border-dashed p-2 rounded position-relative"
+                                              class="
+                                                d-flex
+                                                border border-dashed
+                                                p-2
+                                                rounded
+                                                position-relative
+                                              "
                                             >
                                               <div class="flex-shrink-0">
                                                 <i
-                                                  class="ri-image-2-line fs-17 text-danger"
+                                                  class="
+                                                    ri-image-2-line
+                                                    fs-17
+                                                    text-danger
+                                                  "
                                                 ></i>
                                               </div>
                                               <div class="flex-grow-1 ms-2">
@@ -631,11 +441,21 @@ export default {
                                           </div>
                                           <div class="col-auto">
                                             <div
-                                              class="d-flex border border-dashed p-2 rounded position-relative"
+                                              class="
+                                                d-flex
+                                                border border-dashed
+                                                p-2
+                                                rounded
+                                                position-relative
+                                              "
                                             >
                                               <div class="flex-shrink-0">
                                                 <i
-                                                  class="ri-file-zip-line fs-17 text-info"
+                                                  class="
+                                                    ri-file-zip-line
+                                                    fs-17
+                                                    text-info
+                                                  "
                                                 ></i>
                                               </div>
                                               <div class="flex-grow-1 ms-2">
@@ -705,7 +525,12 @@ export default {
                                         <div class="d-flex">
                                           <div class="flex-shrink-0 avatar-xs">
                                             <div
-                                              class="avatar-title bg-light text-muted rounded-circle"
+                                              class="
+                                                avatar-title
+                                                bg-light
+                                                text-muted
+                                                rounded-circle
+                                              "
                                             >
                                               <i class="ri-user-3-fill"></i>
                                             </div>
@@ -728,7 +553,12 @@ export default {
                                       data-bs-parent="#accordionExample"
                                     >
                                       <div
-                                        class="accordion-body ms-2 ps-5 fst-italic"
+                                        class="
+                                          accordion-body
+                                          ms-2
+                                          ps-5
+                                          fst-italic
+                                        "
                                       >
                                         " A wonderful serenity has taken
                                         possession of my entire soul, like these
@@ -827,7 +657,12 @@ export default {
                                           >
                                             <div class="avatar-xs">
                                               <div
-                                                class="avatar-title rounded-circle bg-light text-primary"
+                                                class="
+                                                  avatar-title
+                                                  rounded-circle
+                                                  bg-light
+                                                  text-primary
+                                                "
                                               >
                                                 R
                                               </div>
@@ -844,7 +679,10 @@ export default {
                                           >
                                             <div class="avatar-xs">
                                               <div
-                                                class="avatar-title rounded-circle"
+                                                class="
+                                                  avatar-title
+                                                  rounded-circle
+                                                "
                                               >
                                                 2+
                                               </div>
@@ -919,7 +757,12 @@ export default {
                                         <div class="d-flex">
                                           <div class="avatar-xs">
                                             <div
-                                              class="avatar-title rounded-circle bg-light text-danger"
+                                              class="
+                                                avatar-title
+                                                rounded-circle
+                                                bg-light
+                                                text-danger
+                                              "
                                             >
                                               <i
                                                 class="ri-shopping-bag-line"
@@ -930,7 +773,12 @@ export default {
                                             <h6 class="fs-15 mb-1">
                                               Your order is placed
                                               <span
-                                                class="badge bg-soft-success text-success align-middle"
+                                                class="
+                                                  badge
+                                                  bg-soft-success
+                                                  text-success
+                                                  align-middle
+                                                "
                                                 >Completed</span
                                               >
                                             </h6>
@@ -955,7 +803,12 @@ export default {
                                         <div class="d-flex">
                                           <div class="flex-shrink-0 avatar-xs">
                                             <div
-                                              class="avatar-title bg-light text-success rounded-circle"
+                                              class="
+                                                avatar-title
+                                                bg-light
+                                                text-success
+                                                rounded-circle
+                                              "
                                             >
                                               <i class="ri-home-3-line"></i>
                                             </div>
@@ -980,7 +833,12 @@ export default {
                                       data-bs-parent="#accordionExample"
                                     >
                                       <div
-                                        class="accordion-body ms-2 ps-5 fst-italic"
+                                        class="
+                                          accordion-body
+                                          ms-2
+                                          ps-5
+                                          fst-italic
+                                        "
                                       >
                                         Powerful, clean & modern responsive
                                         bootstrap 5 admin template. The maximum
@@ -988,7 +846,12 @@ export default {
                                         <div class="row mt-2">
                                           <div class="col-xxl-6">
                                             <div
-                                              class="row border border-dashed gx-2 p-2"
+                                              class="
+                                                row
+                                                border border-dashed
+                                                gx-2
+                                                p-2
+                                              "
                                             >
                                               <div class="col-3">
                                                 <img
@@ -1049,7 +912,12 @@ export default {
                                             <h6 class="fs-15 mb-1">
                                               New ticket created
                                               <span
-                                                class="badge bg-soft-info text-info align-middle"
+                                                class="
+                                                  badge
+                                                  bg-soft-info
+                                                  text-info
+                                                  align-middle
+                                                "
                                                 >Inprogress</span
                                               >
                                             </h6>
@@ -1141,7 +1009,12 @@ export default {
                                         <div class="d-flex">
                                           <div class="flex-shrink-0 avatar-xs">
                                             <div
-                                              class="avatar-title bg-light text-success rounded-circle"
+                                              class="
+                                                avatar-title
+                                                bg-light
+                                                text-success
+                                                rounded-circle
+                                              "
                                             >
                                               M
                                             </div>
@@ -1168,11 +1041,21 @@ export default {
                                         <div class="row g-2">
                                           <div class="col-auto">
                                             <div
-                                              class="d-flex border border-dashed p-2 rounded position-relative"
+                                              class="
+                                                d-flex
+                                                border border-dashed
+                                                p-2
+                                                rounded
+                                                position-relative
+                                              "
                                             >
                                               <div class="flex-shrink-0">
                                                 <i
-                                                  class="ri-image-2-line fs-17 text-danger"
+                                                  class="
+                                                    ri-image-2-line
+                                                    fs-17
+                                                    text-danger
+                                                  "
                                                 ></i>
                                               </div>
                                               <div class="flex-grow-1 ms-2">
@@ -1190,11 +1073,21 @@ export default {
                                           </div>
                                           <div class="col-auto">
                                             <div
-                                              class="d-flex border border-dashed p-2 rounded position-relative"
+                                              class="
+                                                d-flex
+                                                border border-dashed
+                                                p-2
+                                                rounded
+                                                position-relative
+                                              "
                                             >
                                               <div class="flex-shrink-0">
                                                 <i
-                                                  class="ri-file-zip-line fs-17 text-info"
+                                                  class="
+                                                    ri-file-zip-line
+                                                    fs-17
+                                                    text-info
+                                                  "
                                                 ></i>
                                               </div>
                                               <div class="flex-grow-1 ms-2">
@@ -1212,11 +1105,21 @@ export default {
                                           </div>
                                           <div class="col-auto">
                                             <div
-                                              class="d-flex border border-dashed p-2 rounded position-relative"
+                                              class="
+                                                d-flex
+                                                border border-dashed
+                                                p-2
+                                                rounded
+                                                position-relative
+                                              "
                                             >
                                               <div class="flex-shrink-0">
                                                 <i
-                                                  class="ri-file-zip-line fs-17 text-info"
+                                                  class="
+                                                    ri-file-zip-line
+                                                    fs-17
+                                                    text-info
+                                                  "
                                                 ></i>
                                               </div>
                                               <div class="flex-grow-1 ms-2">
@@ -1338,7 +1241,12 @@ export default {
                                         <div class="d-flex">
                                           <div class="flex-shrink-0 avatar-xs">
                                             <div
-                                              class="avatar-title bg-light text-muted rounded-circle"
+                                              class="
+                                                avatar-title
+                                                bg-light
+                                                text-muted
+                                                rounded-circle
+                                              "
                                             >
                                               <i class="ri-user-3-fill"></i>
                                             </div>
@@ -1361,7 +1269,12 @@ export default {
                                       data-bs-parent="#accordionExample"
                                     >
                                       <div
-                                        class="accordion-body ms-2 ps-5 fst-italic"
+                                        class="
+                                          accordion-body
+                                          ms-2
+                                          ps-5
+                                          fst-italic
+                                        "
                                       >
                                         " A wonderful serenity has taken
                                         possession of my entire soul, like these
@@ -1460,7 +1373,12 @@ export default {
                                           >
                                             <div class="avatar-xs">
                                               <div
-                                                class="avatar-title rounded-circle bg-light text-primary"
+                                                class="
+                                                  avatar-title
+                                                  rounded-circle
+                                                  bg-light
+                                                  text-primary
+                                                "
                                               >
                                                 R
                                               </div>
@@ -1477,7 +1395,10 @@ export default {
                                           >
                                             <div class="avatar-xs">
                                               <div
-                                                class="avatar-title rounded-circle"
+                                                class="
+                                                  avatar-title
+                                                  rounded-circle
+                                                "
                                               >
                                                 2+
                                               </div>
@@ -1507,7 +1428,6 @@ export default {
 
                       <!-- Swiper -->
                       <div class="swiper project-swiper">
-                        
                         <swiper
                           :slides-per-view="3"
                           :space-between="50"
@@ -1516,12 +1436,22 @@ export default {
                           <swiper-slide>
                             <div class="swiper-slide">
                               <div
-                                class="card profile-project-card shadow-none profile-project-success mb-0"
+                                class="
+                                  card
+                                  profile-project-card
+                                  shadow-none
+                                  profile-project-success
+                                  mb-0
+                                "
                               >
                                 <div class="card-body p-4">
                                   <div class="d-flex">
                                     <div
-                                      class="flex-grow-1 text-muted overflow-hidden"
+                                      class="
+                                        flex-grow-1
+                                        text-muted
+                                        overflow-hidden
+                                      "
                                     >
                                       <h5 class="fs-15 text-truncate mb-1">
                                         <a href="#" class="text-dark"
@@ -1575,7 +1505,12 @@ export default {
                                           <div class="avatar-group-item">
                                             <div class="avatar-xs">
                                               <div
-                                                class="avatar-title rounded-circle bg-light text-primary"
+                                                class="
+                                                  avatar-title
+                                                  rounded-circle
+                                                  bg-light
+                                                  text-primary
+                                                "
                                               >
                                                 A
                                               </div>
@@ -1604,12 +1539,22 @@ export default {
                           <swiper-slide>
                             <div class="swiper-slide">
                               <div
-                                class="card profile-project-card shadow-none profile-project-danger mb-0"
+                                class="
+                                  card
+                                  profile-project-card
+                                  shadow-none
+                                  profile-project-danger
+                                  mb-0
+                                "
                               >
                                 <div class="card-body p-4">
                                   <div class="d-flex">
                                     <div
-                                      class="flex-grow-1 text-muted overflow-hidden"
+                                      class="
+                                        flex-grow-1
+                                        text-muted
+                                        overflow-hidden
+                                      "
                                     >
                                       <h5 class="fs-15 text-truncate mb-1">
                                         <a href="#" class="text-dark"
@@ -1654,7 +1599,12 @@ export default {
                                           <div class="avatar-group-item">
                                             <div class="avatar-xs">
                                               <div
-                                                class="avatar-title rounded-circle bg-light text-primary"
+                                                class="
+                                                  avatar-title
+                                                  rounded-circle
+                                                  bg-light
+                                                  text-primary
+                                                "
                                               >
                                                 C
                                               </div>
@@ -1674,12 +1624,22 @@ export default {
                           <swiper-slide>
                             <div class="swiper-slide">
                               <div
-                                class="card profile-project-card shadow-none profile-project-info mb-0"
+                                class="
+                                  card
+                                  profile-project-card
+                                  shadow-none
+                                  profile-project-info
+                                  mb-0
+                                "
                               >
                                 <div class="card-body p-4">
                                   <div class="d-flex">
                                     <div
-                                      class="flex-grow-1 text-muted overflow-hidden"
+                                      class="
+                                        flex-grow-1
+                                        text-muted
+                                        overflow-hidden
+                                      "
                                     >
                                       <h5 class="fs-15 text-truncate mb-1">
                                         <a href="#" class="text-dark"
@@ -1736,12 +1696,22 @@ export default {
                           <swiper-slide>
                             <div class="swiper-slide">
                               <div
-                                class="card profile-project-card shadow-none profile-project-danger mb-0"
+                                class="
+                                  card
+                                  profile-project-card
+                                  shadow-none
+                                  profile-project-danger
+                                  mb-0
+                                "
                               >
                                 <div class="card-body p-4">
                                   <div class="d-flex">
                                     <div
-                                      class="flex-grow-1 text-muted overflow-hidden"
+                                      class="
+                                        flex-grow-1
+                                        text-muted
+                                        overflow-hidden
+                                      "
                                     >
                                       <h5 class="fs-15 text-truncate mb-1">
                                         <a href="#" class="text-dark"
@@ -1807,12 +1777,22 @@ export default {
                           <swiper-slide>
                             <div class="swiper-slide">
                               <div
-                                class="card profile-project-card shadow-none profile-project-warning mb-0"
+                                class="
+                                  card
+                                  profile-project-card
+                                  shadow-none
+                                  profile-project-warning
+                                  mb-0
+                                "
                               >
                                 <div class="card-body p-4">
                                   <div class="d-flex">
                                     <div
-                                      class="flex-grow-1 text-muted overflow-hidden"
+                                      class="
+                                        flex-grow-1
+                                        text-muted
+                                        overflow-hidden
+                                      "
                                     >
                                       <h5 class="fs-15 text-truncate mb-1">
                                         <a href="#" class="text-dark"
@@ -1867,7 +1847,12 @@ export default {
                                           <div class="avatar-group-item">
                                             <div class="avatar-xs">
                                               <div
-                                                class="avatar-title rounded-circle bg-light text-primary"
+                                                class="
+                                                  avatar-title
+                                                  rounded-circle
+                                                  bg-light
+                                                  text-primary
+                                                "
                                               >
                                                 A
                                               </div>
