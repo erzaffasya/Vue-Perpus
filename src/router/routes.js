@@ -207,6 +207,15 @@ export default [
     },
     component: () => import("../views/peminjamanDokumen/gridDokumen"),
   },
+  {
+    path: "/dokumen/bimbingan",
+    name: "lihat-bimbingan",
+    meta: {
+      title: "Lihat Bimbingan",
+      authRequired: true,
+    },
+    component: () => import("../views/dokumen/lihatBimbingan"),
+  },
   // bookmark
   {
     path: "/bookmark/tambah",

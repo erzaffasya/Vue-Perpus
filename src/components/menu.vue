@@ -222,7 +222,7 @@ export default {
                                 </router-link>
                             </li>
                             <li v-if="role =='Dosen'" class="nav-item">
-                                <router-link to="/dokumen/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatdokumen">
+                                <router-link to="/dokumen/bimbingan" class="nav-link remove-sidebar custom-abc" data-key="t-lihatdokumen">
                                     Bimbingan
                                 </router-link>
                             </li>
