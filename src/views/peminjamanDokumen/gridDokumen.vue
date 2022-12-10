@@ -379,14 +379,14 @@ export default {
 
     <div class="row g-0 text-center text-sm-start align-items-center mb-4">
       <div class="col-sm-6">
-        <div>
+        <!-- <div>
           <p class="mb-sm-0 text-muted">
             Showing <span class="fw-semibold">1</span> to
             <span class="fw-semibold">10</span> of
             <span class="fw-semibold text-decoration-underline">12</span>
             entries
           </p>
-        </div>
+        </div> -->
       </div>
       <!-- end col -->
       <div class="d-flex justify-content-end mt-3">

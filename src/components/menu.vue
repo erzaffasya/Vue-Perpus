@@ -346,11 +346,50 @@ export default {
                         <span data-key="t-widgets">Cek Dokumen</span>
                     </router-link>
                 </li>
-                <li class="nav-item">
-                    <router-link class="nav-link remove-sidebar menu-link" to="/cek-bebas-pustaka">
-                        <i class="ri-honour-line"></i>
-                        <span data-key="t-widgets">Cek Bebas Pustaka</span>
-                    </router-link>
+                <li v-if="role == 'Admin'" class="nav-item">
+                    <a class="nav-link menu-link" href="#jadwalYudisium" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line"></i>
+                        <span data-key="t-dashboards"> Jadwal Yudisium</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="jadwalYudisium">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <router-link to="/yudisium/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahyudisium">
+                                    Tambah Jadwal
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/yudisium/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatyudisium">
+                                    Lihat Jadwal
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li v-if="role != 'Dosen'" class="nav-item">
+                    <a class="nav-link menu-link" href="#pengajuanyudisium" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line"></i>
+                        <span data-key="t-dashboards"> Yudisium</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="pengajuanyudisium">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <router-link class="nav-link remove-sidebar menu-link" to="/cek-bebas-pustaka">
+                                    <span data-key="t-widgets">Cek Bebas Pustaka</span>
+                                </router-link>
+                            </li>
+                            <li v-if="role == 'Mahasiswa' || role =='Admin'" class="nav-item">
+                                <router-link to="/yudisium/pengajuan/tambah" class="nav-link remove-sidebar custom-abc" data-key="t-tambahpengajuanyudisium">
+                                    Tambah Pengajuan Yudisium
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="/yudisium/pengajuan/lihat" class="nav-link remove-sidebar custom-abc" data-key="t-lihatpengajuanyudisium">
+                                    Lihat Pengajuan Yudisium
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li v-if="role == 'Dosen'" class="nav-item">
                     <router-link class="nav-link remove-sidebar menu-link" to="/cek-bebas-pustaka">

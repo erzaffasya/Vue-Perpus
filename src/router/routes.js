@@ -292,6 +292,33 @@ export default [
     component: () => import("../views/peminjamanDokumen/lihat"),
   },
   {
+    path: "/yudisium/tambah",
+    name: "tambah-yudisium",
+    meta: {
+      title: "Tambah yudisium",
+      authRequired: true,
+    },
+    component: () => import("../views/yudisium/tambah"),
+  },
+  {
+    path: "/yudisium/edit/:id",
+    name: "edit-yudisium",
+    meta: {
+      title: "Edit yudisium",
+      authRequired: true,
+    },
+    component: () => import("../views/yudisium/edit"),
+  },
+  {
+    path: "/yudisium/lihat",
+    name: "lihat-yudisium",
+    meta: {
+      title: "Lihat yudisium",
+      authRequired: true,
+    },
+    component: () => import("../views/yudisium/lihat"),
+  },  
+  {
     path: "/cek-bebas-pustaka",
     name: "cek-bebas-pustaka",
     meta: {
@@ -300,6 +327,33 @@ export default [
     },
     component: () => import("../views/cekBebasPustaka/lihat"),
   },
+  {
+    path: "/yudisium/pengajuan/tambah",
+    name: "tambah-yudisium-mahasiswa",
+    meta: {
+      title: "Tambah yudisium",
+      authRequired: true,
+    },
+    component: () => import("../views/yudisiumMahasiswa/tambah"),
+  },
+  {
+    path: "/yudisium/pengajuan/edit/:id",
+    name: "edit-yudisium-mahasiswa",
+    meta: {
+      title: "Edit yudisium",
+      authRequired: true,
+    },
+    component: () => import("../views/yudisiumMahasiswa/edit"),
+  },
+  {
+    path: "/yudisium/pengajuan/lihat",
+    name: "lihat-yudisium-mahasiswa",
+    meta: {
+      title: "Lihat yudisium",
+      authRequired: true,
+    },
+    component: () => import("../views/yudisiumMahasiswa/lihat"),
+  },  
   {
     path: "/jurusan/lihat-dokumen",
     name: "jurusan-cek-dokumen",
