@@ -232,8 +232,8 @@ export default {
                 <span class="text-muted">Ruangan</span>
               </div>
               <div class="col-lg-6">
-                <h5>{{ item.nama_kursi }}</h5>
-                <span class="text-muted">Nomor Kursi</span>
+                <h5>{{ item.lokasi }}</h5>
+                <span class="text-muted">Lokasi</span>
               </div>
             </div>
             <form @submit.prevent="store(item.id)">

@@ -35,10 +35,8 @@ export default {
   hapusDokumen(id) {
     return Api.delete(url + "/api/dokumen/" + id);
   },
-  bacaDokumen(state) {
-    // console.log(state.jenisFile, 'dokumen');
-    console.log(url + "/api/showDokumen/" + state.id + "/" + state.jenisFile);
-    return Api.get(url + "/api/showDokumen/" + state.id + "/" + state.jenisFile);
+  bacaDokumen(id, jenisFile) {
+    return Api.get(url + "/api/cek-akses-dokumen/" + id + "/" + jenisFile);
   },
   revisiDokumen(id, form) {
     return Api.put(url + "/api/revisi-dokumen/" + id, form);

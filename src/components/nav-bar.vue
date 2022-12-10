@@ -1,7 +1,5 @@
 <script>
-import {
-    SimpleBar
-} from "simplebar-vue3";
+import { SimpleBar } from "simplebar-vue3";
 // import apiProfile from "../apis/Auth";
 import apiNotifikasi from "../apis/Notifikasi";
 import apiDokumen from "../apis/Dokumen";
@@ -11,243 +9,244 @@ import $ from "jquery";
  * Nav-bar Component
  */
 export default {
-    inherit: true,
-    props: ["user"],
-    data() {
-        return {
-            //   user: this.$parent.user,
-            notifikasi: {},
-            search_navbar: null,
-            data_pencarian: {},
-            languages: [{
-                    flag: require("@/assets/images/flags/us.svg"),
-                    language: "en",
-                    title: "English",
-                },
-                {
-                    flag: require("@/assets/images/flags/french.svg"),
-                    language: "fr",
-                    title: "French",
-                },
-                {
-                    flag: require("@/assets/images/flags/spain.svg"),
-                    language: "sp",
-                    title: "Spanish",
-                },
-                {
-                    flag: require("@/assets/images/flags/china.svg"),
-                    language: "ch",
-                    title: "Chinese",
-                },
-                {
-                    flag: require("@/assets/images/flags/germany.svg"),
-                    language: "gr",
-                    title: "Deutsche",
-                },
-                {
-                    flag: require("@/assets/images/flags/russia.svg"),
-                    language: "ru",
-                    title: "русский",
-                },
-            ],
-            lan: i18n.locale,
-            text: null,
-            flag: null,
-            value: null,
-            myVar: 1,
-        };
+  inherit: true,
+  props: ["user"],
+  data() {
+    return {
+      //   user: this.$parent.user,
+      notifikasi: {},
+      search_navbar: null,
+      data_pencarian: {},
+      languages: [
+        {
+          flag: require("@/assets/images/flags/us.svg"),
+          language: "en",
+          title: "English",
+        },
+        {
+          flag: require("@/assets/images/flags/french.svg"),
+          language: "fr",
+          title: "French",
+        },
+        {
+          flag: require("@/assets/images/flags/spain.svg"),
+          language: "sp",
+          title: "Spanish",
+        },
+        {
+          flag: require("@/assets/images/flags/china.svg"),
+          language: "ch",
+          title: "Chinese",
+        },
+        {
+          flag: require("@/assets/images/flags/germany.svg"),
+          language: "gr",
+          title: "Deutsche",
+        },
+        {
+          flag: require("@/assets/images/flags/russia.svg"),
+          language: "ru",
+          title: "русский",
+        },
+      ],
+      lan: i18n.locale,
+      text: null,
+      flag: null,
+      value: null,
+      myVar: 1,
+    };
+  },
+  components: {
+    SimpleBar,
+  },
+  mounted() {
+    if (document.getElementById("topnav-hamburger-icon"))
+      document
+        .getElementById("topnav-hamburger-icon")
+        .addEventListener("click", this.toggleHamburgerMenu);
+    // this.getProfile()
+    this.isCustomDropdown();
+    this.getNotifikasi();
+  },
+  watch: {
+    search_navbar(newQuestion, oldQuestion) {
+      console.log(newQuestion, oldQuestion, "erza");
+      this.getCariDokumen();
     },
-    components: {
-        SimpleBar,
+  },
+  methods: {
+    async getNotifikasi() {
+      await apiNotifikasi
+        .lihatNotifikasi()
+        .then((response) => {
+          this.notifikasi = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error, "error");
+          //or in file components
+          // this.$router.go()
+          //   this.$router.push("/logout");
+        });
     },
-    mounted() {
-        if (document.getElementById("topnav-hamburger-icon"))
-            document
-            .getElementById("topnav-hamburger-icon")
-            .addEventListener("click", this.toggleHamburgerMenu);
-        // this.getProfile()
-        this.isCustomDropdown();
-        this.getNotifikasi();
+    bacaNotifikasi() {
+      apiNotifikasi
+        .bacaNotifikasi()
+        .then(() => {
+          // this.notifikasi = response.data.data;
+          // console.log(response, 'baca notif')
+        })
+        .catch((error) => {
+          console.log(error, "error");
+          //or in file components
+          // this.$router.go()
+          //   this.$router.push("/logout");
+        });
     },
-    watch: {
-        search_navbar(newQuestion, oldQuestion) {
-            console.log(newQuestion, oldQuestion, 'erza')
-            this.getCariDokumen()
+    getCariDokumen() {
+      apiDokumen
+        .cariDokumen(this.search_navbar)
+        .then((response) => {
+          this.data_pencarian = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error, "error");
+        });
+    },
+    isCustomDropdown() {
+      //Search bar
+      var searchOptions = document.getElementById("search-close-options");
+      var dropdown = document.getElementById("search-dropdown");
+      var searchInput = document.getElementById("search-options");
+
+      searchInput.addEventListener("focus", () => {
+        var inputLength = searchInput.value.length;
+        if (inputLength > 0) {
+          dropdown.classList.add("show");
+          searchOptions.classList.remove("d-none");
+        } else {
+          dropdown.classList.remove("show");
+          searchOptions.classList.add("d-none");
         }
+      });
+
+      searchInput.addEventListener("keyup", () => {
+        var inputLength = searchInput.value.length;
+        if (inputLength > 0) {
+          dropdown.classList.add("show");
+          searchOptions.classList.remove("d-none");
+        } else {
+          dropdown.classList.remove("show");
+          searchOptions.classList.add("d-none");
+        }
+      });
+
+      searchOptions.addEventListener("click", () => {
+        searchInput.value = "";
+        dropdown.classList.remove("show");
+        searchOptions.classList.add("d-none");
+      });
+
+      document.body.addEventListener("click", (e) => {
+        if (e.target.getAttribute("id") !== "search-options") {
+          dropdown.classList.remove("show");
+          searchOptions.classList.add("d-none");
+        }
+      });
     },
-    methods: {
-        async getNotifikasi() {
-            await apiNotifikasi
-                .lihatNotifikasi()
-                .then((response) => {
-                    this.notifikasi = response.data.data;
-                })
-                .catch((error) => {
-                    console.log(error, "error");
-                    //or in file components
-                    // this.$router.go()
-                    //   this.$router.push("/logout");
-                });
-        },
-        bacaNotifikasi() {
-            apiNotifikasi
-                .bacaNotifikasi()
-                .then(() => {
-                    // this.notifikasi = response.data.data;
-                    // console.log(response, 'baca notif')
-                })
-                .catch((error) => {
-                    console.log(error, "error");
-                    //or in file components
-                    // this.$router.go()
-                    //   this.$router.push("/logout");
-                });
-        },
-        getCariDokumen() {
-            apiDokumen
-                .cariDokumen(this.search_navbar)
-                .then((response) => {
-                    this.data_pencarian = response.data.data;
-                })
-                .catch((error) => {
-                    console.log(error, "error");
-                });
-        },
-        isCustomDropdown() {
-            //Search bar
-            var searchOptions = document.getElementById("search-close-options");
-            var dropdown = document.getElementById("search-dropdown");
-            var searchInput = document.getElementById("search-options");
+    toggleHamburgerMenu() {
+      var windowSize = document.documentElement.clientWidth;
 
-            searchInput.addEventListener("focus", () => {
-                var inputLength = searchInput.value.length;
-                if (inputLength > 0) {
-                    dropdown.classList.add("show");
-                    searchOptions.classList.remove("d-none");
-                } else {
-                    dropdown.classList.remove("show");
-                    searchOptions.classList.add("d-none");
-                }
-            });
+      if (windowSize > 767)
+        document.querySelector(".hamburger-icon").classList.toggle("open");
 
-            searchInput.addEventListener("keyup", () => {
-                var inputLength = searchInput.value.length;
-                if (inputLength > 0) {
-                    dropdown.classList.add("show");
-                    searchOptions.classList.remove("d-none");
-                } else {
-                    dropdown.classList.remove("show");
-                    searchOptions.classList.add("d-none");
-                }
-            });
+      //For collapse horizontal menu
+      if (
+        document.documentElement.getAttribute("data-layout") === "horizontal"
+      ) {
+        document.body.classList.contains("menu")
+          ? document.body.classList.remove("menu")
+          : document.body.classList.add("menu");
+      }
 
-            searchOptions.addEventListener("click", () => {
-                searchInput.value = "";
-                dropdown.classList.remove("show");
-                searchOptions.classList.add("d-none");
-            });
+      //For collapse vertical menu
+      if (document.documentElement.getAttribute("data-layout") === "vertical") {
+        if (windowSize < 1025 && windowSize > 767) {
+          document.body.classList.remove("vertical-sidebar-enable");
+          document.documentElement.getAttribute("data-sidebar-size") == "sm"
+            ? document.documentElement.setAttribute("data-sidebar-size", "")
+            : document.documentElement.setAttribute("data-sidebar-size", "sm");
+        } else if (windowSize > 1025) {
+          document.body.classList.remove("vertical-sidebar-enable");
+          document.documentElement.getAttribute("data-sidebar-size") == "lg"
+            ? document.documentElement.setAttribute("data-sidebar-size", "sm")
+            : document.documentElement.setAttribute("data-sidebar-size", "lg");
+        } else if (windowSize <= 767) {
+          document.body.classList.add("vertical-sidebar-enable");
+          document.documentElement.setAttribute("data-sidebar-size", "lg");
+          $(".remove-sidebar").click(function () {
+            document.body.classList.remove("vertical-sidebar-enable");
+          });
+        } else {
+          document.body.classList.remove("vertical-sidebar-enable");
+        }
+      }
 
-            document.body.addEventListener("click", (e) => {
-                if (e.target.getAttribute("id") !== "search-options") {
-                    dropdown.classList.remove("show");
-                    searchOptions.classList.add("d-none");
-                }
-            });
-        },
-        toggleHamburgerMenu() {
-            var windowSize = document.documentElement.clientWidth;
-
-            if (windowSize > 767)
-                document.querySelector(".hamburger-icon").classList.toggle("open");
-
-            //For collapse horizontal menu
-            if (
-                document.documentElement.getAttribute("data-layout") === "horizontal"
-            ) {
-                document.body.classList.contains("menu") ?
-                    document.body.classList.remove("menu") :
-                    document.body.classList.add("menu");
-            }
-
-            //For collapse vertical menu
-            if (document.documentElement.getAttribute("data-layout") === "vertical") {
-                if (windowSize < 1025 && windowSize > 767) {
-                    document.body.classList.remove("vertical-sidebar-enable");
-                    document.documentElement.getAttribute("data-sidebar-size") == "sm" ?
-                        document.documentElement.setAttribute("data-sidebar-size", "") :
-                        document.documentElement.setAttribute("data-sidebar-size", "sm");
-                } else if (windowSize > 1025) {
-                    document.body.classList.remove("vertical-sidebar-enable");
-                    document.documentElement.getAttribute("data-sidebar-size") == "lg" ?
-                        document.documentElement.setAttribute("data-sidebar-size", "sm") :
-                        document.documentElement.setAttribute("data-sidebar-size", "lg");
-                } else if (windowSize <= 767) {
-                    document.body.classList.add("vertical-sidebar-enable");
-                    document.documentElement.setAttribute("data-sidebar-size", "lg");
-                    $(".remove-sidebar").click(function () {
-                        document.body.classList.remove("vertical-sidebar-enable");
-                    });
-                } else {
-                    document.body.classList.remove("vertical-sidebar-enable");
-                }
-            }
-
-            //Two column menu
-            if (document.documentElement.getAttribute("data-layout") == "twocolumn") {
-                document.body.classList.contains("twocolumn-panel") ?
-                    document.body.classList.remove("twocolumn-panel") :
-                    document.body.classList.add("twocolumn-panel");
-            }
-        },
-        toggleMenu() {
-            this.$parent.toggleMenu();
-        },
-        toggleRightSidebar() {
-            this.$parent.toggleRightSidebar();
-        },
-        initFullScreen() {
-            document.body.classList.toggle("fullscreen-enable");
-            if (
-                !document.fullscreenElement &&
-                /* alternative standard method */
-                !document.mozFullScreenElement &&
-                !document.webkitFullscreenElement
-            ) {
-                // current working methods
-                if (document.documentElement.requestFullscreen) {
-                    document.documentElement.requestFullscreen();
-                } else if (document.documentElement.mozRequestFullScreen) {
-                    document.documentElement.mozRequestFullScreen();
-                } else if (document.documentElement.webkitRequestFullscreen) {
-                    document.documentElement.webkitRequestFullscreen(
-                        Element.ALLOW_KEYBOARD_INPUT
-                    );
-                }
-            } else {
-                if (document.cancelFullScreen) {
-                    document.cancelFullScreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.webkitCancelFullScreen) {
-                    document.webkitCancelFullScreen();
-                }
-            }
-        },
-        setLanguage(locale, country, flag) {
-            this.lan = locale;
-            this.text = country;
-            this.flag = flag;
-            document.getElementById("header-lang-img").setAttribute("src", flag);
-            i18n.global.locale = locale;
-        },
-        toggleDarkMode() {
-            if (document.documentElement.getAttribute("data-layout-mode") == "dark") {
-                document.documentElement.setAttribute("data-layout-mode", "light");
-            } else {
-                document.documentElement.setAttribute("data-layout-mode", "dark");
-            }
-        },
+      //Two column menu
+      if (document.documentElement.getAttribute("data-layout") == "twocolumn") {
+        document.body.classList.contains("twocolumn-panel")
+          ? document.body.classList.remove("twocolumn-panel")
+          : document.body.classList.add("twocolumn-panel");
+      }
     },
+    toggleMenu() {
+      this.$parent.toggleMenu();
+    },
+    toggleRightSidebar() {
+      this.$parent.toggleRightSidebar();
+    },
+    initFullScreen() {
+      document.body.classList.toggle("fullscreen-enable");
+      if (
+        !document.fullscreenElement &&
+        /* alternative standard method */
+        !document.mozFullScreenElement &&
+        !document.webkitFullscreenElement
+      ) {
+        // current working methods
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) {
+          document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          document.documentElement.webkitRequestFullscreen(
+            Element.ALLOW_KEYBOARD_INPUT
+          );
+        }
+      } else {
+        if (document.cancelFullScreen) {
+          document.cancelFullScreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.webkitCancelFullScreen) {
+          document.webkitCancelFullScreen();
+        }
+      }
+    },
+    setLanguage(locale, country, flag) {
+      this.lan = locale;
+      this.text = country;
+      this.flag = flag;
+      document.getElementById("header-lang-img").setAttribute("src", flag);
+      i18n.global.locale = locale;
+    },
+    toggleDarkMode() {
+      if (document.documentElement.getAttribute("data-layout-mode") == "dark") {
+        document.documentElement.setAttribute("data-layout-mode", "light");
+      } else {
+        document.documentElement.setAttribute("data-layout-mode", "dark");
+      }
+    },
+  },
 };
 </script>
 
@@ -486,7 +485,7 @@ export default {
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <h6 class="dropdown-header">Welcome {{ this.user.name }}!</h6>
+                        <!-- <h6 class="dropdown-header">Welcome {{ this.user.name }}!</h6> -->
                         <router-link class="dropdown-item" to="/profil"><i class="
                     mdi mdi-account-circle
                     text-muted
@@ -497,7 +496,7 @@ export default {
                             <span class="align-middle">Profil</span>
                         </router-link>
 
-                        <router-link class="dropdown-item" to="/apps/tasks-kanban"><i class="
+                        <!-- <router-link class="dropdown-item" to="/apps/tasks-kanban"><i class="
                     mdi mdi-calendar-check-outline
                     text-muted
                     fs-16
@@ -509,7 +508,7 @@ export default {
                         <router-link class="dropdown-item" to="/pages/faqs"><i class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i>
                             <span class="align-middle">Help</span>
                         </router-link>
-                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-divider"></div> -->
 
                         <a class="dropdown-item" href="/logout"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
                             <span class="align-middle" data-key="t-logout">Logout</span></a>

@@ -143,7 +143,7 @@ export default {
     getRiwayat() {
       this.YudisiumMahasiswa = [];
       apiYudisiumMahasiswa
-        .filterYudisiumMahasiswa("pengajuan")
+        .filterYudisiumMahasiswa("riwayatPengajuan")
         .then((response) => {
           this.YudisiumMahasiswa = response.data.data;
           this.pages = [];
@@ -154,7 +154,7 @@ export default {
     getBerlangsung() {
       this.YudisiumMahasiswa = [];
       apiYudisiumMahasiswa
-        .filterYudisiumMahasiswa("riwayatPengajuan")
+        .filterYudisiumMahasiswa("pengajuan")
         .then((response) => {
           this.YudisiumMahasiswa = response.data.data;
           console.log(YudisiumMahasiswa);
@@ -341,7 +341,7 @@ export default {
                                     </td>
                                     <td class="product_name">
                                       <span
-                                        v-if="!data.status_berkas"
+                                        v-if="data.status_berkas"
                                         class="
                                           badge badge-soft-success
                                           text-uppercase
@@ -359,7 +359,7 @@ export default {
                                     </td>
                                     <td class="product_name">
                                       <span
-                                        v-if="!data.status_pinjam"
+                                        v-if="data.status_pinjam"
                                         class="
                                           badge badge-soft-success
                                           text-uppercase
@@ -377,7 +377,7 @@ export default {
                                     </td>
                                     <td class="product_name">
                                       <span
-                                        v-if="!data.status_final"
+                                        v-if="data.status_final"
                                         class="
                                           badge badge-soft-success
                                           text-uppercase
@@ -611,7 +611,7 @@ export default {
                                     </td>
                                     <td class="product_name">
                                       <span
-                                        v-if="!data.status_berkas"
+                                        v-if="data.status_berkas"
                                         class="
                                           badge badge-soft-success
                                           text-uppercase
@@ -629,7 +629,7 @@ export default {
                                     </td>
                                     <td class="product_name">
                                       <span
-                                        v-if="!data.status_pinjam"
+                                        v-if="data.status_pinjam"
                                         class="
                                           badge badge-soft-success
                                           text-uppercase
@@ -647,7 +647,7 @@ export default {
                                     </td>
                                     <td class="product_name">
                                       <span
-                                        v-if="!data.status_final"
+                                        v-if="data.status_final"
                                         class="
                                           badge badge-soft-success
                                           text-uppercase

@@ -40,7 +40,7 @@ export default {
     const validation = ref([]);
     const router = useRouter();
     function store() {
-      apiYudisiumMahasiswa.tambahdYudisiumMahasiswa(YudisiumMahasiswa).then((response) => {
+      apiYudisiumMahasiswa.tambahYudisiumMahasiswa(YudisiumMahasiswa).then((response) => {
         if (response.data.code == 200) {
           Swal.fire(
             "Berhasil!",

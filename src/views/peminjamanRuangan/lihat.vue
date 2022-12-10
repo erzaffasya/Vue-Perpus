@@ -1,8 +1,8 @@
 <script>
-import Multiselect from "@vueform/multiselect";
+// import Multiselect from "@vueform/multiselect";
 import "@vueform/multiselect/themes/default.css";
-import flatPickr from "vue-flatpickr-component";
-import "flatpickr/dist/flatpickr.css";
+// import flatPickr from "vue-flatpickr-component";
+// import "flatpickr/dist/flatpickr.css";
 import Swal from "sweetalert2";
 
 import Layout from "../../layouts/main.vue";
@@ -69,8 +69,8 @@ export default {
     Layout,
     PageHeader,
     lottie: Lottie,
-    Multiselect,
-    flatPickr,
+    // Multiselect,
+    // flatPickr,
   },
   computed: {
     displayedPosts() {
@@ -178,7 +178,7 @@ export default {
   <Layout>
     <PageHeader :title="title" :items="items" />
     <div class="row">
-      <!--end col-->
+      
       <div class="col-xxl-12">
         <div class="card">
           <div class="card-body">
@@ -223,8 +223,8 @@ export default {
                                   <i class="ri-search-line search-icon"></i>
                                 </div>
                               </div>
-                              <!--end col-->
-                              <div class="col-xxl-2 col-sm-6">
+                              
+                              <!-- <div class="col-xxl-2 col-sm-6">
                                 <div>
                                   <flat-pickr
                                     placeholder="Select date"
@@ -235,7 +235,7 @@ export default {
                                   ></flat-pickr>
                                 </div>
                               </div>
-                              <!--end col-->
+                              
                               <div class="col-xxl-2 col-sm-4">
                                 <div>
                                   <Multiselect
@@ -267,7 +267,7 @@ export default {
                                   />
                                 </div>
                               </div>
-                              <!--end col-->
+                              
                               <div class="col-xxl-2 col-sm-4">
                                 <div>
                                   <Multiselect
@@ -291,7 +291,7 @@ export default {
                                   />
                                 </div>
                               </div>
-                              <!--end col-->
+                              
                               <div class="col-xxl-1 col-sm-4">
                                 <div>
                                   <button
@@ -309,8 +309,8 @@ export default {
                                     Filters
                                   </button>
                                 </div>
-                              </div>
-                              <!--end col-->
+                              </div> -->
+                              
                             </div>
                             <!--end row-->
                           </form>
@@ -512,7 +512,7 @@ export default {
         </div>
         <!--end card-->
       </div>
-      <!--end col-->
+      
     </div>
   </Layout>
 </template>

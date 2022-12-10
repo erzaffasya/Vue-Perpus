@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/swiper-bundle.css";
 
 SwiperCore.use([]);
-import flatPickr from "vue-flatpickr-component";
+// import flatPickr from "vue-flatpickr-component";
 import { SimpleBar } from "simplebar-vue3";
 import "flatpickr/dist/flatpickr.css";
 // import { CountTo } from "vue3-count-to";
@@ -20,7 +20,7 @@ export default {
     Layout,
     Swiper,
     SwiperSlide,
-    flatPickr,
+    // flatPickr,
     SimpleBar,
     Revenue,
   },
@@ -147,14 +147,14 @@ export default {
                 <div class="flex-grow-1">
                   <h4 class="fs-16 mb-1">Selamat Datang, {{ role }} !</h4>
                   <p class="text-muted mb-0">
-                    Here's what's happening with your store today. {{ date }}
+                    <!-- Here's what's happening with your store today. {{ date }} -->
                   </p>
                 </div>
                 <div class="mt-3 mt-lg-0">
                   <form action="javascript:void(0);">
                     <div class="row g-3 mb-0 align-items-center">
                       <div class="col-sm-auto">
-                        <div class="input-group">
+                        <!-- <div class="input-group">
                           <flat-pickr
                             v-model="date"
                             :config="config"
@@ -176,7 +176,7 @@ export default {
                           >
                             <i class="ri-calendar-2-line"></i>
                           </div>
-                        </div>
+                        </div> -->
                       </div>
                       <!--end col-->
                       <!--end col-->
@@ -298,9 +298,9 @@ export default {
             </div>
             <!-- end col -->
 
-            <div class="col-xl-3 col-md-6">
+            <div v-if="role == 'Admin'" class="col-xl-3 col-md-6">
               <!-- card -->
-              <div v-if="role == 'Admin'" class="card card-animate">
+              <div  class="card card-animate">
                 <div class="card-body">
                   <div class="d-flex align-items-center">
                     <div class="flex-grow-1 overflow-hidden">
@@ -346,7 +346,6 @@ export default {
             <!-- end col -->
 
             <div class="col-xl-3 col-md-6">
-              <!-- card -->
               <div class="card card-animate">
                 <div class="card-body">
                   <div class="d-flex align-items-center">
@@ -385,13 +384,9 @@ export default {
                     </div>
                   </div>
                 </div>
-                <!-- end card body -->
               </div>
-              <!-- end card -->
             </div>
-            <!-- end col -->
           </div>
-          <!-- end row-->
 
           <div class="row">
             <div class="col-xl-6">
@@ -401,7 +396,7 @@ export default {
                     Peminjaman Dokumen Terpopuler
                   </h4>
                   <div class="flex-shrink-0">
-                    <div class="dropdown card-header-dropdown">
+                    <!-- <div class="dropdown card-header-dropdown">
                       <a
                         class="text-reset dropdown-btn"
                         href="#"
@@ -423,7 +418,7 @@ export default {
                         <a class="dropdown-item" href="#">This Month</a>
                         <a class="dropdown-item" href="#">Last Month</a>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <!-- end card header -->
@@ -529,7 +524,7 @@ export default {
                     Peminjaman Ruangan Terpopuler
                   </h4>
                   <div class="flex-shrink-0">
-                    <div class="dropdown card-header-dropdown">
+                    <!-- <div class="dropdown card-header-dropdown">
                       <a
                         class="text-reset dropdown-btn"
                         href="#"
@@ -546,7 +541,7 @@ export default {
                         <a class="dropdown-item" href="#">Export</a>
                         <a class="dropdown-item" href="#">Import</a>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <!-- end card header -->
@@ -778,12 +773,11 @@ export default {
                 </div>
               </div>
 
-              <div class="p-3">
+              <!-- <div class="p-3">
                 <h6 class="text-muted mb-3 text-uppercase fw-semibold">
                   Peminjaman Ruangan
                   <span class="badge badge-soft-success">Aktif</span>
                 </h6>
-                <!-- Swiper -->
                 <div>
                   <swiper
                     class="vertical-swiper"
@@ -847,7 +841,7 @@ export default {
                     </swiper-slide>
                   </swiper>
                 </div>
-              </div>
+              </div> -->
 
               <div class="p-3 mt-2">
                 <h6 class="text-muted mb-3 text-uppercase fw-semibold">
