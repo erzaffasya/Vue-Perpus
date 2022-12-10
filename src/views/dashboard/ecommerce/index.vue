@@ -442,7 +442,7 @@ export default {
                             <div class="d-flex align-items-center">
                               <div class="avatar-sm bg-light rounded p-1 me-2">
                                 <img
-                                  src="@/assets/images/products/img-1.png"
+                                  :src="item.gambar_dokumen"
                                   alt=""
                                   class="img-fluid d-block"
                                 />

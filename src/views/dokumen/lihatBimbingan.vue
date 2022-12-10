@@ -6,7 +6,7 @@ import "flatpickr/dist/flatpickr.css";
 import Layout from "../../layouts/main.vue";
 import appConfig from "../../../app.config";
 import PageHeader from "@/components/page-header";
-import apiPengunjung from "../../apis/Pengunjung.js";
+import apiPembimbing from "../../apis/DosenPembimbing.js";
 import animationData from "@/components/widgets/msoeawqm.json";
 import Lottie from "@/components/widgets/lottie.vue";
 
@@ -48,7 +48,7 @@ export default {
       date: null,
       date2: null,
       defaultOptions: { animationData: animationData },
-      Pengunjung: [],
+      Pembimbing: [],
     };
   },
   components: {
@@ -59,7 +59,7 @@ export default {
   },
   computed: {
     displayedPosts() {
-      return this.paginate(this.Pengunjung);
+      return this.paginate(this.Pembimbing);
     },
     resultQuery() {
       console.log(this.searchQuery);
@@ -67,8 +67,8 @@ export default {
         const search = this.searchQuery.toLowerCase();
         return this.displayedPosts.filter((data) => {
           return (
-            (data.user.name && data.user.name.toLowerCase().includes(search)) ||
-            (data.created_at && data.created_at.toLowerCase().includes(search))
+            data.dokumen.judul &&
+            data.dokumen.judul.toLowerCase().includes(search)
           );
         });
       } else {
@@ -85,7 +85,7 @@ export default {
     },
   },
   created() {
-    this.getPengunjung();
+    this.getPembimbing();
   },
   mounted() {},
   filters: {
@@ -94,39 +94,41 @@ export default {
     },
   },
   methods: {
-    getPengunjung() {
-      apiPengunjung.lihatPengunjung().then((response) => {
-        this.Pengunjung = response.data.data;
+    getPembimbing() {
+      apiPembimbing.lihatPembimbing().then((response) => {
+        this.Pembimbing = response.data.data;
+        console.log(this.Pembimbing, "asdas");
         this.pages = [];
         this.page = 1;
         this.setPages();
       });
     },
     onChangeTanggal() {
-      apiPengunjung
-        .filterTanggalPengunjung({
+      console.log('test')
+      apiPembimbing
+        .filterTanggalPembimbing({
           tanggal_awal: this.date,
           tanggal_akhir: this.date2,
         })
         .then((response) => {
-          this.Pengunjung = response.data.data;
+          this.Pembimbing = response.data.data;
           this.pages = [];
           this.page = 1;
           this.setPages();
         });
     },
     setPages() {
-      let numberOfPages = Math.ceil(this.Pengunjung.length / this.perPage);
+      let numberOfPages = Math.ceil(this.Pembimbing.length / this.perPage);
       for (let index = 1; index <= numberOfPages; index++) {
         this.pages.push(index);
       }
     },
-    paginate(Pengunjung) {
+    paginate(Pembimbing) {
       let page = this.page;
       let perPage = this.perPage;
       let from = page * perPage - perPage;
       let to = page * perPage;
-      return Pengunjung.slice(from, to);
+      return Pembimbing.slice(from, to);
     },
     SearchData() {
       this.resultQuery;
@@ -140,7 +142,7 @@ export default {
     <PageHeader :title="title" :items="items" />
     <div class="row">
       <!--end col-->
-      
+
       <div class="col-xxl-12">
         <div class="card">
           <div class="card-body">
@@ -153,7 +155,12 @@ export default {
                   <div class="d-flex align-items-center">
                     <div class="flex-grow-1 overflow-hidden">
                       <p
-                        class="text-uppercase fw-semibold text-muted text-truncate mb-0"
+                        class="
+                          text-uppercase
+                          fw-semibold
+                          text-muted text-truncate
+                          mb-0
+                        "
                       >
                         Total Bimbingan
                       </p>
@@ -164,12 +171,12 @@ export default {
                   >
                     <div>
                       <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                       {{this.Pengunjung.length}}
+                        {{ this.Pembimbing.length }}
                       </h4>
                     </div>
                     <div class="avatar-sm flex-shrink-0">
                       <span class="avatar-title bg-soft-primary rounded fs-3">
-                        <i class=" bx bx-male text-primary"></i>
+                        <i class="bx bx-male text-primary"></i>
                       </span>
                     </div>
                   </div>
@@ -192,14 +199,12 @@ export default {
               </li>
             </ul>
             <!-- Nav tabs -->
-            
+
             <div class="tab-content text-muted">
               <div class="tab-pane active" id="nav-badge-home" role="tabpanel">
                 <div class="">
                   <div class="flex-grow-1 ms-2">
-                    
                     <div class="col-lg-12">
-                      
                       <div class="card" id="orderList">
                         <div
                           class="
@@ -246,7 +251,6 @@ export default {
                                   ></flat-pickr>
                                 </div>
                               </div>
-                              
                             </div>
                             <!--end row-->
                           </form>
@@ -263,10 +267,16 @@ export default {
                                     <th scope="col" style="width: 25px"></th>
                                     <th class="sort" data-sort="id">No</th>
                                     <th class="sort" data-sort="customer_name">
-                                      Nama
+                                      Judul
                                     </th>
                                     <th class="sort" data-sort="status">
-                                      Tanggal {{ date }}
+                                      Kategori
+                                    </th>
+                                    <th class="sort" data-sort="status">
+                                      Nama Pengarang
+                                    </th>
+                                    <th class="sort" data-sort="status">
+                                      Aksi
                                     </th>
                                   </tr>
                                 </thead>
@@ -275,14 +285,83 @@ export default {
                                     v-for="(data, index) of resultQuery"
                                     :key="index"
                                   >
-                                    <th scope="row"></th>
-                                    <td class="id">{{ index + 1 }}</td>
-                                    <td class="customer_name">
-                                      {{ data.user.name }}
+                                    <th scope="row">
+                                      {{ index + 1 }}
+                                    </th>
+                                    <td class="id">
+                                      <router-link
+                                        to="/ecommerce/order-details"
+                                        class="fw-medium link-primary"
+                                        >{{ data.orderId }}
+                                      </router-link>
                                     </td>
-
+                                    <td class="customer_name">
+                                      {{ data.dokumen.judul }}
+                                    </td>
+                                    <td class="product_name">
+                                      {{ data.dokumen.kategori }}
+                                    </td>
                                     <td class="amount">
-                                      {{ data.created_at }}
+                                      {{ data.dokumen.nama_pengarang }}
+                                    </td>
+                                    <td>
+                                      <ul class="list-inline hstack gap-2 mb-0">
+                                        <li
+                                          class="list-inline-item"
+                                          data-bs-toggle="tooltip"
+                                          data-bs-trigger="hover"
+                                          data-bs-placement="top"
+                                          title="View"
+                                        >
+                                          <router-link
+                                            :to="{
+                                              name: 'detail-dokumen',
+                                              params: { id: data.dokumen.id },
+                                            }"
+                                            class="text-primary d-inline-block"
+                                          >
+                                            <i class="ri-eye-fill fs-16"></i>
+                                          </router-link>
+                                        </li>
+                                        <!-- <li
+                                          class="list-inline-item edit"
+                                          data-bs-toggle="tooltip"
+                                          data-bs-trigger="hover"
+                                          data-bs-placement="top"
+                                          title="Edit"
+                                        >
+                                          <router-link
+                                            :to="{
+                                              name: 'tambah-dokumen',
+                                              params: { id: data.dokumen.id },
+                                            }"
+                                            class="text-primary d-inline-block"
+                                          >
+                                            <i class="ri-pencil-fill fs-16"></i>
+                                          </router-link>
+                                        </li> -->
+                                        <!-- <li
+                                          class="list-inline-item"
+                                          data-bs-toggle="tooltip"
+                                          data-bs-trigger="hover"
+                                          data-bs-placement="top"
+                                          title="Remove"
+                                        >
+                                          <a
+                                            class="
+                                              text-danger
+                                              d-inline-block
+                                              remove-item-btn
+                                            "
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteOrder"
+                                          >
+                                            <i
+                                              class="ri-delete-bin-5-fill fs-16"
+                                            ></i>
+                                          </a>
+                                        </li> -->
+                                      </ul>
                                     </td>
                                   </tr>
                                 </tbody>

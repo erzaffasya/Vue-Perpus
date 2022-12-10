@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     async getDokumen() {
-      await apiDokumen.lihatDokumen().then((response) => {
+      await apiDokumen.cekDokumenJurusan().then((response) => {
         this.Dokumen = response.data.data;        
         this.pages = [];
         this.page = 1;
@@ -246,7 +246,7 @@ export default {
                                     :key="index"
                                   >
                                     <th scope="row"></th>
-                                    <td class="customer_name">{{ data.id }}</td>
+                                    <td class="customer_name">{{ index+1 }}</td>
                                     <td class="customer_name">
                                       {{ data.user_id }}
                                     </td>

@@ -334,7 +334,7 @@ export default {
                     </router-link>
                 </li>
             </div>
-            <div>
+            <div v-if="role != 'Dosen'">
                 <li class="menu-title">
                     <i class="ri-more-fill"></i>
                     <span data-key="t-components">Jurusan</span>
@@ -391,12 +391,12 @@ export default {
                         </ul>
                     </div>
                 </li>
-                <li v-if="role == 'Dosen'" class="nav-item">
+                <!-- <li v-if="role == 'Dosen'" class="nav-item">
                     <router-link class="nav-link remove-sidebar menu-link" to="/cek-bebas-pustaka">
                         <i class="ri-honour-line"></i>
                         <span data-key="t-widgets">Dokumen Bimbingan</span>
                     </router-link>
-                </li>
+                </li> -->
             </div>
             <div v-if="role != 'Tendik'">
                 <li class="menu-title">
