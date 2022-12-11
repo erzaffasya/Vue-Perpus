@@ -28,7 +28,7 @@ export default {
         if (response.data.code == 200) {
           Swal.fire(
             "Berhasil!",
-            "Data BebasPustaka Berhasil Ditambah!",
+            "Anda Bebas Pustaka!",
             "success"
           ).then((result) => {
             if (result.value) {

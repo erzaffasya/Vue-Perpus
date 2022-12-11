@@ -241,7 +241,7 @@ export default {
                     </div>
                     <div class="avatar-sm flex-shrink-0">
                       <span class="avatar-title bg-soft-primary rounded fs-3">
-                        <i class="bx bx-dollar-circle text-primary"></i>
+                        <i class=" bx bx-data text-primary"></i>
                       </span>
                     </div>
                   </div>
@@ -287,7 +287,7 @@ export default {
                     </div>
                     <div class="avatar-sm flex-shrink-0">
                       <span class="avatar-title bg-soft-info rounded fs-3">
-                        <i class="bx bx-shopping-bag text-info"></i>
+                        <i class=" bx bx-data text-info"></i>
                       </span>
                     </div>
                   </div>
@@ -334,7 +334,7 @@ export default {
                     </div>
                     <div class="avatar-sm flex-shrink-0">
                       <span class="avatar-title bg-soft-primary rounded fs-3">
-                        <i class="bx bx-user-circle text-primary"></i>
+                        <i class=" bx bx-data text-primary"></i>
                       </span>
                     </div>
                   </div>
@@ -379,7 +379,7 @@ export default {
                     </div>
                     <div class="avatar-sm flex-shrink-0">
                       <span class="avatar-title bg-soft-info rounded fs-3">
-                        <i class="bx bx-wallet text-info"></i>
+                        <i class=" bx bx-data text-info"></i>
                       </span>
                     </div>
                   </div>

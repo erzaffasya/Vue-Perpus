@@ -410,7 +410,7 @@ export default {
                                 <div class="d-flex align-items-center">
                                   <div class="flex-shrink-0">
                                     <img
-                                      src="/img/avatar-3.f7247f1c.jpg"
+                                      src="@/assets/images/user.png"
                                       alt=""
                                       class="avatar-sm rounded"
                                     />
@@ -2127,7 +2127,7 @@ export default {
                   >
                     <div class="flex-shrink-0">
                       <img
-                        src="@/assets/images/users/avatar-1.jpg"
+                        src="@/assets/images/user.png"
                         alt=""
                         class="avatar-xs rounded-circle acitivity-avatar"
                       />

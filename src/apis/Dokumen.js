@@ -33,7 +33,7 @@ export default {
     return Api.get(url + "/api/dokumen/" + id);
   },
   cekDokumenJurusan() {
-    return Api.get(url + "/api/cek-dokumen-perjurusan/");
+    return Api.get(url + "/api/cek-dokumen-perjurusan");
   },
   hapusDokumen(id) {
     return Api.delete(url + "/api/dokumen/" + id);

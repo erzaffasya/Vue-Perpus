@@ -98,7 +98,8 @@ export default {
   methods: {
     async getDokumen() {
       await apiDokumen.cekDokumenJurusan().then((response) => {
-        this.Dokumen = response.data.data;        
+        this.Dokumen = response.data.data;    
+        console.log(this.Dokumen,'cekdokumen')    
         this.pages = [];
         this.page = 1;
         this.setPages();
