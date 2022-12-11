@@ -24,6 +24,7 @@ export default {
       },
     ],
   },
+  inject: ['role'],
   data() {
     return {
       // title: "Orders",

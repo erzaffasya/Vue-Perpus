@@ -123,8 +123,8 @@ export default {
                       class="form-control"
                       v-model="Yudisium.status_berkas"
                     >
-                      <option value="0">Terpenuhi</option>
-                      <option value="1">Tidak Terpenuhi</option>
+                      <option value="1">Terpenuhi</option>
+                      <option value="0">Tidak Terpenuhi</option>
                     </select>
                   </div>
                 </div>
@@ -138,8 +138,8 @@ export default {
                       class="form-control"
                       v-model="Yudisium.status_pinjam"
                     >
-                      <option value="0">Terpenuhi</option>
-                      <option value="1">Tidak Terpenuhi</option>
+                      <option value="1">Terpenuhi</option>
+                      <option value="0">Tidak Terpenuhi</option>
                     </select>
                   </div>
                 </div>
@@ -152,8 +152,8 @@ export default {
                       class="form-control"
                       v-model="Yudisium.status_final"
                     >
-                      <option value="0">Terpenuhi</option>
-                      <option value="1">Tidak Terpenuhi</option>
+                      <option value="1">Terpenuhi</option>
+                      <option value="0">Tidak Terpenuhi</option>
                     </select>
                   </div>
                 </div>

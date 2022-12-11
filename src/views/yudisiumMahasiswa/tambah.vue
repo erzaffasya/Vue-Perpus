@@ -1,7 +1,5 @@
 <script>
 import Swal from "sweetalert2";
-import { reactive, ref } from "vue";
-import { useRouter } from "vue-router";
 import apiYudisiumMahasiswa from "../../apis/YudisiumMahasiswa.js";
 import apiYudisium from "../../apis/Yudisium.js";
 import Layout from "../../layouts/main.vue";
@@ -21,50 +19,40 @@ export default {
   data() {
     return {
       Yudisium: {},
+      YudisiumMahasiswa: {}
     };
+  },
+  mounted() {
+    this.getYudisium()
   },
   methods: {
     getYudisium() {
       apiYudisium.lihatYudisium().then((response) => {
         this.Yudisium = response.data.data;
-        console.log(this.Yudisium)
+        console.log(this.Yudisium);
       });
     },
-  },
-  mounted() {
-    this.getYudisium();
-  },
-  setup() {
-    const YudisiumMahasiswa = reactive({});
-
-    const validation = ref([]);
-    const router = useRouter();
-    function store() {
-      apiYudisiumMahasiswa.tambahYudisiumMahasiswa(YudisiumMahasiswa).then((response) => {
-        if (response.data.code == 200) {
-          Swal.fire(
-            "Berhasil!",
-            "Data YudisiumMahasiswa Berhasil Ditambah!",
-            "success"
-          ).then((result) => {
-            if (result.value) {
-              // router.push("lihat");
-            }
-          });
-        } else {
-          console.log(YudisiumMahasiswa);
-          Swal.fire("Error!", response.data.message, "error");
-        }
-      });
+    store() {
+      apiYudisiumMahasiswa
+        .tambahYudisiumMahasiswa(this.YudisiumMahasiswa)
+        .then((response) => {
+          if (response.data.code == 200) {
+            Swal.fire(
+              "Berhasil!",
+              "Data YudisiumMahasiswa Berhasil Ditambah!",
+              "success"
+            ).then((result) => {
+              if (result.value) {
+                // router.push("lihat");
+              }
+            });
+          } else {
+            Swal.fire("Error!", response.data.message, "error");
+          }
+        })
     }
-    return {
-      YudisiumMahasiswa,
-      validation,
-      router,
-      store,
-    };
-  },
-};
+  }
+}
 </script>
 
 <template>
@@ -97,7 +85,7 @@ export default {
                         selected=""
                         :value="item.id"
                       >
-                        {{ item.periode }} - Tahun {{item.tahun}}
+                        {{ item.periode }} - Tahun {{ item.tahun }}
                       </option>
                     </select>
                   </div>

@@ -298,7 +298,7 @@ export default {
               <div class="mt-auto">
                 <div class="d-flex mb-2">
                   <div class="flex-grow-1">
-                    <div>Tasks</div>
+                    <div>{{item.kategori}}</div>
                   </div>
                   <div class="flex-shrink-0">
                     <div>
@@ -364,7 +364,7 @@ export default {
               <div class="flex-shrink-0">
                 <div class="text-muted">
                   <i class="ri-calendar-event-fill me-1 align-bottom"></i>
-                  {{ item.date }}
+                  {{ item.tanggal_dibuat }}
                 </div>
               </div>
             </div>

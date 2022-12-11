@@ -222,8 +222,8 @@ export default {
                         type="button"
                         class="btn btn-success add-btn"
                       >
-                        <i class="ri-check-fill align-bottom me-1"></i> Sudah
-                        Dokumen
+                        <i class="ri-check-fill align-bottom me-1"></i>
+                        Dokumen Sudah Dipinjam
                       </button>
                     </div>
                   </div>

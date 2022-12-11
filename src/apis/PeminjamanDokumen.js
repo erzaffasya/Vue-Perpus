@@ -17,7 +17,7 @@ export default {
         return Api.delete(url +'/api/peminjaman-dokumen/' + id);
     },
     filterPeminjamanDokumen(id) {
-        return Api.get(url +'/api/peminjaman-dokumen?='+id);
+        return Api.get(url +'/api/peminjaman-dokumen?filter='+id);
     },
     peminjamanDokumenAktif(){
         return Api.get(url + '/api/peminjaman-dokumen-aktif')

@@ -211,7 +211,7 @@ export default {
               <i class="ri-flashlight-fill text-white align-bottom"></i>
               <span class="trending-ribbon-text">Trending</span>
             </div>
-            <img :src="item.img" alt="" height="45" />
+            <img src="@/assets/images/meeting.png" alt="" height="45" />
             <h5 class="mb-1 mt-4">
               <router-link
                 to="/ecommerce/seller-details"

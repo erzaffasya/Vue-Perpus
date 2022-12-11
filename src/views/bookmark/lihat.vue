@@ -259,7 +259,7 @@ export default {
               <div class="mt-auto">
                 <div class="d-flex mb-2">
                   <div class="flex-grow-1">
-                    <div>Tasks</div>
+                    <div>{{item.dokumen.kategori.nama_kategori}}</div>
                   </div>
                   <div class="flex-shrink-0">
                     <div>
