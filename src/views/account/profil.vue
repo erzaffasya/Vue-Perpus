@@ -339,7 +339,7 @@ export default {
                             </ul>
                           </div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" style="height: 64vh; overflow-y: scroll;">
                           <div class="tab-content text-muted">
                             <div
                               class="tab-pane active"
